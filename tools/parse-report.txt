@@ -1,0 +1,37 @@
+{
+  "quarantines": [
+    {
+      "question_id": "e3bbf2bf",
+      "source_pdf": "/Users/s/Documents/Codex/2026-07-22/don-computer-plugin-computer-use-openai/outputs/SAT/Reading/Easy/Expression of Ideas/Rhetorical Synthesis/SAT_Reading_Easy_Expression-of-Ideas_Rhetorical-Synthesis.pdf",
+      "block": 5,
+      "reasons": [
+        "exactly four choices A-D"
+      ]
+    },
+    {
+      "question_id": "458b4a11",
+      "source_pdf": "/Users/s/Documents/Codex/2026-07-22/don-computer-plugin-computer-use-openai/outputs/SAT/Reading/Hard/Information and Ideas/Central Ideas and Details/SAT_Reading_Hard_Information-and-Ideas_Central-Ideas-and-Details.pdf",
+      "block": 2,
+      "reasons": [
+        "prompt is blank"
+      ]
+    },
+    {
+      "question_id": "2312021b",
+      "source_pdf": "/Users/s/Documents/Codex/2026-07-22/don-computer-plugin-computer-use-openai/outputs/SAT/Reading/Medium/Information and Ideas/Central Ideas and Details/SAT_Reading_Medium_Information-and-Ideas_Central-Ideas-and-Details.pdf",
+      "block": 7,
+      "reasons": [
+        "prompt is blank"
+      ]
+    }
+  ]
+}
+Input PDFs: 31
+Accepted 1647/1650; duplicates=0; figures=127; quarantines=3; failure_rate=0.18%
+
+Production QA:
+- figures: 59 graph, 68 table
+- structured tables: 68
+- image-only table fallbacks: 0
+- graph asset example: 3dc911d6 -> /data/images/3dc911d6.png (present on disk)
+- table example: 75e07a4d -> headers [Food item, Day, Meal], 4 data rows
