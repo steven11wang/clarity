@@ -137,30 +137,6 @@ def _figure_description(figure_type: str, passage: str, prompt: str) -> str:
     return f"{figure_type.title()} referenced by the question: {candidate}"
 
 
-def _infer_simple_table(passage: str) -> Optional[Dict[str, List[Any]]]:
-    """Best-effort fallback for clean extracted-text fixtures.
-
-    Real PDFs use ``page.extract_tables()``.  This fallback intentionally only
-    accepts a header followed by at least two complete, equally sized rows.
-    """
-    lines = [line.strip() for line in passage.splitlines() if line.strip()]
-    for index, header_line in enumerate(lines[:-2]):
-        headers = header_line.split()
-        if len(headers) < 2 or not all(re.search(r"[A-Za-z]", cell) for cell in headers):
-            continue
-        rows: List[List[str]] = []
-        for line in lines[index + 1 :]:
-            cells = line.split()
-            if len(cells) != len(headers) or not any(
-                re.search(r"\d", cell) for cell in cells
-            ):
-                break
-            rows.append(cells)
-        if len(rows) >= 2:
-            return {"headers": headers, "rows": rows}
-    return None
-
-
 def _valid_table(table: Any) -> Optional[Dict[str, List[Any]]]:
     if not isinstance(table, list) or len(table) < 2 or not isinstance(table[0], list):
         return None
@@ -223,7 +199,6 @@ def _parse_block(block: str, source: str) -> Tuple[Dict[str, Any], List[str]]:
         "choices": choices,
         "answer": correct_match.group(1) if correct_match else "",
         "rationale": re.sub(r"\s+", " ", rationale).strip(),
-        "source_pdf": source,
     }
 
     stem = f"{passage}\n{prompt}"
@@ -238,10 +213,6 @@ def _parse_block(block: str, source: str) -> Tuple[Dict[str, Any], List[str]]:
                 "figure_description": _figure_description(figure_type, passage, prompt),
             }
         )
-        if figure_type == "table":
-            table = _infer_simple_table(passage)
-            if table:
-                record["table"] = table
 
     return record, _record_reasons(record, choice_labels)
 
@@ -357,6 +328,7 @@ def _merge_reports(target: ParseReport, source: ParseReport, seen: set) -> None:
     quarantines_before = len(target.quarantines)
     figures_before = len(target.figures)
     accepted = 0
+    source_pdf = source.per_pdf[0]["source_pdf"]
     figures_by_id = {item["question_id"]: item for item in source.figures}
     for record in source.questions:
         question_id = record["id"]
@@ -364,7 +336,7 @@ def _merge_reports(target: ParseReport, source: ParseReport, seen: set) -> None:
             target.duplicates.append(
                 {
                     "question_id": question_id,
-                    "source_pdf": record.get("source_pdf", ""),
+                    "source_pdf": source_pdf,
                     "reason": "duplicate question id; first record kept",
                 }
             )
@@ -406,6 +378,8 @@ def parse_all(pdf_paths: Iterable[Any], output_dir: Any) -> ParseReport:
                 text = "\n".join(page.extract_text() or "" for page in pdf.pages)
                 parsed = parse_extracted_text(text, source=str(path))
                 for record in list(parsed.questions):
+                    if record["id"] in seen:
+                        continue
                     if not record.get("has_figure"):
                         continue
                     question_id = record["id"]

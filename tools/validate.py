@@ -22,7 +22,9 @@ class ValidationReport:
 
     @property
     def failure_rate(self) -> float:
-        return len(self.quarantines) / self.total if self.total else 0.0
+        if self.total:
+            return len(self.quarantines) / self.total
+        return 1.0 if self.quarantines else 0.0
 
     @property
     def passes(self) -> bool:
@@ -54,9 +56,13 @@ def _record_reasons(record: Dict[str, Any], image_root: Path) -> List[str]:
     if not str(record.get("rationale", "")).strip():
         reasons.append("rationale is blank")
     if record.get("has_figure"):
+        question_id = str(record.get("id", "")).strip()
+        expected_image = f"/data/images/{question_id}.png"
         image_value = str(record.get("image", "")).strip()
-        image_path = image_root / Path(image_value).name if image_value else None
-        if image_path is None or not image_path.is_file():
+        if image_value != expected_image:
+            reasons.append(f"figure image path must be {expected_image}")
+        image_path = image_root / f"{question_id}.png"
+        if not image_path.is_file():
             reasons.append("figure image does not exist")
     return reasons
 
@@ -76,13 +82,22 @@ def validate_questions(
         if not isinstance(payload, list):
             raise ValueError("questions JSON root must be an array")
     except Exception as exc:
+        source = str(questions_path)
         report.quarantines.append(
             {
                 "question_id": "",
-                "source_pdf": str(questions_path),
+                "source_pdf": source,
                 "reasons": [f"JSON exception: {type(exc).__name__}: {exc}"],
             }
         )
+        per_pdf[source] = {
+            "source_pdf": source,
+            "total": 0,
+            "valid": 0,
+            "duplicates": 0,
+            "figures": 0,
+            "quarantines": 1,
+        }
         payload = []
 
     report.total = len(payload)
