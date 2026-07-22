@@ -29,6 +29,22 @@ DOMAINS = [
 ]
 DIFFICULTIES = ["Easy", "Medium", "Hard"]
 CHOICE_LABELS = ("A", "B", "C", "D")
+SKILLS = [
+    "Central Ideas and Details",
+    "Command of Evidence",
+    "Inferences",
+    "Cross-Text Connections",
+    "Text Structure and Purpose",
+    "Words in Context",
+    "Rhetorical Synthesis",
+    "Transitions",
+    "Boundaries",
+    "Form, Structure, and Sense",
+]
+SOURCE_SKILL_ALIASES = {
+    "Form Structure and Sense": "Form, Structure, and Sense",
+}
+METADATA_TABLE_HEADERS = ("Assessment", "Test", "Domain", "Skill", "Difficulty")
 
 PROMPT_START = re.compile(
     r"^(?:"
@@ -80,6 +96,21 @@ def split_meta(meta_line: str) -> Tuple[str, str, str, str]:
     domain = next((item for item in DOMAINS if value.startswith(item)), "")
     skill = value[len(domain) :].strip() if domain else value
     return test, domain, skill, difficulty
+
+
+def _taxonomy_from_source(source: str) -> Tuple[str, str, str]:
+    """Read canonical taxonomy from the corpus directory structure when available."""
+    parts = Path(source).parts
+    domain = next((item for item in DOMAINS if item in parts), "")
+    skill = ""
+    if domain:
+        domain_index = parts.index(domain)
+        if domain_index + 1 < len(parts):
+            skill = SOURCE_SKILL_ALIASES.get(parts[domain_index + 1], parts[domain_index + 1])
+        if skill not in SKILLS:
+            skill = ""
+    difficulty = next((item for item in DIFFICULTIES if item in parts), "")
+    return domain, skill, difficulty
 
 
 def _section(block: str, start: str, end: str) -> str:
@@ -180,6 +211,13 @@ def _parse_block(block: str, source: str) -> Tuple[Dict[str, Any], List[str]]:
         block,
     )
     test, domain, skill, difficulty = split_meta(meta_match.group(1) if meta_match else "")
+    source_domain, source_skill, source_difficulty = _taxonomy_from_source(source)
+    if domain not in DOMAINS and source_domain:
+        domain = source_domain
+    if skill not in SKILLS and source_skill:
+        skill = source_skill
+    if difficulty not in DIFFICULTIES and source_difficulty:
+        difficulty = source_difficulty
     question_text = _section(block, "Question", r"^\s*Answer\s*$")
     answer_block = _section(block, "Answer", r"^\s*Correct Answer:")
     rationale = _section(block, "Rationale", r"\Z")
@@ -201,8 +239,7 @@ def _parse_block(block: str, source: str) -> Tuple[Dict[str, Any], List[str]]:
         "rationale": re.sub(r"\s+", " ", rationale).strip(),
     }
 
-    stem = f"{passage}\n{prompt}"
-    figure_match = re.search(r"\b(graph|table)\b", stem, re.IGNORECASE)
+    figure_match = re.search(r"\b(graph|table)\b", prompt, re.IGNORECASE)
     if figure_match:
         figure_type = figure_match.group(1).lower()
         record.update(
@@ -318,7 +355,7 @@ def _crop_figure(page: Any, question_id: str, destination: Path) -> None:
 def _extract_usable_table(page: Any) -> Optional[Dict[str, List[Any]]]:
     for raw_table in page.extract_tables() or []:
         table = _valid_table(raw_table)
-        if table:
+        if table and tuple(table["headers"]) != METADATA_TABLE_HEADERS:
             return table
     return None
 

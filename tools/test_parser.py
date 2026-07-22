@@ -148,6 +148,51 @@ class ParserFixtureTests(unittest.TestCase):
         self.assertIn("annual rainfall", report.questions[0]["figure_description"].lower())
         self.assertNotIn("table", report.questions[1])
 
+    def test_prose_uses_of_table_are_not_marked_as_figures(self):
+        cases = [
+            (
+                "periodic",
+                "Carbon has the highest melting point of all elements on the periodic table.\n"
+                "Which choice completes the text so that it conforms to Standard English?",
+            ),
+            (
+                "roundtable",
+                "Wace introduced the famous Round Table in his account.\n"
+                "Which choice most logically completes the text?",
+            ),
+            (
+                "tableforks",
+                "Table forks were introduced to western Europe in the eleventh century.\n"
+                "Which choice completes the text so that it conforms to Standard English?",
+            ),
+        ]
+
+        for question_id, question in cases:
+            with self.subTest(question_id=question_id):
+                report = parse_extracted_text(
+                    question_block(question_id, question), source="prose.pdf"
+                )
+                self.assertNotIn("has_figure", report.questions[0])
+                self.assertEqual([], report.figures)
+
+    def test_source_path_restores_canonical_taxonomy_when_metadata_is_truncated(self):
+        text = question_block(
+            "taxonomy1",
+            "A short passage.\nWhich choice best states the main idea of the text?",
+        ).replace(
+            "Information and Ideas Command of Evidence Medium",
+            "Standard English Boundaries Easy",
+        )
+        source = Path(
+            "/corpus/Easy/Standard English Conventions/Boundaries/questions.pdf"
+        )
+
+        report = parse_extracted_text(text, source=str(source))
+
+        self.assertEqual("Standard English Conventions", report.questions[0]["domain"])
+        self.assertEqual("Boundaries", report.questions[0]["skill"])
+        self.assertEqual("Easy", report.questions[0]["difficulty"])
+
     def test_parse_all_emits_table_only_for_complete_pdfplumber_extraction(self):
         valid_text = question_block(
             "validtable",
@@ -190,6 +235,46 @@ class ParserFixtureTests(unittest.TestCase):
             by_id["validtable"]["table"],
         )
         self.assertNotIn("table", by_id["invalidtable"])
+
+    def test_table_extraction_skips_page_metadata_and_keeps_question_table(self):
+        text = question_block(
+            "actualtable",
+            "City Score\nLima 8\nOslo 6\n"
+            "Which choice most effectively uses data from the table?",
+        )
+        fake_pdf = FakePDF(
+            [
+                FakePage(
+                    text,
+                    tables=[
+                        [
+                            ["Assessment", "Test", "Domain", "Skill", "Difficulty"],
+                            [
+                                "SAT",
+                                "Reading and Writing",
+                                "Information and Ideas",
+                                "Command of Evidence",
+                                "Medium",
+                            ],
+                        ],
+                        [["City", "Score"], ["Lima", "8"], ["Oslo", "6"]],
+                    ],
+                )
+            ]
+        )
+
+        def write_crop(page, question_id, destination):
+            destination.write_text(page.marker, encoding="utf-8")
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            with mock.patch("tools.parse_sat.pdfplumber.open", return_value=fake_pdf):
+                with mock.patch("tools.parse_sat._crop_figure", side_effect=write_crop):
+                    report = parse_all(["tables.pdf"], temp_dir)
+
+        self.assertEqual(
+            {"headers": ["City", "Score"], "rows": [["Lima", "8"], ["Oslo", "6"]]},
+            report.questions[0]["table"],
+        )
 
     def test_later_cross_pdf_duplicate_does_not_overwrite_first_figure_asset(self):
         first_text = question_block(
