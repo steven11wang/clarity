@@ -262,6 +262,64 @@ class ParserFixtureTests(unittest.TestCase):
 
 
 class ValidatorFixtureTests(unittest.TestCase):
+    def test_parser_sidecar_preserves_multi_pdf_counts_without_schema_leakage(self):
+        first_pdf = FakePDF(
+            [
+                FakePage(
+                    question_block(
+                        "first001",
+                        "First passage.\nWhich choice best states the main idea of the text?",
+                    )
+                    + question_block(
+                        "first002",
+                        "Second passage.\nWhich choice best states the main idea of the text?",
+                    )
+                )
+            ]
+        )
+        second_pdf = FakePDF(
+            [
+                FakePage(
+                    question_block(
+                        "second001",
+                        "Third passage.\nWhich choice best states the main idea of the text?",
+                    )
+                )
+            ]
+        )
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output = Path(temp_dir)
+            with mock.patch(
+                "tools.parse_sat.pdfplumber.open", side_effect=[first_pdf, second_pdf]
+            ):
+                parse_all(["first.pdf", "second.pdf"], output)
+            questions = json.loads((output / "questions.json").read_text(encoding="utf-8"))
+            manifest_path = output / "question-sources.json"
+            self.assertTrue(manifest_path.is_file())
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            report = validate_questions(
+                output / "questions.json", output / "images", write_report=False
+            )
+
+        self.assertTrue(all("source_pdf" not in record for record in questions))
+        self.assertEqual(
+            {
+                "version": 1,
+                "question_sources": {
+                    "first001": "first.pdf",
+                    "first002": "first.pdf",
+                    "second001": "second.pdf",
+                },
+            },
+            manifest,
+        )
+        by_source = {entry["source_pdf"]: entry for entry in report.per_pdf}
+        self.assertEqual(2, by_source["first.pdf"]["total"])
+        self.assertEqual(2, by_source["first.pdf"]["valid"])
+        self.assertEqual(1, by_source["second.pdf"]["total"])
+        self.assertEqual(1, by_source["second.pdf"]["valid"])
+
     def test_validator_fails_closed_for_unreadable_malformed_and_non_array_json(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)

@@ -5,11 +5,12 @@ import argparse
 import json
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Sequence
+from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 
 CHOICE_LABELS = ("A", "B", "C", "D")
 FAILURE_THRESHOLD = 0.02
+QUESTION_SOURCES_FILE = "question-sources.json"
 
 
 @dataclass
@@ -67,6 +68,44 @@ def _record_reasons(record: Dict[str, Any], image_root: Path) -> List[str]:
     return reasons
 
 
+def _load_question_sources(
+    questions_path: Path, payload: List[Any]
+) -> Tuple[Optional[Dict[str, str]], Optional[str]]:
+    manifest_path = questions_path.with_name(QUESTION_SOURCES_FILE)
+    if not manifest_path.exists():
+        return None, None
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        if not isinstance(manifest, dict) or set(manifest) != {
+            "version",
+            "question_sources",
+        }:
+            raise ValueError("manifest must contain only version and question_sources")
+        if manifest["version"] != 1:
+            raise ValueError("manifest version must be 1")
+        mapping = manifest["question_sources"]
+        if not isinstance(mapping, dict) or any(
+            not isinstance(question_id, str)
+            or not question_id
+            or not isinstance(source, str)
+            or not source
+            for question_id, source in mapping.items()
+        ):
+            raise ValueError("question_sources must map nonblank IDs to nonblank sources")
+        question_ids = [
+            record.get("id") if isinstance(record, dict) else None for record in payload
+        ]
+        if any(not isinstance(question_id, str) or not question_id for question_id in question_ids):
+            raise ValueError("questions must have nonblank string IDs")
+        if len(question_ids) != len(set(question_ids)):
+            raise ValueError("questions must have unique IDs")
+        if set(mapping) != set(question_ids):
+            raise ValueError("question_sources IDs must exactly match questions")
+        return mapping, None
+    except Exception as exc:
+        return None, f"provenance manifest exception: {type(exc).__name__}: {exc}"
+
+
 def validate_questions(
     path: Any, image_root: Any, *, write_report: bool = True
 ) -> ValidationReport:
@@ -101,15 +140,30 @@ def validate_questions(
         payload = []
 
     report.total = len(payload)
+    question_sources, provenance_error = _load_question_sources(questions_path, payload)
+    if provenance_error and not payload:
+        report.quarantines.append(
+            {
+                "question_id": "",
+                "source_pdf": str(questions_path),
+                "reasons": [provenance_error],
+            }
+        )
     for index, record in enumerate(payload):
         if not isinstance(record, dict):
             source = str(questions_path)
             question_id = ""
             reasons = ["record is not an object"]
         else:
-            source = str(record.get("source_pdf") or questions_path.name)
             question_id = str(record.get("id", "")).strip()
+            source = (
+                question_sources.get(question_id, questions_path.name)
+                if question_sources is not None
+                else questions_path.name
+            )
             reasons = _record_reasons(record, images)
+            if provenance_error:
+                reasons.append(provenance_error)
             if record.get("has_figure"):
                 report.figures.append(
                     {

@@ -370,6 +370,7 @@ def parse_all(pdf_paths: Iterable[Any], output_dir: Any) -> ParseReport:
     image_dir.mkdir(parents=True, exist_ok=True)
     combined = ParseReport(output_path=str(output / "questions.json"))
     seen = set()
+    question_sources: Dict[str, str] = {}
 
     for raw_path in pdf_paths:
         path = Path(raw_path)
@@ -434,9 +435,21 @@ def parse_all(pdf_paths: Iterable[Any], output_dir: Any) -> ParseReport:
                 ],
             )
         _merge_reports(combined, parsed, seen)
+        source_pdf = parsed.per_pdf[0]["source_pdf"]
+        for record in parsed.questions:
+            question_sources.setdefault(record["id"], source_pdf)
 
     (output / "questions.json").write_text(
         json.dumps(combined.questions, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+    (output / "question-sources.json").write_text(
+        json.dumps(
+            {"version": 1, "question_sources": question_sources},
+            indent=2,
+            ensure_ascii=False,
+        )
+        + "\n",
         encoding="utf-8",
     )
     (output / "parse-report.json").write_text(
