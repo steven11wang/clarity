@@ -347,6 +347,47 @@ class ParserFixtureTests(unittest.TestCase):
 
 
 class ValidatorFixtureTests(unittest.TestCase):
+    def test_validator_uses_matching_provenance_sidecar_for_each_dataset_variant(self):
+        def record(question_id):
+            return {
+                "id": question_id,
+                "passage": "Passage",
+                "prompt": "Which choice is best?",
+                "choices": {"A": "One", "B": "Two", "C": "Three", "D": "Four"},
+                "answer": "A",
+                "rationale": "Because one is supported.",
+            }
+
+        variants = {
+            "questions.full.json": ("question-sources.full.json", "full.pdf"),
+            "questions.sample.json": ("question-sources.sample.json", "sample.pdf"),
+            "questions.json": ("question-sources.json", "active.pdf"),
+        }
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            for questions_name, (sources_name, source_pdf) in variants.items():
+                question_id = questions_name.replace(".", "-")
+                (root / questions_name).write_text(
+                    json.dumps([record(question_id)]), encoding="utf-8"
+                )
+                (root / sources_name).write_text(
+                    json.dumps(
+                        {
+                            "version": 1,
+                            "question_sources": {question_id: source_pdf},
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+
+            for questions_name, (_, source_pdf) in variants.items():
+                with self.subTest(questions=questions_name):
+                    report = validate_questions(
+                        root / questions_name, root / "images", write_report=False
+                    )
+                    self.assertEqual([], report.quarantines)
+                    self.assertEqual(source_pdf, report.per_pdf[0]["source_pdf"])
+
     def test_parser_sidecar_preserves_multi_pdf_counts_without_schema_leakage(self):
         first_pdf = FakePDF(
             [

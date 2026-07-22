@@ -72,6 +72,12 @@ def _load_question_sources(
     questions_path: Path, payload: List[Any]
 ) -> Tuple[Optional[Dict[str, str]], Optional[str]]:
     manifest_path = questions_path.with_name(QUESTION_SOURCES_FILE)
+    if questions_path.name.startswith("questions.") and questions_path.suffix == ".json":
+        variant = questions_path.name[len("questions") : -len(".json")]
+        variant_manifest = questions_path.with_name(f"question-sources{variant}.json")
+        # An explicit dataset-specific sidecar overrides the active-data default.
+        if variant_manifest.exists():
+            manifest_path = variant_manifest
     if not manifest_path.exists():
         return None, None
     try:
