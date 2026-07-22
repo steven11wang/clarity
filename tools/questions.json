@@ -1,0 +1,376 @@
+[
+  {
+    "id": "01989d77",
+    "assessment": "SAT",
+    "test": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Easy",
+    "question": "Microbes that live in shallow lakes and ponds produce methane, a harmful greenhouse gas. Ecologist Ralf Aben and his team wanted to see how\ndifferent types of shallow-water plants might affect the amount of methane that escapes into the atmosphere. Aben’s team set up some water\ntanks with soil and microbes from local ponds. Some tanks had a type of underwater plant that grows in the soil called watermilfoil. Other tanks\nhad either duckweed, a type of plant that floats on the water’s surface, or algae. Aben and his team found that tanks with duckweed and algae\nreleased higher levels of methane than tanks with watermilfoil did. This finding suggests that ______\n\nWhich choice most logically completes the text?",
+    "choices": {
+      "A": "the presence of some kinds of underwater plants like watermilfoil helps prevent methane from escaping shallow lakes and ponds.",
+      "B": "shallow lakes and ponds release more methane than deeper bodies of water because shallow bodies of water usually have more plants than deep bodies of water do.",
+      "C": "shallow lakes and ponds are more likely to contain algae than to contain either watermilfoil or duckweed.",
+      "D": "having a mix of algae, underwater plants, and floating plants is the best way to reduce the amount of methane in shallow lakes and ponds."
+    },
+    "answer": "A",
+    "rationale": "Choice A is the best answer. The passage tells us that “tanks with duckweed (a floating plant) and algae released higher levels of methane than tanks with watermilfoil (an underwater plant) did.” This suggests that the presence of some kinds of underwater plants like watermilfoil may help prevent methane from escaping shallow lakes and ponds. Choice B is incorrect. The passage doesn’t mention deeper bodies of water at all, so there’s no basis for this inference. Choice C is incorrect. The passage doesn’t compare the likelihood of shallow lakes and ponds containing algae, watermilfoil, or duckweed. Choice D is incorrect. The study didn’t include any tanks with a mix of plants, so there’s no basis for this inference."
+  },
+  {
+    "id": "4603d1f7",
+    "assessment": "SAT",
+    "test": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Easy",
+    "question": "In their book Smart Pricing, Jagmohan Raju and Z. John Zhang consider musicians’ use of the nontraditional “pay as you wish” pricing model.\nThis model generally offers listeners the choice to pay more or less than a suggested price for a song or album—or even to pay nothing at all. As\nthe authors note, that’s the option most listeners chose for an album by the band Harvey Danger. Only about 1% opted to pay for the album,\nresulting in earnings below the band’s expectations. But the authors also discuss musician Jane Siberry, who saw significant earnings from her\n“pay as you wish” online music store as a result of many listeners choosing to pay more than the store’s suggested prices. Hence, the “pay as you\nwish” model may ______\n\nWhich choice most logically completes the text?",
+    "choices": {
+      "A": "prove financially successful for some musicians but disappointing for others.",
+      "B": "hold greater financial appeal for bands than for individual musicians.",
+      "C": "cause most musicians who use the model to lower the suggested prices of their songs and albums over time.",
+      "D": "more strongly reflect differences in certain musicians’ popularity than traditional pricing models do."
+    },
+    "answer": "A",
+    "rationale": "Choice A is the best answer. In one example, musicians made less money than expected by using the “pay as you wish” model. In the other example, a musician made more money than expected. This suggests that some musicians may have more success than others using the “pay as you wish” model. Choice B is incorrect. This inference isn’t supported. In the examples provided, the individual musician was more successful with the “pay as you wish” model than the band was. Choice C is incorrect. This inference isn’t supported. The passage provides no instances in which musicians changed the suggested prices of their songs or albums, nor does it mention this as a possibility. Choice D is incorrect. This inference isn’t supported. The text never discusses the differences in popularity of different musicians, so there is no basis to make this inference."
+  },
+  {
+    "id": "20000f5f",
+    "assessment": "SAT",
+    "test": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Easy",
+    "question": "Arthur Conan Doyle’s stories about detective Sherlock Holmes were published between 1887 and 1927. They have inspired countless successful\nadaptations, including comic strips, movies, and a television series Sherlock Hound, directed by Hayao Miyazaki, who is celebrated for his\nanimated movies. Until 2014, these stories were copyrighted. The right to adapt was only available to those who could afford the copyright fee\nand gain approval from the strict copyright holders of Doyle’s estate. Some journalists predict that the number of Sherlock Holmes adaptations is\nlikely to increase since the end of copyright means that ______\n\nWhich choice most logically completes the text?",
+    "choices": {
+      "A": "Doyle’s original stories will become hard to find.",
+      "B": "people will become more interested in detective stories than they were in the 1800s.",
+      "C": "producing adaptations will become easier and less expensive.",
+      "D": "the former copyright holders of Doyle’s estate will return fees they collected."
+    },
+    "answer": "C",
+    "rationale": "Choice C is the best answer. The text tells us that because of the copyright, adapting Sherlock Holmes stories used to be expensive and difficult. This suggests that after the copyright ends, it will be less expensive and less difficult to adapt these stories. Choice A is incorrect. This inference isn’t supported. The text never suggests that the copyright ending will make Sherlock Holmes stories harder to find. Instead, it suggests that adaptations of these stories will be easier and less expensive to make. Choice B is incorrect. This inference isn’t supported. The text never discusses people’s interest in detective stories, so there is no basis to make this inference. Choice D is incorrect. This inference isn’t supported. The text never suggests that copyright fees from the past are returned after a copyright ends, so there is no basis to make this inference."
+  },
+  {
+    "id": "6bc0e595",
+    "assessment": "SAT",
+    "test": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Easy",
+    "question": "One aspect of in-person shopping that online shopping can’t replicate is the opportunity to touch a product before buying it. Does this difference\nmatter? In an experiment, researchers asked one group of participants to touch a mug and a toy, while another group was prohibited from\ntouching the two items. The participants were then asked how much money they’d pay for the items. People who got to touch the items were\nwilling to pay much more money for them than were people who weren’t allowed to touch the items. This finding suggests that ______\n\nWhich choice most logically completes the text?",
+    "choices": {
+      "A": "people who mainly shop online probably spend more money every month than people who mainly shop in person do.",
+      "B": "in-person shopping may make products seem more valuable than they seem if only viewed online.",
+      "C": "retailers with in-person and online stores should charge the same price for a given product in both places.",
+      "D": "online retailers may be able to raise the prices they charge for products that are only available online."
+    },
+    "answer": "B",
+    "rationale": "Choice B is the best answer. The text tells us that “people who got to touch the items were willing to pay much more money for them than people who weren’t allowed to touch” them. This suggests that being able to interact with a product in person may make it seem more valuable to a shopper. Choice A is incorrect. The text doesn’t discuss how much people spend each month, so there’s not much basis for this claim. Furthermore, since being able to touch a product tends to make people “willing to pay much more money” for it, we might predict that an online shopper would be willing to spend less on the same purchases as an in-person shopper. Choice C is incorrect. The text doesn’t discuss what retailers “should charge,” so there’s not much basis for this claim. Furthermore, the study in the text suggests that in-person stores may actually be able to charge more for a given product, since shoppers can touch it. Choice D is incorrect. The text doesn’t discuss products that are only available online, so there’s not much basis for this claim. Furthermore, products only available online would still have the problem of shoppers not being able to touch them, and the study suggests that this lowers the prices shoppers are willing to pay."
+  },
+  {
+    "id": "c4d43991",
+    "assessment": "SAT",
+    "test": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Easy",
+    "question": "Archaeologists have been debating the origin of a rare form of lead found in Shang dynasty (1766–1046 BCE) bronze artifacts since its presence\nwas discovered in China in the 1990s. Different researchers have proposed theories on which regions of the world would have had the raw\nmaterials containing the specific lead in these artifacts, but no conclusive evidence has been presented. What is intriguing is that bronze\nartifacts from China dated after the Shang dynasty do not contain this form of lead, suggesting that ______\n\nWhich choice most logically completes the text?",
+    "choices": {
+      "A": "Shang dynasty bronze pieces are rare and therefore more valuable than those from other time periods.",
+      "B": "the source of some of the raw materials used to make bronze was exploited only until the end of the Shang dynasty.",
+      "C": "bronze was used for a short time during the Shang dynasty before different metals were used to make artifacts.",
+      "D": "methods used to analyze bronze artifacts are not useful on pieces that are dated after the Shang dynasty."
+    },
+    "answer": "B",
+    "rationale": "Choice B is the best answer. The passage tells us that Shang dynasty bronze artifacts contained \"a rare form of lead,\" but that bronze artifacts after this time did not contain that lead. Although we don’t know where that specific type of bronze came from, we can conclude that that source was not used after the end of the Shang dynasty—otherwise, post-Shang dynasty pieces would also contain that rare form of lead. Choice A is incorrect. Despite these pieces containing \"a rare form of lead,\" there is no direct claim in the passage that Shang dynasty bronze is itself more rare or valuable than bronze pieces from other periods. Therefore, there’s no basis for this inference. Choice C is incorrect. Although the passage mentions that the nature of the bronze in Chinese artifacts changed after the Shang dynasty, bronze was still used to create artifacts after this time. The passage in fact explicitly states \"bronze artifacts from China dated after the Shang dynasty…,\" indicating that bronze was still used in China after the Shang dynasty. Choice D is incorrect. There’s no mention in the passage of methods used to analyze bronze artifacts, so there’s no basis for this inference."
+  },
+  {
+    "id": "dbbbc5dd",
+    "assessment": "SAT",
+    "test": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Easy",
+    "question": "Off-off-Broadway theaters emerged in the late 1950s as a rebellion against mainstream Broadway theaters in New York, freeing artists to create\nproductions that were more experimental than typical Broadway shows. One such artist was playwright María Irene Fornés. Working with off-off\nBroadway theaters enabled Fornés not only to direct her own plays but also to direct them exactly as she intended them to be staged, regardless\nof how strange the results might have seemed to audiences accustomed to Broadway shows. In this way, Fornés ______\n\nWhich choice most logically completes the text?",
+    "choices": {
+      "A": "wrote plays that would have been too expensive to produce if someone else had directed the production.",
+      "B": "recognized that staging an off-off-Broadway play was more complicated than staging a Broadway play.",
+      "C": "would have been more famous if she had created plays that were mainstream instead of experimental.",
+      "D": "illustrates the artistic opportunity offered by off-off Broadway theaters."
+    },
+    "answer": "D",
+    "rationale": "Choice D is the best answer. The text says that off-off-Broadway theaters allowed artists to create more experimental shows, and then discusses how Fornés was free to direct her own “strange” plays however she wanted. This suggests that Fornés exemplifies the artistic freedom of off-off Broadway theaters. Choice A is incorrect. This inference isn’t supported. The text never discusses the costs of production, so we can’t logically make this claim. Choice B is incorrect. This inference isn’t supported. The text never discusses the complexity of staging plays either on Broadway or off-off Broadway, so there’s no basis to make this inference. Choice C is incorrect. This inference isn’t supported. The text never discusses fame at all, so there’s no basis to make this inference."
+  },
+  {
+    "id": "8a3ecac6",
+    "assessment": "SAT",
+    "test": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Easy",
+    "question": "North American gray wolves usually have mixed gray and white fur, but some members of the species have a version of a gene, or gene variant,\nthat gives them a mostly black coat instead. Sarah Cubaynes and her team studied twelve populations of North American gray wolves. They\nfound that the black-furred wolves are more common in areas where outbreaks of distemper virus happen regularly. The team also discovered\nthat the black-furred wolves are more likely to be immune to distemper than the gray-furred wolves are. Taken together, these findings suggest\nthat ______\n\nWhich choice most logically completes the text?",
+    "choices": {
+      "A": "North American gray wolves experience more outbreaks of distemper virus than other wolf species do.",
+      "B": "the gene variant that results in black fur may be linked to immunity to the distemper virus.",
+      "C": "the average life span of gray wolves is likely to increase over time because of a particular gene variant.",
+      "D": "gray-furred wolves will soon replace black-furred wolves across North America."
+    },
+    "answer": "B",
+    "rationale": "Choice B is the best answer. The text tells us that the black-furred wolves are more common in areas with regular outbreaks of distemper virus and are more likely to be immune to distemper than the gray-furred wolves. This suggests that the gene variant that results in black fur may be linked to immunity to the distemper virus. Choice A is incorrect. The text never compares North American gray wolves to other wolf species—in fact, it never discusses other wolf species at all, so there’s no basis for this inference. Choice C is incorrect. The life span of gray wolves is never mentioned in this text, so we have no basis for this inference. Choice D is incorrect. This is too extreme. The text says that \"black-furred wolves are more likely to be immune to distemper than the gray-furred wolves,\" but that alone doesn’t mean that black-furred wolves will replace gray-furred wolves across North America."
+  },
+  {
+    "id": "4025e00c",
+    "assessment": "SAT",
+    "test": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Easy",
+    "question": "In the 1950s and ’60s, plant breeders created shorter varieties of wheat and rice plants with improved yields. Kelly Gillespie, Rex Bernardo, and\nother plant specialists are building on that work by exploring the development of shorter corn varieties. Greater height can allow individual plants\nto produce more ears of corn. However, greater height also makes the stalks more likely to snap or be uprooted in strong winds before the corn\ncan be harvested. Because of this trade-off, some plant specialists suggest that shorter corn varieties will actually ______\n\nWhich choice most logically completes the text?",
+    "choices": {
+      "A": "help improve yields of harvested corn by being more likely to survive in severe winds.",
+      "B": "be more likely to be uprooted due to the weight of the corn on the stalks.",
+      "C": "require more land for planting than short varieties of wheat and rice typically do.",
+      "D": "begin developing more ears of corn on each plant than the tallest variety of corn currently does."
+    },
+    "answer": "A",
+    "rationale": "Choice A is the best answer because it presents the conclusion that most logically completes the text’s discussion about a trade-off in growing shorter varieties of corn. The text explains that plant specialists are working to develop shorter corn varieties in an effort to improve yields. The text points out that although greater height in corn plants can lead to more ears of corn per plant, it also makes the stalks more likely to be damaged by strong winds before there is a chance to harvest the corn. This presents a clear trade-off between potential yield (taller plants producing more ears per plant) and harvest reliability (shorter plants surviving until harvest time). Given this information, it is reasonable to infer that shorter corn varieties, while possibly producing fewer ears per plant, would be more likely to survive until harvest time. This survival advantage would result in improved yields of harvested corn because more plants would remain intact, thus offsetting the potential reduction in ears per shorter plant. Choice B is incorrect. According to the text, greater height makes cornstalks vulnerable to snapping or being uprooted in strong winds, implying that taller plants—not shorter ones—have greater stability problems. The text provides no basis for inferring that shorter corn varieties would be more likely to be uprooted due to corn weight; in fact, the text suggests the opposite relationship between height and stability. Choice C is incorrect because the text doesn’t provide information about the land requirements of either shorter corn varieties or shorter wheat and rice varieties, much less make any comparisons. The text mentions that plant breeders in the 1950s and ’60s created shorter varieties of wheat and rice with improved yields and that researchers are now exploring shorter corn varieties, but it doesn’t compare land-use requirements of these crops. Choice D is incorrect because the idea that shorter cornstalks would yield more ears of corn would contradict the relationship between height and corn production described in the text. The text explicitly states that greater height allows individual plants to produce more ears of corn, which suggests that shorter varieties would produce fewer ears per plant, not more. The text therefore provides no basis for concluding that shorter varieties would begin developing more ears than the taller varieties currently do."
+  },
+  {
+    "id": "fc1259dd",
+    "assessment": "SAT",
+    "test": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Easy",
+    "question": "Archaeologist Christiana Kohler and her team excavated the Egyptian tomb of Queen Merneith, the wife of a First Dynasty pharaoh. Some\nscholars claim that she also ruled Egypt on her own and was actually the first female pharaoh. The team found a tablet in Merneith’s tomb with\nwriting suggesting that she was in charge of the country’s treasury and other central offices. Whether Merneith was a pharaoh or not, this\ndiscovery supports the idea that Merneith likely ______\n\nWhich choice most logically completes the text?",
+    "choices": {
+      "A": "had an important role in Egypt’s government.",
+      "B": "lived after rather than before the First Dynasty of Egypt.",
+      "C": "traveled beyond Egypt’s borders often.",
+      "D": "created a new form of writing in Egypt."
+    },
+    "answer": "A",
+    "rationale": "Choice A is the best answer because it most logically completes the text’s discussion of the evidence found in Queen Merneith’s tomb. The text begins by mentioning archaeologists’ efforts to excavate the tomb of Queen Merneith, the wife of a pharaoh who some scholars think was actually the first female pharaoh. The text states that a tablet discovered in her tomb suggests she \"was in charge of the country’s treasury and other central offices,\" which supports the idea that she had an important role in Egypt’s government. Choice B is incorrect because since the text explicitly states that Merneith’s husband was a First Dynasty pharaoh, it can be inferred that she lived during the First Dynasty, not after it. Choice C is incorrect because the text does not provide any evidence that Merneith traveled beyond Egypt’s borders often. The text is focused on the archaeological discovery in her tomb and the implications about her potential role as a ruler in Egypt but does not mention anything about her traveling habits. Choice D is incorrect because the text does not mention anything about Merneith creating a new form of writing in Egypt. The text discusses the discovery of a tablet with writing suggesting her governmental role but does not imply that this writing represented a new form created by Merneith."
+  },
+  {
+    "id": "fcae209f",
+    "assessment": "SAT",
+    "test": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Easy",
+    "question": "The Nacional tree is a rare variety of cacao. Nacionals were thought to have gone extinct by the twentieth century due to a fungus. This fungus\ncan spread from tree to nearby tree through the air and causes disease. But around 2013, cacao expert Servio Pachard located some of these\nNacional trees. The trees were in the Piedra de Plata coastal forest, within a hard-to-reach valley in Ecuador. Conservationists inferred that the\nNacional trees in Piedra de Plata might have avoided the diseases that wiped out the other Nacionals because ______\n\nWhich choice most logically completes the text?",
+    "choices": {
+      "A": "early twentieth-century scientists did not know why so many Nacionals were becoming infected.",
+      "B": "the ability of the fungus to travel through the air was only recently discovered.",
+      "C": "they were too far from the other Nacional trees infected by the fungus to become infected themselves.",
+      "D": "the chocolate made from their pods was highly valued."
+    },
+    "answer": "C",
+    "rationale": "Choice C is the best answer because it most logically completes the text’s discussion of the Nacional trees’ survival in Piedra de Plata. The text states that the fungus that caused Nacional trees elsewhere to become diseased spreads from tree to nearby tree through the air. The text also mentions that the surviving Nacional trees were found in a hard-to-reach valley in Ecuador. Given this information, it’s logical to conclude that these trees might have avoided infection because they were geographically isolated from infected Nacional trees, which prevented the airborne fungus from reaching them. Choice A is incorrect because early twentieth-century scientists’ lack of knowledge about the infection that affected many Nacionals doesn’t explain how the trees in the Piedra de Plata coastal forest survived. The text is concerned with the physical factors that allowed certain trees to avoid infection, not with scientists’ understanding of the disease. Choice B is incorrect. Although the text mentions that the fungus spreads through the air, it doesn’t indicate when this ability was discovered. Moreover, even if the ability to move through the air was recently discovered, that wouldn’t explain how the trees in Piedra de Plata avoided infection in the past. Choice D is incorrect because the value of the chocolate made from Nacional pods doesn’t explain how the trees in the Piedra de Plata coastal forest avoided disease. The text focuses on the physical spread of the fungus that caused most Nacionals to become diseased, not on economic factors related to the trees’ products."
+  },
+  {
+    "id": "72cbdbc6",
+    "assessment": "SAT",
+    "test": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Easy",
+    "question": "Researchers Eugeni Vidal-Tortosa and Robin Lovelace looked at the relationship between street lighting in a city and people’s willingness to ride\na bicycle. Their results suggest that poor street lighting can deter new or inexperienced cyclists from riding in a city but has little effect on\nexperienced cyclists. Therefore, increasing the number of streetlights in a city could potentially ______\n\nWhich choice most logically completes the text?",
+    "choices": {
+      "A": "decrease the number of new or inexperienced cyclists riding in the city.",
+      "B": "increase the number of experienced cyclists riding in the city.",
+      "C": "decrease the number of experienced cyclists riding in the city.",
+      "D": "increase the number of new or inexperienced cyclists riding in the city."
+    },
+    "answer": "D",
+    "rationale": "Choice D is the best answer because it most logically completes the text’s discussion of the relationship between street lighting and people’s cycling behavior. According to the text, Eugeni Vidal-Tortosa and Robin Lovelace found that poor street lighting deters new or inexperienced cyclists from riding their bikes in a city but has little effect on experienced cyclists. This finding establishes a causal relationship between street lighting and the willingness of new or inexperienced cyclists to ride a bicycle in the city: if poor lighting discourages new or inexperienced cyclists from riding, then improving lighting conditions by increasing the number of streetlights would logically remove this deterrent, potentially leading to an increase in the number of new or inexperienced cyclists willing to ride in the city. Choice A is incorrect because it contradicts the logical relationship established in the text. If poor street lighting deters new or inexperienced cyclists from riding in the city, then increasing the number of streetlights (improving lighting conditions) would be expected to encourage more of these cyclists to ride, not decrease their numbers. Choice B is incorrect because the text explicitly states that street lighting didn’t have an effect on experienced cyclists. If lighting conditions don’t significantly influence experienced cyclists’ decisions to ride, then increasing the number of streetlights wouldn’t necessarily increase the number of experienced cyclists riding in the city. Choice C is incorrect. The text indicates that street lighting didn’t affect experienced cyclists, so increasing the number of streetlights wouldn’t decrease the participation of these cyclists. Instead, their numbers would be expected to remain about the same."
+  },
+  {
+    "id": "25893fc7",
+    "assessment": "SAT",
+    "test": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Easy",
+    "question": "In many cultures, a handshake can create trust between people. Engineer João Avelino and his team are designing a robot to shake hands with a\nhuman in order to improve human-robot interactions. The robot hand adjusts its movements and pressure to better imitate the feel of a human\nhand. The researchers want the robot’s handshake to feel realistic because ______\n\nWhich choice most logically completes the text?",
+    "choices": {
+      "A": "lifelike handshakes may make people more comfortable interacting with robots.",
+      "B": "it’s easier to program a robot to perform handshakes than it is to program a robot to perform some other types of greetings.",
+      "C": "people are less likely to interact with robots that don’t look like humans.",
+      "D": "the robot in the researchers’ study may have uses other than interacting with humans."
+    },
+    "answer": "A",
+    "rationale": "Choice A is the best answer. The text says that handshakes create trust, and that the engineers’ goal is to “improve human-robot interactions.” This suggests that they want the robot’s handshake to feel real because they want humans to trust the robot. Choice B is incorrect. This inference isn’t supported. The text never discusses any other types of greetings, so there is no basis to make this inference. Choice C is incorrect. This inference isn’t supported. The text never discusses the appearance of this robot or any other robots, so there is no basis to make this inference. Choice D is incorrect. This inference isn’t supported. The text never discusses any uses for the robot other than interacting with humans, so there is no basis to make this inference."
+  },
+  {
+    "id": "787729be",
+    "assessment": "SAT",
+    "test": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Easy",
+    "question": "Martin Dančák, Wewin Tjiasmanto, and colleagues have identified a new carnivorous plant species (Nepenthes pudica) in Indonesia. Like other\ncarnivorous plants, N. pudica has pitfall traps, or pitchers, that capture prey, but unlike others, the pitchers of N. pudica are located underground.\nThe researchers unearthed the new species on fairly dry ridges with surfaces that host few other plants and animals. Therefore, the researchers\nhypothesize that the N. pudica species likely ______\n\nWhich choice most logically completes the text?",
+    "choices": {
+      "A": "represents one of many undiscovered carnivorous plant species in the region.",
+      "B": "formed pitchers early in development to absorb more moisture.",
+      "C": "is buried by nearby animals as they forage along the ridges for food.",
+      "D": "evolved to have underground traps to access more prey than would surface traps."
+    },
+    "answer": "D",
+    "rationale": "Choice D is the best answer. The text says that N.pudica’s prey-catching pitchers are underground. It also says that the ridges where N. pudica lives don’t have many plants and animals on the surface. This suggests that N. pudica evolved underground pitchers in order to catch more prey. Choice A is incorrect. This inference isn’t supported. The text never mentions the possibility of other undiscovered carnivorous plant species in Indonesia, so there’s no basis to make this inference. Choice B is incorrect. This inference isn’t supported. The text does say that the ridges where N. pudica lives are dry, but it also says that the purpose of carnivorous plant pitchers is to capture prey. It never suggests that these pitchers also absorb moisture, so there’s no basis to make this inference. Choice C is incorrect. This inference isn’t supported. The text never suggests that N. pudica’s underground pitcher can catch animals on the surface, so there’s no basis to make this inference."
+  },
+  {
+    "id": "493c46bc",
+    "assessment": "SAT",
+    "test": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Easy",
+    "question": "In the South Pacific, New Caledonian crows use two different kinds of stick tools. One tool is complex. The crows shape a stick from a rare plant\ninto a hook. The other tool is basic. The crows find a stick without a hook on the ground. The hooked tool is harder to get but is much better than\nthe basic tool at removing prey from holes. When studying New Caledonian crows, ecologist Barbara Klump found that they hold the hooked\ntools in their claws when not using them, or they carefully put them in a safe place. The crows don’t do the same with the basic tools. This\nsuggests to Klump that the ______\n\nWhich choice most logically completes the text?",
+    "choices": {
+      "A": "hooked stick tools are more valuable to the crows than the stick tools without hooks.",
+      "B": "hooked stick tools are easier for most of the crows to hold than the stick tools without hooks.",
+      "C": "crows prefer to share their hooked stick tools but don’t share the stick tools without hooks.",
+      "D": "crows realize that both kinds of stick tools are less effective than their claws are at removing prey from holes."
+    },
+    "answer": "A",
+    "rationale": "Choice A is the best answer because it most logically completes the text’s discussion of the two types of stick tools used by New Caledonian crows. The text indicates that the more effective type of tool has a hook that the crows make themselves, while the other type of tool is simply a stick without a hook that the crows find and don’t shape in any way. According to the text, Klump found that the crows keep hooked tools—but not the tools without hooks—in their grasp or in safe places when they aren’t using the tools. If the hooked tools are more effective than the tools without hooks are and the crows are more protective of the hooked tools than they are of the tools without hooks, it’s reasonable to conclude that the hooked tools are more valuable to the crows than the tools without hooks are. Choice B is incorrect because the text gives no indication of how easy it is for the crows to hold either the hooked tools or the tools without hooks. The text does state that crows hold the hooked tools and not the tools without hooks when the tools aren’t in use. However, the text also indicates that the hooked tools require work from the crows to make and are more useful for helping the crows catch prey than the tools without hooks are. This context suggests that the crows hold the hooked tools because they’re more valuable to the crows than the tools without hooks are, not because the hooked tools are easier to hold. Choice C is incorrect because the text makes no mention of the crows sharing tools. Additionally, the text indicates that when the crows aren’t using the hooked tools, they either grasp the tools or store them safely, which suggests that the crows try to maintain possession of the hooked tools, not that crows prefer to share those tools. Choice D is incorrect because the text says nothing about the crows using their claws to remove prey from holes, so there’s no evidence that the crows perceive the stick tools to be less effective than their claws are."
+  },
+  {
+    "id": "7a895def",
+    "assessment": "SAT",
+    "test": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Easy",
+    "question": "Georgia Douglas Johnson wrote many plays in the 1920s and 1930s. At the time, professional theater companies rarely put on plays by Black\nwomen, so few of Johnson’s plays made it to the stage. Only a small number of her plays were published in her lifetime. But that doesn’t mean\nthat Johnson never learned what other people thought of her plays. Johnson hosted weekly get-togethers for fellow Black writers and artists in\nher Washington, D.C., home. Attendees would read and discuss one another’s work, including Johnson’s own. These gatherings could therefore\nserve as ______\n\nWhich choice most logically completes the text?",
+    "choices": {
+      "A": "an occasion for professional theater companies to put on plays.",
+      "B": "an opportunity for Johnson to get feedback on her plays.",
+      "C": "a way for Johnson to learn about plays that were produced in other cities.",
+      "D": "subject matter for future plays by Johnson."
+    },
+    "answer": "B",
+    "rationale": "Choice B is the best answer. The passage tells us that attendees at Johnson’s get-togethers \"would read and discuss one another’s work.\" This suggests that the gatherings could provide an opportunity for Johnson to get feedback on her plays. Notice how the text foreshadows this conclusion by the mention of Johnson learning \"what other people thought of her plays.\" Choice A is incorrect. The passage doesn’t mention theater companies attending the get-togethers, so there is no basis for this inference. Choice C is incorrect. The passage doesn’t mention learning about plays from other cities, so there is no basis for this inference. Choice D is incorrect. The passage doesn’t mention Johnson using the get-togethers as inspiration for future plays, so there is no basis for this inference."
+  },
+  {
+    "id": "eca09a92",
+    "assessment": "SAT",
+    "test": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Easy",
+    "question": "If an animal has been extinct for a long time, how can scientists learn what color it was? One group of scientists came up with a possible answer.\nWhen the scientists examined the fossilized feather of an extinct bird, they found melanosomes in it. Melanosomes produce pigment, or grains\nof color, inside cells. Because melanosomes are shaped differently depending on which colors they produce, the scientists hypothesized that\nthey could ______\n\nWhich choice most logically completes the text?",
+    "choices": {
+      "A": "show how melanosomes can be found in fossils belonging to animals from other extinct species.",
+      "B": "determine the colors of the bird based on the appearance of the melanosomes in the feather.",
+      "C": "explain why the melanosomes in the feather were so well preserved.",
+      "D": "identify the colors of extinct animals whose fossils lack melanosomes."
+    },
+    "answer": "B",
+    "rationale": "Choice B is the best answer because it most logically completes the text’s discussion of a hypothesis by one group of scientists about how to determine the colors of a long-extinct animal. The text explains that the scientists found melanosomes in the fossilized feather of an extinct bird and that melanosomes are responsible for producing color inside cells. The text also explains that melanosomes have different shapes depending on the colors they produce. Given this information, it follows that the scientists hypothesized that they could determine the colors of the extinct bird by examining the shapes of the melanosomes in the feather. Choice A is incorrect because the text never suggests that the scientists were seeking to show how melanosomes can be found in fossils belonging to animals from other extinct species. Rather, the text indicates that the scientists were seeking to identify an extinct bird’s colors, and the text strongly suggests that the scientists hypothesized that they could achieve their goal by examining the shapes of the melanosomes in the bird’s fossilized feather. Choice C is incorrect because the text never suggests that the scientists were seeking to explain why the melanosomes in the feather were so well preserved. Rather, the text indicates that the scientists were seeking to identify an extinct bird’s colors, and the text strongly suggests that the scientists hypothesized that they could achieve their goal by examining the shapes of the melanosomes in the bird’s fossilized feather. Choice D is incorrect because the text suggests only one method of identifying the colors of extinct animals: by examining the shapes of melanosomes found in fossils. The text doesn’t discuss other methods for learning the colors of extinct animals and therefore provides no support for the idea that the scientists could identify the colors of extinct animals whose fossils lack melanosomes."
+  },
+  {
+    "id": "ead0fd9b",
+    "assessment": "SAT",
+    "test": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Easy",
+    "question": "A typical string quartet consists of two violin players, a viola player, and a cello player. When a string quartet performs, one violinist and the cellist\nusually sit facing the audience. The violist and the other violinist usually sit facing each other. This seating arrangement causes the viola’s carved\nsound openings, or f-holes, to be angled away from the audience. Therefore, if the viola player has a musical solo and wants to make sure that\nthe audience can hear it clearly, the violist typically ______\n\nWhich choice most logically completes the text?",
+    "choices": {
+      "A": "instructs the other members of the quartet to play louder.",
+      "B": "plays at the same volume as the cellist.",
+      "C": "shifts position in order to face outwards toward the audience.",
+      "D": "looks at the sheet music instead of looking at the audience."
+    },
+    "answer": "C",
+    "rationale": "Choice C is the best answer because it most logically completes the text’s discussion of how a violist in a string quartet might behave to ensure their instrument can be heard clearly by the audience during a solo. According to the text, such quartets consist of two violins, a viola, and a cello, configured as follows: the cellist and one of the violinists both face the audience, while the other violinist and the violist face each other. In other words, the viola and its f-holes, or sound openings, are “angled away from the audience,” just as the musician playing the instrument is. As the text implies, the f-holes are crucial for projecting sound, so this positioning reduces the volume of the viola as perceived by the audience and in turn presents a dilemma during a solo, in which the viola should be heard clearly above the other instruments in the quartet. Therefore, during a viola solo, the violist would most logically adjust their position and face the audience directly, thereby projecting the sound emerging from the instrument’s f-holes toward listeners. This adjustment would maximize the viola’s sound for the benefit of the audience for the duration of the solo. Choice A is incorrect because the text’s discussion is about how a violist in a string quartet behaves to ensure that their instrument can be heard clearly by the audience during a solo, given the orientation of this instrument in a typical string quartet configuration, and a soloist would want the viola to be more prominent relative to the other instruments in this context, not less prominent. Therefore, it wouldn’t be sensible for the violist to instruct the other members of the quartet to play louder during the solo. Choice B is incorrect because the text’s discussion is about how a violist behaves to ensure that their instrument can be heard clearly by the audience during a solo, given the orientation of this instrument in a typical string quartet configuration, and a violist would want the viola to be more prominent and therefore louder relative to all the other instruments. Therefore, it wouldn’t be sensible for the violist to play at the same volume as the cellist during a solo. Choice D is incorrect. While a violist might very well look at the sheet music during a solo to ensure they are playing the piece correctly, the direction that a musician looks in doesn’t determine how effectively the sound of their instrument is projected to the audience. If, as the text stipulates, a violist wants to ensure that their instrument can be heard clearly, given the orientation of the viola in the typical seating configuration of a string quartet, then the violist would likely change their physical orientation, facing toward the audience and therefore angling the viola’s f-holes in that direction during the solo."
+  },
+  {
+    "id": "9077be25",
+    "assessment": "SAT",
+    "test": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Easy",
+    "question": "Alice Guy-Blaché directed hundreds of films between 1896 and 1920. She wanted audiences to feel like they were watching real people on\nscreen. She would encourage actors in her films to behave naturally. Guy-Blaché even hung a large sign reading “Be Natural” in the studio where\nshe made her films. At the time, films lacked sound, so actors needed to rely solely on their bodies and facial expressions to convey emotions.\nAs a result, actors tended to highly exaggerate their actions and expressions. The style of acting in Guy-Blaché’s films was therefore ______\n\nWhich choice most logically completes the text?",
+    "choices": {
+      "A": "copied by many of Guy-Blaché’s peers.",
+      "B": "familiar to actors who had worked on other directors’ films.",
+      "C": "very unusual for the period.",
+      "D": "better than film acting today."
+    },
+    "answer": "C",
+    "rationale": "Choice C is the best answer. The text tells us that “actors tended to highly exaggerate their actions and expressions” in films produced from 1896 to 1920. This suggests that the natural style of acting in Guy-Blaché’s films was very unusual for the time. Choice A is incorrect. The text never discusses any other directors copying the style of acting found in Guy-Blaché’s films, and in fact suggests the opposite—that it was unusual for directors to suggest this style of acting at the time. Choice B is incorrect. The text never discusses actors’ familiarity with the style of acting found in Guy-Blaché’s films, so there isn’t much basis for this inference. But since the text tells us that other films of the period used a highly exaggerated form of acting, we might predict that the natural style in Guy-Blachés films would have been unfamiliar to these actors. Choice D is incorrect. The text never discusses film acting today, so there’s no basis for this inference."
+  },
+  {
+    "id": "1d0b5bf4",
+    "assessment": "SAT",
+    "test": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Easy",
+    "question": "To create the poems in her 2017 collection One Last Word, poet Nikki Grimes used a writing method called the golden shovel. This method often\ninvolves choosing a line from an existing poem and then using each word from that line as the last word of each line in a new poem. Grimes\nwanted the poems in One Last Word to honor important Black poets of the past, so she chose lines by poets such as Langston Hughes and\nGeorgia Douglas Johnson. Writing in this way can be challenging and might seem as though it would produce awkward poems. However,\nreviewers praised One Last Word as a beautiful and powerful tribute to the poets who inspired it. This reaction suggests that ______\n\nWhich choice most logically completes the text?",
+    "choices": {
+      "A": "most reviewers didn’t understand Grimes’s goal for One Last Word.",
+      "B": "Grimes successfully used the golden shovel method to achieve her goal for One Last Word.",
+      "C": "Langston Hughes and Georgia Douglas Johnson are two of Grimes’s favorite poets.",
+      "D": "Grimes inspired many other writers to create poems using the golden shovel method."
+    },
+    "answer": "B",
+    "rationale": "Choice B is the best answer because it most logically completes the text’s discussion of Nikki Grimes’s poetry collection One Last Word. The text explains that Grimes used a writing method called the golden shovel to create the poems in her book. According to the text, the method involves basing a new poem on a line from an existing poem. The text then mentions Langston Hughes and Georgia Douglas Johnson as examples of important Black poets whose lines of poetry form the basis of Grimes’s poems. The text goes on to say that this writing method is difficult and that the resulting poems can be awkward, but reviewers have positively reviewed Grimes’s book. If the reviewers of One Last Word specifically note that the work is a “beautiful and powerful tribute to the poets who inspired it,” then they must have appreciated how Grimes used the golden shovel method to pay tribute to other poets. This suggests that Grimes was successful in using the golden shovel method to achieve her goal of honoring Black poets in her book. Choice A is incorrect because the reaction suggests that most reviewers did understand Grimes’s goal for her book. According to the text, the reviewers noted that the poems in her book were a “beautiful and powerful tribute to the poets who inspired it.” Earlier, the text claims that Grimes intended the poems “to honor important Black poets of the past,” so in their praise of her book, the reviewers clearly indicated that they understood Grimes’s goal. Choice C is incorrect. Although it’s likely that Grimes sought to honor Hughes and Johnson in her book of poetry because they’re among her favorite poets, this fact isn’t suggested by the reviewers’ positive reaction to her book. Instead, the reaction suggests that Grimes was successful in her use of the golden shovel method. Choice D is incorrect because the text doesn’t discuss whether other writers were inspired by Grimes to use the golden shovel method in their poetry. The text mentions the poets Hughes and Johnson as examples of poets honored in Grimes’s book and describes reviewers’ positive reception of her book, but it doesn’t detail Grimes’s impact on other writers."
+  },
+  {
+    "id": "5b4829d2",
+    "assessment": "SAT",
+    "test": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Easy",
+    "question": "Researchers wanted to study how consumers’ reactions to an ad may be affected by other ads. The researchers began by showing study\nparticipants an ad for a product, with some seeing a less detailed ad and others seeing a more detailed one. Then, all participants viewed the\nsame second ad for a store and shared their opinion of the store based on this second ad. Participants who had first seen an ad less detailed\nthan the second ad had a higher opinion of the store than the participants who had first seen a more detailed ad. The researchers concluded that\nreactions to an ad may be affected by ______\n\nWhich choice most logically completes the text?",
+    "choices": {
+      "A": "the number of people who viewed the ad.",
+      "B": "the length of time viewing previous ads.",
+      "C": "the amount of detail viewed in previous ads.",
+      "D": "the time of day that the ad is viewed."
+    },
+    "answer": "C",
+    "rationale": "Choice C is the best answer. The passage tells us that participants who had seen a less detailed ad for a product beforehand had a higher opinion of the store than those who had seen a more detailed ad. This suggests that reactions to an ad may be affected by the amount of detail viewed in previous ads. Choice A is incorrect. The passage doesn’t mention the number of people who viewed the ad, so there’s no basis for this inference. Choice B is incorrect. The passage doesn’t mention the length of time viewing previous ads, so there’s no basis for this inference. Choice D is incorrect. The passage doesn’t mention the time of day that the ad is viewed, so there’s no basis for this inference."
+  },
+  {
+    "id": "b4da6aaf",
+    "assessment": "SAT",
+    "test": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Easy",
+    "question": "The musical Hadestown was produced off-Broadway in New York in 2016. A revised version of the musical premiered on Broadway in 2019, in a\nlarger production. In a review of the Broadway production, theater critic Jesse Green enthusiastically praised the musical’s storytelling. However,\nGreen also explained that he had seen the earlier version of Hadestown in 2016 and had found the storytelling to be very confusing. This\nsuggests that in Green’s view, ______\n\nWhich choice most logically completes the text?",
+    "choices": {
+      "A": "the 2016 version of Hadestown had fewer storytelling problems than the 2019 version did.",
+      "B": "Hadestown should have had a larger production in 2019 than it actually did.",
+      "C": "the 2019 version of Hadestown was less enjoyable than the 2016 version.",
+      "D": "Hadestown improved greatly between 2016 and its premiere on Broadway."
+    },
+    "answer": "D",
+    "rationale": "Choice D is the best answer because it most logically completes the text’s discussion of critic Jesse Green’s review of the 2016 and 2019 productions of Hadestown. The text states that Green found the storytelling in the 2016 off-Broadway version to be \"very confusing\" but that he \"enthusiastically praised\" the storytelling in the revised 2019 Broadway version. This stark contrast in Green’s opinions suggests that he believed the musical had significantly improved between 2016 and its 2019 Broadway premiere. Choice A is incorrect because it contradicts the information in the text. The text indicates that Green found the storytelling in the 2016 version to be \"very confusing,\" while he \"enthusiastically praised\" the storytelling in the 2019 version. This suggests that the 2019 version had fewer, not more, storytelling problems. Choice B is incorrect because the text doesn’t provide any information about Green’s opinion on the size of the 2019 Broadway production. While it mentions that the 2019 production was larger than the 2016 production, there’s no indication in the text that Green thought the 2019 production should have been even larger than it was. Choice C is incorrect because it contradicts the information in the text. The text’s description of Green’s enthusiastic praise for the 2019 production suggests that he found this version more enjoyable, not less enjoyable, than the 2016 version, which he described as \"very confusing.\""
+  },
+  {
+    "id": "93cad661",
+    "assessment": "SAT",
+    "test": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Easy",
+    "question": "A main goal of the Association for the Advancement of Creative Musicians (AACM), an arts organization founded in 1965, is to advance new\nworks by Black musicians. The AACM achieves this goal in part by focusing on young artists. By having established musicians and composers\nserve as mentors, the AACM gives young artists the benefits of expert technical training and creative guidance. Numerous organizations offer\nsimilar kinds of support to new generations of painters, writers, and other artists, suggesting that ______\n\nWhich choice most logically completes the text?",
+    "choices": {
+      "A": "artists of all ages benefit more from technical training than from creative guidance.",
+      "B": "many arts organizations recognize the importance of providing opportunities for young artists to learn from experienced mentors.",
+      "C": "most established artists could become even better artists by serving as mentors.",
+      "D": "finding a mentor is more important for musicians than it is for painters, writers, and other types of artists."
+    },
+    "answer": "B",
+    "rationale": "Choice B is the best answer because it presents the conclusion that most logically follows from the text’s discussion of the relationship between the AACM’s use of mentors to support young Black musicians and similar support that other organizations offer their young artists. According to the text, in service of AACM’s goal to support new works by Black musicians, AACM mentors provide beneficial training and guidance to young artists. The text goes on to say that many other art organizations support new artists in similar ways, suggesting that these organizations recognize the importance of providing opportunities for young artists to learn from mentors who are established in their field. Choice A is incorrect because the text gives no indication that technical training is more beneficial than creative guidance. The text states that AACM mentors offer both technical training and creative guidance to young artists and that other arts organizations offer similar kinds of support; however, nothing in the text suggests that young artists, or artists of any age, benefit more from technical training. Choice C is incorrect because the text is mainly concerned with the fact that established artists are mentoring young artists through AACM and other arts organizations. The text states that young musicians benefit from AACM mentors but does not address what mentors gain from the relationship, so there is no reason to conclude that most established artists could improve as artists by serving as mentors. Choice D is incorrect. Although the text indicates that mentors are beneficial to young musicians and that young people pursuing other kinds of art (including painting and writing) can also find mentors through arts organizations, the text gives no indication that mentors are more important for musicians than for other types of artists."
+  }
+]
