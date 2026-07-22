@@ -1,0 +1,30 @@
+.passage {
+  color: var(--color-text, #263238);
+}
+
+.passage__text {
+  line-height: 1.6;
+}
+
+.passage__table {
+  border-collapse: collapse;
+  margin-block: 1rem;
+  width: 100%;
+}
+
+.passage__table th,
+.passage__table td {
+  border: 1px solid #dce3df;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.passage__figure {
+  margin: 1rem 0;
+}
+
+.passage__figure img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
