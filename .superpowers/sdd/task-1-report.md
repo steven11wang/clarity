@@ -40,3 +40,37 @@ Completed on branch `clarity-phases-0-1`.
 ## Concerns
 
 None. The generator's cancellation was expected for a non-empty repository and was handled without replacing its existing `.git` or `.superpowers` contents.
+
+## Review follow-up: generated image ignore rule
+
+### Changed file
+
+- `.gitignore`: changed the figure-image pattern from an ignored directory followed by a re-included directory to `public/data/images/*`, with an explicit exception only for `public/data/images/.gitkeep`.
+
+### Verification
+
+Command:
+
+```sh
+git check-ignore -v --no-index public/data/images/example.png
+git check-ignore -v --no-index public/data/images/.gitkeep || true
+```
+
+Output:
+
+```text
+.gitignore:5:public/data/images/*  public/data/images/example.png
+.gitignore:6:!public/data/images/.gitkeep  public/data/images/.gitkeep
+```
+
+The first result confirms a generated PNG is ignored. The second line is the negation rule, confirming `.gitkeep` is exempt from that ignore pattern and can remain tracked.
+
+### Commit
+
+- `36d032178b6d0548afdbc571af413a165484a5c4` — `fix: keep generated figure images ignored`
+
+### Self-review
+
+- Verified the corrected wildcard rule applies to generated files inside `public/data/images/`.
+- Verified the exception is limited to `.gitkeep`; the images directory itself is no longer re-included.
+- Kept the change limited to the review finding.
