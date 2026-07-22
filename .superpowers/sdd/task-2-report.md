@@ -241,3 +241,104 @@ The same bounded two-PDF verification used above was rerun after the fixes:
   wrong declared path from passing merely because its basename exists.
 - `git diff --check` and all 13 fixture tests pass. Full production parsing
   remains intentionally deferred to Task 3.
+
+## Schema-safe validator provenance correction
+
+Implementation commit: `ab5241e` — `fix: preserve per-PDF validation provenance`
+
+### Data flow
+
+`parse_all` now writes `question-sources.json` beside `questions.json` with this
+explicit versioned shape:
+
+```json
+{
+  "version": 1,
+  "question_sources": {
+    "question-id": "/source/path.pdf"
+  }
+}
+```
+
+The manifest is assembled only from accepted, deduplicated Questions. The first
+source remains authoritative for a cross-PDF duplicate. Final Question records
+remain unchanged and contain no `source_pdf` field.
+
+`validate_questions` consumes the sidecar when present and validates all of the
+following before using it: exact top-level keys, version 1, object mapping,
+nonblank string IDs and source values, unique Question IDs, and exact mapping
+coverage of the Questions array. A malformed present manifest quarantines the
+records rather than silently producing misleading provenance. Standalone JSON
+without a manifest remains supported and is grouped under its file name.
+
+### Test-first evidence
+
+The multi-source integration test was added before implementation. Initial
+focused run failed because the parser did not produce the sidecar:
+
+```text
+$ tools/.venv/bin/python -m unittest tools.test_parser.ValidatorFixtureTests.test_parser_sidecar_preserves_multi_pdf_counts_without_schema_leakage -v
+test_parser_sidecar_preserves_multi_pdf_counts_without_schema_leakage (tools.test_parser.ValidatorFixtureTests) ... FAIL
+
+======================================================================
+FAIL: test_parser_sidecar_preserves_multi_pdf_counts_without_schema_leakage (tools.test_parser.ValidatorFixtureTests)
+----------------------------------------------------------------------
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+FAILED (failures=1)
+```
+
+After implementation, the focused integration passed:
+
+```text
+$ tools/.venv/bin/python -m unittest tools.test_parser.ValidatorFixtureTests.test_parser_sidecar_preserves_multi_pdf_counts_without_schema_leakage -v
+test_parser_sidecar_preserves_multi_pdf_counts_without_schema_leakage (tools.test_parser.ValidatorFixtureTests) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.004s
+
+OK
+```
+
+The integration creates two fake parser sources, emits three schema-exact
+Questions, checks the exact manifest, then validates 2 records under `first.pdf`
+and 1 under `second.pdf`.
+
+### Final verification
+
+```text
+$ tools/.venv/bin/python -m unittest tools/test_parser.py -v
+test_duplicate_id_keeps_first_record_and_reports_duplicate (tools.test_parser.ParserFixtureTests) ... ok
+test_five_choices_are_an_explicit_quarantine (tools.test_parser.ParserFixtureTests) ... ok
+test_graph_and_table_stems_are_marked_for_figure_extraction (tools.test_parser.ParserFixtureTests) ... ok
+test_later_cross_pdf_duplicate_does_not_overwrite_first_figure_asset (tools.test_parser.ParserFixtureTests) ... ok
+test_missing_rationale_is_an_explicit_quarantine (tools.test_parser.ParserFixtureTests) ... ok
+test_parse_all_emits_table_only_for_complete_pdfplumber_extraction (tools.test_parser.ParserFixtureTests) ... ok
+test_preserves_passage_paragraphs_and_splits_final_line_prompt (tools.test_parser.ParserFixtureTests) ... ok
+test_question_output_has_exact_contract_without_source_pdf (tools.test_parser.ParserFixtureTests) ... ok
+test_parser_sidecar_preserves_multi_pdf_counts_without_schema_leakage (tools.test_parser.ValidatorFixtureTests) ... ok
+test_validator_checks_local_file_for_exact_figure_url (tools.test_parser.ValidatorFixtureTests) ... ok
+test_validator_cli_fails_at_exactly_two_percent_quarantine (tools.test_parser.ValidatorFixtureTests) ... ok
+test_validator_fails_closed_for_unreadable_malformed_and_non_array_json (tools.test_parser.ValidatorFixtureTests) ... ok
+test_validator_reports_invalid_records_and_missing_figure_images (tools.test_parser.ValidatorFixtureTests) ... ok
+test_validator_requires_exact_figure_url_even_when_basename_exists (tools.test_parser.ValidatorFixtureTests) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.017s
+
+OK
+```
+
+Bounded real-PDF provenance verification:
+
+```text
+{'questions': 99, 'manifest_ids': 99, 'source_pdf_keys': 0, 'validator_per_pdf': [{'name': 'SAT_Reading_Easy_Information-and-Ideas_Inferences.pdf', 'total': 22, 'valid': 22}, {'name': 'SAT_Reading_Easy_Information-and-Ideas_Command-of-Evidence.pdf', 'total': 77, 'valid': 77}], 'quarantines': 0, 'passes': True}
+```
+
+Self-review confirmed the manifest contains exactly one entry per accepted
+Question, duplicate sources cannot overwrite the first mapping, and validator
+per-PDF totals match parser sources without leaking provenance into app-facing
+Question records.
