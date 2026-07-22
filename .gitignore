@@ -3,3 +3,5 @@ dist/
 tools/.venv/
 public/data/questions*.json
 public/data/images/
+!public/data/images/
+!public/data/images/.gitkeep
