@@ -206,14 +206,14 @@ Final fixture suite:
 
 ```text
 $ tools/.venv/bin/python -m unittest tools/test_parser.py -v
-Ran 18 tests in 0.022s
+Ran 19 tests in 0.027s
 OK
 ```
 
 Final validation commands and output in the final sidecar configuration:
 
 ```text
-$ tools/.venv/bin/python tools/validate.py public/data/questions.full.json public/data/images
+$ tools/.venv/bin/python tools/validate.py public/data/questions.full.json --images public/data/images
 Validated 1647 records; quarantines=0; failure_rate=0.00%; threshold=2.00%
 
 $ tools/.venv/bin/python tools/validate.py public/data/questions.sample.json public/data/images
@@ -247,7 +247,8 @@ build completed successfully
   - full/sample/active sidecar resolution;
   - sidecar regression test;
   - ignore all generated `public/data/*.json`.
-- Documentation/evidence commit follows this report.
+- `4e8fdd7` — `docs: record production data generation evidence`.
+- Required `--images` CLI compatibility commit follows this report update.
 
 ## Self-review
 
@@ -263,6 +264,39 @@ build completed successfully
 - Confirmed full/sample/active validators all pass in the final simultaneous
   sidecar configuration.
 - Confirmed ignored generated JSON/images are absent from the commit index.
+
+## Required `--images` CLI compatibility correction
+
+The required command originally exited 2 before validation:
+
+```text
+$ tools/.venv/bin/python tools/validate.py public/data/questions.full.json --images public/data/images
+usage: validate.py [-h] questions image_root
+validate.py: error: unrecognized arguments: --images
+```
+
+Root cause: the CLI declared only a required positional `image_root`. A focused
+test invokes `validate_main([questions, "--images", image_root])` against a valid
+fixture and asserts exit 0 plus the successful validation summary. The RED run
+failed with `AssertionError: 0 != 2`.
+
+The minimal fix makes the positional image root optional, adds `--images`, and
+uses the flag when provided while retaining the prior positional form. Missing
+both forms remains an argparse error.
+
+GREEN and compatibility evidence:
+
+```text
+$ tools/.venv/bin/python -m unittest tools.test_parser.ValidatorFixtureTests.test_validator_cli_accepts_required_images_flag -v
+Ran 1 test in 0.002s
+OK
+
+$ tools/.venv/bin/python tools/validate.py public/data/questions.full.json --images public/data/images
+Validated 1647 records; quarantines=0; failure_rate=0.00%; threshold=2.00%
+
+$ tools/.venv/bin/python tools/validate.py public/data/questions.json public/data/images
+Validated 30 records; quarantines=0; failure_rate=0.00%; threshold=2.00%
+```
 
 ## Remaining concern
 

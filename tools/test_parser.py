@@ -347,6 +347,32 @@ class ParserFixtureTests(unittest.TestCase):
 
 
 class ValidatorFixtureTests(unittest.TestCase):
+    def test_validator_cli_accepts_required_images_flag(self):
+        record = {
+            "id": "valid-flag",
+            "passage": "Passage",
+            "prompt": "Which choice is best?",
+            "choices": {"A": "One", "B": "Two", "C": "Three", "D": "Four"},
+            "answer": "A",
+            "rationale": "Because one is supported.",
+        }
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            questions_path = root / "questions.full.json"
+            questions_path.write_text(json.dumps([record]), encoding="utf-8")
+            output = io.StringIO()
+
+            with contextlib.redirect_stdout(output):
+                try:
+                    exit_code = validate_main(
+                        [str(questions_path), "--images", str(root / "images")]
+                    )
+                except SystemExit as exc:
+                    exit_code = exc.code
+
+        self.assertEqual(0, exit_code)
+        self.assertIn("Validated 1 records; quarantines=0", output.getvalue())
+
     def test_validator_uses_matching_provenance_sidecar_for_each_dataset_variant(self):
         def record(question_id):
             return {

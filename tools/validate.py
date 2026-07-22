@@ -239,9 +239,13 @@ def validate_questions(
 def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("questions", type=Path)
-    parser.add_argument("image_root", type=Path)
+    parser.add_argument("image_root", nargs="?", type=Path)
+    parser.add_argument("--images", type=Path, help="Directory containing figure images")
     args = parser.parse_args(argv)
-    report = validate_questions(args.questions, args.image_root)
+    image_root = args.images or args.image_root
+    if image_root is None:
+        parser.error("an image root is required (positional or --images)")
+    report = validate_questions(args.questions, image_root)
     print(
         f"Validated {report.total} records; quarantines={len(report.quarantines)}; "
         f"failure_rate={report.failure_rate:.2%}; threshold={FAILURE_THRESHOLD:.2%}"
