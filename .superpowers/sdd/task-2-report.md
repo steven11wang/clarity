@@ -126,3 +126,118 @@ table, passage, and prompt and stops at the Answer section before choices.
   image files.
 - Only the bounded 99-question sample was parsed in this task. Task 3 should run
   the full 31-PDF corpus and inspect any new quarantines or unusual table layouts.
+
+## Review correction pass
+
+Implementation commit: `5e5ac56` — `fix: harden parser validation contracts`
+
+### Root causes and corrections
+
+1. JSON read/shape exceptions added a quarantine but left `total == 0`; the old
+   `failure_rate` returned zero for every zero-total report. A zero-total report
+   with any quarantine now has a 100% failure rate, retains a per-input report
+   entry, and the CLI exits nonzero for missing, malformed, and non-array JSON.
+2. Cross-PDF duplicate detection previously occurred in `_merge_reports`, after
+   each PDF's figures had already been rendered. `parse_all` now checks the
+   accepted-ID set before figure/table extraction, so later duplicates never
+   touch the first record's image asset.
+3. `_infer_simple_table` inferred columns from whitespace in extracted text and
+   could survive even when `pdfplumber` returned an incomplete table. The
+   fallback was removed. Only complete, equal-width, nonblank output from
+   `page.extract_tables()` can add the optional `table` key.
+4. `_parse_block` put parser provenance into each final Question. `source_pdf`
+   was removed from question records and emitted `questions.json`; per-PDF
+   provenance remains in ParseReport, duplicate, figure, and quarantine data.
+5. Image validation reduced the declared URL to its basename. It now requires
+   the exact `/data/images/{id}.png` URL and independently checks the exact local
+   `image_root/{id}.png` file.
+
+### Test-first red evidence
+
+The review regressions were added before production changes. Initial command:
+
+```text
+$ tools/.venv/bin/python -m unittest tools/test_parser.py -v
+...
+FAILED (failures=8)
+```
+
+The failures directly reproduced all five findings: text-inferred table data,
+cross-PDF image overwrite (`first != second`), `source_pdf` key leakage,
+zero failure rate for all three malformed-input cases, and acceptance of a wrong
+image URL when its basename existed.
+
+Each correction was then checked independently:
+
+```text
+$ tools/.venv/bin/python -m unittest tools.test_parser.ValidatorFixtureTests.test_validator_fails_closed_for_unreadable_malformed_and_non_array_json -v
+Ran 1 test in 0.004s
+OK
+
+$ tools/.venv/bin/python -m unittest tools.test_parser.ParserFixtureTests.test_later_cross_pdf_duplicate_does_not_overwrite_first_figure_asset -v
+Ran 1 test in 0.004s
+OK
+
+$ tools/.venv/bin/python -m unittest tools.test_parser.ParserFixtureTests.test_graph_and_table_stems_are_marked_for_figure_extraction tools.test_parser.ParserFixtureTests.test_parse_all_emits_table_only_for_complete_pdfplumber_extraction -v
+Ran 2 tests in 0.004s
+OK
+
+$ tools/.venv/bin/python -m unittest tools.test_parser.ParserFixtureTests.test_question_output_has_exact_contract_without_source_pdf tools.test_parser.ParserFixtureTests.test_parse_all_emits_table_only_for_complete_pdfplumber_extraction -v
+Ran 2 tests in 0.005s
+OK
+
+$ tools/.venv/bin/python -m unittest tools.test_parser.ValidatorFixtureTests.test_validator_requires_exact_figure_url_even_when_basename_exists tools.test_parser.ValidatorFixtureTests.test_validator_checks_local_file_for_exact_figure_url -v
+Ran 2 tests in 0.002s
+OK
+```
+
+### Final verification
+
+Exact required test command and output after the correction pass:
+
+```text
+$ tools/.venv/bin/python -m unittest tools/test_parser.py -v
+test_duplicate_id_keeps_first_record_and_reports_duplicate (tools.test_parser.ParserFixtureTests) ... ok
+test_five_choices_are_an_explicit_quarantine (tools.test_parser.ParserFixtureTests) ... ok
+test_graph_and_table_stems_are_marked_for_figure_extraction (tools.test_parser.ParserFixtureTests) ... ok
+test_later_cross_pdf_duplicate_does_not_overwrite_first_figure_asset (tools.test_parser.ParserFixtureTests) ... ok
+test_missing_rationale_is_an_explicit_quarantine (tools.test_parser.ParserFixtureTests) ... ok
+test_parse_all_emits_table_only_for_complete_pdfplumber_extraction (tools.test_parser.ParserFixtureTests) ... ok
+test_preserves_passage_paragraphs_and_splits_final_line_prompt (tools.test_parser.ParserFixtureTests) ... ok
+test_question_output_has_exact_contract_without_source_pdf (tools.test_parser.ParserFixtureTests) ... ok
+test_validator_checks_local_file_for_exact_figure_url (tools.test_parser.ValidatorFixtureTests) ... ok
+test_validator_cli_fails_at_exactly_two_percent_quarantine (tools.test_parser.ValidatorFixtureTests) ... ok
+test_validator_fails_closed_for_unreadable_malformed_and_non_array_json (tools.test_parser.ValidatorFixtureTests) ... ok
+test_validator_reports_invalid_records_and_missing_figure_images (tools.test_parser.ValidatorFixtureTests) ... ok
+test_validator_requires_exact_figure_url_even_when_basename_exists (tools.test_parser.ValidatorFixtureTests) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.016s
+
+OK
+```
+
+The same bounded two-PDF verification used above was rerun after the fixes:
+
+```text
+{'parse_total': 99, 'accepted': 99, 'duplicates': 0, 'figures': 47, 'tables': 29, 'source_pdf_keys': 0, 'quarantines': 0, 'failure_rate': 0.0}
+{'validation_total': 99, 'quarantines': 0, 'failure_rate': 0.0, 'passes': True}
+```
+
+### Self-review
+
+- Confirmed final Question output has the exact base contract and no
+  `source_pdf`; figure records add only the documented optional figure/table
+  keys.
+- Confirmed per-PDF provenance remains in report objects after removing it from
+  Questions, including the later source in a cross-PDF duplicate entry.
+- Confirmed same-PDF duplicates are removed during text parsing and cross-PDF
+  duplicates are rejected before any image or table extraction.
+- Confirmed no code path other than validated `pdfplumber` table extraction can
+  add `table`.
+- Confirmed missing/malformed/non-array inputs cannot produce a passing
+  ValidationReport or zero exit status.
+- Confirmed exact image URL and local-file checks are independent, preventing a
+  wrong declared path from passing merely because its basename exists.
+- `git diff --check` and all 13 fixture tests pass. Full production parsing
+  remains intentionally deferred to Task 3.
