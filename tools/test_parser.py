@@ -148,6 +148,25 @@ class ParserFixtureTests(unittest.TestCase):
         self.assertIn("annual rainfall", report.questions[0]["figure_description"].lower())
         self.assertNotIn("table", report.questions[1])
 
+    def test_figure_labels_are_removed_and_pdf_line_wraps_are_joined(self):
+        graph = question_block(
+            "cleanfigure",
+            "140,000\n120,000\nRiver Bank Area\n"
+            "The Jordanelle Dam was built on the Provo River in Utah in 1992. Earth "
+            "scientists tracked changes to the riverbank.\n"
+            "Which choice best describes data from the graph?",
+        )
+
+        report = parse_extracted_text(graph, source="figures.pdf")
+
+        question = report.questions[0]
+        self.assertNotIn("140,000", question["passage"])
+        self.assertEqual(
+            "The Jordanelle Dam was built on the Provo River in Utah in 1992. Earth scientists tracked changes to the riverbank.",
+            question["passage"],
+        )
+        self.assertEqual("Graph: River Bank Area", question["figure_description"])
+
     def test_prose_uses_of_table_are_not_marked_as_figures(self):
         cases = [
             (
@@ -217,7 +236,7 @@ class ParserFixtureTests(unittest.TestCase):
             ]
         )
 
-        def write_crop(page, question_id, destination):
+        def write_crop(page, question_id, destination, passage):
             destination.write_text(page.marker, encoding="utf-8")
 
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -263,7 +282,7 @@ class ParserFixtureTests(unittest.TestCase):
             ]
         )
 
-        def write_crop(page, question_id, destination):
+        def write_crop(page, question_id, destination, passage):
             destination.write_text(page.marker, encoding="utf-8")
 
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -292,7 +311,7 @@ class ParserFixtureTests(unittest.TestCase):
             FakePDF([FakePage(second_text, marker="second")]),
         ]
 
-        def write_crop(page, question_id, destination):
+        def write_crop(page, question_id, destination, passage):
             destination.write_text(page.marker, encoding="utf-8")
 
         with tempfile.TemporaryDirectory() as temp_dir:

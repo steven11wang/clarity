@@ -3,4 +3,5 @@ dist/
 tools/.venv/
 public/data/*.json
 public/data/images/*
-!public/data/images/.gitkeep
+.superpowers/
+.claude/

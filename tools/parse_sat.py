@@ -136,6 +136,49 @@ def _split_passage_prompt(question_text: str) -> Tuple[str, str]:
     return passage, prompt
 
 
+def _normalize_passage(passage: str) -> str:
+    """Join PDF line wraps while preserving intentional paragraph breaks."""
+    paragraphs = re.split(r"\n\s*\n", passage.strip())
+    return "\n\n".join(
+        re.sub(r"\s+", " ", paragraph).strip()
+        for paragraph in paragraphs
+        if paragraph.strip()
+    )
+
+
+_PROSE_SIGNALS = re.compile(
+    r"\b(?:is|are|was|were|has|have|had|do|does|did|use|uses|used|rely|"
+    r"relies|led|conducted|collected|got|need|needs|needed|"
+    r"analyzed|examined|found|observed|tracked|argues|suggests|held|live|"
+    r"began|created|studied|published|wrote|made|known|born|developed|called)\b",
+    re.IGNORECASE,
+)
+
+
+def _figure_prose_start(lines: Sequence[str]) -> Optional[int]:
+    """Return the first narrative line after chart/table labels, when detectable."""
+    for index, line in enumerate(lines):
+        candidate = " ".join(part.strip() for part in lines[index : index + 3] if part.strip())
+        words = re.findall(r"[A-Za-z][A-Za-z’'-]*", candidate)
+        if (
+            len(line.strip()) >= 30
+            and len(words) >= 8
+            and _PROSE_SIGNALS.search(" ".join(words[:18]))
+        ):
+            return index
+    return None
+
+
+def _clean_figure_passage(passage: str) -> Tuple[str, str]:
+    """Remove leading figure labels and return them for an accessible description."""
+    lines = [line.strip() for line in passage.splitlines()]
+    start = _figure_prose_start(lines)
+    if start is None or start == 0:
+        return _normalize_passage(passage), _normalize_passage(passage)
+    figure_text = " ".join(line for line in lines[:start] if line)
+    return _normalize_passage("\n".join(lines[start:])), figure_text
+
+
 def _parse_choices(answer_block: str) -> Tuple[Dict[str, str], List[str]]:
     matches = list(
         re.finditer(
@@ -152,20 +195,14 @@ def _parse_choices(answer_block: str) -> Tuple[Dict[str, str], List[str]]:
     return choices, labels
 
 
-def _figure_description(figure_type: str, passage: str, prompt: str) -> str:
-    lines = [re.sub(r"\s+", " ", line).strip() for line in passage.splitlines()]
-    candidate = next(
-        (
-            line
-            for line in lines
-            if line and re.search(rf"\b{figure_type}\b", line, re.IGNORECASE)
-        ),
-        "",
-    )
-    if not candidate:
-        candidate = next((line for line in lines if line), prompt)
-    candidate = candidate[:240].rstrip()
-    return f"{figure_type.title()} referenced by the question: {candidate}"
+def _figure_description(figure_type: str, figure_text: str, prompt: str) -> str:
+    """Use a figure title when available; never derive alt text from axis values."""
+    candidate = re.sub(r"\s+", " ", figure_text).strip()
+    candidate = re.sub(r"^(?:\d[\d,.%−–-]*\s*)+", "", candidate).strip()
+    if candidate:
+        candidate = candidate[:180].rstrip(" .")
+        return f"{figure_type.title()}: {candidate}"
+    return f"{figure_type.title()} used to answer: {prompt[:140].rstrip()}"
 
 
 def _valid_table(table: Any) -> Optional[Dict[str, List[Any]]]:
@@ -232,7 +269,7 @@ def _parse_block(block: str, source: str) -> Tuple[Dict[str, Any], List[str]]:
         "domain": domain,
         "skill": skill,
         "difficulty": difficulty,
-        "passage": passage,
+        "passage": _normalize_passage(passage),
         "prompt": prompt,
         "choices": choices,
         "answer": correct_match.group(1) if correct_match else "",
@@ -242,12 +279,14 @@ def _parse_block(block: str, source: str) -> Tuple[Dict[str, Any], List[str]]:
     figure_match = re.search(r"\b(graph|table)\b", prompt, re.IGNORECASE)
     if figure_match:
         figure_type = figure_match.group(1).lower()
+        passage, figure_text = _clean_figure_passage(passage)
+        record["passage"] = passage
         record.update(
             {
                 "has_figure": True,
                 "figure_type": figure_type,
                 "image": f"/data/images/{question_id}.png",
-                "figure_description": _figure_description(figure_type, passage, prompt),
+                "figure_description": _figure_description(figure_type, figure_text, prompt),
             }
         )
 
@@ -325,7 +364,31 @@ def _find_question_page(pdf: Any, question_id: str) -> Optional[Any]:
     return None
 
 
-def _crop_figure(page: Any, question_id: str, destination: Path) -> None:
+def _word_tokens(value: str) -> List[str]:
+    return re.findall(r"[A-Za-z0-9]+", value.lower())
+
+
+def _find_text_top(page: Any, text: str, top: float, bottom: float) -> Optional[float]:
+    """Find the y-coordinate of a parsed text fragment on its source page."""
+    # Three words are enough to locate a prose opening and avoid ligature or
+    # apostrophe tokenisation differences (for example, De’Aira) in PDFs.
+    target = _word_tokens(text)[:3]
+    if len(target) < 3:
+        return None
+    words = [
+        word
+        for word in page.extract_words() or []
+        if top <= word.get("top", 0) < bottom
+    ]
+    tokens = [_word_tokens(word.get("text", ""))[:1] for word in words]
+    flattened = [token[0] if token else "" for token in tokens]
+    for index in range(len(flattened) - len(target) + 1):
+        if flattened[index : index + len(target)] == target:
+            return float(words[index]["top"])
+    return None
+
+
+def _crop_figure(page: Any, question_id: str, destination: Path, passage: str) -> None:
     words = page.extract_words() or []
     question_markers = [
         word
@@ -337,8 +400,13 @@ def _crop_figure(page: Any, question_id: str, destination: Path) -> None:
     ]
     # The section marker is normally the last "Question" before the Answer label.
     top = question_markers[-1]["bottom"] if question_markers else page.height * 0.12
-    bottom_candidates = [word["top"] for word in answer_markers if word["top"] > top]
-    bottom = min(bottom_candidates) if bottom_candidates else page.height * 0.80
+    answer_top = min(
+        (word["top"] for word in answer_markers if word["top"] > top),
+        default=page.height * 0.80,
+    )
+    # The cleaned passage begins directly after the figure. This trims the PNG to
+    # the figure itself instead of duplicating the passage, prompt, and headers.
+    bottom = _find_text_top(page, passage, top, answer_top) or answer_top
     if bottom <= top + 12:
         raise ValueError(f"unable to locate figure crop bounds for {question_id}")
     padding = 8
@@ -425,7 +493,12 @@ def parse_all(pdf_paths: Iterable[Any], output_dir: Any) -> ParseReport:
                         page = _find_question_page(pdf, question_id)
                         if page is None:
                             raise ValueError("question page not found")
-                        _crop_figure(page, question_id, image_dir / f"{question_id}.png")
+                        _crop_figure(
+                            page,
+                            question_id,
+                            image_dir / f"{question_id}.png",
+                            record["passage"],
+                        )
                         if record.get("figure_type") == "table":
                             table = _extract_usable_table(page)
                             if table:

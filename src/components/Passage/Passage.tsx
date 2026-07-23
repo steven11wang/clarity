@@ -41,7 +41,7 @@ export function Passage({ question }: PassageProps) {
         <DataTable {...question.table} />
       ) : question.image ? (
         <figure className="passage__figure">
-          <img src={'/' + question.image} alt={question.figure_description} />
+          <img src={question.image.startsWith('/') ? question.image : `/${question.image}`} alt={question.figure_description} />
         </figure>
       ) : null}
     </section>
