@@ -19,10 +19,11 @@ describe('resurrection schedule', () => {
     assert.equal(item.reason, 'miss')
   })
 
-  it('only counts a correct answer WITH correct evidence as clean', () => {
+  it('clears on a correct answer unless its evidence clearly missed', () => {
     assert.equal(isClean(true, 'full'), true)
-    assert.equal(isClean(true, 'partial'), false) // right for the wrong-ish reason
-    assert.equal(isClean(true, 'miss'), false)
+    assert.equal(isClean(true, null), true) // not evidence-checked (missed-only review)
+    assert.equal(isClean(true, 'partial'), true)
+    assert.equal(isClean(true, 'miss'), false) // right for the wrong reason
     assert.equal(isClean(false, 'full'), false)
   })
 

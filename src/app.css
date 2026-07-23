@@ -20,6 +20,12 @@ button { font: inherit; }
 .progress-copy { color: #60706d; display: flex; font-size: .8rem; font-weight: 650; justify-content: space-between; letter-spacing: .02em; margin-bottom: .55rem; }
 .progress-track { background: #e3e9e6; border-radius: 99px; height: 5px; overflow: hidden; }
 .progress-value { background: #49746b; border-radius: inherit; height: 100%; transition: width .25s ease; }
+.progress-value--review { background: #c9a227; }
+
+/* Interstitial between the answer pass and the review pass. */
+.pass-intro { margin: 3rem auto 0; max-width: 620px; }
+.pass-intro h1 { font-family: Georgia, serif; font-size: clamp(2rem, 6vw, 3.2rem); letter-spacing: -.045em; line-height: 1.02; margin: .4rem 0 1rem; }
+.pass-intro > p { color: #60706d; font-size: 1.05rem; line-height: 1.6; margin: 0 0 1.6rem; }
 
 /* --- Practice card ------------------------------------------------------- */
 .practice-card { background: #fff; border: 1px solid #dce3df; border-radius: .9rem; box-shadow: 0 8px 28px rgb(42 57 52 / .05); display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(360px, .9fr); overflow: hidden; align-items: start; }

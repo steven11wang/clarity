@@ -3,9 +3,9 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import type {
   Attempt,
   ChainLink,
-  Confidence,
   ErrorCause,
   EvidenceScore,
+  FirstPass,
   Question,
   SelfGrade,
   TrapType,
@@ -13,11 +13,10 @@ import type {
 import { buildIntentChoices } from '../../content/questionIntents.ts'
 import { TRAP_TYPES } from '../../content/traps.ts'
 import { findReferencedSentences } from '../../review/evidence.ts'
-import { orderedChoices, type ChoiceLetter } from '../../review/ordering.ts'
+import { orderedChoices } from '../../review/ordering.ts'
 import { Passage } from '../Passage/Passage.tsx'
 import {
-  buildTimeoutAttempt,
-  initLoop,
+  initReview,
   isHiddenError,
   setCause,
   setChain,
@@ -27,28 +26,16 @@ import {
   setExplain,
   setSelfGrade,
   setTrap,
-  submitFirst,
-  submitReattempt,
+  submitRedo,
   toAttempt,
 } from './model.ts'
-
-function formatClock(seconds: number): string {
-  const s = Math.ceil(seconds)
-  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`
-}
-
-const CONFIDENCE: { id: Confidence; label: string }[] = [
-  { id: 'sure', label: 'Sure' },
-  { id: 'leaning', label: 'Leaning' },
-  { id: 'guessing', label: 'Guessing' },
-]
 
 const CAUSES: { id: ErrorCause; label: string }[] = [
   { id: 'misread-passage', label: 'Misread the passage' },
   { id: 'misread-question', label: 'Misread the question' },
   { id: 'trap', label: 'Fell for a trap answer' },
   { id: 'knowledge-gap', label: 'Knowledge gap' },
-  { id: 'rushed', label: 'Rushed' },
+  { id: 'rushed', label: 'Rushed / ran out of time' },
 ]
 
 const GRADES: { id: SelfGrade; label: string }[] = [
@@ -72,9 +59,8 @@ const CHAIN_LINKS: { id: ChainLink; label: string; hint: string }[] = [
 type Props = {
   question: Question
   isReview: boolean
+  firstPass: FirstPass
   reviewStage: number
-  timedMode: boolean
-  timeLimitSec: number
   onComplete: (attempt: Attempt) => void
   onNext: () => void
 }
@@ -82,36 +68,19 @@ type Props = {
 export function QuestionInteraction({
   question,
   isReview,
+  firstPass,
   reviewStage,
-  timedMode,
-  timeLimitSec,
   onComplete,
   onNext,
 }: Props) {
-  const [state, setState] = useState(() => initLoop(question, isReview, reviewStage))
+  const [state, setState] = useState(() => initReview(question, firstPass, reviewStage))
 
-  // Local, pre-commit inputs.
-  const [choice, setChoice] = useState<string | null>(null)
-  const [confidence, setConfidence] = useState<Confidence | null>(null)
   const [whyWrong, setWhyWrong] = useState('')
   const [whyRight, setWhyRight] = useState('')
   const [evidenceSel, setEvidenceSel] = useState<number[]>([])
 
-  // Timed mode: the clock runs only during the answering phase — reflection is
-  // never rushed. If it expires, the question auto-advances as a timing failure.
-  const startRef = useRef(Date.now())
-  const firedRef = useRef(false)
-  const [remaining, setRemaining] = useState(timeLimitSec)
-  const [timedOut, setTimedOut] = useState(false)
-
-  const choiceSlots = useMemo(
-    () => orderedChoices(question, isReview),
-    [question, isReview],
-  )
-  const intent = useMemo(
-    () => buildIntentChoices(question.skill, question.id),
-    [question],
-  )
+  const choiceSlots = useMemo(() => orderedChoices(question, isReview), [question, isReview])
+  const intent = useMemo(() => buildIntentChoices(question.skill, question.id), [question])
   const referenced = useMemo(
     () => findReferencedSentences(question.passage, question.rationale),
     [question],
@@ -125,64 +94,6 @@ export function QuestionInteraction({
       onComplete(toAttempt(state, question.id, Date.now()))
     }
   }, [state, question.id, onComplete])
-
-  function handleTimeout() {
-    if (firedRef.current) return
-    firedRef.current = true
-    const elapsed = Date.now() - startRef.current
-    onComplete(
-      buildTimeoutAttempt(question.id, choice as ChoiceLetter | null, confidence, elapsed, reviewStage),
-    )
-    setTimedOut(true)
-  }
-
-  // Countdown during the answering phase only.
-  useEffect(() => {
-    if (!timedMode || state.phase !== 'answering') return
-    const id = setInterval(() => {
-      const left = Math.max(0, timeLimitSec - (Date.now() - startRef.current) / 1000)
-      setRemaining(left)
-      if (left <= 0) {
-        clearInterval(id)
-        handleTimeout()
-      }
-    }, 250)
-    return () => clearInterval(id)
-    // handleTimeout reads refs/props that are stable for this question mount.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timedMode, state.phase, timeLimitSec])
-
-  // Auto-advance shortly after a timeout so the student registers what happened.
-  useEffect(() => {
-    if (!timedOut) return
-    const id = setTimeout(onNext, 1800)
-    return () => clearTimeout(id)
-  }, [timedOut, onNext])
-
-  function submitAnswer() {
-    if (!choice || !confidence) return
-    const elapsed = timedMode ? Date.now() - startRef.current : null
-    setState((s) => submitFirst(s, choice as ChoiceLetter, confidence, elapsed))
-  }
-
-  if (timedOut) {
-    return (
-      <>
-        <Passage question={question} />
-        <section className="question-panel">
-          <div className="step done">
-            <p className="done-headline">⏱ Time&rsquo;s up — moved on.</p>
-            <ul className="done-facts">
-              <li>You didn&rsquo;t lock an answer in time. It rejoins your practice — untimed — so you can actually work it.</li>
-            </ul>
-            <button type="button" className="button button--full" onClick={onNext}>
-              Next question
-            </button>
-          </div>
-        </section>
-      </>
-    )
-  }
 
   const evidenceMode = state.phase === 'evidence'
   const showReferenced = state.phase === 'evidence-grade' || state.phase === 'done'
@@ -200,32 +111,20 @@ export function QuestionInteraction({
       />
 
       <section className="question-panel">
-        {timedMode && state.phase === 'answering' && (
-          <div className={`timer ${remaining <= 15 ? 'timer--urgent' : ''}`} role="timer" aria-label="Time remaining">
-            <div className="timer-bar">
-              <div className="timer-fill" style={{ width: `${(remaining / timeLimitSec) * 100}%` }} />
-            </div>
-            <span className="timer-label">{formatClock(remaining)}</span>
-          </div>
-        )}
-
         <h1 className="question-prompt">{question.prompt}</h1>
 
-        {/* Steps 1–2: choices. Visible through the answer-until-correct phase. */}
-        {(state.phase === 'answering' || state.phase === 'reattempt') && (
+        {/* Redo: re-attempt the missed question, answer-until-correct. */}
+        {state.phase === 'redo' && (
           <>
+            <p className="panel-label">
+              {firstPass.timedOut
+                ? 'You ran out of time on this one. Work it through now — no clock.'
+                : 'You missed this in the set. Redo it — find the answer before we break it down.'}
+            </p>
             <div className="choice-list" role="radiogroup" aria-label="Answer choices">
               {choiceSlots.map((slot) => {
-                const isChosen = choice === slot.sourceLetter
                 const isRuledOut = state.wrongChoices.includes(slot.sourceLetter)
-                const answering = state.phase === 'answering'
-                const cls = [
-                  'choice',
-                  answering && isChosen ? 'choice--selected' : '',
-                  isRuledOut ? 'choice--ruled-out' : '',
-                ]
-                  .filter(Boolean)
-                  .join(' ')
+                const cls = ['choice', isRuledOut ? 'choice--ruled-out' : ''].filter(Boolean).join(' ')
                 return (
                   <button
                     key={slot.displayLetter}
@@ -233,13 +132,7 @@ export function QuestionInteraction({
                     className={cls}
                     disabled={isRuledOut}
                     aria-disabled={isRuledOut}
-                    onClick={() => {
-                      if (answering) {
-                        setChoice(slot.sourceLetter)
-                      } else {
-                        setState((s) => submitReattempt(s, slot.sourceLetter))
-                      }
-                    }}
+                    onClick={() => setState((s) => submitRedo(s, slot.sourceLetter))}
                   >
                     <span className="choice-letter">{slot.displayLetter}</span>
                     <span>{slot.text}</span>
@@ -247,42 +140,12 @@ export function QuestionInteraction({
                 )
               })}
             </div>
-
-            {state.phase === 'answering' && (
-              <div className="confidence">
-                <p className="panel-label">How sure are you? <span>(required)</span></p>
-                <div className="confidence-row">
-                  {CONFIDENCE.map((c) => (
-                    <button
-                      key={c.id}
-                      type="button"
-                      className={`pill ${confidence === c.id ? 'pill--on' : ''}`}
-                      onClick={() => setConfidence(c.id)}
-                    >
-                      {c.label}
-                    </button>
-                  ))}
-                </div>
-                <button
-                  type="button"
-                  className="button button--full"
-                  disabled={!choice || !confidence}
-                  onClick={submitAnswer}
-                >
-                  Check answer
-                </button>
-              </div>
-            )}
-
-            {state.phase === 'reattempt' && (
-              <p className="nudge">
-                Not this one — try again. Every option you rule out is one that can’t catch you on test day.
-              </p>
+            {state.wrongChoices.length > 0 && (
+              <p className="nudge">Not this one — try again. Every option you rule out is one that can’t catch you on test day.</p>
             )}
           </>
         )}
 
-        {/* Step 3a: cause */}
         {state.phase === 'cause' && (
           <div className="step">
             <p className="panel-label">You found it. Why did you miss it the first time?</p>
@@ -296,7 +159,6 @@ export function QuestionInteraction({
           </div>
         )}
 
-        {/* Step 3b: explain (before any explanation is shown) */}
         {state.phase === 'explain' && (
           <ExplainStep
             whyWrong={whyWrong}
@@ -307,7 +169,6 @@ export function QuestionInteraction({
           />
         )}
 
-        {/* Step 3b: reveal + self-grade */}
         {state.phase === 'self-grade' && (
           <div className="step">
             <div className="compare">
@@ -331,7 +192,6 @@ export function QuestionInteraction({
           </div>
         )}
 
-        {/* Step 3.5a: underline */}
         {state.phase === 'evidence' && (
           <div className="step">
             <p className="panel-label">
@@ -349,7 +209,6 @@ export function QuestionInteraction({
           </div>
         )}
 
-        {/* Step 3.5a: reveal reasoning + grade evidence */}
         {state.phase === 'evidence-grade' && (
           <div className="step">
             <p className="rationale">{question.rationale}</p>
@@ -367,7 +226,6 @@ export function QuestionInteraction({
           </div>
         )}
 
-        {/* Step 3.5b: logic chain — the Question link */}
         {state.phase === 'chain' && (
           <div className="step">
             <div className="chain">
@@ -391,7 +249,6 @@ export function QuestionInteraction({
           </div>
         )}
 
-        {/* Step 3.5c: which link broke (wrong answers) */}
         {state.phase === 'chain-break' && (
           <div className="step">
             <p className="panel-label">Your first answer connected a real chain — until it snapped. Where?</p>
@@ -406,7 +263,6 @@ export function QuestionInteraction({
           </div>
         )}
 
-        {/* Step 4: name the trap */}
         {state.phase === 'trap' && (
           <div className="step">
             <p className="panel-label">Name the trap you fell for — so you’ll spot it next time.</p>
@@ -421,9 +277,7 @@ export function QuestionInteraction({
           </div>
         )}
 
-        {state.phase === 'done' && (
-          <DoneStep state={state} onNext={onNext} />
-        )}
+        {state.phase === 'done' && <DoneStep state={state} onNext={onNext} />}
       </section>
     </>
   )
@@ -460,33 +314,23 @@ function ExplainStep({
   )
 }
 
-function DoneStep({ state, onNext }: { state: ReturnType<typeof initLoop>; onNext: () => void }) {
+function DoneStep({ state, onNext }: { state: ReturnType<typeof initReview>; onNext: () => void }) {
   const hidden = isHiddenError(state)
   const priority = state.confidence === 'sure' && !state.correct
-  const willReturn = !state.correct || hidden
 
-  let headline = 'Nice — clean solve, right for the right reason.'
+  let headline = 'Specimen found. Error diagnosed.'
   if (hidden) headline = 'Right answer, wrong reason — caught it.'
-  else if (!state.correct) headline = 'Specimen found. Error diagnosed.'
 
   return (
     <div className="step done">
       <p className="done-headline">{headline}</p>
       <ul className="done-facts">
-        {priority && (
-          <li className="done-flag">High confidence + miss — your single most fixable error.</li>
-        )}
-        {hidden && (
-          <li>You had the right letter but not the evidence behind it.</li>
-        )}
-        {willReturn ? (
-          <li>This one rejoins your practice — disguised — until you clear it with the right evidence.</li>
-        ) : (
-          <li>Nothing to resurface. On to the next.</li>
-        )}
+        {priority && <li className="done-flag">You were sure — and missed it. That’s your single most fixable error.</li>}
+        {state.pass1TimedOut && <li>You ran out of time on this in the set — now you’ve worked it properly.</li>}
+        <li>This one rejoins your practice — disguised — until you clear it with the right evidence.</li>
       </ul>
       <button type="button" className="button button--full" onClick={onNext}>
-        Next question
+        Next
       </button>
     </div>
   )

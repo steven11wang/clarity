@@ -45,11 +45,12 @@ export function scheduleMistake(
   }
 }
 
-// Did a resurfacing clear this stage? Only a correct answer backed by correct
-// evidence counts — that's the whole point of the loop. A correct answer with
-// weak evidence ("right for the wrong reason") does not clear.
+// Did a resurfacing clear this stage? A correct answer clears — unless its
+// evidence was checked and clearly missed ("right for the wrong reason"). In
+// missed-only review a correct answer isn't evidence-checked (score is null),
+// so correctness alone clears it.
 export function isClean(correct: boolean, evidenceScore: EvidenceScore | null): boolean {
-  return correct && evidenceScore === 'full'
+  return correct && evidenceScore !== 'miss'
 }
 
 // Apply a resurfacing result to a queued item. A clean clear advances a stage

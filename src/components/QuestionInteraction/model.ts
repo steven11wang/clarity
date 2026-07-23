@@ -4,17 +4,18 @@ import type {
   Confidence,
   ErrorCause,
   EvidenceScore,
+  FirstPass,
   Question,
   SelfGrade,
   TrapType,
 } from '../../types.ts'
 import type { ChoiceLetter } from '../../review/ordering.ts'
 
-// The gated phases of the five-step loop. Nothing explanatory is shown before
-// the student has generated their own version — the phase order enforces it.
+// The review pass runs on questions missed in the answer pass. The gated phases
+// still enforce generation-before-revelation: redo it yourself, diagnose it
+// yourself, and only then see the official reasoning.
 export type LoopPhase =
-  | 'answering' // Step 1: pick a choice + confidence (submit locked until both)
-  | 'reattempt' // Step 2: wrong — try again, no explanation shown
+  | 'redo' // re-attempt the missed question, answer-until-correct
   | 'cause' // Step 3a: why did you miss it?
   | 'explain' // Step 3b: two one-sentence explanations
   | 'self-grade' // Step 3b: reveal rationale, grade your own match
@@ -22,19 +23,22 @@ export type LoopPhase =
   | 'evidence-grade' // Step 3.5a: reveal reasoning, grade your evidence
   | 'chain' // Step 3.5b: what was actually being asked?
   | 'chain-break' // Step 3.5c: which link did the trap break?
-  | 'trap' // Step 4: name the trap (only when the cause was a trap)
+  | 'trap' // Step 4: name the trap
   | 'done'
 
 export type LoopState = {
   phase: LoopPhase
-  isReview: boolean
   reviewStage: number
   answer: ChoiceLetter
-  firstChoice: ChoiceLetter | null
+  // Carried from the answer pass — the committed answer is what counts for
+  // calibration and the error log; the redo below is for learning.
+  firstChoice: string
   confidence: Confidence | null
-  correct: boolean // first-try correctness — the calibration signal
-  attempts: number
-  wrongChoices: ChoiceLetter[]
+  correct: boolean
+  pass1TimeMs: number | null
+  pass1TimedOut: boolean
+  attempts: number // redo attempts to reach the correct answer
+  wrongChoices: string[]
   errorCause: ErrorCause | null
   whyWrong: string
   whyRight: string
@@ -45,18 +49,22 @@ export type LoopState = {
   intentCorrect: boolean | null
   chainBreakLink: ChainLink | null
   trapGuess: TrapType | null
-  answerMs: number | null // time spent in the answering phase (timed mode)
 }
 
-export function initLoop(question: Question, isReview: boolean, reviewStage: number): LoopState {
+export function initReview(
+  question: Question,
+  firstPass: FirstPass,
+  reviewStage: number,
+): LoopState {
   return {
-    phase: 'answering',
-    isReview,
+    phase: 'redo',
     reviewStage,
     answer: question.answer,
-    firstChoice: null,
-    confidence: null,
-    correct: false,
+    firstChoice: firstPass.chosen,
+    confidence: firstPass.confidence,
+    correct: firstPass.correct,
+    pass1TimeMs: firstPass.timeMs,
+    pass1TimedOut: firstPass.timedOut,
     attempts: 0,
     wrongChoices: [],
     errorCause: null,
@@ -69,38 +77,16 @@ export function initLoop(question: Question, isReview: boolean, reviewStage: num
     intentCorrect: null,
     chainBreakLink: null,
     trapGuess: null,
-    answerMs: null,
   }
 }
 
-// Step 1 → reveal. Correct answers skip the autopsy but still verify evidence
-// (that's how "right for the wrong reason" is caught). Wrong answers go to the
-// answer-until-correct re-attempt.
-export function submitFirst(
-  state: LoopState,
-  choice: ChoiceLetter,
-  confidence: Confidence,
-  elapsedMs: number | null = null,
-): LoopState {
-  const correct = choice === state.answer
-  return {
-    ...state,
-    firstChoice: choice,
-    confidence,
-    correct,
-    attempts: 1,
-    wrongChoices: correct ? [] : [choice],
-    answerMs: elapsedMs,
-    phase: correct ? 'evidence' : 'reattempt',
-  }
-}
-
-// Step 2. Keep the student generating until the correct choice is found; never
-// show the answer or explanation here.
-export function submitReattempt(state: LoopState, choice: ChoiceLetter): LoopState {
+// Redo the question until the correct choice is found — never reveal the answer
+// here. Reaching it opens the autopsy (or the evidence check, if the committed
+// answer was actually right and this is a review-all pass).
+export function submitRedo(state: LoopState, choice: string): LoopState {
   const attempts = state.attempts + 1
   if (choice === state.answer) {
-    return { ...state, attempts, phase: 'cause' }
+    return { ...state, attempts, phase: state.correct ? 'evidence' : 'cause' }
   }
   const wrongChoices = state.wrongChoices.includes(choice)
     ? state.wrongChoices
@@ -128,8 +114,6 @@ export function setEvidenceGrade(state: LoopState, evidenceScore: EvidenceScore)
   return { ...state, evidenceScore, phase: 'chain' }
 }
 
-// Step 3.5b. After the chain, a wrong answer identifies where the trap broke
-// the chain; a correct answer is done (or continues only if it was a guess).
 export function setChain(state: LoopState, intentPick: number, intentCorrect: boolean): LoopState {
   return {
     ...state,
@@ -151,7 +135,9 @@ export function setTrap(state: LoopState, trapGuess: TrapType): LoopState {
   return { ...state, trapGuess, phase: 'done' }
 }
 
-// "Right for the wrong reason": a correct answer whose evidence missed.
+// "Right for the wrong reason": a correct answer whose evidence missed. Only
+// reachable in a review-all pass, since missed-only never evidence-checks a
+// correct answer.
 export function isHiddenError(state: LoopState): boolean {
   return state.correct && state.evidenceScore === 'miss'
 }
@@ -161,7 +147,7 @@ export function toAttempt(state: LoopState, questionId: string, timestamp: numbe
   return {
     questionId,
     timestamp,
-    chosen: state.firstChoice ?? '',
+    chosen: state.firstChoice,
     correct: state.correct,
     confidence: state.confidence,
     attemptsToCorrect: state.attempts,
@@ -173,31 +159,29 @@ export function toAttempt(state: LoopState, questionId: string, timestamp: numbe
     evidenceScore: state.evidenceScore,
     chainBreakLink: state.chainBreakLink,
     trapGuess: state.trapGuess,
-    trapActual: null, // no authored per-distractor labels in v1
+    trapActual: null,
     hiddenError: isHiddenError(state),
     resurrectionStage: state.reviewStage,
-    timeSpentMs: state.answerMs,
-    timedOut: false,
+    timeSpentMs: state.pass1TimeMs,
+    timedOut: state.pass1TimedOut,
   }
 }
 
-// The clock expired before the student committed an answer. Records the
-// question as a timing failure (no answer, no diagnosis) so it re-enters the
-// resurrection queue and comes back — untimed — to actually be worked.
-export function buildTimeoutAttempt(
+// A question answered in the answer pass but not sent to review (a correct
+// answer) is logged as-is so calibration and the score trend still see it.
+export function firstPassAttempt(
   questionId: string,
-  chosen: ChoiceLetter | null,
-  confidence: Confidence | null,
-  timeSpentMs: number,
+  firstPass: FirstPass,
   reviewStage: number,
+  timestamp: number,
 ): Attempt {
   return {
     questionId,
-    timestamp: Date.now(),
-    chosen: chosen ?? '',
-    correct: false,
-    confidence,
-    attemptsToCorrect: 0,
+    timestamp,
+    chosen: firstPass.chosen,
+    correct: firstPass.correct,
+    confidence: firstPass.confidence,
+    attemptsToCorrect: firstPass.correct ? 1 : 0,
     errorCause: null,
     selfExplanations: null,
     evidenceUnderlined: [],
@@ -207,7 +191,7 @@ export function buildTimeoutAttempt(
     trapActual: null,
     hiddenError: false,
     resurrectionStage: reviewStage,
-    timeSpentMs,
-    timedOut: true,
+    timeSpentMs: firstPass.timeMs,
+    timedOut: firstPass.timedOut,
   }
 }

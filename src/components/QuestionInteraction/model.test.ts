@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
 
-import type { Question } from '../../types.ts'
+import type { FirstPass, Question } from '../../types.ts'
 import {
-  buildTimeoutAttempt,
-  initLoop,
+  firstPassAttempt,
+  initReview,
   isHiddenError,
   setCause,
   setChain,
@@ -14,108 +14,75 @@ import {
   setExplain,
   setSelfGrade,
   setTrap,
-  submitFirst,
-  submitReattempt,
+  submitRedo,
   toAttempt,
 } from './model.ts'
 
-const question = {
-  id: 'q1',
-  answer: 'B',
-  skill: 'Inferences',
-} as unknown as Question
+const question = { id: 'q1', answer: 'B', skill: 'Inferences' } as unknown as Question
 
-describe('loop model', () => {
-  it('first-try-correct skips the autopsy but still checks evidence', () => {
-    let state = initLoop(question, false, 0)
-    state = submitFirst(state, 'B', 'sure')
-    assert.equal(state.correct, true)
-    assert.equal(state.phase, 'evidence') // no cause/explain
-    state = setEvidence(state, [0])
-    state = setEvidenceGrade(state, 'full')
-    assert.equal(state.phase, 'chain')
-    state = setChain(state, 0, true)
-    assert.equal(state.phase, 'done') // correct answers skip chain-break/trap
+const missed: FirstPass = { chosen: 'A', confidence: 'sure', correct: false, timeMs: null, timedOut: false }
+
+describe('review loop model', () => {
+  it('starts at redo seeded with the answer-pass result', () => {
+    const state = initReview(question, missed, 0)
+    assert.equal(state.phase, 'redo')
+    assert.equal(state.correct, false)
+    assert.equal(state.confidence, 'sure')
+    assert.equal(state.firstChoice, 'A')
   })
 
-  it('flags a correct answer with missed evidence as a hidden error', () => {
-    let state = initLoop(question, false, 0)
-    state = submitFirst(state, 'B', 'guessing')
-    state = setEvidence(state, [])
-    state = setEvidenceGrade(state, 'miss')
-    assert.equal(isHiddenError(state), true)
-    const attempt = toAttempt(state, 'q1', 100)
-    assert.equal(attempt.hiddenError, true)
-    assert.equal(attempt.correct, true)
-  })
-
-  it('routes a wrong-then-trap answer through the full loop', () => {
-    let state = initLoop(question, false, 0)
-    state = submitFirst(state, 'A', 'sure') // wrong
-    assert.equal(state.phase, 'reattempt')
-    assert.deepEqual(state.wrongChoices, ['A'])
-    state = submitReattempt(state, 'C') // still wrong
-    assert.equal(state.phase, 'reattempt')
-    assert.deepEqual(state.wrongChoices, ['A', 'C'])
-    state = submitReattempt(state, 'B') // correct
+  it('redoes answer-until-correct, then routes a missed answer to the autopsy', () => {
+    let state = initReview(question, missed, 0)
+    state = submitRedo(state, 'C') // wrong
+    assert.equal(state.phase, 'redo')
+    assert.deepEqual(state.wrongChoices, ['C'])
+    state = submitRedo(state, 'B') // correct
     assert.equal(state.phase, 'cause')
-    assert.equal(state.attempts, 3)
+    assert.equal(state.attempts, 2)
+  })
+
+  it('runs the full missed-answer path and merges answer-pass data into the attempt', () => {
+    let state = initReview(question, missed, 1)
+    state = submitRedo(state, 'B')
     state = setCause(state, 'trap')
-    state = setExplain(state, 'picked the extreme option', 'B matches the text')
-    assert.equal(state.phase, 'self-grade')
+    state = setExplain(state, 'too extreme', 'B fits the text')
     state = setSelfGrade(state, 'partly')
     state = setEvidence(state, [1])
     state = setEvidenceGrade(state, 'partial')
     state = setChain(state, 1, false)
-    assert.equal(state.phase, 'chain-break') // wrong answers identify the break
+    assert.equal(state.phase, 'chain-break')
     state = setChainBreak(state, 'question')
-    assert.equal(state.phase, 'trap') // cause was a trap
+    assert.equal(state.phase, 'trap')
     state = setTrap(state, 'too-extreme')
     assert.equal(state.phase, 'done')
 
     const attempt = toAttempt(state, 'q1', 200)
+    assert.equal(attempt.chosen, 'A') // the committed answer, not the redo
     assert.equal(attempt.correct, false)
-    assert.equal(attempt.attemptsToCorrect, 3)
+    assert.equal(attempt.confidence, 'sure')
     assert.equal(attempt.errorCause, 'trap')
     assert.equal(attempt.trapGuess, 'too-extreme')
-    assert.equal(attempt.chainBreakLink, 'question')
-    assert.equal(attempt.hiddenError, false)
-    assert.equal(attempt.selfExplanations?.selfGrade, 'partly')
-  })
-
-  it('records the answering time on a normal completion', () => {
-    let state = initLoop(question, false, 0)
-    state = submitFirst(state, 'B', 'sure', 4200)
-    state = setEvidence(state, [0])
-    state = setEvidenceGrade(state, 'full')
-    state = setChain(state, 0, true)
-    const attempt = toAttempt(state, 'q1', 100)
-    assert.equal(attempt.timeSpentMs, 4200)
-    assert.equal(attempt.timedOut, false)
-  })
-
-  it('builds a timeout attempt as a timing failure that re-enters review', () => {
-    const attempt = buildTimeoutAttempt('q1', null, 'leaning', 90000, 1)
-    assert.equal(attempt.timedOut, true)
-    assert.equal(attempt.correct, false)
-    assert.equal(attempt.chosen, '')
-    assert.equal(attempt.attemptsToCorrect, 0)
-    assert.equal(attempt.errorCause, null)
-    assert.equal(attempt.timeSpentMs, 90000)
     assert.equal(attempt.resurrectionStage, 1)
+    assert.equal(attempt.hiddenError, false)
   })
 
-  it('a non-trap wrong answer skips the trap step', () => {
-    let state = initLoop(question, false, 0)
-    state = submitFirst(state, 'A', 'leaning')
-    state = submitReattempt(state, 'B')
-    state = setCause(state, 'rushed')
-    state = setExplain(state, 'read too fast', 'B is the supported claim')
-    state = setSelfGrade(state, 'matched')
-    state = setEvidence(state, [0])
-    state = setEvidenceGrade(state, 'full')
-    state = setChain(state, 0, true)
-    state = setChainBreak(state, 'answer')
-    assert.equal(state.phase, 'done') // no trap step
+  it('logs a correct answer as a minimal attempt (no diagnosis)', () => {
+    const fp: FirstPass = { chosen: 'B', confidence: 'leaning', correct: true, timeMs: 5000, timedOut: false }
+    const attempt = firstPassAttempt('q1', fp, 0, 100)
+    assert.equal(attempt.correct, true)
+    assert.equal(attempt.confidence, 'leaning')
+    assert.equal(attempt.errorCause, null)
+    assert.equal(attempt.timeSpentMs, 5000)
+    assert.equal(attempt.hiddenError, false)
+  })
+
+  it('in a review-all pass, a correct redo with missed evidence is a hidden error', () => {
+    const rightPass: FirstPass = { chosen: 'B', confidence: 'guessing', correct: true, timeMs: null, timedOut: false }
+    let state = initReview(question, rightPass, 0)
+    state = submitRedo(state, 'B') // correct → evidence, not cause
+    assert.equal(state.phase, 'evidence')
+    state = setEvidence(state, [])
+    state = setEvidenceGrade(state, 'miss')
+    assert.equal(isHiddenError(state), true)
   })
 })

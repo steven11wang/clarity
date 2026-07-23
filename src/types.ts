@@ -60,6 +60,16 @@ export type SelfExplanations = {
   selfGrade: SelfGrade | null
 }
 
+// What the student commits during the answer pass — a choice + confidence, no
+// feedback. Missed ones flow into the review pass; the rest are logged as-is.
+export type FirstPass = {
+  chosen: string // '' when the clock ran out with nothing selected
+  confidence: Confidence | null
+  correct: boolean
+  timeMs: number | null
+  timedOut: boolean
+}
+
 // The persisted record of one completed question attempt. Every field the
 // Clarity loop can produce lives here; a first-try-correct attempt simply
 // leaves the diagnosis fields null.
