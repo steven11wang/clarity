@@ -128,12 +128,14 @@ export function QuestionInteraction({
           <>
             <p className="panel-label">
               {firstPass.timedOut
-                ? 'You ran out of time on this one. Work it through now — no clock.'
-                : 'You missed this in the set. Redo it — find the answer before we break it down.'}
+                ? 'You ran out of time on this one — you didn’t lock an answer. Work it through now, no clock.'
+                : 'You missed this in the set. Your answer is marked below — redo it and find the right one before we break it down.'}
             </p>
             <div className="choice-list" role="radiogroup" aria-label="Answer choices">
               {choiceSlots.map((slot) => {
-                const isWrong = state.wrongChoices.includes(slot.sourceLetter)
+                const isFirstPick = firstPass.chosen !== '' && firstPass.chosen === slot.sourceLetter
+                const clickedWrong = state.wrongChoices.includes(slot.sourceLetter)
+                const isWrong = isFirstPick || clickedWrong
                 const cls = ['choice', isWrong ? 'choice--wrong' : ''].filter(Boolean).join(' ')
                 return (
                   <button
@@ -142,12 +144,22 @@ export function QuestionInteraction({
                     className={cls}
                     disabled={isWrong}
                     aria-disabled={isWrong}
-                    aria-label={isWrong ? `Choice ${slot.displayLetter}: incorrect` : undefined}
+                    aria-label={
+                      isFirstPick
+                        ? `Choice ${slot.displayLetter}: the answer you chose, incorrect`
+                        : clickedWrong
+                          ? `Choice ${slot.displayLetter}: incorrect`
+                          : undefined
+                    }
                     onClick={() => setState((s) => submitRedo(s, slot.sourceLetter))}
                   >
                     <span className="choice-letter">{isWrong ? '✕' : slot.displayLetter}</span>
                     <span className="choice-text">{slot.text}</span>
-                    {isWrong && <span className="choice-tag choice-tag--wrong">Incorrect</span>}
+                    {isFirstPick ? (
+                      <span className="choice-tag choice-tag--chose">You chose this</span>
+                    ) : clickedWrong ? (
+                      <span className="choice-tag choice-tag--wrong">Incorrect</span>
+                    ) : null}
                   </button>
                 )
               })}

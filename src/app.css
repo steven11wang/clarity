@@ -50,7 +50,11 @@ button { font: inherit; }
 .choice--wrong:hover { background: #fbf1f0; border-color: #d99b94; }
 .choice--wrong .choice-letter { background: #b4564d; color: #fff; }
 .choice--wrong .choice-text { text-decoration: line-through; }
-.choice-tag--wrong { align-self: center; background: #b4564d; border-radius: 99px; color: #fff; font-size: .68rem; font-weight: 700; letter-spacing: .03em; padding: .14rem .5rem; text-transform: uppercase; white-space: nowrap; }
+.choice-tag { align-self: center; border-radius: 99px; font-size: .68rem; font-weight: 700; letter-spacing: .03em; padding: .14rem .5rem; text-transform: uppercase; white-space: nowrap; }
+.choice-tag--wrong { background: #b4564d; color: #fff; }
+/* Your original pick from the answer pass — amber so it reads as "this is the
+   one you chose," distinct from a mistake made during the redo. */
+.choice-tag--chose { background: #c9a227; color: #3a2f07; }
 
 /* --- Loop panels --------------------------------------------------------- */
 .panel-label { color: #3c4a47; font-size: .95rem; font-weight: 650; line-height: 1.4; margin: 0 0 .7rem; }
