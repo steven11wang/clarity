@@ -21,6 +21,7 @@ export type Question = {
   skill: string
   difficulty: string
   passage: string
+  notes?: string[] // research notes (e.g. Rhetorical Synthesis), rendered as a list
   prompt: string
   choices: Record<'A' | 'B' | 'C' | 'D', string>
   answer: 'A' | 'B' | 'C' | 'D'

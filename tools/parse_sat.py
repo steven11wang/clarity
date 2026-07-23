@@ -146,6 +146,43 @@ def _normalize_passage(passage: str) -> str:
     )
 
 
+_NOTES_MARKER = re.compile(r"\bnotes:\s*$", re.IGNORECASE)
+
+
+def _split_notes(passage: str) -> Tuple[str, Optional[List[str]]]:
+    """Separate a research-note question's intro from its note bullets.
+
+    Rhetorical Synthesis stems present each note on its own line under an intro
+    ending in "...notes:". The normal wrap-join flattens those into one run-on
+    paragraph, losing the list. Here we detect the marker and keep the notes as a
+    structured array so the site can render a real bulleted list.
+    """
+    lines = [line.rstrip() for line in passage.splitlines()]
+    marker = next(
+        (i for i, line in enumerate(lines) if _NOTES_MARKER.search(line.strip())),
+        None,
+    )
+    if marker is None:
+        return _normalize_passage(passage), None
+
+    intro = _normalize_passage("\n".join(lines[: marker + 1]))
+    notes: List[str] = []
+    buffer = ""
+    for line in lines[marker + 1 :]:
+        stripped = line.strip()
+        if not stripped:
+            continue
+        buffer = f"{buffer} {stripped}".strip() if buffer else stripped
+        if re.search(r"[.!?][\"')\]]?$", stripped):  # end of a note
+            notes.append(buffer)
+            buffer = ""
+    if buffer:
+        notes.append(buffer)
+    if len(notes) < 2:
+        return _normalize_passage(passage), None
+    return intro, notes
+
+
 _PROSE_SIGNALS = re.compile(
     r"\b(?:is|are|was|were|has|have|had|do|does|did|use|uses|used|rely|"
     r"relies|led|conducted|collected|got|need|needs|needed|"
@@ -289,6 +326,11 @@ def _parse_block(block: str, source: str) -> Tuple[Dict[str, Any], List[str]]:
                 "figure_description": _figure_description(figure_type, figure_text, prompt),
             }
         )
+    else:
+        intro, notes = _split_notes(passage)
+        record["passage"] = intro
+        if notes:
+            record["notes"] = notes
 
     return record, _record_reasons(record, choice_labels)
 

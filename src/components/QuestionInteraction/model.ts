@@ -98,8 +98,11 @@ export function setCause(state: LoopState, errorCause: ErrorCause): LoopState {
   return { ...state, errorCause, phase: 'explain' }
 }
 
-export function setExplain(state: LoopState, whyWrong: string, whyRight: string): LoopState {
-  return { ...state, whyWrong, whyRight, phase: 'self-grade' }
+// The student picks why their answer was wrong (a distractor-flaw reason) before
+// the reasoning is revealed. "Why is the correct one right?" was removed — the
+// official rationale answers that on the next screen.
+export function setExplain(state: LoopState, whyWrong: string): LoopState {
+  return { ...state, whyWrong, whyRight: '', phase: 'self-grade' }
 }
 
 export function setSelfGrade(state: LoopState, selfGrade: SelfGrade): LoopState {

@@ -15,11 +15,12 @@ export function SessionSummary({ attempts, onPracticeMore, onDashboard }: Props)
   const nowTs = now()
   const upcoming = useMemo(() => upcomingReviews(getReviews(), 6), [])
 
+  const total = attempts.length
+  const correct = attempts.filter((a) => a.correct).length
+  const incorrect = total - correct
+  const scorePct = total ? Math.round((correct / total) * 100) : 0
   const diagnosed = attempts.filter((a) => !a.correct || a.hiddenError).length
-  const autopsies = attempts.filter((a) => a.errorCause !== null).length
-  const hidden = attempts.filter((a) => a.hiddenError).length
   const timedOut = attempts.filter((a) => a.timedOut).length
-  const traps = new Set(attempts.map((a) => a.trapGuess).filter(Boolean)).size
 
   return (
     <main className="summary app-shell">
@@ -30,19 +31,22 @@ export function SessionSummary({ attempts, onPracticeMore, onDashboard }: Props)
 
       <section className="summary-hero">
         <p className="eyebrow">Session complete</p>
-        <h1>You diagnosed <strong>{diagnosed}</strong> {diagnosed === 1 ? 'error' : 'errors'}.</h1>
+        <h1>You scored <strong>{scorePct}%</strong> — {correct} of {total} correct.</h1>
         <p>
           {diagnosed === 0
             ? 'A clean run — nothing new to bring back.'
-            : 'Every one is now scheduled to come back until it can’t catch you.'}
+            : `You diagnosed ${diagnosed} ${diagnosed === 1 ? 'error' : 'errors'}. Each is scheduled to come back until it can’t catch you.`}
         </p>
+        <div className="score-bar" role="img" aria-label={`${correct} correct, ${incorrect} incorrect`}>
+          <div className="score-bar-fill" style={{ width: `${scorePct}%` }} />
+        </div>
       </section>
 
       <div className="summary-stats">
-        <div className="summary-stat"><span>{attempts.length}</span><small>questions</small></div>
-        <div className="summary-stat"><span>{autopsies}</span><small>autopsies completed</small></div>
-        <div className="summary-stat"><span>{traps}</span><small>trap patterns named</small></div>
-        <div className="summary-stat"><span>{timedOut > 0 ? timedOut : hidden}</span><small>{timedOut > 0 ? 'ran out of time' : 'hidden errors caught'}</small></div>
+        <div className="summary-stat"><span>{total}</span><small>total questions</small></div>
+        <div className="summary-stat summary-stat--correct"><span>{correct}</span><small>correct</small></div>
+        <div className="summary-stat summary-stat--incorrect"><span>{incorrect}</span><small>incorrect</small></div>
+        <div className="summary-stat"><span>{timedOut > 0 ? timedOut : diagnosed}</span><small>{timedOut > 0 ? 'ran out of time' : 'errors diagnosed'}</small></div>
       </div>
 
       <section className="card">

@@ -56,6 +56,17 @@ const CHAIN_LINKS: { id: ChainLink; label: string; hint: string }[] = [
   { id: 'answer', label: 'Answer', hint: 'Right idea, wrong choice matched to it.' },
 ]
 
+// Selectable reasons a chosen answer was wrong (replaces free text).
+const WRONG_REASONS = [
+  'It wasn’t supported by the text',
+  'It was too extreme or absolute',
+  'It was true but didn’t answer the question',
+  'It contradicted the text',
+  'It brought in outside or irrelevant information',
+  'It only partly fit',
+  'I misread the question or passage',
+]
+
 type Props = {
   question: Question
   isReview: boolean
@@ -75,8 +86,7 @@ export function QuestionInteraction({
 }: Props) {
   const [state, setState] = useState(() => initReview(question, firstPass, reviewStage))
 
-  const [whyWrong, setWhyWrong] = useState('')
-  const [whyRight, setWhyRight] = useState('')
+  const [reason, setReason] = useState('')
   const [evidenceSel, setEvidenceSel] = useState<number[]>([])
 
   const choiceSlots = useMemo(() => orderedChoices(question, isReview), [question, isReview])
@@ -123,19 +133,21 @@ export function QuestionInteraction({
             </p>
             <div className="choice-list" role="radiogroup" aria-label="Answer choices">
               {choiceSlots.map((slot) => {
-                const isRuledOut = state.wrongChoices.includes(slot.sourceLetter)
-                const cls = ['choice', isRuledOut ? 'choice--ruled-out' : ''].filter(Boolean).join(' ')
+                const isWrong = state.wrongChoices.includes(slot.sourceLetter)
+                const cls = ['choice', isWrong ? 'choice--wrong' : ''].filter(Boolean).join(' ')
                 return (
                   <button
                     key={slot.displayLetter}
                     type="button"
                     className={cls}
-                    disabled={isRuledOut}
-                    aria-disabled={isRuledOut}
+                    disabled={isWrong}
+                    aria-disabled={isWrong}
+                    aria-label={isWrong ? `Choice ${slot.displayLetter}: incorrect` : undefined}
                     onClick={() => setState((s) => submitRedo(s, slot.sourceLetter))}
                   >
-                    <span className="choice-letter">{slot.displayLetter}</span>
-                    <span>{slot.text}</span>
+                    <span className="choice-letter">{isWrong ? '✕' : slot.displayLetter}</span>
+                    <span className="choice-text">{slot.text}</span>
+                    {isWrong && <span className="choice-tag choice-tag--wrong">Incorrect</span>}
                   </button>
                 )
               })}
@@ -160,28 +172,33 @@ export function QuestionInteraction({
         )}
 
         {state.phase === 'explain' && (
-          <ExplainStep
-            whyWrong={whyWrong}
-            whyRight={whyRight}
-            onWhyWrong={setWhyWrong}
-            onWhyRight={setWhyRight}
-            onContinue={() => setState((s) => setExplain(s, whyWrong.trim(), whyRight.trim()))}
-          />
+          <div className="step">
+            <p className="panel-label">Why was your answer wrong? Pick the closest reason — before you see the explanation.</p>
+            <select className="reason-select" value={reason} onChange={(e) => setReason(e.target.value)} aria-label="Why your answer was wrong">
+              <option value="" disabled>Choose a reason…</option>
+              {WRONG_REASONS.map((r) => (
+                <option key={r} value={r}>{r}</option>
+              ))}
+            </select>
+            <button type="button" className="button button--full" disabled={!reason} onClick={() => setState((s) => setExplain(s, reason))}>
+              See the reasoning
+            </button>
+          </div>
         )}
 
         {state.phase === 'self-grade' && (
           <div className="step">
             <div className="compare">
               <div>
-                <p className="panel-label">You wrote</p>
-                <p className="you-said">“{whyRight || whyWrong}”</p>
+                <p className="panel-label">Your reason</p>
+                <p className="you-said">“{reason}”</p>
               </div>
               <div>
                 <p className="panel-label">The reasoning</p>
                 <p className="rationale">{question.rationale}</p>
               </div>
             </div>
-            <p className="panel-label">How well did your reasoning match?</p>
+            <p className="panel-label">How close was your reason?</p>
             <div className="confidence-row">
               {GRADES.map((g) => (
                 <button key={g.id} type="button" className="pill" onClick={() => setState((s) => setSelfGrade(s, g.id))}>
@@ -280,37 +297,6 @@ export function QuestionInteraction({
         {state.phase === 'done' && <DoneStep state={state} onNext={onNext} />}
       </section>
     </>
-  )
-}
-
-function ExplainStep({
-  whyWrong,
-  whyRight,
-  onWhyWrong,
-  onWhyRight,
-  onContinue,
-}: {
-  whyWrong: string
-  whyRight: string
-  onWhyWrong: (v: string) => void
-  onWhyRight: (v: string) => void
-  onContinue: () => void
-}) {
-  return (
-    <div className="step">
-      <p className="panel-label">In one sentence each — no explanation yet, you first.</p>
-      <label className="field">
-        <span>Why was your answer wrong?</span>
-        <input value={whyWrong} onChange={(e) => onWhyWrong(e.target.value)} maxLength={160} placeholder="One sentence…" />
-      </label>
-      <label className="field">
-        <span>Why is the correct one right?</span>
-        <input value={whyRight} onChange={(e) => onWhyRight(e.target.value)} maxLength={160} placeholder="One sentence…" />
-      </label>
-      <button type="button" className="button button--full" disabled={!whyWrong.trim() || !whyRight.trim()} onClick={onContinue}>
-        Compare with the reasoning
-      </button>
-    </div>
   )
 }
 

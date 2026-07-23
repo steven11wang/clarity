@@ -85,6 +85,33 @@ class ParserFixtureTests(unittest.TestCase):
             report.questions[0]["prompt"],
         )
 
+    def test_research_notes_become_a_structured_list(self):
+        text = question_block(
+            "notes001",
+            "While researching a topic, a student has taken the following notes:\n"
+            "Sue is a fossil at the Field Museum.\n"
+            "Big Mike is a fossil at the Museum of the Rockies.\n"
+            "Both are members of the genus Tyrannosaurus.\n"
+            "The student wants to emphasize a similarity. "
+            "Which choice most effectively uses the notes?",
+        )
+
+        report = parse_extracted_text(text, source="fixture.pdf")
+
+        question = report.questions[0]
+        self.assertEqual(
+            "While researching a topic, a student has taken the following notes:",
+            question["passage"],
+        )
+        self.assertEqual(
+            [
+                "Sue is a fossil at the Field Museum.",
+                "Big Mike is a fossil at the Museum of the Rockies.",
+                "Both are members of the genus Tyrannosaurus.",
+            ],
+            question["notes"],
+        )
+
     def test_question_output_has_exact_contract_without_source_pdf(self):
         text = question_block(
             "contract1",

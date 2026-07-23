@@ -43,10 +43,14 @@ button { font: inherit; }
 .choice:hover:not(:disabled), .choice--selected { background: #f1f7f4; border-color: #49746b; }
 .choice-letter { align-items: center; background: #edf1ef; border-radius: 50%; display: inline-flex; flex: 0 0 1.5rem; font-size: .8rem; font-weight: 750; height: 1.5rem; justify-content: center; }
 .choice--selected .choice-letter { background: #49746b; color: #fff; }
-/* Ruled-out: neutral, not a red failure state — "specimen found," never "wrong." */
-.choice--ruled-out { background: #f4f5f4; border-color: #e2e6e3; color: #9aa5a1; cursor: default; }
-.choice--ruled-out .choice-letter { background: #e2e6e3; color: #9aa5a1; }
-.choice--ruled-out span:last-child { text-decoration: line-through; }
+.choice-text { flex: 1; }
+/* Wrong pick during redo: marked clearly and accessibly — ✕ icon, "Incorrect"
+   text, and colour, so it never relies on colour alone. */
+.choice--wrong { background: #fbf1f0; border-color: #d99b94; color: #7a4a45; cursor: default; }
+.choice--wrong:hover { background: #fbf1f0; border-color: #d99b94; }
+.choice--wrong .choice-letter { background: #b4564d; color: #fff; }
+.choice--wrong .choice-text { text-decoration: line-through; }
+.choice-tag--wrong { align-self: center; background: #b4564d; border-radius: 99px; color: #fff; font-size: .68rem; font-weight: 700; letter-spacing: .03em; padding: .14rem .5rem; text-transform: uppercase; white-space: nowrap; }
 
 /* --- Loop panels --------------------------------------------------------- */
 .panel-label { color: #3c4a47; font-size: .95rem; font-weight: 650; line-height: 1.4; margin: 0 0 .7rem; }
@@ -76,6 +80,8 @@ button { font: inherit; }
 .field span { color: #3c4a47; font-size: .9rem; font-weight: 600; }
 .field input { border: 1px solid #dce3df; border-radius: .5rem; font: inherit; padding: .65rem .7rem; }
 .field input:focus { border-color: #49746b; outline: 2px solid #e3eeea; }
+.reason-select { background: #fff; border: 1px solid #dce3df; border-radius: .55rem; color: #2d3b38; font: inherit; padding: .75rem .8rem; width: 100%; }
+.reason-select:focus { border-color: #49746b; outline: 2px solid #e3eeea; }
 
 .compare { display: grid; gap: 1rem; margin-bottom: .4rem; }
 .you-said { background: #f4f7f5; border-radius: .5rem; color: #3c4a47; font-style: italic; margin: 0; padding: .7rem .85rem; }

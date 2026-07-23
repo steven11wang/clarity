@@ -45,7 +45,8 @@ describe('review loop model', () => {
     let state = initReview(question, missed, 1)
     state = submitRedo(state, 'B')
     state = setCause(state, 'trap')
-    state = setExplain(state, 'too extreme', 'B fits the text')
+    state = setExplain(state, 'It was too extreme or absolute')
+    assert.equal(state.whyRight, '') // "why is the correct one right" removed
     state = setSelfGrade(state, 'partly')
     state = setEvidence(state, [1])
     state = setEvidenceGrade(state, 'partial')

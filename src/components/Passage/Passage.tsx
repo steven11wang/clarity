@@ -81,6 +81,13 @@ export function Passage({
           )
         })}
       </p>
+      {question.notes && question.notes.length > 0 && (
+        <ul className="passage__notes">
+          {question.notes.map((note, index) => (
+            <li key={index}>{note}</li>
+          ))}
+        </ul>
+      )}
       {question.table ? (
         <DataTable {...question.table} />
       ) : question.image ? (
