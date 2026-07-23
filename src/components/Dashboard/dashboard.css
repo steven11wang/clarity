@@ -21,7 +21,7 @@
 
 .calib { display: grid; gap: .9rem; list-style: none; margin: 0; padding: 0; }
 
-.health { display: grid; gap: .8rem; grid-template-columns: repeat(2, 1fr); }
+.health { display: grid; gap: .8rem; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
 .health-cell { background: #f6f8f7; border-radius: .6rem; padding: .9rem 1rem; }
 .health-num { color: #2f4f48; display: block; font-family: Georgia, serif; font-size: 1.8rem; font-weight: 700; line-height: 1; }
 .health-label { color: #6a7873; font-size: .8rem; }

@@ -3,6 +3,7 @@ import { describe, it } from 'node:test'
 
 import type { Question } from '../../types.ts'
 import {
+  buildTimeoutAttempt,
   initLoop,
   isHiddenError,
   setCause,
@@ -80,6 +81,28 @@ describe('loop model', () => {
     assert.equal(attempt.chainBreakLink, 'question')
     assert.equal(attempt.hiddenError, false)
     assert.equal(attempt.selfExplanations?.selfGrade, 'partly')
+  })
+
+  it('records the answering time on a normal completion', () => {
+    let state = initLoop(question, false, 0)
+    state = submitFirst(state, 'B', 'sure', 4200)
+    state = setEvidence(state, [0])
+    state = setEvidenceGrade(state, 'full')
+    state = setChain(state, 0, true)
+    const attempt = toAttempt(state, 'q1', 100)
+    assert.equal(attempt.timeSpentMs, 4200)
+    assert.equal(attempt.timedOut, false)
+  })
+
+  it('builds a timeout attempt as a timing failure that re-enters review', () => {
+    const attempt = buildTimeoutAttempt('q1', null, 'leaning', 90000, 1)
+    assert.equal(attempt.timedOut, true)
+    assert.equal(attempt.correct, false)
+    assert.equal(attempt.chosen, '')
+    assert.equal(attempt.attemptsToCorrect, 0)
+    assert.equal(attempt.errorCause, null)
+    assert.equal(attempt.timeSpentMs, 90000)
+    assert.equal(attempt.resurrectionStage, 1)
   })
 
   it('a non-trap wrong answer skips the trap step', () => {

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { formatDue, upcomingReviews } from '../../review/stats.ts'
+import { REVIEW_REASON_LABELS, formatDue, upcomingReviews } from '../../review/stats.ts'
 import { getReviews, now } from '../../storage/index.ts'
 import type { Attempt } from '../../types.ts'
 import './summary.css'
@@ -18,6 +18,7 @@ export function SessionSummary({ attempts, onPracticeMore, onDashboard }: Props)
   const diagnosed = attempts.filter((a) => !a.correct || a.hiddenError).length
   const autopsies = attempts.filter((a) => a.errorCause !== null).length
   const hidden = attempts.filter((a) => a.hiddenError).length
+  const timedOut = attempts.filter((a) => a.timedOut).length
   const traps = new Set(attempts.map((a) => a.trapGuess).filter(Boolean)).size
 
   return (
@@ -41,7 +42,7 @@ export function SessionSummary({ attempts, onPracticeMore, onDashboard }: Props)
         <div className="summary-stat"><span>{attempts.length}</span><small>questions</small></div>
         <div className="summary-stat"><span>{autopsies}</span><small>autopsies completed</small></div>
         <div className="summary-stat"><span>{traps}</span><small>trap patterns named</small></div>
-        <div className="summary-stat"><span>{hidden}</span><small>hidden errors caught</small></div>
+        <div className="summary-stat"><span>{timedOut > 0 ? timedOut : hidden}</span><small>{timedOut > 0 ? 'ran out of time' : 'hidden errors caught'}</small></div>
       </div>
 
       <section className="card">
@@ -52,7 +53,7 @@ export function SessionSummary({ attempts, onPracticeMore, onDashboard }: Props)
           <ul className="return-list">
             {upcoming.map((item) => (
               <li key={item.questionId}>
-                <span className="return-reason">{item.reason === 'hidden-error' ? 'Right for the wrong reason' : 'Missed'}</span>
+                <span className="return-reason">{REVIEW_REASON_LABELS[item.reason]}</span>
                 <span className="return-when">{formatDue(item.dueAt, nowTs)}</span>
               </li>
             ))}

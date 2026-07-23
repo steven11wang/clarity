@@ -13,9 +13,10 @@ import type {
 import { buildIntentChoices } from '../../content/questionIntents.ts'
 import { TRAP_TYPES } from '../../content/traps.ts'
 import { findReferencedSentences } from '../../review/evidence.ts'
-import { orderedChoices } from '../../review/ordering.ts'
+import { orderedChoices, type ChoiceLetter } from '../../review/ordering.ts'
 import { Passage } from '../Passage/Passage.tsx'
 import {
+  buildTimeoutAttempt,
   initLoop,
   isHiddenError,
   setCause,
@@ -30,6 +31,11 @@ import {
   submitReattempt,
   toAttempt,
 } from './model.ts'
+
+function formatClock(seconds: number): string {
+  const s = Math.ceil(seconds)
+  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`
+}
 
 const CONFIDENCE: { id: Confidence; label: string }[] = [
   { id: 'sure', label: 'Sure' },
@@ -67,11 +73,21 @@ type Props = {
   question: Question
   isReview: boolean
   reviewStage: number
+  timedMode: boolean
+  timeLimitSec: number
   onComplete: (attempt: Attempt) => void
   onNext: () => void
 }
 
-export function QuestionInteraction({ question, isReview, reviewStage, onComplete, onNext }: Props) {
+export function QuestionInteraction({
+  question,
+  isReview,
+  reviewStage,
+  timedMode,
+  timeLimitSec,
+  onComplete,
+  onNext,
+}: Props) {
   const [state, setState] = useState(() => initLoop(question, isReview, reviewStage))
 
   // Local, pre-commit inputs.
@@ -80,6 +96,13 @@ export function QuestionInteraction({ question, isReview, reviewStage, onComplet
   const [whyWrong, setWhyWrong] = useState('')
   const [whyRight, setWhyRight] = useState('')
   const [evidenceSel, setEvidenceSel] = useState<number[]>([])
+
+  // Timed mode: the clock runs only during the answering phase — reflection is
+  // never rushed. If it expires, the question auto-advances as a timing failure.
+  const startRef = useRef(Date.now())
+  const firedRef = useRef(false)
+  const [remaining, setRemaining] = useState(timeLimitSec)
+  const [timedOut, setTimedOut] = useState(false)
 
   const choiceSlots = useMemo(
     () => orderedChoices(question, isReview),
@@ -103,6 +126,64 @@ export function QuestionInteraction({ question, isReview, reviewStage, onComplet
     }
   }, [state, question.id, onComplete])
 
+  function handleTimeout() {
+    if (firedRef.current) return
+    firedRef.current = true
+    const elapsed = Date.now() - startRef.current
+    onComplete(
+      buildTimeoutAttempt(question.id, choice as ChoiceLetter | null, confidence, elapsed, reviewStage),
+    )
+    setTimedOut(true)
+  }
+
+  // Countdown during the answering phase only.
+  useEffect(() => {
+    if (!timedMode || state.phase !== 'answering') return
+    const id = setInterval(() => {
+      const left = Math.max(0, timeLimitSec - (Date.now() - startRef.current) / 1000)
+      setRemaining(left)
+      if (left <= 0) {
+        clearInterval(id)
+        handleTimeout()
+      }
+    }, 250)
+    return () => clearInterval(id)
+    // handleTimeout reads refs/props that are stable for this question mount.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timedMode, state.phase, timeLimitSec])
+
+  // Auto-advance shortly after a timeout so the student registers what happened.
+  useEffect(() => {
+    if (!timedOut) return
+    const id = setTimeout(onNext, 1800)
+    return () => clearTimeout(id)
+  }, [timedOut, onNext])
+
+  function submitAnswer() {
+    if (!choice || !confidence) return
+    const elapsed = timedMode ? Date.now() - startRef.current : null
+    setState((s) => submitFirst(s, choice as ChoiceLetter, confidence, elapsed))
+  }
+
+  if (timedOut) {
+    return (
+      <>
+        <Passage question={question} />
+        <section className="question-panel">
+          <div className="step done">
+            <p className="done-headline">⏱ Time&rsquo;s up — moved on.</p>
+            <ul className="done-facts">
+              <li>You didn&rsquo;t lock an answer in time. It rejoins your practice — untimed — so you can actually work it.</li>
+            </ul>
+            <button type="button" className="button button--full" onClick={onNext}>
+              Next question
+            </button>
+          </div>
+        </section>
+      </>
+    )
+  }
+
   const evidenceMode = state.phase === 'evidence'
   const showReferenced = state.phase === 'evidence-grade' || state.phase === 'done'
 
@@ -119,6 +200,15 @@ export function QuestionInteraction({ question, isReview, reviewStage, onComplet
       />
 
       <section className="question-panel">
+        {timedMode && state.phase === 'answering' && (
+          <div className={`timer ${remaining <= 15 ? 'timer--urgent' : ''}`} role="timer" aria-label="Time remaining">
+            <div className="timer-bar">
+              <div className="timer-fill" style={{ width: `${(remaining / timeLimitSec) * 100}%` }} />
+            </div>
+            <span className="timer-label">{formatClock(remaining)}</span>
+          </div>
+        )}
+
         <h1 className="question-prompt">{question.prompt}</h1>
 
         {/* Steps 1–2: choices. Visible through the answer-until-correct phase. */}
@@ -177,7 +267,7 @@ export function QuestionInteraction({ question, isReview, reviewStage, onComplet
                   type="button"
                   className="button button--full"
                   disabled={!choice || !confidence}
-                  onClick={() => choice && confidence && setState((s) => submitFirst(s, choice as never, confidence))}
+                  onClick={submitAnswer}
                 >
                   Check answer
                 </button>

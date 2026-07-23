@@ -90,6 +90,21 @@ button { font: inherit; }
 .done-facts li { background: #f4f7f5; border-radius: .5rem; color: #46534f; font-size: .9rem; line-height: 1.45; padding: .6rem .8rem; }
 .done-flag { background: #fbf1d8 !important; color: #7a6414 !important; font-weight: 600; }
 
+/* --- Timed mode ---------------------------------------------------------- */
+.timer { align-items: center; display: flex; gap: .6rem; margin-bottom: 1.1rem; }
+.timer-bar { background: #eef1ef; border-radius: 99px; flex: 1; height: 6px; overflow: hidden; }
+.timer-fill { background: #49746b; border-radius: inherit; height: 100%; transition: width .25s linear; }
+.timer-label { color: #49746b; font-size: .9rem; font-variant-numeric: tabular-nums; font-weight: 700; min-width: 2.6rem; text-align: right; }
+.timer--urgent .timer-fill { background: #c9a227; }
+.timer--urgent .timer-label { color: #a8801a; }
+
+.timed-control { border-top: 1px solid #e6ebe8; margin-top: 1.4rem; padding-top: 1.2rem; }
+.timed-toggle { align-items: flex-start; color: #52635f; cursor: pointer; display: flex; font-size: .9rem; gap: .55rem; line-height: 1.45; }
+.timed-toggle input { margin-top: .22rem; }
+.timed-toggle strong { color: #263238; }
+.timed-limits { display: flex; gap: .5rem; margin: .8rem 0 0 1.7rem; }
+.timed-limits .pill { flex: 0 0 auto; min-width: 64px; }
+
 /* --- Browse -------------------------------------------------------------- */
 .browse-intro { margin: 3rem 0 2rem; max-width: 640px; }
 .browse-intro h1 { font-family: Georgia, serif; font-size: clamp(2.3rem, 6vw, 4rem); letter-spacing: -.055em; line-height: .98; margin: .35rem 0 1rem; }

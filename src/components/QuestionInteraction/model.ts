@@ -45,6 +45,7 @@ export type LoopState = {
   intentCorrect: boolean | null
   chainBreakLink: ChainLink | null
   trapGuess: TrapType | null
+  answerMs: number | null // time spent in the answering phase (timed mode)
 }
 
 export function initLoop(question: Question, isReview: boolean, reviewStage: number): LoopState {
@@ -68,6 +69,7 @@ export function initLoop(question: Question, isReview: boolean, reviewStage: num
     intentCorrect: null,
     chainBreakLink: null,
     trapGuess: null,
+    answerMs: null,
   }
 }
 
@@ -78,6 +80,7 @@ export function submitFirst(
   state: LoopState,
   choice: ChoiceLetter,
   confidence: Confidence,
+  elapsedMs: number | null = null,
 ): LoopState {
   const correct = choice === state.answer
   return {
@@ -87,6 +90,7 @@ export function submitFirst(
     correct,
     attempts: 1,
     wrongChoices: correct ? [] : [choice],
+    answerMs: elapsedMs,
     phase: correct ? 'evidence' : 'reattempt',
   }
 }
@@ -172,5 +176,38 @@ export function toAttempt(state: LoopState, questionId: string, timestamp: numbe
     trapActual: null, // no authored per-distractor labels in v1
     hiddenError: isHiddenError(state),
     resurrectionStage: state.reviewStage,
+    timeSpentMs: state.answerMs,
+    timedOut: false,
+  }
+}
+
+// The clock expired before the student committed an answer. Records the
+// question as a timing failure (no answer, no diagnosis) so it re-enters the
+// resurrection queue and comes back — untimed — to actually be worked.
+export function buildTimeoutAttempt(
+  questionId: string,
+  chosen: ChoiceLetter | null,
+  confidence: Confidence | null,
+  timeSpentMs: number,
+  reviewStage: number,
+): Attempt {
+  return {
+    questionId,
+    timestamp: Date.now(),
+    chosen: chosen ?? '',
+    correct: false,
+    confidence,
+    attemptsToCorrect: 0,
+    errorCause: null,
+    selfExplanations: null,
+    evidenceUnderlined: [],
+    evidenceScore: null,
+    chainBreakLink: null,
+    trapGuess: null,
+    trapActual: null,
+    hiddenError: false,
+    resurrectionStage: reviewStage,
+    timeSpentMs,
+    timedOut: true,
   }
 }

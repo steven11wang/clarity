@@ -85,9 +85,19 @@ export function saveReview(item: ReviewItem): void {
 // demoMode compresses review intervals to seconds; clockOffset lets the demo
 // jump forward in time so scheduled items come due without waiting.
 
-type Settings = { demoMode: boolean; clockOffset: number }
+type Settings = {
+  demoMode: boolean
+  clockOffset: number
+  timedMode: boolean
+  timeLimitSec: number
+}
 
-const DEFAULT_SETTINGS: Settings = { demoMode: false, clockOffset: 0 }
+const DEFAULT_SETTINGS: Settings = {
+  demoMode: false,
+  clockOffset: 0,
+  timedMode: false,
+  timeLimitSec: 90,
+}
 
 export function getSettings(): Settings {
   return { ...DEFAULT_SETTINGS, ...(storage.get<Partial<Settings>>('settings') ?? {}) }
@@ -95,6 +105,14 @@ export function getSettings(): Settings {
 
 export function setDemoMode(demoMode: boolean): void {
   storage.set('settings', { ...getSettings(), demoMode })
+}
+
+export function setTimedMode(timedMode: boolean): void {
+  storage.set('settings', { ...getSettings(), timedMode })
+}
+
+export function setTimeLimit(timeLimitSec: number): void {
+  storage.set('settings', { ...getSettings(), timeLimitSec })
 }
 
 export function advanceClock(ms: number): void {

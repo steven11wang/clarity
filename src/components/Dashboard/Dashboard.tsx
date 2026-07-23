@@ -141,6 +141,10 @@ export function Dashboard({ onBack }: { onBack: () => void }) {
                 <span className="health-num">{stats.hiddenErrors}</span>
                 <span className="health-label">right for the wrong reason</span>
               </div>
+              <div className="health-cell">
+                <span className="health-num">{stats.timedOut}</span>
+                <span className="health-label">ran out of time</span>
+              </div>
             </div>
           </section>
         </div>

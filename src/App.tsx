@@ -17,6 +17,8 @@ import {
   recordAttempt,
   saveReview,
   setDemoMode,
+  setTimeLimit,
+  setTimedMode,
 } from './storage/index.ts'
 import type { Attempt, Question } from './types.ts'
 import './app.css'
@@ -32,10 +34,15 @@ function App() {
   const [index, setIndex] = useState(0)
   const [sessionAttempts, setSessionAttempts] = useState<Attempt[]>([])
   const [demoMode, setDemoModeState] = useState(false)
+  const [timedMode, setTimedModeState] = useState(false)
+  const [timeLimitSec, setTimeLimitState] = useState(90)
   const [reviewsVersion, setReviewsVersion] = useState(0)
 
   useEffect(() => {
-    setDemoModeState(getSettings().demoMode)
+    const s = getSettings()
+    setDemoModeState(s.demoMode)
+    setTimedModeState(s.timedMode)
+    setTimeLimitState(s.timeLimitSec)
     loadQuestions()
       .then((loaded) => {
         setQuestions(loaded)
@@ -68,6 +75,8 @@ function App() {
 
     if (item.isReview && existing) {
       saveReview(applyReview(existing, isClean(attempt.correct, attempt.evidenceScore), demo, nowTs))
+    } else if (attempt.timedOut) {
+      saveReview(scheduleMistake(existing, attempt.questionId, 'timeout', demo, nowTs))
     } else if (!attempt.correct) {
       saveReview(scheduleMistake(existing, attempt.questionId, 'miss', demo, nowTs))
     } else if (attempt.hiddenError) {
@@ -88,6 +97,17 @@ function App() {
     const next = !demoMode
     setDemoMode(next)
     setDemoModeState(next)
+  }
+
+  function toggleTimed() {
+    const next = !timedMode
+    setTimedMode(next)
+    setTimedModeState(next)
+  }
+
+  function changeLimit(sec: number) {
+    setTimeLimit(sec)
+    setTimeLimitState(sec)
   }
 
   function jumpAhead() {
@@ -134,6 +154,10 @@ function App() {
         <Browse
           questions={questions}
           dueCount={dueNow}
+          timedMode={timedMode}
+          timeLimitSec={timeLimitSec}
+          onToggleTimed={toggleTimed}
+          onChangeLimit={changeLimit}
           onStart={startSession}
           onOpenDashboard={() => setView('dashboard')}
         />
@@ -206,6 +230,8 @@ function App() {
             question={item.question}
             isReview={item.isReview}
             reviewStage={item.reviewStage}
+            timedMode={timedMode}
+            timeLimitSec={timeLimitSec}
             onComplete={(attempt) => handleComplete(attempt, item)}
             onNext={handleNext}
           />

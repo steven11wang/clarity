@@ -39,6 +39,8 @@ const attempt: Attempt = {
   trapActual: null,
   hiddenError: false,
   resurrectionStage: 0,
+  timeSpentMs: null,
+  timedOut: false,
 }
 
 describe('storage', () => {

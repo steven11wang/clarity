@@ -9,11 +9,18 @@ export type Stats = {
   totalAttempts: number
   errorsDiagnosed: number
   hiddenErrors: number
+  timedOut: number
   autopsies: number
   causeBreakdown: { cause: ErrorCause; count: number }[]
   trapProfile: { trap: TrapType; count: number }[]
   calibration: CalibrationRow[]
   queue: { outstanding: number; retired: number; dueToday: number }
+}
+
+export const REVIEW_REASON_LABELS: Record<ReviewItem['reason'], string> = {
+  miss: 'Missed',
+  'hidden-error': 'Right for the wrong reason',
+  timeout: 'Ran out of time',
 }
 
 export function computeStats(
@@ -29,11 +36,13 @@ export function computeStats(
 
   let errorsDiagnosed = 0
   let hiddenErrors = 0
+  let timedOut = 0
   let autopsies = 0
 
   for (const attempt of attempts) {
     if (!attempt.correct || attempt.hiddenError) errorsDiagnosed += 1
     if (attempt.hiddenError) hiddenErrors += 1
+    if (attempt.timedOut) timedOut += 1
     if (attempt.errorCause) {
       autopsies += 1
       causeCounts.set(attempt.errorCause, (causeCounts.get(attempt.errorCause) ?? 0) + 1)
@@ -58,6 +67,7 @@ export function computeStats(
     totalAttempts: attempts.length,
     errorsDiagnosed,
     hiddenErrors,
+    timedOut,
     autopsies,
     causeBreakdown: [...causeCounts.entries()]
       .map(([cause, count]) => ({ cause, count }))

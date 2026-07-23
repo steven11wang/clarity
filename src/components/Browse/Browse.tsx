@@ -4,13 +4,27 @@ import type { Question } from '../../types.ts'
 type BrowseProps = {
   questions: Question[]
   dueCount: number
+  timedMode: boolean
+  timeLimitSec: number
+  onToggleTimed: () => void
+  onChangeLimit: (sec: number) => void
   onStart: (questions: Question[]) => void
   onOpenDashboard: () => void
 }
 
 const DIFFICULTY_ORDER = ['Easy', 'Medium', 'Hard']
+const TIME_LIMITS = [60, 90, 120]
 
-export function Browse({ questions, dueCount, onStart, onOpenDashboard }: BrowseProps) {
+export function Browse({
+  questions,
+  dueCount,
+  timedMode,
+  timeLimitSec,
+  onToggleTimed,
+  onChangeLimit,
+  onStart,
+  onOpenDashboard,
+}: BrowseProps) {
   const { tree, expanded, toggle } = useBrowseTree(questions)
 
   return (
@@ -32,6 +46,27 @@ export function Browse({ questions, dueCount, onStart, onOpenDashboard }: Browse
         <button className="button" type="button" onClick={() => onStart(questions)}>
           Start the mix — {questions.length} questions
         </button>
+
+        <div className="timed-control">
+          <label className="timed-toggle">
+            <input type="checkbox" checked={timedMode} onChange={onToggleTimed} />
+            <span><strong>Timed mode</strong> — a clock runs while you answer; run out and the question moves on and comes back later.</span>
+          </label>
+          {timedMode && (
+            <div className="timed-limits" role="group" aria-label="Time per question">
+              {TIME_LIMITS.map((sec) => (
+                <button
+                  key={sec}
+                  type="button"
+                  className={`pill ${timeLimitSec === sec ? 'pill--on' : ''}`}
+                  onClick={() => onChangeLimit(sec)}
+                >
+                  {sec}s
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </section>
 
       <section className="browse-tree" aria-label="Browse by skill">

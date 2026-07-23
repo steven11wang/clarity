@@ -79,6 +79,10 @@ export type Attempt = {
   trapActual: string | null
   hiddenError: boolean
   resurrectionStage: number
+  // Timed mode: how long the answering phase took, and whether the clock ran
+  // out before the student committed. null / false when not in timed mode.
+  timeSpentMs: number | null
+  timedOut: boolean
 }
 
 // A question scheduled to resurface. Lives in its own store, keyed by
@@ -88,7 +92,7 @@ export type ReviewItem = {
   createdAt: number
   dueAt: number
   stage: number // index into REVIEW_INTERVALS; -1 once retired
-  reason: 'miss' | 'hidden-error'
+  reason: 'miss' | 'hidden-error' | 'timeout'
   clears: number // consecutive correct-with-correct-evidence resurfacings
   lastReviewedAt: number | null
 }
