@@ -105,8 +105,12 @@ export function setExplain(state: LoopState, whyWrong: string): LoopState {
   return { ...state, whyWrong, whyRight: '', phase: 'self-grade' }
 }
 
-export function setSelfGrade(state: LoopState, selfGrade: SelfGrade): LoopState {
-  return { ...state, selfGrade, phase: 'evidence' }
+export function setSelfGrade(
+  state: LoopState,
+  selfGrade: SelfGrade,
+  skipEvidenceChain = false,
+): LoopState {
+  return { ...state, selfGrade, phase: skipEvidenceChain ? 'done' : 'evidence' }
 }
 
 export function setEvidence(state: LoopState, evidenceUnderlined: number[]): LoopState {

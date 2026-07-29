@@ -1,5 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
 
+import {
+  AdaptiveExperience,
+  type AdaptiveAttemptReference,
+} from './components/Adaptive/AdaptiveExperience.tsx'
+import type { BatchAnswers } from './components/Adaptive/BatchQuiz.tsx'
 import { Browse } from './components/Browse/Browse.tsx'
 import { Dashboard } from './components/Dashboard/Dashboard.tsx'
 import { AnswerPass } from './components/QuestionInteraction/AnswerPass.tsx'
@@ -7,32 +12,38 @@ import { QuestionInteraction } from './components/QuestionInteraction/QuestionIn
 import { firstPassAttempt } from './components/QuestionInteraction/model.ts'
 import { SessionSummary } from './components/SessionSummary/SessionSummary.tsx'
 import { loadQuestions } from './data/questions.ts'
+import { normalizeProgression, type ProgressionState } from './progression/model.ts'
+import { buildTaxonomy } from './progression/questions.ts'
 import { applyReview, isClean, scheduleMistake } from './review/schedule.ts'
 import { buildStream, type StreamItem } from './review/stream.ts'
 import {
   advanceClock,
   clearAll,
+  getProgression,
   getReview,
   getReviews,
   getSettings,
   now,
   recordAttempt,
+  saveProgression,
   saveReview,
   setDemoMode,
   setTimeLimit,
   setTimedMode,
 } from './storage/index.ts'
+import type { Level } from './progression/config.ts'
 import type { Attempt, FirstPass, Question } from './types.ts'
 import './app.css'
 
-type LoadState = 'loading' | 'ready' | 'error'
-type View = 'browse' | 'practice' | 'dashboard'
+type LoadState = 'loading' | 'ready' | 'empty' | 'error'
+type View = 'adaptive' | 'browse' | 'practice' | 'insights'
 type SessionPhase = 'answer' | 'review-intro' | 'review' | 'summary'
 
 function App() {
   const [questions, setQuestions] = useState<Question[]>([])
   const [loadState, setLoadState] = useState<LoadState>('loading')
-  const [view, setView] = useState<View>('browse')
+  const [view, setView] = useState<View>('adaptive')
+  const [progression, setProgression] = useState<ProgressionState | null>(null)
 
   const [stream, setStream] = useState<StreamItem[]>([])
   const [sessionPhase, setSessionPhase] = useState<SessionPhase>('answer')
@@ -54,7 +65,14 @@ function App() {
     setTimeLimitState(s.timeLimitSec)
     loadQuestions()
       .then((loaded) => {
+        if (loaded.length === 0) {
+          setLoadState('empty')
+          return
+        }
         setQuestions(loaded)
+        setProgression(
+          normalizeProgression(getProgression(), buildTaxonomy(loaded)),
+        )
         setLoadState('ready')
       })
       .catch(() => setLoadState('error'))
@@ -76,6 +94,90 @@ function App() {
     setSessionAttempts([])
     setSessionPhase('answer')
     setView('practice')
+  }
+
+  function updateProgression(next: ProgressionState) {
+    saveProgression(next)
+    setProgression(next)
+  }
+
+  function recordAdaptiveAnswers(
+    activityId: string,
+    assessmentQuestions: Question[],
+    batchAnswers: BatchAnswers,
+    activityKind: 'diagnostic' | 'skill' | 'checkpoint',
+    practiceLevel: Level,
+  ): Record<string, AdaptiveAttemptReference> {
+    const timestamp = Date.now()
+    const scheduleTime = now()
+    let scheduled = false
+    const references: Record<string, AdaptiveAttemptReference> = {}
+
+    assessmentQuestions.forEach((question, index) => {
+      const chosen = batchAnswers[question.id]
+      const correct = chosen === question.answer
+      const attemptTimestamp = timestamp + index
+      const reviewStage = getReview(question.id)?.stage ?? 0
+      references[question.id] = {
+        timestamp: attemptTimestamp,
+        reviewStage,
+      }
+      recordAttempt({
+        questionId: question.id,
+        timestamp: attemptTimestamp,
+        chosen,
+        correct,
+        confidence: null,
+        attemptsToCorrect: correct ? 1 : 0,
+        errorCause: null,
+        selfExplanations: null,
+        evidenceUnderlined: [],
+        evidenceScore: null,
+        chainBreakLink: null,
+        trapGuess: null,
+        trapActual: null,
+        hiddenError: false,
+        resurrectionStage: reviewStage,
+        timeSpentMs: null,
+        timedOut: false,
+        activityId,
+        activityKind,
+        practiceLevel,
+      })
+
+      if (!correct) {
+        saveReview(
+          scheduleMistake(
+            getReview(question.id),
+            question.id,
+            'miss',
+            getSettings().demoMode,
+            scheduleTime,
+          ),
+        )
+        scheduled = true
+      }
+    })
+
+    if (scheduled) setReviewsVersion((version) => version + 1)
+    return references
+  }
+
+  function recordAdaptiveReview(
+    attempt: Attempt,
+    reference: AdaptiveAttemptReference,
+    activityId: string,
+    activityKind: 'diagnostic' | 'skill' | 'checkpoint',
+    practiceLevel: Level,
+  ) {
+    recordAttempt({
+      ...attempt,
+      timestamp: reference.timestamp,
+      resurrectionStage: reference.reviewStage,
+      activityId,
+      activityKind,
+      practiceLevel,
+    })
   }
 
   // Record + schedule a completed attempt. Correct answers are finalized right
@@ -166,6 +268,14 @@ function App() {
       </main>
     )
   }
+  if (loadState === 'empty') {
+    return (
+      <main className="app-status">
+        <p>Clarity loaded, but this practice bank doesn’t contain any questions yet.</p>
+        <button type="button" onClick={() => window.location.reload()}>Try loading again</button>
+      </main>
+    )
+  }
 
   const devBar = (
     <div className="dev-bar" role="group" aria-label="Demo controls">
@@ -180,6 +290,10 @@ function App() {
         onClick={() => {
           clearAll()
           setDemoModeState(false)
+          setTimedModeState(false)
+          setTimeLimitState(90)
+          setProgression(null)
+          setView('adaptive')
           setReviewsVersion((v) => v + 1)
         }}
       >
@@ -187,6 +301,23 @@ function App() {
       </button>
     </div>
   )
+
+  if (view === 'adaptive') {
+    return (
+      <>
+        <AdaptiveExperience
+          questions={questions}
+          progression={progression}
+          onProgressionChange={updateProgression}
+          onOpenLibrary={() => setView('browse')}
+          onOpenInsights={() => setView('insights')}
+          onRecordAnswers={recordAdaptiveAnswers}
+          onRecordReview={recordAdaptiveReview}
+        />
+        {devBar}
+      </>
+    )
+  }
 
   if (view === 'browse') {
     return (
@@ -199,17 +330,17 @@ function App() {
           onToggleTimed={toggleTimed}
           onChangeLimit={changeLimit}
           onStart={startSession}
-          onOpenDashboard={() => setView('dashboard')}
+          onOpenDashboard={() => setView('adaptive')}
         />
         {devBar}
       </>
     )
   }
 
-  if (view === 'dashboard') {
+  if (view === 'insights') {
     return (
       <>
-        <Dashboard onBack={() => setView('browse')} />
+        <Dashboard onBack={() => setView('adaptive')} />
         {devBar}
       </>
     )
@@ -223,7 +354,7 @@ function App() {
         <SessionSummary
           attempts={sessionAttempts}
           onPracticeMore={() => setView('browse')}
-          onDashboard={() => setView('dashboard')}
+          onDashboard={() => setView('adaptive')}
         />
         {devBar}
       </>
@@ -235,7 +366,7 @@ function App() {
       <button className="wordmark wordmark--button" type="button" onClick={() => setView('browse')} aria-label="Back to Browse">
         clarity<span>.</span>
       </button>
-      <button className="link-button" type="button" onClick={() => setView('dashboard')}>Dashboard</button>
+      <button className="link-button" type="button" onClick={() => setView('adaptive')}>Dashboard</button>
     </header>
   )
 

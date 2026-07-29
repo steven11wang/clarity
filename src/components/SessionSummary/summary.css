@@ -1,21 +1,21 @@
 .summary-hero { margin: 1.5rem 0 2rem; max-width: 620px; }
-.summary-hero h1 { font-family: Georgia, serif; font-size: clamp(2rem, 6vw, 3rem); letter-spacing: -.04em; line-height: 1.05; margin: .4rem 0 .8rem; }
-.summary-hero h1 strong { color: #49746b; }
-.summary-hero > p { color: #60706d; font-size: 1.02rem; line-height: 1.55; margin: 0; }
-.score-bar { background: #f0dedb; border-radius: 99px; height: 10px; margin-top: 1.2rem; max-width: 460px; overflow: hidden; }
-.score-bar-fill { background: #4e8b60; border-radius: inherit; height: 100%; transition: width .4s ease; }
+.summary-hero h1 { font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: clamp(2rem, 6vw, 3rem); letter-spacing: -.04em; line-height: 1.05; margin: .4rem 0 .8rem;; font-weight: 300 }
+.summary-hero h1 strong { color: #8cb4ff; }
+.summary-hero > p { color: rgba(255,255,255,0.62); font-size: 1.02rem; line-height: 1.55; margin: 0; }
+.score-bar { background: rgba(255,107,94,0.14); border-radius: 99px; height: 10px; margin-top: 1.2rem; max-width: 460px; overflow: hidden; }
+.score-bar-fill { background: #3ad07a; border-radius: inherit; height: 100%; transition: width .4s ease; }
 
 .summary-stats { display: grid; gap: .8rem; grid-template-columns: repeat(4, 1fr); margin-bottom: 1.5rem; }
-.summary-stat { background: #fff; border: 1px solid #dce3df; border-radius: .7rem; padding: 1rem; text-align: center; }
-.summary-stat span { color: #2f4f48; display: block; font-family: Georgia, serif; font-size: 2rem; font-weight: 700; line-height: 1; }
-.summary-stat small { color: #6a7873; font-size: .78rem; }
-.summary-stat--correct span { color: #4e8b60; }
-.summary-stat--incorrect span { color: #b4564d; }
+.summary-stat { background: rgba(16,22,38,0.55); border: 1px solid rgba(255,255,255,0.14); border-radius: 10px; padding: 1rem; text-align: center; }
+.summary-stat span { color: #ffffff; display: block; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 2rem; font-weight: 300; line-height: 1; }
+.summary-stat small { color: rgba(255,255,255,0.62); font-size: .78rem; }
+.summary-stat--correct span { color: #3ad07a; }
+.summary-stat--incorrect span { color: #ff8b80; }
 
 .return-list { display: grid; gap: .5rem; list-style: none; margin: 0; padding: 0; }
-.return-list li { align-items: center; background: #f6f8f7; border-radius: .5rem; display: flex; justify-content: space-between; padding: .6rem .85rem; }
-.return-reason { color: #46534f; font-size: .9rem; font-weight: 600; }
-.return-when { color: #49746b; font-size: .82rem; font-weight: 700; }
+.return-list li { align-items: center; background: rgba(255,255,255,0.06); border-radius: 8px; display: flex; justify-content: space-between; padding: .6rem .85rem; }
+.return-reason { color: rgba(255,255,255,0.86); font-size: .9rem; font-weight: 600; }
+.return-when { color: #8cb4ff; font-size: .82rem; font-weight: 700; }
 
 .summary-actions { display: flex; gap: .75rem; margin-top: 1.5rem; }
 

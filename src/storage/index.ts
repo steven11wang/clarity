@@ -1,6 +1,11 @@
 import type { Attempt, ReviewItem } from '../types.ts'
+import type { ProgressionState } from '../progression/model.ts'
+import type { Level, SatDomain } from '../progression/config.ts'
+import type { SkillQuizPurpose } from '../progression/model.ts'
 
 const STORAGE_PREFIX = 'clarity:v1:'
+const STORAGE_CHANGE_EVENT = 'clarity:storage-change'
+let suppressChangeEvents = false
 
 function namespacedKey(key: string) {
   return `${STORAGE_PREFIX}${key}`
@@ -18,6 +23,12 @@ function parseValue<T>(value: string | null): T | null {
   }
 }
 
+function notifyStorageChange(key: string) {
+  if (!suppressChangeEvents && typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent(STORAGE_CHANGE_EVENT, { detail: { key } }))
+  }
+}
+
 export const storage = {
   get<T>(key: string): T | null {
     return parseValue<T>(localStorage.getItem(namespacedKey(key)))
@@ -25,10 +36,12 @@ export const storage = {
 
   set<T>(key: string, value: T): void {
     localStorage.setItem(namespacedKey(key), JSON.stringify(value))
+    notifyStorageChange(key)
   },
 
   remove(key: string): void {
     localStorage.removeItem(namespacedKey(key))
+    notifyStorageChange(key)
   },
 
   list<T>(prefix: string): T[] {
@@ -79,6 +92,72 @@ export function saveReview(item: ReviewItem): void {
   const reviews = getReviews()
   reviews[item.questionId] = item
   storage.set(REVIEWS_KEY, reviews)
+}
+
+// --- Adaptive progression --------------------------------------------------
+// Kept as one versioned document so every guarded state-machine transition is
+// persisted atomically. Loading/normalization lives in progression/model.ts.
+
+const PROGRESSION_KEY = 'progression'
+
+export function getProgression(): ProgressionState | null {
+  return storage.get<ProgressionState>(PROGRESSION_KEY)
+}
+
+export function saveProgression(state: ProgressionState): void {
+  storage.set(PROGRESSION_KEY, state)
+}
+
+// --- In-progress adaptive assessment ---------------------------------------
+// Kept separately from the guarded progression document: it is a resumable UI
+// draft, not earned progress. The progression timestamp + deterministic
+// assessment ID let the UI reject a stale draft after a transition.
+
+export type AdaptiveAssessmentDraft = {
+  schemaVersion: 1
+  progressionConfirmedAt: number
+  assessment:
+    | {
+        kind: 'diagnostic'
+        id: string
+        domain: SatDomain
+        level: Level
+        questionIds: string[]
+        reusedCount: number
+      }
+    | {
+        kind: 'skill'
+        id: string
+        domain: SatDomain
+        skill: string
+        level: Level
+        purpose: SkillQuizPurpose
+        questionIds: string[]
+        reusedCount: number
+      }
+    | {
+        kind: 'checkpoint'
+        id: string
+        domain: SatDomain
+        level: 'Adventurer' | 'Master'
+        questionIds: string[]
+        reusedCount: number
+      }
+  answers: Record<string, string>
+}
+
+const ADAPTIVE_DRAFT_KEY = 'adaptive-draft'
+
+export function getAdaptiveDraft(): AdaptiveAssessmentDraft | null {
+  return storage.get<AdaptiveAssessmentDraft>(ADAPTIVE_DRAFT_KEY)
+}
+
+export function saveAdaptiveDraft(draft: AdaptiveAssessmentDraft): void {
+  storage.set(ADAPTIVE_DRAFT_KEY, draft)
+}
+
+export function clearAdaptiveDraft(): void {
+  storage.remove(ADAPTIVE_DRAFT_KEY)
 }
 
 // --- Dev settings -----------------------------------------------------------
@@ -136,4 +215,58 @@ export function clearAll(): void {
     if (key?.startsWith(STORAGE_PREFIX)) keys.push(key)
   }
   keys.forEach((key) => localStorage.removeItem(key))
+  notifyStorageChange('*')
+}
+
+export type CloudState = {
+  progression: ProgressionState | null
+  attempts: Attempt[]
+  reviews: Record<string, ReviewItem>
+}
+
+// Cloud restoration is intentionally atomic from the sync listener's point of
+// view, so downloading a snapshot cannot immediately echo partial state back.
+export function replaceCloudState(state: CloudState): void {
+  suppressChangeEvents = true
+  try {
+    const preservedSettings = localStorage.getItem(namespacedKey('settings'))
+    const keys: string[] = []
+    for (let index = 0; index < localStorage.length; index += 1) {
+      const key = localStorage.key(index)
+      if (key?.startsWith(STORAGE_PREFIX)) keys.push(key)
+    }
+    keys.forEach((key) => localStorage.removeItem(key))
+    if (preservedSettings) {
+      localStorage.setItem(namespacedKey('settings'), preservedSettings)
+    }
+    if (state.progression) {
+      localStorage.setItem(namespacedKey(PROGRESSION_KEY), JSON.stringify(state.progression))
+    }
+    localStorage.setItem(namespacedKey(REVIEWS_KEY), JSON.stringify(state.reviews))
+    state.attempts.forEach((attempt) => {
+      localStorage.setItem(
+        namespacedKey(`attempts:${attempt.timestamp}:${attempt.questionId}`),
+        JSON.stringify(attempt),
+      )
+    })
+  } finally {
+    suppressChangeEvents = false
+  }
+}
+
+export function subscribeStorageChanges(listener: () => void): () => void {
+  if (typeof window === 'undefined') return () => undefined
+  const handler = (event: Event) => {
+    const key = (event as CustomEvent<{ key?: string }>).detail?.key
+    if (
+      key === '*' ||
+      key === PROGRESSION_KEY ||
+      key === REVIEWS_KEY ||
+      key?.startsWith('attempts:')
+    ) {
+      listener()
+    }
+  }
+  window.addEventListener(STORAGE_CHANGE_EVENT, handler)
+  return () => window.removeEventListener(STORAGE_CHANGE_EVENT, handler)
 }

@@ -94,6 +94,11 @@ export type Attempt = {
   // out before the student committed. null / false when not in timed mode.
   timeSpentMs: number | null
   timedOut: boolean
+  // Optional context for fixed-unit adaptive practice. Legacy attempts omit
+  // these fields, so existing persisted records remain valid.
+  activityId?: string
+  activityKind?: 'diagnostic' | 'skill' | 'checkpoint'
+  practiceLevel?: 'Noobie' | 'Adventurer' | 'Master'
 }
 
 // A question scheduled to resurface. Lives in its own store, keyed by

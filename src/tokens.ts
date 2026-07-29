@@ -1,13 +1,13 @@
 export const tokens = {
   color: {
-    background: '#f8f8f5',
-    surface: '#ffffff',
-    text: '#263238',
-    mutedText: '#60706d',
-    border: '#dce3df',
-    accent: '#49746b',
-    accentSoft: '#e3eeea',
-    neutral: '#66747a',
+    background: '#05070f',
+    surface: 'rgba(16,22,38,0.55)',
+    text: '#ffffff',
+    mutedText: 'rgba(255,255,255,0.62)',
+    border: 'rgba(255,255,255,0.14)',
+    accent: '#2b5bc7',
+    accentSoft: 'rgba(43,91,199,0.20)',
+    neutral: 'rgba(255,255,255,0.55)',
   },
   space: {
     xs: '0.25rem',
@@ -17,8 +17,8 @@ export const tokens = {
     xl: '2.5rem',
   },
   radius: {
-    sm: '0.25rem',
-    md: '0.5rem',
-    lg: '0.75rem',
+    sm: '6px',
+    md: '8px',
+    lg: '14px',
   },
 } as const

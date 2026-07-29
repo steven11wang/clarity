@@ -1,5 +1,5 @@
 .passage {
-  color: var(--color-text, #263238);
+  color: var(--color-text, #ffffff);
 }
 
 .passage__text {
@@ -30,27 +30,27 @@
 }
 
 .passage__text--selectable .passage__sentence:hover {
-  background: #eef4f1;
+  background: rgba(255,255,255,0.06);
 }
 
 .passage__sentence--selected {
-  background: #dcece4 !important;
-  box-shadow: inset 0 -2px 0 #49746b;
+  background: rgba(43,91,199,0.20) !important;
+  box-shadow: inset 0 -2px 0 #2b5bc7;
 }
 
 .passage__sentence--referenced {
-  background: #fbf1d8;
-  box-shadow: inset 0 -2px 0 #c9a227;
+  background: rgba(240,192,74,0.14);
+  box-shadow: inset 0 -2px 0 #f0c04a;
 }
 
 /* Research notes (Rhetorical Synthesis etc.) — a real bulleted list. */
 .passage__notes {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
   font-size: 1.02rem;
   line-height: 1.6;
   list-style: disc;
   margin: 1rem 0;
-  padding-left: 1.4rem;
+  padding-left: 1.4rem;; font-weight: 300
 }
 
 .passage__notes li {
@@ -59,7 +59,7 @@
 }
 
 .passage__notes li::marker {
-  color: #49746b;
+  color: #8cb4ff;
 }
 
 .passage__table {
@@ -70,13 +70,13 @@
 
 .passage__table th,
 .passage__table td {
-  border: 1px solid #dce3df;
+  border: 1px solid rgba(255,255,255,0.14);
   padding: 0.5rem;
   text-align: left;
 }
 
 .passage__table th {
-  background: #f3f7f5;
+  background: rgba(255,255,255,0.06);
 }
 
 .passage__figure {

@@ -1,8 +1,21 @@
 import assert from 'node:assert/strict'
 import { beforeEach, describe, it } from 'node:test'
 
+import { createProgressionState } from '../progression/model.ts'
+import type { QuestionTaxonomy } from '../progression/questions.ts'
 import type { Attempt } from '../types.ts'
-import { recordAttempt, storage } from './index.ts'
+import {
+  clearAdaptiveDraft,
+  getAdaptiveDraft,
+  getAttempts,
+  getProgression,
+  getReviews,
+  recordAttempt,
+  replaceCloudState,
+  saveAdaptiveDraft,
+  saveProgression,
+  storage,
+} from './index.ts'
 
 class MemoryStorage implements Storage {
   #values = new Map<string, string>()
@@ -76,5 +89,116 @@ describe('storage', () => {
     recordAttempt(attempt)
 
     assert.deepEqual(storage.list<Attempt>('attempts:'), [attempt])
+  })
+
+  it('enriches an adaptive miss after review without counting it twice', () => {
+    const adaptiveMiss: Attempt = {
+      ...attempt,
+      correct: false,
+      attemptsToCorrect: 0,
+      activityId: 'skill:Information and Ideas:Inferences:Noobie:0',
+      activityKind: 'skill',
+      practiceLevel: 'Noobie',
+    }
+    recordAttempt(adaptiveMiss)
+    recordAttempt({
+      ...adaptiveMiss,
+      attemptsToCorrect: 2,
+      errorCause: 'trap',
+      selfExplanations: {
+        whyWrong: 'It was too extreme or absolute',
+        whyRight: '',
+        selfGrade: 'matched',
+      },
+      evidenceUnderlined: [1],
+      evidenceScore: 'full',
+      chainBreakLink: 'answer',
+      trapGuess: 'too-extreme',
+    })
+
+    const attempts = getAttempts()
+    assert.equal(attempts.length, 1)
+    assert.equal(attempts[0].attemptsToCorrect, 2)
+    assert.equal(attempts[0].errorCause, 'trap')
+    assert.deepEqual(attempts[0].evidenceUnderlined, [1])
+  })
+
+  it('restores the complete adaptive progression document after a reload', () => {
+    const taxonomy: QuestionTaxonomy = {
+      'Information and Ideas': ['Inferences'],
+      'Craft and Structure': ['Words in Context'],
+      'Expression of Ideas': ['Transitions'],
+      'Standard English Conventions': ['Boundaries'],
+    }
+    const progression = createProgressionState(
+      {
+        'Information and Ideas': 'Easy',
+        'Craft and Structure': 'Medium',
+        'Expression of Ideas': 'Hard',
+        'Standard English Conventions': 'Medium',
+      },
+      taxonomy,
+      'score-report.png',
+      123,
+    )
+    progression.domains['Information and Ideas'].skills.Inferences.levels.Noobie.completed = true
+
+    saveProgression(progression)
+
+    assert.deepEqual(getProgression(), progression)
+    assert.equal(
+      localStorage.getItem('clarity:v1:progression'),
+      JSON.stringify(progression),
+    )
+  })
+
+  it('restores and clears an in-progress adaptive assessment draft', () => {
+    const draft = {
+      schemaVersion: 1 as const,
+      progressionConfirmedAt: 123,
+      assessment: {
+        kind: 'skill' as const,
+        id: 'skill:Information and Ideas:Inferences:Noobie:0',
+        domain: 'Information and Ideas' as const,
+        skill: 'Inferences',
+        level: 'Noobie' as const,
+        purpose: 'training' as const,
+        questionIds: ['q1', 'q2', 'q3'],
+        reusedCount: 0,
+      },
+      answers: { q1: 'A' },
+    }
+
+    saveAdaptiveDraft(draft)
+    assert.deepEqual(getAdaptiveDraft(), draft)
+
+    clearAdaptiveDraft()
+    assert.equal(getAdaptiveDraft(), null)
+  })
+
+  it('atomically restores cloud progress while keeping device-only settings', () => {
+    storage.set('settings', { demoMode: true })
+    storage.set('attempts:old', { ...attempt, questionId: 'old' })
+    const remoteAttempt = { ...attempt, questionId: 'remote', timestamp: 42 }
+
+    replaceCloudState({
+      progression: null,
+      attempts: [remoteAttempt],
+      reviews: {
+        remote: {
+          questionId: 'remote',
+          createdAt: 10,
+          dueAt: 20,
+          stage: 0,
+          reason: 'miss',
+          clears: 0,
+          lastReviewedAt: null,
+        },
+      },
+    })
+
+    assert.deepEqual(getAttempts(), [remoteAttempt])
+    assert.deepEqual(getReviews().remote?.questionId, 'remote')
+    assert.deepEqual(storage.get('settings'), { demoMode: true })
   })
 })

@@ -1,7 +1,12 @@
 node_modules/
 dist/
+.env
+.env.local
+.env.*.local
 tools/.venv/
 public/data/*.json
 public/data/images/*
 .superpowers/
 .claude/
+.wrangler/
+.DS_Store

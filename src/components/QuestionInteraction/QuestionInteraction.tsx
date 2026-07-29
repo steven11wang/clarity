@@ -210,10 +210,28 @@ export function QuestionInteraction({
                 <p className="rationale">{question.rationale}</p>
               </div>
             </div>
+            <div className="answer-comparison" aria-label="Answer choice comparison">
+              <p className="panel-label">All answer choices</p>
+              {choiceSlots.map((slot) => {
+                const correct = slot.sourceLetter === question.answer
+                const chosen = slot.sourceLetter === firstPass.chosen
+                return (
+                  <div
+                    className={`answer-comparison__choice ${correct ? 'is-correct' : ''} ${chosen && !correct ? 'is-wrong' : ''}`}
+                    key={slot.displayLetter}
+                  >
+                    <span className="choice-letter">{slot.displayLetter}</span>
+                    <span>{slot.text}</span>
+                    {correct && <strong>Correct answer</strong>}
+                    {chosen && !correct && <strong>Your answer</strong>}
+                  </div>
+                )
+              })}
+            </div>
             <p className="panel-label">How close was your reason?</p>
             <div className="confidence-row">
               {GRADES.map((g) => (
-                <button key={g.id} type="button" className="pill" onClick={() => setState((s) => setSelfGrade(s, g.id))}>
+                <button key={g.id} type="button" className="pill" onClick={() => setState((s) => setSelfGrade(s, g.id, question.domain === 'Standard English Conventions'))}>
                   {g.label}
                 </button>
               ))}
