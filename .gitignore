@@ -9,6 +9,7 @@ tools/dom-tests/
 public/data/*.json
 public/data/images/*
 .superpowers/
+.worktrees/
 .claude/
 .wrangler/
 .DS_Store
