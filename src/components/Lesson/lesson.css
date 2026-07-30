@@ -1,0 +1,1173 @@
+/* --- Foundations lesson: tabbed, read-then-try ------------------------- */
+
+.lesson-shell {
+  max-width: 980px;
+  padding-bottom: 6.5rem;
+}
+
+.lesson-header__actions {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+}
+
+/* --- Title ------------------------------------------------------------- */
+.lesson-title {
+  margin: 1.6rem 0 1.2rem;
+}
+
+.lesson-title h1 {
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(1.9rem, 5vw, 2.9rem);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 1.04;
+  margin: 0.35rem 0 0;
+}
+
+/* --- Tab strip ---------------------------------------------------------- */
+.lesson-tabs {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin-bottom: 1.4rem;
+  overflow-x: auto;
+}
+
+.lesson-tab {
+  align-items: baseline;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: rgba(255, 255, 255, 0.62);
+  cursor: pointer;
+  display: flex;
+  font: inherit;
+  gap: 0.55rem;
+  padding: 0.75rem 0.6rem;
+  text-align: left;
+  transition: color 0.18s ease, border-color 0.18s ease;
+  white-space: nowrap;
+}
+
+.lesson-tab:hover {
+  color: #ffffff;
+}
+
+.lesson-tab.is-active {
+  border-bottom-color: #8cb4ff;
+  color: #ffffff;
+}
+
+.lesson-tab__index {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.lesson-tab.is-active .lesson-tab__index {
+  color: #8cb4ff;
+}
+
+.lesson-tab__label {
+  font-size: 0.92rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+/* --- Page surface ------------------------------------------------------- */
+.lesson-panel-wrap {
+  display: grid;
+  gap: 1.1rem;
+}
+
+.lesson-page {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(16, 22, 38, 0.55));
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  backdrop-filter: blur(24px) saturate(1.3);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  padding: clamp(1.4rem, 4vw, 2.6rem);
+}
+
+.lesson-page__head {
+  color: #ffffff;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(1.4rem, 3.4vw, 1.9rem);
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  margin: 0.3rem 0 0.9rem;
+}
+
+.lesson-page p {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.97rem;
+  line-height: 1.68;
+  margin: 0 0 0.9rem;
+}
+
+.lesson-page__intro {
+  color: rgba(255, 255, 255, 0.86) !important;
+  max-width: 62ch;
+}
+
+.lesson-page h3 {
+  color: #ffffff;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 1.02rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.35rem;
+}
+
+.lesson-list {
+  color: rgba(255, 255, 255, 0.72);
+  display: grid;
+  gap: 0.4rem;
+  line-height: 1.6;
+  margin: 0 0 1rem;
+  padding-left: 1.15rem;
+}
+
+.lesson-list li::marker {
+  color: #8cb4ff;
+}
+
+/* --- Sections on the Lesson tab ---------------------------------------- */
+.lesson-section + .lesson-section {
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  margin-top: 1.8rem;
+  padding-top: 1.6rem;
+}
+
+.lesson-section__label {
+  color: rgba(255, 255, 255, 0.55) !important;
+  font-size: 0.72rem !important;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  margin: 0 0 0.9rem !important;
+  text-transform: uppercase;
+}
+
+.lesson-section p,
+.lesson-idea p {
+  max-width: 66ch;
+}
+
+.lesson-idea + .lesson-idea {
+  margin-top: 1.2rem;
+}
+
+/* --- The numbered method ------------------------------------------------ */
+.lesson-steps {
+  display: grid;
+  gap: 1.3rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.lesson-step {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  position: relative;
+}
+
+/* The rail linking the step markers. */
+.lesson-step:not(:last-child)::before {
+  background: rgba(140, 180, 255, 0.28);
+  content: '';
+  left: 0.97rem;
+  position: absolute;
+  top: 2.1rem;
+  bottom: -1.3rem;
+  width: 1px;
+}
+
+.lesson-step__n {
+  align-items: center;
+  background: #8cb4ff;
+  border-radius: 99px;
+  color: #05070f;
+  display: flex;
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 750;
+  height: 2rem;
+  justify-content: center;
+  width: 2rem;
+}
+
+.lesson-step__body p:last-child {
+  margin-bottom: 0;
+}
+
+/* --- Disclosure --------------------------------------------------------- */
+.lesson-more {
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  margin-top: 1.8rem;
+  padding-top: 1.2rem;
+}
+
+.lesson-more > summary {
+  color: #8cb4ff;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 700;
+  list-style: none;
+}
+
+.lesson-more > summary::before {
+  content: '+ ';
+  font-weight: 750;
+}
+
+.lesson-more[open] > summary::before {
+  content: '− ';
+}
+
+.lesson-more > summary::-webkit-details-marker {
+  display: none;
+}
+
+.lesson-more > *:not(summary) {
+  margin-top: 0.9rem;
+}
+
+/* --- Part banner (Command of Evidence: textual vs quantitative) -------- */
+.lesson-part-banner {
+  background: rgba(43, 91, 199, 0.16);
+  border: 1px solid rgba(140, 180, 255, 0.28);
+  border-radius: 12px;
+  margin-bottom: 1.4rem;
+  padding: 0.85rem 1rem;
+}
+
+.lesson-part-banner p:last-child {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.88rem;
+  margin: 0.3rem 0 0;
+}
+
+/* --- Tips --------------------------------------------------------------- */
+.lesson-tip-grid {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  margin: 1.4rem 0 0;
+}
+
+.lesson-tip {
+  background: rgba(16, 22, 38, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  padding: 1.1rem 1.2rem;
+}
+
+.lesson-tip__n {
+  color: rgba(140, 180, 255, 0.9);
+  display: block;
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.35rem;
+}
+
+.lesson-tip h3 {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.45rem;
+}
+
+.lesson-tip p {
+  font-size: 0.93rem;
+}
+
+.lesson-tip-outro {
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.93rem;
+  margin: 1.6rem 0 0;
+  padding-top: 1.1rem;
+}
+
+.lesson-tip p:last-of-type {
+  margin-bottom: 0;
+}
+
+.lesson-tip .link-button {
+  font-size: 0.8rem;
+  margin-top: 0.6rem;
+}
+
+/* --- Figures and tables ------------------------------------------------ */
+.lesson-figure {
+  background: rgba(10, 14, 26, 0.72);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  margin: 0 0 1rem;
+  padding: 0.9rem 1rem;
+}
+
+.lesson-figure__tag {
+  color: #8cb4ff;
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 750;
+  letter-spacing: 0.07em;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+}
+
+.lesson-figure figcaption {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.lesson-table-wrap {
+  margin: 0 0 1rem;
+  overflow-x: auto;
+}
+
+.lesson-table {
+  border-collapse: collapse;
+  font-size: 0.86rem;
+  min-width: 100%;
+}
+
+.lesson-table th,
+.lesson-table td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.lesson-table th {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.lesson-table td {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* --- Worked example: passage left, question right ---------------------- */
+.lesson-worked {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  margin-top: 1.2rem;
+  overflow: hidden;
+}
+
+.lesson-worked__passage,
+.lesson-worked__question {
+  padding: clamp(1rem, 3vw, 1.5rem);
+}
+
+.lesson-worked__passage {
+  background: rgba(10, 14, 26, 0.72);
+}
+
+.lesson-worked__passage p {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.lesson-worked__question {
+  border-left: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.lesson-example__pager {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
+.lesson-pip {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.62);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  height: 1.9rem;
+  width: 1.9rem;
+}
+
+.lesson-pip.is-active {
+  background: #2b5bc7;
+  border-color: #8cb4ff;
+  color: #ffffff;
+}
+
+.lesson-example__prompt {
+  color: #ffffff !important;
+  font-weight: 650;
+}
+
+/* --- The test-phrase gate ---------------------------------------------- */
+.lesson-gate {
+  background: rgba(43, 91, 199, 0.16);
+  border: 1px dashed rgba(140, 180, 255, 0.5);
+  border-radius: 12px;
+  margin: 0 0 1.1rem;
+  padding: 1rem 1.1rem;
+}
+
+.lesson-gate__title {
+  color: #ffffff !important;
+  font-weight: 700;
+  margin-bottom: 0.3rem !important;
+}
+
+.lesson-gate__hint {
+  font-size: 0.88rem !important;
+}
+
+.lesson-gate__input {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.97rem;
+  margin-bottom: 0.9rem;
+  padding: 0.4rem 0;
+  width: 100%;
+}
+
+.lesson-gate__input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  font-style: italic;
+}
+
+.lesson-gate__input:focus {
+  border-bottom-color: #8cb4ff;
+  outline: none;
+}
+
+.lesson-gate__actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.lesson-gate__echo {
+  background: rgba(43, 91, 199, 0.16);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.86) !important;
+  font-size: 0.88rem !important;
+  padding: 0.5rem 0.7rem;
+}
+
+/* --- Choices ------------------------------------------------------------ */
+.lesson-choices {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0.9rem 0 1rem;
+  transition: filter 0.25s ease, opacity 0.25s ease;
+}
+
+.lesson-choices.is-locked {
+  filter: blur(5px);
+  opacity: 0.45;
+  pointer-events: none;
+  user-select: none;
+}
+
+.lesson-choice-row {
+  display: grid;
+  gap: 0.4rem;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.lesson-choice {
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.86);
+  cursor: pointer;
+  display: grid;
+  font: inherit;
+  font-size: 0.93rem;
+  gap: 0.7rem;
+  grid-template-columns: auto minmax(0, 1fr);
+  line-height: 1.5;
+  padding: 0.7rem 0.85rem;
+  text-align: left;
+  transition: background 0.18s ease, border-color 0.18s ease, opacity 0.18s ease;
+}
+
+.lesson-choice:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.lesson-choice:disabled {
+  cursor: default;
+}
+
+.lesson-choice.is-struck {
+  opacity: 0.4;
+}
+
+.lesson-choice.is-struck > span:last-child {
+  text-decoration: line-through;
+}
+
+.lesson-choice__letter {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 7px;
+  display: flex;
+  font-size: 0.78rem;
+  font-weight: 750;
+  height: 1.55rem;
+  justify-content: center;
+  width: 1.55rem;
+}
+
+.lesson-choice.is-chosen {
+  border-color: #8cb4ff;
+}
+
+.lesson-choice.is-chosen .lesson-choice__letter {
+  background: #2b5bc7;
+  color: #ffffff;
+}
+
+.lesson-choice.is-correct {
+  background: rgba(58, 208, 122, 0.14);
+  border-color: rgba(58, 208, 122, 0.6);
+  opacity: 1;
+}
+
+.lesson-choice.is-correct .lesson-choice__letter {
+  background: #3ad07a;
+  color: #05070f;
+}
+
+.lesson-choice.is-wrong {
+  background: rgba(240, 192, 74, 0.12);
+  border-color: rgba(240, 192, 74, 0.55);
+}
+
+.lesson-choice.is-wrong .lesson-choice__letter {
+  background: #f0c04a;
+  color: #05070f;
+}
+
+/* The strike-out toggle: the paper move, on screen. */
+.lesson-strike {
+  align-self: stretch;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 750;
+  text-decoration: line-through;
+  width: 2.1rem;
+}
+
+.lesson-strike:hover:not(:disabled) {
+  color: #ffffff;
+}
+
+.lesson-strike.is-on {
+  background: rgba(240, 192, 74, 0.14);
+  border-color: rgba(240, 192, 74, 0.55);
+  color: #f0c04a;
+}
+
+.lesson-strike:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+
+.lesson-example__actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.lesson-explanation {
+  background: rgba(255, 255, 255, 0.06);
+  border-left: 4px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  margin-top: 0.5rem;
+  padding: 0.95rem 1.1rem;
+}
+
+.lesson-explanation p:last-of-type {
+  margin-bottom: 0.6rem;
+}
+
+.lesson-explanation--right {
+  border-left-color: #3ad07a;
+}
+
+.lesson-explanation--wrong {
+  border-left-color: #f0c04a;
+}
+
+.lesson-explanation--neutral {
+  border-left-color: #8cb4ff;
+}
+
+.lesson-explanation__verdict {
+  color: #ffffff !important;
+  font-weight: 700;
+}
+
+/* --- Practice tab ------------------------------------------------------- */
+.lesson-recap {
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  display: grid;
+  list-style: none;
+  margin: 1.2rem 0;
+  padding: 0;
+}
+
+.lesson-recap li {
+  align-items: baseline;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  display: flex;
+  font-size: 0.97rem;
+  font-weight: 600;
+  gap: 0.9rem;
+  padding: 0.75rem 0;
+}
+
+.lesson-recap li span {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+}
+
+.lesson-practice__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.button--ghost {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+}
+
+/* --- Lessons index tab -------------------------------------------------- */
+.lesson-index {
+  display: grid;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lesson-index__item {
+  background: rgba(16, 22, 38, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  cursor: pointer;
+  display: grid;
+  font: inherit;
+  gap: 0.25rem;
+  padding: 0.8rem 1rem;
+  text-align: left;
+  transition: background 0.18s ease, border-color 0.18s ease;
+  width: 100%;
+}
+
+.lesson-index__item:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #8cb4ff;
+}
+
+.lesson-index__item.is-current {
+  border-color: rgba(140, 180, 255, 0.6);
+  cursor: default;
+}
+
+.lesson-index__item:disabled {
+  cursor: default;
+}
+
+.lesson-index__name {
+  color: #ffffff;
+  font-size: 0.97rem;
+  font-weight: 650;
+}
+
+.lesson-index__name em {
+  color: #8cb4ff;
+  font-size: 0.78rem;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.lesson-index__nutshell {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+/* --- Footer ------------------------------------------------------------ */
+.lesson-actions {
+  align-items: center;
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  backdrop-filter: blur(24px) saturate(1.3);
+  background: rgba(10, 14, 26, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-top: 1.4rem;
+  padding: 0.75rem 1rem;
+  position: sticky;
+}
+
+.lesson-actions .link-button:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+
+/* --- Re-read entry point on the skill card ----------------------------- */
+.skill-card__lesson {
+  background: none;
+  border: none;
+  color: #8cb4ff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-top: 0.35rem;
+  padding: 0;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.skill-card__lesson:hover {
+  color: #ffffff;
+}
+
+@media (max-width: 860px) {
+  .lesson-worked {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lesson-worked__question {
+    border-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+  }
+}
+
+@media (max-width: 720px) {
+  .lesson-tabs {
+    display: flex;
+    grid-template-columns: none;
+  }
+
+  .lesson-tab {
+    flex: 0 0 auto;
+  }
+
+  .lesson-tab__index {
+    display: none;
+  }
+
+  .lesson-actions {
+    flex-wrap: wrap;
+  }
+
+  .lesson-table th,
+  .lesson-table td {
+    white-space: normal;
+  }
+}
+
+/* --- Persistent console: Lessons landing ------------------------------ */
+.lesson-console {
+  padding: clamp(1.3rem, 3vw, 2.4rem) 0 5rem;
+}
+
+.lesson-console__rail {
+  display: flex;
+  gap: clamp(0.8rem, 1.4vw, 1.35rem);
+  margin: 0;
+  overflow-x: auto;
+  padding: 0.65rem 0.65rem 1.4rem;
+  scrollbar-width: none;
+}
+
+.lesson-console__rail::-webkit-scrollbar {
+  display: none;
+}
+
+.lesson-console__tile {
+  --lesson-accent: #2b5bc7;
+  align-items: center;
+  background:
+    radial-gradient(
+      circle at 68% 24%,
+      color-mix(in srgb, var(--lesson-accent) 36%, transparent),
+      transparent 48%
+    ),
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--lesson-accent) 20%, #13244e),
+      #071021 78%
+    );
+  border: 0;
+  border-radius: 1.05rem;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  flex: 0 0 clamp(9.5rem, 12vw, 13.5rem);
+  flex-direction: column;
+  font: inherit;
+  height: clamp(9.5rem, 12vw, 13.5rem);
+  justify-content: center;
+  padding: 1rem;
+  position: relative;
+  transition:
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.lesson-console__tile:hover {
+  transform: translateY(-4px);
+}
+
+.lesson-console__tile[aria-pressed='true'] {
+  box-shadow:
+    0 0 0 3px #08101e,
+    0 0 0 6px rgba(255, 255, 255, 0.9),
+    0 0 0 9px color-mix(in srgb, var(--lesson-accent) 62%, transparent),
+    0 22px 44px rgba(0, 0, 0, 0.5);
+}
+
+.lesson-console__tile--continue {
+  background: linear-gradient(145deg, #3268da, #173575);
+}
+
+.lesson-console__tile-icon {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+
+.lesson-console__tile-icon svg {
+  filter: drop-shadow(
+    0 0 12px color-mix(in srgb, var(--lesson-accent) 62%, transparent)
+  );
+  height: clamp(2.2rem, 3.8vw, 3.6rem);
+  width: clamp(2.2rem, 3.8vw, 3.6rem);
+}
+
+.lesson-console__tile > span:last-child {
+  font-size: clamp(0.78rem, 1vw, 0.94rem);
+  font-weight: 600;
+  line-height: 1.2;
+  min-height: 2.25em;
+  text-align: center;
+}
+
+.lesson-console__detail {
+  min-height: 26rem;
+  padding: clamp(2.4rem, 6vw, 5.2rem) 0 2rem;
+}
+
+.lesson-console__continue,
+.lesson-console__detail-head {
+  max-width: 44rem;
+}
+
+.lesson-console__continue > p,
+.lesson-console__detail-head > p {
+  color: #8cb4ff;
+  font-size: 0.74rem;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  margin: 0;
+}
+
+.lesson-console__continue h1,
+.lesson-console__detail-head h1 {
+  color: #fff;
+  font-size: clamp(2.5rem, 5vw, 4.6rem);
+  font-weight: 300;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  margin: 0.95rem 0 1.15rem;
+}
+
+.lesson-console__continue > span,
+.lesson-console__detail-head > span {
+  color: rgba(255, 255, 255, 0.68);
+  display: block;
+  font-size: clamp(1rem, 1.5vw, 1.18rem);
+  line-height: 1.65;
+  max-width: 38rem;
+}
+
+.lesson-console__continue .console-button {
+  margin-top: 2.1rem;
+}
+
+.lesson-console__lesson-list {
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 2.5rem;
+  max-width: 72rem;
+}
+
+.lesson-console__lesson-row {
+  align-items: center;
+  background: rgba(8, 15, 32, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1rem;
+  color: #fff;
+  cursor: pointer;
+  display: grid;
+  font: inherit;
+  gap: 1rem;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  min-height: 6.3rem;
+  padding: 1rem 1.15rem;
+  text-align: left;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.lesson-console__lesson-row:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(140, 180, 255, 0.62);
+  transform: translateY(-2px);
+}
+
+.lesson-console__lesson-index {
+  color: rgba(140, 180, 255, 0.68);
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+}
+
+.lesson-console__lesson-copy {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.lesson-console__lesson-copy strong {
+  font-size: 1rem;
+  font-weight: 650;
+}
+
+.lesson-console__lesson-copy small {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.lesson-console__lesson-state {
+  color: #8cb4ff;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+/* --- Persistent console: focused lesson reader ------------------------ */
+.lesson-reader {
+  max-width: 1120px;
+  padding: clamp(1.5rem, 3vw, 2.6rem) 0 6rem;
+}
+
+.lesson-reader--embedded {
+  margin: 0;
+}
+
+.lesson-reader__back {
+  align-items: center;
+  background: none;
+  border: 0;
+  color: rgba(255, 255, 255, 0.64);
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 650;
+  gap: 0.35rem;
+  padding: 0.4rem 0;
+}
+
+.lesson-reader__back:hover {
+  color: #fff;
+}
+
+.lesson-reader__back svg {
+  height: 1.1rem;
+  width: 1.1rem;
+}
+
+.lesson-reader .lesson-title {
+  margin: clamp(1.8rem, 4vw, 3.4rem) 0 1.8rem;
+  max-width: 52rem;
+}
+
+.lesson-reader .lesson-title h1 {
+  font-size: clamp(2.55rem, 5.2vw, 4.8rem);
+}
+
+.lesson-title__summary {
+  color: rgba(255, 255, 255, 0.64);
+  font-size: clamp(0.98rem, 1.35vw, 1.14rem);
+  line-height: 1.6;
+  margin: 1rem 0 0;
+  max-width: 44rem;
+}
+
+.lesson-reader .lesson-tabs {
+  border: 0;
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0 0 1.3rem;
+}
+
+.lesson-reader .lesson-tab {
+  align-items: center;
+  background: rgba(8, 15, 32, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.9rem;
+  min-height: 3.6rem;
+  padding: 0.8rem 1rem;
+}
+
+.lesson-reader .lesson-tab[aria-selected='true'] {
+  background: rgba(50, 104, 218, 0.26);
+  border-color: rgba(140, 180, 255, 0.72);
+  box-shadow: inset 0 0 24px rgba(43, 91, 199, 0.16);
+  color: #fff;
+}
+
+.lesson-reader .lesson-tab[aria-selected='true'] .lesson-tab__index {
+  color: #8cb4ff;
+}
+
+.lesson-reader .lesson-page {
+  background: rgba(8, 15, 32, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 1.15rem;
+  box-shadow: none;
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.lesson-reader .lesson-actions {
+  background: rgba(8, 15, 32, 0.82);
+  border-color: rgba(255, 255, 255, 0.12);
+  border-radius: 1rem;
+}
+
+.lesson-console button:focus-visible,
+.lesson-reader button:focus-visible,
+.lesson-reader input:focus-visible,
+.lesson-reader summary:focus-visible {
+  outline: 3px solid rgba(140, 180, 255, 0.9);
+  outline-offset: 3px;
+}
+
+@media (max-width: 860px) {
+  .lesson-console__lesson-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  .lesson-console {
+    padding-top: 0.9rem;
+  }
+
+  .lesson-console__rail {
+    margin-inline: -0.35rem;
+    padding-inline: 0.55rem;
+  }
+
+  .lesson-console__tile {
+    flex-basis: 7.8rem;
+    height: 7.8rem;
+  }
+
+  .lesson-console__detail {
+    padding-top: 2.7rem;
+  }
+
+  .lesson-console__continue h1,
+  .lesson-console__detail-head h1 {
+    font-size: 2.65rem;
+  }
+
+  .lesson-reader {
+    padding-top: 1rem;
+  }
+
+  .lesson-reader .lesson-tabs {
+    display: flex;
+    overflow-x: auto;
+    padding: 0.2rem;
+    scrollbar-width: none;
+  }
+
+  .lesson-reader .lesson-tab {
+    flex: 0 0 auto;
+    min-width: 8rem;
+  }
+
+  .lesson-reader .lesson-tab__index {
+    display: block;
+  }
+
+  .lesson-reader .lesson-actions {
+    align-items: stretch;
+    flex-direction: column-reverse;
+  }
+
+  .lesson-reader .lesson-actions > * {
+    text-align: center;
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lesson-console__tile,
+  .lesson-console__lesson-row {
+    transition: none;
+  }
+}

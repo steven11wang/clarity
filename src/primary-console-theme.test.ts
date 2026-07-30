@@ -31,3 +31,27 @@ test('primary panel movement is removed for reduced motion', () => {
     /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*\.console-primary-layer--entering,[\s\S]*\.console-primary-layer--exiting\s*\{[^}]*animation:\s*none[^}]*transform:\s*none/s,
   )
 })
+
+test('lessons use the console rail and responsive reader layout', () => {
+  const stylesheet = readFileSync(
+    new URL('./components/Lesson/lesson.css', import.meta.url),
+    'utf8',
+  )
+
+  assert.match(
+    stylesheet,
+    /\.lesson-console__rail\s*\{[^}]*display:\s*flex/s,
+  )
+  assert.match(
+    stylesheet,
+    /\.lesson-console__tile\[aria-pressed='true'\]/,
+  )
+  assert.match(
+    stylesheet,
+    /\.lesson-reader\s*\{[^}]*max-width:/s,
+  )
+  assert.match(
+    stylesheet,
+    /@media\s*\(max-width:\s*720px\)[\s\S]*\.lesson-console__detail/s,
+  )
+})

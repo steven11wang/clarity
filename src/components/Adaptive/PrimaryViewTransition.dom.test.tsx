@@ -38,6 +38,7 @@ const container = dom.window.document.getElementById('root')!
 const root = createRoot(container)
 const panels = {
   practice: createElement('p', null, 'Practice panel'),
+  lessons: createElement('p', null, 'Lessons panel'),
   library: createElement('p', null, 'Library panel'),
   insights: createElement('p', null, 'Insights panel'),
 }
@@ -134,12 +135,14 @@ describe('persistent console shell', () => {
       await act(async () => {
         shellRoot.render(createElement(ProgressDashboard, {
           activeView,
+          lessonsPanel: createElement('p', null, 'Embedded lessons'),
           libraryPanel: createElement('p', null, 'Embedded library'),
           insightsPanel: createElement('p', null, 'Embedded insights'),
           cards,
           onSelectDomain: () => {},
           onUpdateScore: () => {},
           onOpenPractice: () => {},
+          onOpenLessons: () => {},
           onOpenLibrary: () => {},
           onOpenInsights: () => {},
         }))
@@ -153,6 +156,16 @@ describe('persistent console shell', () => {
 
     assert.equal(wordmark?.tagName, 'BUTTON')
     assert.equal(wordmark?.getAttribute('aria-label'), 'Open Practice home')
+
+    await renderShell('lessons')
+
+    assert.equal(shellContainer.querySelector('.console-hero-wash'), sceneBefore)
+    assert.equal(shellContainer.querySelector('.console-header'), headerBefore)
+    assert.match(shellContainer.textContent ?? '', /Embedded lessons/)
+    assert.equal(
+      shellContainer.querySelector('[aria-current="page"]')?.textContent,
+      'Lessons',
+    )
 
     await renderShell('library')
 

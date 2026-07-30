@@ -1,0 +1,90 @@
+.passage {
+  color: var(--color-text, #263238);
+}
+
+.passage__text {
+  line-height: 1.6;
+}
+
+.passage__text--selectable {
+  cursor: default;
+}
+
+/* Sentence spans become tap targets in evidence mode. Reset button chrome so
+   they read as inline text, then style selection/reference on top. */
+.passage__sentence {
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.passage__text--selectable .passage__sentence {
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.passage__text--selectable .passage__sentence:hover {
+  background: #eef4f1;
+}
+
+.passage__sentence--selected {
+  background: #dcece4 !important;
+  box-shadow: inset 0 -2px 0 #49746b;
+}
+
+.passage__sentence--referenced {
+  background: #fbf1d8;
+  box-shadow: inset 0 -2px 0 #c9a227;
+}
+
+/* Research notes (Rhetorical Synthesis etc.) — a real bulleted list. */
+.passage__notes {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.02rem;
+  line-height: 1.6;
+  list-style: disc;
+  margin: 1rem 0;
+  padding-left: 1.4rem;
+}
+
+.passage__notes li {
+  margin-bottom: 0.5rem;
+  padding-left: 0.25rem;
+}
+
+.passage__notes li::marker {
+  color: #49746b;
+}
+
+.passage__table {
+  border-collapse: collapse;
+  margin-block: 1rem;
+  width: 100%;
+}
+
+.passage__table th,
+.passage__table td {
+  border: 1px solid #dce3df;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.passage__table th {
+  background: #f3f7f5;
+}
+
+.passage__figure {
+  margin: 1rem 0;
+}
+
+.passage__figure img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}

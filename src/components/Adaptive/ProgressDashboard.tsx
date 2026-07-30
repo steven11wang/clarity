@@ -14,6 +14,7 @@ import {
   type Level,
   type SatDomain,
 } from '../../progression/config.ts'
+import { useAuthProfile } from '../../auth/AuthContext.tsx'
 import { SettingsPopover } from '../Settings/SettingsPopover.tsx'
 import { PrimaryViewTransition } from './PrimaryViewTransition.tsx'
 import type { PrimaryConsoleView } from './primaryViewTransition.ts'
@@ -32,12 +33,14 @@ export type DomainCardView = {
 
 type ProgressDashboardProps = {
   activeView: PrimaryConsoleView
+  lessonsPanel: ReactNode
   libraryPanel: ReactNode
   insightsPanel: ReactNode
   cards: DomainCardView[]
   onSelectDomain: (domain: SatDomain) => void
   onUpdateScore: () => void
   onOpenPractice: () => void
+  onOpenLessons: () => void
   onOpenLibrary: () => void
   onOpenInsights: () => void
 }
@@ -124,15 +127,18 @@ function buildHero(
 
 export function ProgressDashboard({
   activeView,
+  lessonsPanel,
   libraryPanel,
   insightsPanel,
   cards,
   onSelectDomain,
   onUpdateScore,
   onOpenPractice,
+  onOpenLessons,
   onOpenLibrary,
   onOpenInsights,
 }: ProgressDashboardProps) {
+  const { openAccount } = useAuthProfile()
   const firstDomain =
     cards.find((card) => card.chosen)?.domain ??
     cards.find((card) => card.recommended)?.domain ??
@@ -279,6 +285,17 @@ export function ProgressDashboard({
             Practice
           </button>
           <button
+            className={activeView === 'lessons' ? 'console-nav__active' : undefined}
+            type="button"
+            aria-current={activeView === 'lessons' ? 'page' : undefined}
+            onClick={onOpenLessons}
+            data-ui-sound="true"
+            data-ui-sound-hover="hover"
+            data-ui-sound-click="select"
+          >
+            Lessons
+          </button>
+          <button
             className={activeView === 'library' ? 'console-nav__active' : undefined}
             type="button"
             aria-current={activeView === 'library' ? 'page' : undefined}
@@ -317,7 +334,7 @@ export function ProgressDashboard({
             className="console-avatar"
             type="button"
             aria-label="Update learner profile"
-            onClick={onUpdateScore}
+            onClick={openAccount}
             data-ui-sound="true"
             data-ui-sound-hover="hover"
             data-ui-sound-click="open"
@@ -357,11 +374,6 @@ export function ProgressDashboard({
               >
                 <span className="console-tile__layers" aria-hidden="true" />
                 <span className="console-tile__mark" aria-hidden="true">{item.mark}</span>
-                {item.card && (
-                  <span className="console-tile__badge" aria-hidden="true">
-                    {item.card.completedSkills === item.card.totalSkills ? '✓' : item.card.completedSkills}
-                  </span>
-                )}
               </button>
             )
           })}
@@ -498,6 +510,7 @@ export function ProgressDashboard({
       </section>
             </>
           ),
+          lessons: lessonsPanel,
           library: libraryPanel,
           insights: insightsPanel,
         }}

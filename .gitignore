@@ -4,6 +4,8 @@ dist/
 .env.local
 .env.*.local
 tools/.venv/
+tools/__pycache__/
+tools/dom-tests/
 public/data/*.json
 public/data/images/*
 .superpowers/

@@ -15,6 +15,7 @@ import {
   setSelfGrade,
   setTrap,
   submitRedo,
+  toggleChoiceStrikeout,
   toAttempt,
   answerChoiceStatus,
 } from './model.ts'
@@ -24,6 +25,27 @@ const question = { id: 'q1', answer: 'B', skill: 'Inferences' } as unknown as Qu
 const missed: FirstPass = { chosen: 'A', confidence: 'sure', correct: false, timeMs: null, timedOut: false }
 
 describe('review loop model', () => {
+  it('adds and removes one struck choice without mutating the source list', () => {
+    const source = ['B']
+    const struck = toggleChoiceStrikeout(source, 'C')
+
+    assert.deepEqual(struck, ['B', 'C'])
+    assert.deepEqual(source, ['B'])
+    assert.deepEqual(toggleChoiceStrikeout(struck, 'B'), ['C'])
+  })
+
+  it('does not duplicate a choice when toggled repeatedly', () => {
+    assert.deepEqual(toggleChoiceStrikeout(toggleChoiceStrikeout([], 'A'), 'A'), [])
+  })
+
+  it('tracks strike-out separately from the selected answer', () => {
+    const selected = 'B'
+    const struck = toggleChoiceStrikeout([], 'A')
+
+    assert.equal(selected, 'B')
+    assert.deepEqual(struck, ['A'])
+  })
+
   it('identifies the correct choice and the original wrong choice', () => {
     assert.deepEqual(answerChoiceStatus('A', 'A', 'C'), { isCorrect: true, isChosenWrong: false })
     assert.deepEqual(answerChoiceStatus('C', 'A', 'C'), { isCorrect: false, isChosenWrong: true })

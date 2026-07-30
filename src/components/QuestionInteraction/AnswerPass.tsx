@@ -3,6 +3,8 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import type { Confidence, FirstPass, Question } from '../../types.ts'
 import { orderedChoices } from '../../review/ordering.ts'
 import { Passage } from '../Passage/Passage.tsx'
+import { AbcToggle, ChoiceMarker } from './ChoiceStrikeout.tsx'
+import { toggleChoiceStrikeout } from './model.ts'
 
 const CONFIDENCE: { id: Confidence; label: string }[] = [
   { id: 'sure', label: 'Sure' },
@@ -27,6 +29,8 @@ type Props = {
 // The whole set is answered this way before any review begins.
 export function AnswerPass({ question, isReview, timedMode, timeLimitSec, onAnswer }: Props) {
   const [choice, setChoice] = useState<string | null>(null)
+  const [struckChoices, setStruckChoices] = useState<string[]>([])
+  const [abcMode, setAbcMode] = useState(false)
   const [confidence, setConfidence] = useState<Confidence | null>(null)
   const [timedOut, setTimedOut] = useState(false)
 
@@ -114,20 +118,36 @@ export function AnswerPass({ question, isReview, timedMode, timeLimitSec, onAnsw
           </div>
         )}
 
-        <h1 className="question-prompt">{question.prompt}</h1>
+        <div className="question-heading">
+          <h1 className="question-prompt">{question.prompt}</h1>
+          <AbcToggle active={abcMode} onToggle={() => setAbcMode((active) => !active)} />
+        </div>
 
         <div className="choice-list" role="radiogroup" aria-label="Answer choices">
-          {choiceSlots.map((slot) => (
-            <button
-              key={slot.displayLetter}
-              type="button"
-              className={`choice ${choice === slot.sourceLetter ? 'choice--selected' : ''}`}
-              onClick={() => setChoice(slot.sourceLetter)}
-            >
-              <span className="choice-letter">{slot.displayLetter}</span>
-              <span>{slot.text}</span>
-            </button>
-          ))}
+          {choiceSlots.map((slot) => {
+            const struck = struckChoices.includes(slot.sourceLetter)
+            return (
+              <div
+                key={slot.displayLetter}
+                className={`choice ${choice === slot.sourceLetter ? 'choice--selected' : ''} ${struck ? 'choice--struck' : ''}`}
+              >
+                <button
+                  type="button"
+                  className="choice-select"
+                  onClick={() => setChoice(slot.sourceLetter)}
+                >
+                  <span className="choice-text">{slot.text}</span>
+                </button>
+                {abcMode && (
+                  <ChoiceMarker
+                    letter={slot.displayLetter}
+                    struck={struck}
+                    onToggle={() => setStruckChoices((current) => toggleChoiceStrikeout(current, slot.sourceLetter))}
+                  />
+                )}
+              </div>
+            )
+          })}
         </div>
 
         <div className="confidence">
@@ -145,7 +165,7 @@ export function AnswerPass({ question, isReview, timedMode, timeLimitSec, onAnsw
             ))}
           </div>
           <button type="button" className="button button--full" disabled={!choice || !confidence} onClick={commit}>
-            Lock in &amp; continue
+            Continue
           </button>
         </div>
       </section>

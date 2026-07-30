@@ -36,7 +36,14 @@ export function Browse({
       aria-label={embedded ? 'Library' : undefined}
     >
       {!embedded && <header className="app-header">
-        <span className="wordmark">clarity<span>.</span></span>
+        <button
+          className="wordmark wordmark--button"
+          type="button"
+          onClick={onOpenDashboard}
+          aria-label="Open dashboard"
+        >
+          clarity<span>.</span>
+        </button>
         <button className="link-button" type="button" onClick={onOpenDashboard}>Dashboard</button>
       </header>}
 

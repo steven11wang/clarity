@@ -1,0 +1,204 @@
+[
+ {
+  "skill": "Command of Evidence",
+  "domain": "Information and Ideas",
+  "unit": "Unit 2 — Foundations: Information and Ideas",
+  "nutshell": "You are given a claim and asked which piece of evidence — a quotation, a research finding, or a data point — most directly supports it.",
+  "oneMove": "Rewrite the claim as a short test phrase (“sail = faster turns”), then hold every choice against that phrase.",
+  "watchOut": [
+   "A choice that is true but proves something slightly different from the claim.",
+   "A choice that needs two or three extra assumptions before it supports the claim.",
+   "Prompts that ask you to *weaken* or *challenge* the claim instead of support it."
+  ],
+  "promptSamples": [
+   "Which finding from the model tests, if true, would most strongly support Gimsa and colleagues’ hypothesis?",
+   "Which quotation from “Mr. Cornelius Johnson, Office-Seeker” most effectively illustrates the claim?",
+   "Which quotation from a translation of Hedda Gabler most effectively illustrates the claim?",
+   "Which finding from Granito and Álvarez’s research, if true, would most directly support their claim?"
+  ],
+  "partTitles": [
+   "Part 1 · Textual evidence",
+   "Part 2 · Quantitative evidence"
+  ],
+  "stepCount": 12
+ },
+ {
+  "skill": "Central Ideas and Details",
+  "domain": "Information and Ideas",
+  "unit": "Unit 2 — Foundations: Information and Ideas",
+  "nutshell": "You summarize what the passage is mainly about, or locate one stated detail in it.",
+  "oneMove": "Say the passage back in one plain sentence before you look at a single choice.",
+  "watchOut": [
+   "A choice built from one sentence only, when the question asks for the main idea.",
+   "A choice that sounds sophisticated but adds an idea the passage never states.",
+   "Confusing the topic (what it is about) with the main idea (what it says about it)."
+  ],
+  "promptSamples": [
+   "Which choice best describes the main idea of the text?",
+   "According to the text, why does Bill regularly ask about “seafaring men”?",
+   "According to the text, what is one way Mother engages with her children?"
+  ],
+  "partTitles": [
+   "Central Ideas and Details"
+  ],
+  "stepCount": 7
+ },
+ {
+  "skill": "Inferences",
+  "domain": "Information and Ideas",
+  "unit": "Unit 2 — Foundations: Information and Ideas",
+  "nutshell": "You finish the passage with the conclusion its own evidence forces — nothing more.",
+  "oneMove": "Cover the choices, predict the ending yourself, then find the choice closest to your prediction.",
+  "watchOut": [
+   "Choices that are reasonable in the real world but unsupported by this passage.",
+   "Absolute words — always, never, all, only — that overshoot the evidence.",
+   "Choices that reverse the logical direction of the passage."
+  ],
+  "promptSamples": [
+   "Which choice most logically completes the text?"
+  ],
+  "partTitles": [
+   "Inferences"
+  ],
+  "stepCount": 7
+ },
+ {
+  "skill": "Words in Context",
+  "domain": "Craft and Structure",
+  "unit": "Unit 3 — Foundations: Craft and Structure",
+  "nutshell": "You choose the word that fits this sentence most precisely — not merely a word that is close in meaning.",
+  "oneMove": "Cover the choices and write your own word in the blank first.",
+  "watchOut": [
+   "A word you know that is a synonym in general but wrong in this context.",
+   "Ignoring the sentence’s tone: positive, negative, or neutral.",
+   "Ignoring transition words like but, however, and therefore, which flip the meaning."
+  ],
+  "promptSamples": [
+   "Which choice completes the text with the most logical and precise word or phrase?",
+   "As used in the text, what does the word “quality” most nearly mean?"
+  ],
+  "partTitles": [
+   "Words in Context"
+  ],
+  "stepCount": 7
+ },
+ {
+  "skill": "Text Structure and Purpose",
+  "domain": "Craft and Structure",
+  "unit": "Unit 3 — Foundations: Craft and Structure",
+  "nutshell": "You describe what the author is *doing* — the job a sentence or a whole text performs — not what it says.",
+  "oneMove": "Give the sentence a two-word job label — “introduces problem”, “gives counterexample” — before reading the choices.",
+  "watchOut": [
+   "Choices that accurately summarize content but name the wrong function.",
+   "Choices that describe a different part of the text than the one underlined.",
+   "Function verbs that are almost right: “elaborates” when the text “introduces”."
+  ],
+  "promptSamples": [
+   "Which choice best describes the overall structure of the text?",
+   "Which choice best states the function of the underlined sentence in the overall structure of the text?",
+   "Which choice best states the main purpose of the text?"
+  ],
+  "partTitles": [
+   "Text Structure and Purpose"
+  ],
+  "stepCount": 9
+ },
+ {
+  "skill": "Cross-Text Connections",
+  "domain": "Craft and Structure",
+  "unit": "Unit 3 — Foundations: Craft and Structure",
+  "nutshell": "You read two short texts and work out how the second author would respond to the first.",
+  "oneMove": "Write a one-line stance for each author before you read the choices.",
+  "watchOut": [
+   "Mixing up which author holds which view.",
+   "Choices that overstate the disagreement — partial agreement is common.",
+   "Choices that describe Text 2 accurately but not as a response to Text 1."
+  ],
+  "promptSamples": [
+   "Based on the texts, how would Cáceres and colleagues (Text 2) most likely describe the view of the theorists presented in Text 1?",
+   "Based on the texts, what would the paleontologists in Text 2 most likely say about the researchers’ initial thought in Text 1?"
+  ],
+  "partTitles": [
+   "Cross-Text Connections"
+  ],
+  "stepCount": 6
+ },
+ {
+  "skill": "Transitions",
+  "domain": "Expression of Ideas",
+  "unit": "Unit 4 — Foundations: Expression of Ideas + Standard English Conventions",
+  "nutshell": "You name the logical relationship between two sentences, then pick the transition that signals it.",
+  "oneMove": "Cover the choices and say the relationship out loud: continue, contrast, cause, or example.",
+  "watchOut": [
+   "Picking a transition that “sounds smooth” instead of matching the logic.",
+   "Treating however / therefore / furthermore as interchangeable.",
+   "Ignoring what comes *after* the blank — the relationship runs both ways."
+  ],
+  "promptSamples": [
+   "Which choice completes the text with the most logical transition?"
+  ],
+  "partTitles": [
+   "Transitions"
+  ],
+  "stepCount": 7
+ },
+ {
+  "skill": "Rhetorical Synthesis",
+  "domain": "Expression of Ideas",
+  "unit": "Unit 4 — Foundations: Expression of Ideas + Standard English Conventions",
+  "nutshell": "You are given bullet-point research notes and a goal, and you pick the sentence that achieves the goal using those notes.",
+  "oneMove": "Read the prompt first, underline the goal, and only then read the bullets.",
+  "watchOut": [
+   "Choices that use the notes accurately but achieve the wrong goal.",
+   "Choices that achieve the goal but misstate the notes.",
+   "Reading the bullets before the prompt — the goal is what filters everything."
+  ],
+  "promptSamples": [
+   "The student wants to emphasize a similarity between the two novels. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+   "The student wants to introduce the scientist and her field of study to a new audience. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+   "The student wants to emphasize the decline in unique apple varieties in the US and specify why this decline occurred. Which choice most effectively uses relevant information from the notes to accomplish these goals?"
+  ],
+  "partTitles": [
+   "Rhetorical Synthesis"
+  ],
+  "stepCount": 7
+ },
+ {
+  "skill": "Form, Structure, and Sense",
+  "domain": "Standard English Conventions",
+  "unit": "Unit 4 — Foundations: Expression of Ideas + Standard English Conventions",
+  "nutshell": "You apply a Standard English rule — subject-verb agreement, verb form, pronouns, or modifier placement — to pick the correct version.",
+  "oneMove": "Find the subject, strip everything between it and the verb, and read them side by side.",
+  "watchOut": [
+   "Words between the subject and the verb that disguise the real subject.",
+   "A pronoun with no clear antecedent, or a plural pronoun for a singular noun.",
+   "A modifier sitting next to the wrong noun."
+  ],
+  "promptSamples": [
+   "Which choice completes the text so that it conforms to the conventions of Standard English?"
+  ],
+  "partTitles": [
+   "Form, Structure, and Sense"
+  ],
+  "stepCount": 7
+ },
+ {
+  "skill": "Boundaries",
+  "domain": "Standard English Conventions",
+  "unit": "Unit 4 — Foundations: Expression of Ideas + Standard English Conventions",
+  "nutshell": "You decide where one sentence ends and the next begins, then punctuate that boundary correctly.",
+  "oneMove": "Label each side of the punctuation as a complete or incomplete sentence before you choose.",
+  "watchOut": [
+   "Comma splices — two complete sentences joined by a comma alone.",
+   "A comma or dash cutting a subject away from its verb.",
+   "Choosing punctuation by how it sounds instead of by clause structure."
+  ],
+  "promptSamples": [
+   "Which choice completes the text so that it conforms to the conventions of Standard English?"
+  ],
+  "partTitles": [
+   "Boundaries"
+  ],
+  "stepCount": 8
+ }
+]

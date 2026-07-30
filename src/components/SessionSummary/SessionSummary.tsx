@@ -25,7 +25,14 @@ export function SessionSummary({ attempts, onPracticeMore, onDashboard }: Props)
   return (
     <main className="summary app-shell">
       <header className="app-header">
-        <span className="wordmark">clarity<span>.</span></span>
+        <button
+          className="wordmark wordmark--button"
+          type="button"
+          onClick={onDashboard}
+          aria-label="Open dashboard"
+        >
+          clarity<span>.</span>
+        </button>
         <button className="link-button" type="button" onClick={onDashboard}>Dashboard</button>
       </header>
 

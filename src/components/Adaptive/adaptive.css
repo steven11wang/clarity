@@ -545,16 +545,22 @@
 
 .adaptive-result-field select {
   appearance: none;
-  background: rgba(16,22,38,0.55)
+  background: #000000
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='m1 1 6 6 6-6' fill='none' stroke='%232b5bc7' stroke-width='2'/%3E%3C/svg%3E")
     no-repeat right 0.85rem center;
   border: 1px solid rgba(255,255,255,0.14);
   border-radius: 8px;
   color: #ffffff;
+  color-scheme: dark;
   font: inherit;
   min-height: 46px;
   padding: 0.65rem 2.5rem 0.65rem 0.75rem;
   width: 100%;
+}
+
+.adaptive-result-field select option {
+  background: #000000;
+  color: #ffffff;
 }
 
 .adaptive-result-field select:focus {
@@ -1774,47 +1780,28 @@
 
 .progress-segment {
   background: rgba(255,255,255,0.14);
+  border: 0;
   border-radius: inherit;
+  cursor: pointer;
   flex: 1;
   height: 100%;
+  padding: 0;
   transition: background 0.22s ease, transform 0.22s ease;
+}
+
+.progress-segment:hover {
+  background: rgba(255,255,255,0.22);
+}
+
+.progress-segment:focus-visible {
+  outline: 2px solid #8cb4ff;
+  outline-offset: 2px;
 }
 
 .progress-segment--done { background: #2b5bc7; }
 .progress-segment--current { box-shadow: 0 0 0 2px rgba(255,255,255,0.18); transform: scaleY(1.35); }
 
 .batch-intro--compact { margin-bottom: 1.25rem; }
-
-.quiz-lesson {
-  background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(16,22,38,0.55));
-  border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 14px;
-  box-shadow: 0 12px 36px rgba(0,0,0,0.45);
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: auto minmax(0, 1fr);
-  margin: 0 auto;
-  max-width: 820px;
-  padding: clamp(1.25rem, 4vw, 2.4rem);
-}
-
-.quiz-lesson__badge {
-  align-items: center;
-  background: #2b5bc7;
-  border-radius: 50%;
-  color: #ffffff;
-  display: flex;
-  font-size: 1.3rem;
-  height: 3rem;
-  justify-content: center;
-  width: 3rem;
-}
-
-.quiz-lesson h2 { font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: clamp(1.65rem, 4vw, 2.35rem); letter-spacing: -0.035em; margin: 0.35rem 0 0.75rem;; font-weight: 300 }
-.quiz-lesson p { color: rgba(255,255,255,0.62); line-height: 1.6; }
-.quiz-lesson__example { background: rgba(16,22,38,0.55); border-left: 4px solid #2b5bc7; border-radius: 8px; display: grid; gap: 0.3rem; line-height: 1.5; margin: 1rem 0; padding: 0.85rem 1rem; }
-.quiz-lesson__example strong { color: #ffffff; font-size: 0.74rem; letter-spacing: 0.04em; text-transform: uppercase; }
-.quiz-lesson__tip { background: rgba(240,192,74,0.14); border-radius: 8px; padding: 0.75rem 0.85rem; }
 
 .question-step-actions {
   align-items: center;
@@ -1826,6 +1813,12 @@
   gap: 1rem;
   justify-content: space-between;
   padding: 0.8rem 1rem;
+}
+
+.question-step-actions__buttons {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
 }
 
 .diagnostic-gate {
@@ -1936,21 +1929,19 @@
 }
 
 .batch-choice {
-  align-items: start;
+  align-items: stretch;
   background: rgba(16,22,38,0.55);
   border: 1px solid rgba(255,255,255,0.14);
   border-radius: 10px;
   color: #ffffff;
-  cursor: pointer;
-  display: grid;
-  gap: 0.7rem;
-  grid-template-columns: auto auto minmax(0, 1fr);
+  display: flex;
+  gap: 0.65rem;
   line-height: 1.42;
-  padding: 0.78rem 0.85rem;
+  padding: 0.35rem 0.4rem 0.35rem 0.85rem;
   transition: background 0.14s ease, border-color 0.14s ease, box-shadow 0.14s ease;
 }
 
-.batch-choice:hover {
+.batch-choice:hover, .batch-choice--selected {
   background: rgba(255,255,255,0.06);
   border-color: #8eaaa2;
 }
@@ -1968,8 +1959,24 @@
   width: 1.05rem;
 }
 
-.batch-choice .choice-letter {
-  margin-top: 0.02rem;
+.batch-choice__select {
+  align-items: flex-start;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  flex: 1;
+  gap: 0.7rem;
+  min-width: 0;
+  padding: 0.43rem 0;
+}
+
+.batch-choice__select:focus-within {
+  outline: 2px solid #8cb4ff;
+  outline-offset: 2px;
+}
+
+.batch-choice__text {
+  min-width: 0;
 }
 
 .batch-choice--selected {
@@ -1980,6 +1987,11 @@
 .batch-choice--selected .choice-letter {
   background: #2b5bc7;
   color: #ffffff;
+}
+
+.batch-choice--struck .batch-choice__text {
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
 }
 
 .batch-submit {
@@ -2102,13 +2114,17 @@
     width: 100%;
   }
 
-  .quiz-lesson,
+
   .diagnostic-gate {
     grid-template-columns: 1fr;
   }
 
   .question-step-actions {
     align-items: stretch;
+    flex-direction: column;
+  }
+
+  .question-step-actions__buttons {
     flex-direction: column;
   }
 

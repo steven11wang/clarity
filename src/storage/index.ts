@@ -160,6 +160,31 @@ export function clearAdaptiveDraft(): void {
   storage.remove(ADAPTIVE_DRAFT_KEY)
 }
 
+// --- Foundations lessons ----------------------------------------------------
+// Which skill lessons the student has already been walked through. Kept out of
+// the progression document on purpose: reading a lesson is not earned progress,
+// so it must never participate in a guarded state transition, and wiping
+// progress to retake a diagnostic shouldn't force a reread of every lesson.
+
+const LESSONS_SEEN_KEY = 'lessons-seen'
+
+type LessonsSeen = Record<string, number>
+
+export function getLessonsSeen(): LessonsSeen {
+  return storage.get<LessonsSeen>(LESSONS_SEEN_KEY) ?? {}
+}
+
+export function hasSeenLesson(skill: string): boolean {
+  return Boolean(getLessonsSeen()[skill])
+}
+
+export function markLessonSeen(skill: string, timestamp = Date.now()): void {
+  const seen = getLessonsSeen()
+  if (seen[skill]) return
+  seen[skill] = timestamp
+  storage.set(LESSONS_SEEN_KEY, seen)
+}
+
 // --- Dev settings -----------------------------------------------------------
 // demoMode compresses review intervals to seconds; clockOffset lets the demo
 // jump forward in time so scheduled items come due without waiting.
@@ -230,6 +255,9 @@ export function replaceCloudState(state: CloudState): void {
   suppressChangeEvents = true
   try {
     const preservedSettings = localStorage.getItem(namespacedKey('settings'))
+    // Lessons read are device-local reading history, not synced progress —
+    // restoring a cloud snapshot shouldn't make the student reread them.
+    const preservedLessons = localStorage.getItem(namespacedKey(LESSONS_SEEN_KEY))
     const keys: string[] = []
     for (let index = 0; index < localStorage.length; index += 1) {
       const key = localStorage.key(index)
@@ -238,6 +266,9 @@ export function replaceCloudState(state: CloudState): void {
     keys.forEach((key) => localStorage.removeItem(key))
     if (preservedSettings) {
       localStorage.setItem(namespacedKey('settings'), preservedSettings)
+    }
+    if (preservedLessons) {
+      localStorage.setItem(namespacedKey(LESSONS_SEEN_KEY), preservedLessons)
     }
     if (state.progression) {
       localStorage.setItem(namespacedKey(PROGRESSION_KEY), JSON.stringify(state.progression))

@@ -180,7 +180,7 @@ body::after {
 }
 .choice:hover:not(:disabled), .option:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--cobalt-light); }
 .choice--selected { background: rgba(43, 91, 199, 0.24); border-color: var(--cobalt); }
-.choice-letter { background: rgba(255, 255, 255, 0.12); color: var(--console-text); }
+.choice-letter { background: transparent; color: var(--console-text); }
 .choice--selected .choice-letter { background: transparent; color: var(--console-text); }
 
 /* Focus: the console's bright white + cobalt ring. */
@@ -486,22 +486,6 @@ a:hover { color: #ffffff; }
   justify-content: center;
   position: absolute;
   text-shadow: 0 0 15px color-mix(in srgb, var(--tile-accent) 70%, transparent);
-}
-.console-tile__badge {
-  align-items: center;
-  background: radial-gradient(circle at 35% 24%, color-mix(in srgb, var(--tile-accent) 72%, white), color-mix(in srgb, var(--tile-accent) 72%, #12101f));
-  border: 3px solid #05070f;
-  border-radius: 50%;
-  bottom: -.55rem;
-  box-shadow: 0 0 13px color-mix(in srgb, var(--tile-accent) 52%, transparent);
-  display: flex;
-  font-size: .78rem;
-  font-weight: 700;
-  height: 2.45rem;
-  justify-content: center;
-  position: absolute;
-  right: -.55rem;
-  width: 2.45rem;
 }
 .console-rail-label {
   font-size: 1.38rem;

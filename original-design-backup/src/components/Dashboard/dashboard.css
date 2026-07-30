@@ -1,0 +1,31 @@
+.hero-stat { align-items: baseline; display: flex; gap: .8rem; flex-wrap: wrap; margin: 1.5rem 0 2rem; }
+.hero-number { color: #49746b; font-family: Georgia, serif; font-size: clamp(3rem, 10vw, 5rem); font-weight: 700; letter-spacing: -.04em; line-height: 1; }
+.hero-label { color: #52635f; font-size: 1.05rem; font-weight: 600; }
+
+.empty { background: #f4f7f5; border-radius: .7rem; color: #52635f; line-height: 1.6; max-width: 620px; padding: 1.4rem 1.5rem; }
+
+.dash-grid { display: grid; gap: 1.1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.card { background: #fff; border: 1px solid #dce3df; border-radius: .8rem; padding: 1.2rem 1.3rem; }
+.card h2 { font-size: 1.05rem; margin: 0 0 .2rem; }
+.card-sub { color: #7a8783; font-size: .84rem; margin: 0 0 1rem; }
+.card-note { background: #f4f7f5; border-radius: .5rem; color: #52635f; font-size: .82rem; line-height: 1.45; margin: 1rem 0 0; padding: .6rem .75rem; }
+.muted { color: #8a9793; font-size: .88rem; }
+
+.bars { display: grid; gap: 1rem; list-style: none; margin: 0; padding: 0; }
+.bar-row { color: #3c4a47; display: flex; font-size: .9rem; font-weight: 600; justify-content: space-between; margin-bottom: .35rem; }
+.bar-count { color: #60706d; font-weight: 650; }
+.bar-track { background: #eef1ef; border-radius: 99px; height: 8px; overflow: hidden; }
+.bar-fill { background: #49746b; border-radius: inherit; height: 100%; min-width: 3px; }
+.bar-fill--alarm { background: #c9a227; }
+.bar-plan { color: #7a8783; font-size: .8rem; line-height: 1.4; margin: .4rem 0 0; }
+
+.calib { display: grid; gap: .9rem; list-style: none; margin: 0; padding: 0; }
+
+.health { display: grid; gap: .8rem; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+.health-cell { background: #f6f8f7; border-radius: .6rem; padding: .9rem 1rem; }
+.health-num { color: #2f4f48; display: block; font-family: Georgia, serif; font-size: 1.8rem; font-weight: 700; line-height: 1; }
+.health-label { color: #6a7873; font-size: .8rem; }
+
+@media (max-width: 720px) {
+  .dash-grid { grid-template-columns: 1fr; }
+}

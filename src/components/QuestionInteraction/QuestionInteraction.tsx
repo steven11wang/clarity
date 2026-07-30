@@ -15,6 +15,7 @@ import { TRAP_TYPES } from '../../content/traps.ts'
 import { findReferencedSentences } from '../../review/evidence.ts'
 import { orderedChoices, type ChoiceSlot } from '../../review/ordering.ts'
 import { Passage } from '../Passage/Passage.tsx'
+import { AbcToggle, ChoiceMarker } from './ChoiceStrikeout.tsx'
 import {
   initReview,
   isHiddenError,
@@ -27,6 +28,7 @@ import {
   setSelfGrade,
   setTrap,
   submitRedo,
+  toggleChoiceStrikeout,
   toAttempt,
   answerChoiceStatus,
 } from './model.ts'
@@ -89,6 +91,13 @@ export function QuestionInteraction({
 
   const [reason, setReason] = useState('')
   const [evidenceSel, setEvidenceSel] = useState<number[]>([])
+  const [struckChoices, setStruckChoices] = useState<string[]>([])
+  const [abcMode, setAbcMode] = useState(false)
+
+  useEffect(() => {
+    setStruckChoices([])
+    setAbcMode(false)
+  }, [question.id])
 
   const choiceSlots = useMemo(() => orderedChoices(question, isReview), [question, isReview])
   const intent = useMemo(() => buildIntentChoices(question.skill, question.id), [question])
@@ -122,7 +131,10 @@ export function QuestionInteraction({
       />
 
       <section className="question-panel">
-        <h1 className="question-prompt">{question.prompt}</h1>
+        <div className="question-heading">
+          <h1 className="question-prompt">{question.prompt}</h1>
+          <AbcToggle active={abcMode} onToggle={() => setAbcMode((active) => !active)} />
+        </div>
 
         {/* Redo: re-attempt the missed question, answer-until-correct. */}
         {state.phase === 'redo' && (
@@ -137,31 +149,43 @@ export function QuestionInteraction({
                 const isFirstPick = firstPass.chosen !== '' && firstPass.chosen === slot.sourceLetter
                 const clickedWrong = state.wrongChoices.includes(slot.sourceLetter)
                 const isWrong = isFirstPick || clickedWrong
-                const cls = ['choice', isWrong ? 'choice--wrong' : ''].filter(Boolean).join(' ')
+                const struck = struckChoices.includes(slot.sourceLetter)
+                const cls = ['choice', isWrong ? 'choice--wrong' : '', struck ? 'choice--struck' : ''].filter(Boolean).join(' ')
                 return (
-                  <button
+                  <div
                     key={slot.displayLetter}
-                    type="button"
                     className={cls}
-                    disabled={isWrong}
-                    aria-disabled={isWrong}
-                    aria-label={
-                      isFirstPick
-                        ? `Choice ${slot.displayLetter}: the answer you chose, incorrect`
-                        : clickedWrong
-                          ? `Choice ${slot.displayLetter}: incorrect`
-                          : undefined
-                    }
-                    onClick={() => setState((s) => submitRedo(s, slot.sourceLetter))}
                   >
-                    <span className="choice-letter">{isWrong ? '✕' : slot.displayLetter}</span>
-                    <span className="choice-text">{slot.text}</span>
-                    {isFirstPick ? (
-                      <span className="choice-tag choice-tag--chose">You chose this</span>
-                    ) : clickedWrong ? (
-                      <span className="choice-tag choice-tag--wrong">Incorrect</span>
-                    ) : null}
-                  </button>
+                    <button
+                      type="button"
+                      className="choice-select"
+                      disabled={isWrong}
+                      aria-disabled={isWrong}
+                      aria-label={
+                        isFirstPick
+                          ? `Choice ${slot.displayLetter}: the answer you chose, incorrect`
+                          : clickedWrong
+                            ? `Choice ${slot.displayLetter}: incorrect`
+                            : undefined
+                      }
+                      onClick={() => setState((s) => submitRedo(s, slot.sourceLetter))}
+                    >
+                      <span className="choice-text">{slot.text}</span>
+                      {isFirstPick ? (
+                        <span className="choice-tag choice-tag--chose">You chose this</span>
+                      ) : clickedWrong ? (
+                        <span className="choice-tag choice-tag--wrong">Incorrect</span>
+                      ) : null}
+                    </button>
+                    {abcMode && (
+                      <ChoiceMarker
+                        letter={isWrong ? '✕' : slot.displayLetter}
+                        struck={struck}
+                        disabled={isWrong}
+                        onToggle={() => setStruckChoices((current) => toggleChoiceStrikeout(current, slot.sourceLetter))}
+                      />
+                    )}
+                  </div>
                 )
               })}
             </div>
@@ -235,7 +259,7 @@ export function QuestionInteraction({
               disabled={evidenceSel.length === 0}
               onClick={() => setState((s) => setEvidence(s, [...evidenceSel].sort((a, b) => a - b)))}
             >
-              Lock in my evidence
+              Continue
             </button>
           </div>
         )}

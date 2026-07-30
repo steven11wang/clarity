@@ -16,7 +16,14 @@ export function ContentError({
   return (
     <main className="adaptive-shell">
       <header className="adaptive-header">
-        <span className="wordmark">clarity<span>.</span></span>
+        <button
+          className="wordmark wordmark--button"
+          type="button"
+          onClick={onDashboard}
+          aria-label="Open dashboard"
+        >
+          clarity<span>.</span>
+        </button>
         <button className="link-button" type="button" onClick={onDashboard}>Dashboard</button>
       </header>
       <section className="adaptive-state-card adaptive-state-card--problem">

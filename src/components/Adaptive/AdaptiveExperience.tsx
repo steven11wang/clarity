@@ -34,8 +34,13 @@ import {
 import {
   clearAdaptiveDraft,
   getAdaptiveDraft,
+  hasSeenLesson,
+  markLessonSeen,
   saveAdaptiveDraft,
 } from '../../storage/index.ts'
+import { getSkillLessonSummary } from '../../content/skillLessons.ts'
+import { LessonLibrary } from '../Lesson/LessonLibrary.tsx'
+import { SkillLesson } from '../Lesson/SkillLesson.tsx'
 import type { Question } from '../../types.ts'
 import { AssessmentResult } from './AssessmentResult.tsx'
 import { BatchQuiz, type BatchAnswers } from './BatchQuiz.tsx'
@@ -68,6 +73,7 @@ type AdaptiveExperienceProps = {
   progression: ProgressionState | null
   onProgressionChange: (state: ProgressionState) => void
   onOpenPractice: () => void
+  onOpenLessons: () => void
   onOpenLibrary: () => void
   onOpenInsights: () => void
   onRecordAnswers: (
@@ -100,10 +106,29 @@ type Feedback = {
 type Screen =
   | 'dashboard'
   | 'domain'
+  | 'lessons'
+  | 'lesson'
   | 'quiz'
   | 'result'
   | 'review'
   | 'content-error'
+
+// A lesson is either gating a quiz the student is about to start (first time on
+// the skill), or opened on its own as a reread — from the skill card, or from
+// the dashboard's Lessons tab.
+type PendingLesson = {
+  /** The lesson on screen. */
+  skill: string
+  /**
+   * The skill whose quiz is waiting behind this lesson, so the read is never
+   * recorded against the wrong skill. Null when rereading.
+   */
+  gatedSkill: string | null
+  /** null when the student opened the lesson to reread it. */
+  next: Assessment | null
+  /** Where leaving the lesson should land. */
+  origin: 'domain' | 'lessons'
+}
 
 type ContentFailure = {
   failure: InsufficientQuestionSelection
@@ -120,6 +145,7 @@ export function AdaptiveExperience({
   progression,
   onProgressionChange,
   onOpenPractice,
+  onOpenLessons,
   onOpenLibrary,
   onOpenInsights,
   onRecordAnswers,
@@ -156,6 +182,7 @@ export function AdaptiveExperience({
   const [attemptReferences, setAttemptReferences] = useState<
     Record<string, AdaptiveAttemptReference>
   >({})
+  const [pendingLesson, setPendingLesson] = useState<PendingLesson | null>(null)
 
   function openAssessment(next: Assessment) {
     if (!progression) return
@@ -166,6 +193,33 @@ export function AdaptiveExperience({
     setAssessment(next)
     setDraftAnswers(answers)
     setScreen('quiz')
+  }
+
+  // The first time a student practices a skill, the Foundations lesson comes
+  // first. Only skill quizzes are gated: the diagnostic is a cold baseline by
+  // design, and a checkpoint mixes every skill at once.
+  function openAssessmentWithLesson(next: Assessment) {
+    if (
+      next.kind === 'skill' &&
+      getSkillLessonSummary(next.skill) !== null &&
+      !hasSeenLesson(next.skill)
+    ) {
+      setPendingLesson({
+        skill: next.skill,
+        gatedSkill: next.skill,
+        next,
+        origin: 'domain',
+      })
+      setScreen('lesson')
+      return
+    }
+    openAssessment(next)
+  }
+
+  function openLessonReread(skill: string, origin: 'domain' | 'lessons' = 'domain') {
+    if (getSkillLessonSummary(skill) === null) return
+    setPendingLesson({ skill, gatedSkill: null, next: null, origin })
+    setScreen('lesson')
   }
 
   function updateDraftAnswers(answers: BatchAnswers) {
@@ -189,6 +243,7 @@ export function AdaptiveExperience({
     setReviewReady(false)
     setAttemptReferences({})
     setFeedback(null)
+    setPendingLesson(null)
   }
 
   if (!progression || isUpdatingScore) {
@@ -301,7 +356,7 @@ export function AdaptiveExperience({
       return
     }
 
-    openAssessment({
+    openAssessmentWithLesson({
       kind: 'skill',
       id: `skill:${domainName}:${skillName}:${level}:${levelProgress.attempts.length}`,
       domain: domainName,
@@ -623,7 +678,7 @@ export function AdaptiveExperience({
             ? `Start with the complete ${assessment.questions.length}-question domain quiz. You’ll see one question at a time, and the result will shape what you practice next.`
             : checkpoint
             ? `Answer all ${assessment.questions.length} questions, with three from every skill. You need 100% to pass. Results appear only after the complete test is submitted.`
-            : `Learn the key idea, then answer three questions one at a time. Earn 3/3 to complete ${assessment.skill} at ${assessment.level}.`
+            : `Answer three questions one at a time. Earn 3/3 to complete ${assessment.skill} at ${assessment.level}.`
         }
         questions={assessment.questions}
         assessmentId={assessment.id}
@@ -784,6 +839,8 @@ export function AdaptiveExperience({
           (count, progress) => count + progress.attempts.length,
           0,
         ),
+        hasLesson: getSkillLessonSummary(skillName) !== null,
+        lessonSeen: hasSeenLesson(skillName),
       }
     })
     const checkpointView: CheckpointView | null =
@@ -814,6 +871,7 @@ export function AdaptiveExperience({
         diagnosticAttempts={domain.diagnostic.attempts.length}
         onBack={() => setScreen('dashboard')}
         onStartSkill={(skill) => startSkill(selectedDomain, skill)}
+        onOpenLesson={openLessonReread}
         onStartDiagnostic={() => startDiagnostic(selectedDomain)}
         onStartCheckpoint={() => startCheckpoint(selectedDomain)}
       />
@@ -855,18 +913,88 @@ export function AdaptiveExperience({
       finished: domain.finished,
     }
   })
+  const recommendedLessonDomainName =
+    progression.recommendedDomain ?? progression.selectedDomain
+  const recommendedLessonDomain = recommendedLessonDomainName
+    ? progression.domains[recommendedLessonDomainName]
+    : null
+  const recommendedLessonSkill = recommendedLessonDomain
+    ? Object.keys(recommendedLessonDomain.skills).find((skill) => {
+        const level = getSkillPracticeLevel(
+          progression,
+          recommendedLessonDomainName!,
+          skill,
+        )
+        return !recommendedLessonDomain.skills[skill].levels[level].completed
+      }) ?? Object.keys(recommendedLessonDomain.skills)[0] ?? null
+    : null
+  const pendingLessonSummary = pendingLesson
+    ? getSkillLessonSummary(pendingLesson.skill)
+    : null
+  const lessonsPanel =
+    pendingLesson && pendingLessonSummary ? (
+      <SkillLesson
+        embedded
+        key={pendingLesson.skill}
+        summary={pendingLessonSummary}
+        eyebrow={pendingLesson.next ? undefined : 'Lesson refresher'}
+        finishLabel={
+          pendingLesson.next
+            ? 'Start the mini quiz'
+            : pendingLesson.origin === 'lessons'
+              ? 'Back to all lessons'
+              : 'Back to the skill path'
+        }
+        onFinish={() => {
+          markLessonSeen(
+            pendingLesson.gatedSkill ?? pendingLesson.skill,
+          )
+          const next = pendingLesson.next
+          const origin = pendingLesson.origin
+          setPendingLesson(null)
+          if (next) {
+            openAssessment(next)
+          } else {
+            setScreen(origin)
+          }
+        }}
+        onExit={() => {
+          const origin = pendingLesson.origin
+          setPendingLesson(null)
+          setScreen(origin)
+        }}
+      />
+    ) : (
+      <LessonLibrary
+        recommendedSkill={recommendedLessonSkill}
+        onSelectSkill={(skill) => openLessonReread(skill, 'lessons')}
+        onBack={onOpenPractice}
+      />
+    )
+  const shellActiveView =
+    screen === 'lesson' || screen === 'lessons'
+      ? 'lessons'
+      : primaryView
+
+  function openPrimaryView(action: () => void) {
+    setPendingLesson(null)
+    setScreen('dashboard')
+    action()
+  }
 
   return (
     <ProgressDashboard
-      activeView={primaryView}
+      activeView={shellActiveView}
+      lessonsPanel={lessonsPanel}
       libraryPanel={libraryPanel}
       insightsPanel={insightsPanel}
       cards={cards}
       onSelectDomain={chooseDomain}
       onUpdateScore={() => setIsUpdatingScore(true)}
-      onOpenPractice={onOpenPractice}
-      onOpenLibrary={onOpenLibrary}
-      onOpenInsights={onOpenInsights}
+      onOpenPractice={() => openPrimaryView(onOpenPractice)}
+      onOpenLessons={() => openPrimaryView(onOpenLessons)}
+      onOpenLibrary={() => openPrimaryView(onOpenLibrary)}
+      onOpenInsights={() => openPrimaryView(onOpenInsights)}
     />
   )
 }

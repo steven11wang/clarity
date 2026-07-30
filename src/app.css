@@ -49,14 +49,29 @@ button { font: inherit; }
 .passage__text { font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 1.05rem; line-height: 1.72; margin: 0; white-space: pre-line;; font-weight: 300 }
 .question-panel { padding: 1.6rem 1.4rem 1.6rem; }
 .question-prompt { font-size: 1.16rem; line-height: 1.45; margin: 0 0 1.15rem; }
+.question-heading { align-items: flex-start; display: flex; gap: 1rem; justify-content: space-between; }
+.question-heading .question-prompt, .question-heading > h2 { flex: 1; }
+
+.abc-toggle { align-items: center; background: transparent; border: 2px solid rgba(255,255,255,0.72); border-radius: 8px; color: rgba(255,255,255,0.88); cursor: pointer; display: inline-flex; flex: 0 0 3rem; font-size: .82rem; font-weight: 850; height: 3rem; justify-content: center; letter-spacing: -.12em; padding: 0; position: relative; }
+.abc-toggle:hover, .abc-toggle:focus-visible, .abc-toggle--active { border-color: #8cb4ff; color: #ffffff; }
+.abc-toggle:focus-visible { outline: 2px solid #8cb4ff; outline-offset: 3px; }
+.abc-toggle__slash { background: currentColor; height: 2px; left: .35rem; position: absolute; right: .35rem; top: 50%; transform: rotate(-48deg); }
 
 /* --- Choices ------------------------------------------------------------- */
 .choice-list { display: grid; gap: .65rem; }
-.choice { align-items: flex-start; background: rgba(16,22,38,0.55); border: 1px solid rgba(255,255,255,0.14); border-radius: 10px; color: #ffffff; cursor: pointer; display: flex; gap: .85rem; line-height: 1.45; padding: .82rem .9rem; text-align: left; transition: background .15s, border-color .15s; width: 100%; }
-.choice:hover:not(:disabled), .choice--selected { background: rgba(255,255,255,0.06); border-color: #2b5bc7; }
+.choice { align-items: stretch; background: rgba(16,22,38,0.55); border: 1px solid rgba(255,255,255,0.14); border-radius: 10px; color: #ffffff; display: flex; gap: .65rem; line-height: 1.45; padding: .35rem .4rem .35rem .9rem; text-align: left; transition: background .15s, border-color .15s; width: 100%; }
+.choice:focus-within, .choice--selected { background: rgba(255,255,255,0.06); border-color: #2b5bc7; }
+.choice-select { align-items: flex-start; background: transparent; border: 0; border-radius: 6px; color: inherit; cursor: pointer; display: flex; flex: 1; gap: .85rem; line-height: inherit; min-width: 0; padding: .47rem 0; text-align: left; }
+.choice-select:focus-visible { outline: 2px solid #8cb4ff; outline-offset: 2px; }
+.choice-marker { align-items: center; align-self: center; background: transparent; border: 2px solid rgba(255,255,255,0.82); border-radius: 50%; color: inherit; cursor: pointer; display: inline-flex; flex: 0 0 1.75rem; font-size: .9rem; font-weight: 800; height: 1.75rem; justify-content: center; padding: 0; position: relative; }
+.choice-marker:hover, .choice-marker:focus-visible { border-color: #8cb4ff; color: #ffffff; }
+.choice-marker:focus-visible { outline: 2px solid #8cb4ff; outline-offset: 3px; }
+.choice-marker--struck::after { background: currentColor; content: ''; height: 2px; left: -.35rem; position: absolute; right: -.35rem; top: 50%; }
+.choice-marker:disabled { cursor: default; opacity: .7; }
 .choice-letter { align-items: center; background: rgba(255,255,255,0.08); border-radius: 50%; display: inline-flex; flex: 0 0 1.5rem; font-size: .8rem; font-weight: 750; height: 1.5rem; justify-content: center; }
 .choice--selected .choice-letter { background: #2b5bc7; color: #ffffff; }
 .choice-text { flex: 1; }
+.choice--struck .choice-text { text-decoration: line-through; text-decoration-thickness: 2px; }
 /* Wrong pick during redo: marked clearly and accessibly — ✕ icon, "Incorrect"
    text, and colour, so it never relies on colour alone. */
 .choice--wrong { background: rgba(255,107,94,0.14); border-color: rgba(255,107,94,0.38); color: #ff8b80; cursor: default; }

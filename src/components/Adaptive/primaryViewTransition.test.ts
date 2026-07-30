@@ -4,12 +4,16 @@ import test from 'node:test'
 import { primaryViewDirection } from './primaryViewTransition.ts'
 
 test('primary views move forward in navigation order', () => {
+  assert.equal(primaryViewDirection('practice', 'lessons'), 1)
+  assert.equal(primaryViewDirection('lessons', 'library'), 1)
   assert.equal(primaryViewDirection('practice', 'library'), 1)
   assert.equal(primaryViewDirection('library', 'insights'), 1)
   assert.equal(primaryViewDirection('practice', 'insights'), 1)
 })
 
 test('primary views move backward in navigation order', () => {
+  assert.equal(primaryViewDirection('library', 'lessons'), -1)
+  assert.equal(primaryViewDirection('lessons', 'practice'), -1)
   assert.equal(primaryViewDirection('insights', 'library'), -1)
   assert.equal(primaryViewDirection('library', 'practice'), -1)
   assert.equal(primaryViewDirection('insights', 'practice'), -1)

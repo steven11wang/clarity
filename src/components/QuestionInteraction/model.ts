@@ -62,6 +62,12 @@ export function answerChoiceStatus(
   }
 }
 
+export function toggleChoiceStrikeout(struckChoices: string[], choice: string): string[] {
+  return struckChoices.includes(choice)
+    ? struckChoices.filter((current) => current !== choice)
+    : [...struckChoices, choice]
+}
+
 export function initReview(
   question: Question,
   firstPass: FirstPass,

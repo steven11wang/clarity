@@ -15,6 +15,10 @@ export type SkillCardView = {
   remediation: boolean
   checkpointRepair: boolean
   attemptCount: number
+  /** False when this skill has no Foundations lesson authored for it. */
+  hasLesson: boolean
+  /** True once the student has walked the lesson at least once. */
+  lessonSeen: boolean
 }
 
 export type CheckpointView = {
@@ -37,6 +41,7 @@ type DomainPathProps = {
   onBack: () => void
   onStartDiagnostic: () => void
   onStartSkill: (skill: string) => void
+  onOpenLesson: (skill: string) => void
   onStartCheckpoint: () => void
 }
 
@@ -53,6 +58,7 @@ export function DomainPath({
   onBack,
   onStartDiagnostic,
   onStartSkill,
+  onOpenLesson,
   onStartCheckpoint,
 }: DomainPathProps) {
   const presentation = DOMAIN_PRESENTATION[domain]
@@ -68,7 +74,7 @@ export function DomainPath({
       } as CSSProperties}
     >
       <header className="adaptive-header">
-        <button className="wordmark wordmark--button" type="button" onClick={onBack} aria-label="Back to all domains">
+        <button className="wordmark wordmark--button" type="button" onClick={onBack} aria-label="Back">
           clarity<span>.</span>
         </button>
         <button className="link-button" type="button" onClick={onBack}>All domains</button>
@@ -146,7 +152,7 @@ export function DomainPath({
               </div>
               <p>
                 {diagnosticComplete
-                  ? 'Each mini quiz begins with a short lesson, then asks three questions one by one.'
+                  ? 'The first time you open a skill you get its full lesson; after that it goes straight to three questions. You can reread any lesson from its card.'
                   : 'Complete the full diagnostic above to unlock focused skill lessons.'}
               </p>
             </div>
@@ -183,7 +189,19 @@ export function DomainPath({
                         {skill.attemptCount === 0
                           ? 'No attempts yet'
                           : `${skill.attemptCount} ${skill.attemptCount === 1 ? 'attempt' : 'attempts'}`}
+                        {skill.hasLesson && !skill.lessonSeen && diagnosticComplete
+                          ? ' · Lesson first'
+                          : ''}
                       </small>
+                      {skill.hasLesson && skill.lessonSeen && (
+                        <button
+                          className="skill-card__lesson"
+                          type="button"
+                          onClick={() => onOpenLesson(skill.name)}
+                        >
+                          Reread the lesson
+                        </button>
+                      )}
                     </div>
                     {active ? (
                       <button className="button" type="button" onClick={() => onStartSkill(skill.name)}>
@@ -191,7 +209,9 @@ export function DomainPath({
                           ? `Practice ${skill.practiceLevel}`
                           : skill.checkpointRepair
                             ? 'Repair this skill'
-                            : 'Start mini quiz'}
+                            : skill.hasLesson && !skill.lessonSeen
+                              ? 'Learn, then quiz'
+                              : 'Start mini quiz'}
                       </button>
                     ) : skill.completed ? (
                       <span className="skill-card__done">3/3 secured</span>

@@ -122,6 +122,9 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
           signOut: async () => {
             await supabase!.auth.signOut()
           },
+          openAccount: () => {
+            void supabase!.auth.signOut()
+          },
         }}
       >
         {children}
@@ -130,10 +133,20 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
   )
 }
 
-function LocalProfileGate({ children }: { children: ReactNode }) {
+export function LocalProfileGate({ children }: { children: ReactNode }) {
   const [selected, setSelected] = useState(
     () => window.sessionStorage.getItem('clarity-active-profile') === 'Dara',
   )
+  const [showSignUp, setShowSignUp] = useState(false)
+
+  function openAccount() {
+    window.sessionStorage.removeItem('clarity-active-profile')
+    setSelected(false)
+  }
+
+  if (showSignUp) {
+    return <SignIn initialMode="sign-up" />
+  }
 
   if (selected) {
     return (
@@ -144,6 +157,7 @@ function LocalProfileGate({ children }: { children: ReactNode }) {
             displayName: 'Dara',
             isLocal: true,
             signOut: null,
+            openAccount,
           }}
         >
           {children}
@@ -166,6 +180,7 @@ function LocalProfileGate({ children }: { children: ReactNode }) {
             className="profile-gate__add"
             type="button"
             aria-label="Add another user"
+            onClick={() => setShowSignUp(true)}
             data-ui-sound="true"
             data-ui-sound-hover="hover"
             data-ui-sound-click="open"
@@ -173,27 +188,6 @@ function LocalProfileGate({ children }: { children: ReactNode }) {
             <span>+</span>
             <strong>Add User</strong>
           </button>
-          <div className="profile-gate__learner">
-            <span className="profile-gate__controller" aria-hidden="true">▰</span>
-            <small>1</small>
-            <button
-              className="profile-gate__avatar"
-              type="button"
-              onClick={() => {
-                window.sessionStorage.setItem('clarity-active-profile', 'Dara')
-                setSelected(true)
-              }}
-              aria-label="Continue as Dara"
-              data-ui-sound="true"
-              data-ui-sound-hover="hover"
-              data-ui-sound-click="select"
-            >
-              <span>⌁</span>
-            </button>
-            <strong>Dara</strong>
-            <p>Equipped · Mira, evidence scout</p>
-            <span className="profile-gate__options">▤ &nbsp; Options</span>
-          </div>
         </div>
         <button
           className="profile-gate__power"
@@ -210,9 +204,9 @@ function LocalProfileGate({ children }: { children: ReactNode }) {
   )
 }
 
-function SignIn() {
-  const [mode, setMode] = useState<'sign-in' | 'sign-up'>('sign-in')
-  const [showForm, setShowForm] = useState(false)
+export function SignIn({ initialMode = 'sign-in' }: { initialMode?: 'sign-in' | 'sign-up' } = {}) {
+  const [mode, setMode] = useState<'sign-in' | 'sign-up'>(initialMode)
+  const [showForm, setShowForm] = useState(initialMode === 'sign-up')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [displayName, setDisplayName] = useState('')
@@ -269,36 +263,6 @@ function SignIn() {
               <span>+</span>
               <strong>Add User</strong>
             </button>
-            <div className="profile-gate__learner">
-              <span className="profile-gate__controller" aria-hidden="true">▰</span>
-              <small>1</small>
-              <button
-              className="profile-gate__avatar"
-              type="button"
-              onClick={() => {
-                setMode('sign-in')
-                setShowForm(true)
-              }}
-              aria-label="Sign in as Dara"
-              data-ui-sound="true"
-              data-ui-sound-hover="hover"
-              data-ui-sound-click="select"
-            >
-                <span>⌁</span>
-              </button>
-              <strong>Dara</strong>
-              <p>Equipped · Mira, evidence scout</p>
-              <button
-                className="profile-gate__options profile-gate__options--button"
-                type="button"
-                onClick={() => setShowForm(true)}
-                data-ui-sound="true"
-                data-ui-sound-hover="hover"
-                data-ui-sound-click="open"
-              >
-                ▤ &nbsp; Sign-in options
-              </button>
-            </div>
           </div>
           <span className="profile-gate__power" aria-hidden="true">↻</span>
         </section>

@@ -34,7 +34,14 @@ export function AssessmentResult({
   return (
     <main className="adaptive-shell result-shell">
       <header className="adaptive-header">
-        <span className="wordmark">clarity<span>.</span></span>
+        <button
+          className="wordmark wordmark--button"
+          type="button"
+          onClick={onDashboard}
+          aria-label="Open dashboard"
+        >
+          clarity<span>.</span>
+        </button>
         <button className="link-button" type="button" onClick={onDashboard}>Dashboard</button>
       </header>
 
@@ -61,7 +68,7 @@ export function AssessmentResult({
 
       <div className="assessment-result__actions">
         <button className="button" type="button" onClick={onNext}>{nextLabel}</button>
-        <button className="button button--quiet" type="button" onClick={onDashboard}>Back to all domains</button>
+        <button className="button button--quiet" type="button" onClick={onDashboard}>Back</button>
       </div>
     </main>
   )

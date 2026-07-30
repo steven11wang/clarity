@@ -36,7 +36,7 @@ import type { Attempt, FirstPass, Question } from './types.ts'
 import './app.css'
 
 type LoadState = 'loading' | 'ready' | 'empty' | 'error'
-type View = 'adaptive' | 'browse' | 'practice' | 'insights'
+type View = 'adaptive' | 'lessons' | 'browse' | 'practice' | 'insights'
 type SessionPhase = 'answer' | 'review-intro' | 'review' | 'summary'
 
 function App() {
@@ -304,11 +304,13 @@ function App() {
 
   if (view !== 'practice') {
     const primaryView =
-      view === 'browse'
-        ? 'library'
-        : view === 'insights'
-          ? 'insights'
-          : 'practice'
+      view === 'lessons'
+        ? 'lessons'
+        : view === 'browse'
+          ? 'library'
+          : view === 'insights'
+            ? 'insights'
+            : 'practice'
 
     return (
       <>
@@ -337,6 +339,7 @@ function App() {
           progression={progression}
           onProgressionChange={updateProgression}
           onOpenPractice={() => setView('adaptive')}
+          onOpenLessons={() => setView('lessons')}
           onOpenLibrary={() => setView('browse')}
           onOpenInsights={() => setView('insights')}
           onRecordAnswers={recordAdaptiveAnswers}
