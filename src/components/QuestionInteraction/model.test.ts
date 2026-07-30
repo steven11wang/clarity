@@ -16,6 +16,7 @@ import {
   setTrap,
   submitRedo,
   toAttempt,
+  answerChoiceStatus,
 } from './model.ts'
 
 const question = { id: 'q1', answer: 'B', skill: 'Inferences' } as unknown as Question
@@ -23,6 +24,15 @@ const question = { id: 'q1', answer: 'B', skill: 'Inferences' } as unknown as Qu
 const missed: FirstPass = { chosen: 'A', confidence: 'sure', correct: false, timeMs: null, timedOut: false }
 
 describe('review loop model', () => {
+  it('identifies the correct choice and the original wrong choice', () => {
+    assert.deepEqual(answerChoiceStatus('A', 'A', 'C'), { isCorrect: true, isChosenWrong: false })
+    assert.deepEqual(answerChoiceStatus('C', 'A', 'C'), { isCorrect: false, isChosenWrong: true })
+  })
+
+  it('does not mark a choice as chosen when the student timed out', () => {
+    assert.deepEqual(answerChoiceStatus('C', 'A', ''), { isCorrect: false, isChosenWrong: false })
+  })
+
   it('starts at redo seeded with the answer-pass result', () => {
     const state = initReview(question, missed, 0)
     assert.equal(state.phase, 'redo')

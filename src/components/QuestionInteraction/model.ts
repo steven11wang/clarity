@@ -51,6 +51,17 @@ export type LoopState = {
   trapGuess: TrapType | null
 }
 
+export function answerChoiceStatus(
+  sourceLetter: string,
+  correctLetter: string,
+  firstChoice: string,
+): { isCorrect: boolean; isChosenWrong: boolean } {
+  return {
+    isCorrect: sourceLetter === correctLetter,
+    isChosenWrong: firstChoice !== '' && sourceLetter === firstChoice && sourceLetter !== correctLetter,
+  }
+}
+
 export function initReview(
   question: Question,
   firstPass: FirstPass,

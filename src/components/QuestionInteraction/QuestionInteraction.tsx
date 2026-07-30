@@ -13,7 +13,7 @@ import type {
 import { buildIntentChoices } from '../../content/questionIntents.ts'
 import { TRAP_TYPES } from '../../content/traps.ts'
 import { findReferencedSentences } from '../../review/evidence.ts'
-import { orderedChoices } from '../../review/ordering.ts'
+import { orderedChoices, type ChoiceSlot } from '../../review/ordering.ts'
 import { Passage } from '../Passage/Passage.tsx'
 import {
   initReview,
@@ -28,6 +28,7 @@ import {
   setTrap,
   submitRedo,
   toAttempt,
+  answerChoiceStatus,
 } from './model.ts'
 
 const CAUSES: { id: ErrorCause; label: string }[] = [
@@ -210,24 +211,7 @@ export function QuestionInteraction({
                 <p className="rationale">{question.rationale}</p>
               </div>
             </div>
-            <div className="answer-comparison" aria-label="Answer choice comparison">
-              <p className="panel-label">All answer choices</p>
-              {choiceSlots.map((slot) => {
-                const correct = slot.sourceLetter === question.answer
-                const chosen = slot.sourceLetter === firstPass.chosen
-                return (
-                  <div
-                    className={`answer-comparison__choice ${correct ? 'is-correct' : ''} ${chosen && !correct ? 'is-wrong' : ''}`}
-                    key={slot.displayLetter}
-                  >
-                    <span className="choice-letter">{slot.displayLetter}</span>
-                    <span>{slot.text}</span>
-                    {correct && <strong>Correct answer</strong>}
-                    {chosen && !correct && <strong>Your answer</strong>}
-                  </div>
-                )
-              })}
-            </div>
+            <AnswerChoiceComparison question={question} choiceSlots={choiceSlots} firstChoice={firstPass.chosen} />
             <p className="panel-label">How close was your reason?</p>
             <div className="confidence-row">
               {GRADES.map((g) => (
@@ -262,6 +246,7 @@ export function QuestionInteraction({
             {referenced.length > 0 && (
               <p className="hint">The highlighted sentence is what the reasoning leans on.</p>
             )}
+            <AnswerChoiceComparison question={question} choiceSlots={choiceSlots} firstChoice={firstPass.chosen} />
             <p className="panel-label">Did your underline land on the evidence?</p>
             <div className="confidence-row">
               {EVIDENCE_GRADES.map((g) => (
@@ -327,6 +312,36 @@ export function QuestionInteraction({
         {state.phase === 'done' && <DoneStep state={state} onNext={onNext} />}
       </section>
     </>
+  )
+}
+
+function AnswerChoiceComparison({
+  question,
+  choiceSlots,
+  firstChoice,
+}: {
+  question: Question
+  choiceSlots: ChoiceSlot[]
+  firstChoice: string
+}) {
+  return (
+    <div className="answer-comparison" aria-label="Answer choice comparison">
+      <p className="panel-label">All answer choices</p>
+      {choiceSlots.map((slot) => {
+        const { isCorrect, isChosenWrong } = answerChoiceStatus(slot.sourceLetter, question.answer, firstChoice)
+        return (
+          <div
+            className={`answer-comparison__choice ${isCorrect ? 'is-correct' : ''} ${isChosenWrong ? 'is-wrong' : ''}`}
+            key={slot.displayLetter}
+          >
+            <span className="choice-letter">{slot.displayLetter}</span>
+            <span>{slot.text}</span>
+            {isCorrect && <strong>Correct answer</strong>}
+            {isChosenWrong && <strong>Your answer</strong>}
+          </div>
+        )
+      })}
+    </div>
   )
 }
 
