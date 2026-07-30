@@ -6,6 +6,8 @@ export type AuthProfileContextValue = {
   isLocal: boolean
   signOut: (() => Promise<void>) | null
   openAccount: () => void
+  avatarId?: string
+  updateAvatar?: ((avatarId: string) => Promise<void>) | null
 }
 
 const fallback: AuthProfileContextValue = {
@@ -14,6 +16,8 @@ const fallback: AuthProfileContextValue = {
   isLocal: false,
   signOut: null,
   openAccount: () => {},
+  avatarId: 'orbit',
+  updateAvatar: null,
 }
 
 const AuthProfileContext = createContext<AuthProfileContextValue>(fallback)

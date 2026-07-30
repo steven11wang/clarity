@@ -112,7 +112,7 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
     return (
       <>
         <ConsoleAudioProvider scene="auth" />
-        <SignIn />
+        <AccountChooser />
       </>
     )
   }
@@ -136,6 +136,12 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
           },
           openAccount: () => {
             void supabase!.auth.signOut()
+          },
+          avatarId: typeof user.user_metadata?.avatar_id === 'string' ? user.user_metadata.avatar_id : 'orbit',
+          updateAvatar: async (avatarId) => {
+            await supabase!.auth.updateUser({ data: { avatar_id: avatarId } })
+            upsertProfileShortcut({ id: user.id, email: user.email ?? '', displayName: typeof user.user_metadata?.display_name === 'string' ? user.user_metadata.display_name : user.email?.split('@')[0] ?? 'Account', avatarId: avatarId as AvatarId })
+            setUser((current) => current ? { ...current, user_metadata: { ...current.user_metadata, avatar_id: avatarId } } : current)
           },
         }}
       >
@@ -171,6 +177,11 @@ export function LocalProfileGate({ children }: { children: ReactNode }) {
             isLocal: true,
             signOut: null,
             openAccount,
+            avatarId: selected.avatarId,
+            updateAvatar: async (avatarId) => {
+              const updated = upsertProfileShortcut({ ...selected, avatarId: avatarId as AvatarId })
+              setSelected(updated)
+            },
           }}
         >
           {children}
@@ -185,13 +196,22 @@ export function LocalProfileGate({ children }: { children: ReactNode }) {
   }} />
 }
 
-export function SignIn({ initialMode = 'sign-in', onLocalProfileCreated }: { initialMode?: 'sign-in' | 'sign-up'; onLocalProfileCreated?: (profile: ProfileShortcut) => void } = {}) {
+function AccountChooser() {
+  const [selected, setSelected] = useState<ProfileShortcut | null>(null)
+  const [creating, setCreating] = useState(false)
+  if (creating) return <SignIn initialMode="sign-up" />
+  if (selected) return <SignIn initialEmail={selected.email} />
+  return <ProfileChooser profiles={listProfileShortcuts()} onAddUser={() => setCreating(true)} onChoose={setSelected} />
+}
+
+export function SignIn({ initialMode = 'sign-in', initialEmail = '', onLocalProfileCreated }: { initialMode?: 'sign-in' | 'sign-up'; initialEmail?: string; onLocalProfileCreated?: (profile: ProfileShortcut) => void } = {}) {
   const [mode, setMode] = useState<'sign-in' | 'sign-up'>(initialMode)
   const [showForm, setShowForm] = useState(initialMode === 'sign-up')
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState(initialEmail)
   const [password, setPassword] = useState('')
   const [displayName, setDisplayName] = useState('')
-  const [avatarId, setAvatarId] = useState<AvatarId | null>(null)
+  const [avatarId, setAvatarId] = useState<AvatarId>('orbit')
+  const [avatarPickerOpen, setAvatarPickerOpen] = useState(false)
   const [busy, setBusy] = useState(false)
   const [message, setMessage] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -199,7 +219,7 @@ export function SignIn({ initialMode = 'sign-in', onLocalProfileCreated }: { ini
   async function submit(event: FormEvent) {
     event.preventDefault()
     if (!supabase) {
-      if (mode === 'sign-up' && avatarId) {
+      if (mode === 'sign-up') {
         const name = displayName.trim() || email.split('@')[0] || 'Learner'
         const profile = upsertProfileShortcut({ id: `local-${email || name}`, email, displayName: name, avatarId })
         if (onLocalProfileCreated) onLocalProfileCreated(profile)
@@ -288,7 +308,7 @@ export function SignIn({ initialMode = 'sign-in', onLocalProfileCreated }: { ini
           {mode === 'sign-up' && (
             <>
               <label className="field"><span>Display name <small>(optional)</small></span><input autoComplete="name" value={displayName} onChange={(event) => setDisplayName(event.target.value)} /></label>
-              <fieldset className="avatar-picker"><legend>Choose your avatar</legend><div>{AVATARS.map((avatar) => <button key={avatar.id} type="button" aria-pressed={avatarId === avatar.id} aria-label={avatar.label} onClick={() => setAvatarId(avatar.id)}>{avatar.glyph}</button>)}</div></fieldset>
+              <div className="avatar-picker avatar-picker--hero"><button className="avatar-picker__current" type="button" aria-label="Choose avatar" aria-expanded={avatarPickerOpen} onClick={() => setAvatarPickerOpen((open) => !open)}>{AVATARS.find((avatar) => avatar.id === avatarId)?.glyph}</button><span>Choose your avatar</span>{avatarPickerOpen && <div className="avatar-picker__options">{AVATARS.map((avatar) => <button key={avatar.id} type="button" aria-pressed={avatarId === avatar.id} aria-label={avatar.label} onClick={() => { setAvatarId(avatar.id); setAvatarPickerOpen(false) }}>{avatar.glyph}</button>)}</div>}</div>
             </>
           )}
           <label className="field">
@@ -317,7 +337,7 @@ export function SignIn({ initialMode = 'sign-in', onLocalProfileCreated }: { ini
           <button
             className="button button--full"
             type="submit"
-            disabled={busy || (mode === 'sign-up' && !avatarId)}
+            disabled={busy}
             data-ui-sound="true"
             data-ui-sound-hover="hover"
             data-ui-sound-click="select"

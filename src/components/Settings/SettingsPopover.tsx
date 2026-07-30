@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 import { useAuthProfile } from '../../auth/AuthContext.tsx'
+import { AVATARS } from '../../auth/profileShortcuts.ts'
 import './settings.css'
 
 type SettingsPopoverProps = {
@@ -8,8 +9,9 @@ type SettingsPopoverProps = {
 }
 
 export function SettingsPopover({ onScoreUpdate }: SettingsPopoverProps) {
-  const { email, displayName, isLocal, signOut } = useAuthProfile()
+  const { email, displayName, isLocal, signOut, avatarId = 'orbit', updateAvatar } = useAuthProfile()
   const [open, setOpen] = useState(false)
+  const [editingProfile, setEditingProfile] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const panelId = 'clarity-settings-popover'
   const accountLabel = isLocal ? `${displayName} · local profile` : email ?? displayName
@@ -63,13 +65,15 @@ export function SettingsPopover({ onScoreUpdate }: SettingsPopoverProps) {
           </div>
 
           <div className="settings-popover__rows">
-            <div className="settings-popover__row">
+            <button className="settings-popover__row settings-popover__row--button" type="button" onClick={() => setEditingProfile((value) => !value)}>
               <span className="settings-popover__icon" aria-hidden="true">◎</span>
               <span>
                 <strong>Profile</strong>
-                <small>{displayName}</small>
+                <small>{editingProfile ? 'Choose avatar' : displayName}</small>
               </span>
-            </div>
+              <span className="settings-popover__chevron" aria-hidden="true">›</span>
+            </button>
+            {editingProfile && updateAvatar && <div className="settings-avatar-picker" aria-label="Avatar choices">{AVATARS.map((avatar) => <button key={avatar.id} type="button" aria-pressed={avatarId === avatar.id} aria-label={`Use ${avatar.label} avatar`} onClick={() => { void updateAvatar(avatar.id); setEditingProfile(false) }}>{avatar.glyph}</button>)}</div>}
 
             <button
               className="settings-popover__row settings-popover__row--button"
