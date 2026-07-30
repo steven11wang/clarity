@@ -302,45 +302,46 @@ function App() {
     </div>
   )
 
-  if (view === 'adaptive') {
+  if (view !== 'practice') {
+    const primaryView =
+      view === 'browse'
+        ? 'library'
+        : view === 'insights'
+          ? 'insights'
+          : 'practice'
+
     return (
       <>
         <AdaptiveExperience
+          primaryView={primaryView}
+          libraryPanel={(
+            <Browse
+              embedded
+              questions={questions}
+              dueCount={dueNow}
+              timedMode={timedMode}
+              timeLimitSec={timeLimitSec}
+              onToggleTimed={toggleTimed}
+              onChangeLimit={changeLimit}
+              onStart={startSession}
+              onOpenDashboard={() => setView('adaptive')}
+            />
+          )}
+          insightsPanel={(
+            <Dashboard
+              embedded
+              onBack={() => setView('adaptive')}
+            />
+          )}
           questions={questions}
           progression={progression}
           onProgressionChange={updateProgression}
+          onOpenPractice={() => setView('adaptive')}
           onOpenLibrary={() => setView('browse')}
           onOpenInsights={() => setView('insights')}
           onRecordAnswers={recordAdaptiveAnswers}
           onRecordReview={recordAdaptiveReview}
         />
-        {devBar}
-      </>
-    )
-  }
-
-  if (view === 'browse') {
-    return (
-      <>
-        <Browse
-          questions={questions}
-          dueCount={dueNow}
-          timedMode={timedMode}
-          timeLimitSec={timeLimitSec}
-          onToggleTimed={toggleTimed}
-          onChangeLimit={changeLimit}
-          onStart={startSession}
-          onOpenDashboard={() => setView('adaptive')}
-        />
-        {devBar}
-      </>
-    )
-  }
-
-  if (view === 'insights') {
-    return (
-      <>
-        <Dashboard onBack={() => setView('adaptive')} />
         {devBar}
       </>
     )

@@ -30,19 +30,29 @@ const CAUSE_PLAN: Record<ErrorCause, string> = {
   rushed: 'A timing problem, not a knowledge one — pace differently.',
 }
 
-export function Dashboard({ onBack }: { onBack: () => void }) {
+export function Dashboard({
+  embedded = false,
+  onBack,
+}: {
+  embedded?: boolean
+  onBack: () => void
+}) {
   const stats = useMemo(() => computeStats(getAttempts(), getReviews(), now()), [])
   const maxCause = Math.max(1, ...stats.causeBreakdown.map((c) => c.count))
   const maxTrap = Math.max(1, ...stats.trapProfile.map((t) => t.count))
+  const Root = embedded ? 'section' : 'main'
 
   return (
-    <main className="dashboard app-shell">
-      <header className="app-header">
+    <Root
+      className={embedded ? 'dashboard dashboard--embedded' : 'dashboard app-shell'}
+      aria-label={embedded ? 'Insights' : undefined}
+    >
+      {!embedded && <header className="app-header">
         <button className="wordmark wordmark--button" type="button" onClick={onBack} aria-label="Back to Browse">
           clarity<span>.</span>
         </button>
         <button className="link-button" type="button" onClick={onBack}>Practice</button>
-      </header>
+      </header>}
 
       <section className="hero-stat">
         <span className="hero-number">{stats.errorsDiagnosed}</span>
@@ -149,6 +159,6 @@ export function Dashboard({ onBack }: { onBack: () => void }) {
           </section>
         </div>
       )}
-    </main>
+    </Root>
   )
 }

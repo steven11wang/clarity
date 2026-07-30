@@ -1,4 +1,11 @@
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from 'react'
 
 import {
   DOMAIN_PRESENTATION,
@@ -8,6 +15,8 @@ import {
   type SatDomain,
 } from '../../progression/config.ts'
 import { SettingsPopover } from '../Settings/SettingsPopover.tsx'
+import { PrimaryViewTransition } from './PrimaryViewTransition.tsx'
+import type { PrimaryConsoleView } from './primaryViewTransition.ts'
 
 export type DomainCardView = {
   domain: SatDomain
@@ -22,9 +31,13 @@ export type DomainCardView = {
 }
 
 type ProgressDashboardProps = {
+  activeView: PrimaryConsoleView
+  libraryPanel: ReactNode
+  insightsPanel: ReactNode
   cards: DomainCardView[]
   onSelectDomain: (domain: SatDomain) => void
   onUpdateScore: () => void
+  onOpenPractice: () => void
   onOpenLibrary: () => void
   onOpenInsights: () => void
 }
@@ -110,9 +123,13 @@ function buildHero(
 }
 
 export function ProgressDashboard({
+  activeView,
+  libraryPanel,
+  insightsPanel,
   cards,
   onSelectDomain,
   onUpdateScore,
+  onOpenPractice,
   onOpenLibrary,
   onOpenInsights,
 }: ProgressDashboardProps) {
@@ -216,9 +233,11 @@ export function ProgressDashboard({
   return (
     <main
       className={`console-dashboard ${
-        selectedCard
-          ? `console-dashboard--domain-${SAT_DOMAINS.indexOf(selectedCard.domain)}`
-          : `console-dashboard--${selection.kind}`
+        activeView === 'practice'
+          ? selectedCard
+            ? `console-dashboard--domain-${SAT_DOMAINS.indexOf(selectedCard.domain)}`
+            : `console-dashboard--${selection.kind}`
+          : 'console-dashboard--today'
       }`}
     >
       <div
@@ -233,12 +252,26 @@ export function ProgressDashboard({
       </div>
 
       <header className="console-header">
-        <span className="console-wordmark">clarity<span>.</span></span>
+        <button
+          className="console-wordmark"
+          type="button"
+          aria-label="Open Practice home"
+          onClick={() => {
+            setSelection({ kind: 'today' })
+            onOpenPractice()
+          }}
+        >
+          clarity<span>.</span>
+        </button>
         <nav className="console-nav" aria-label="Main navigation">
           <button
-            className="console-nav__active"
+            className={activeView === 'practice' ? 'console-nav__active' : undefined}
             type="button"
-            onClick={() => setSelection({ kind: 'today' })}
+            aria-current={activeView === 'practice' ? 'page' : undefined}
+            onClick={() => {
+              setSelection({ kind: 'today' })
+              onOpenPractice()
+            }}
             data-ui-sound="true"
             data-ui-sound-hover="hover"
             data-ui-sound-click="select"
@@ -246,7 +279,9 @@ export function ProgressDashboard({
             Practice
           </button>
           <button
+            className={activeView === 'library' ? 'console-nav__active' : undefined}
             type="button"
+            aria-current={activeView === 'library' ? 'page' : undefined}
             onClick={onOpenLibrary}
             data-ui-sound="true"
             data-ui-sound-hover="hover"
@@ -255,7 +290,9 @@ export function ProgressDashboard({
             Library
           </button>
           <button
+            className={activeView === 'insights' ? 'console-nav__active' : undefined}
             type="button"
+            aria-current={activeView === 'insights' ? 'page' : undefined}
             onClick={onOpenInsights}
             data-ui-sound="true"
             data-ui-sound-hover="hover"
@@ -290,6 +327,11 @@ export function ProgressDashboard({
         </div>
       </header>
 
+      <PrimaryViewTransition
+        activeView={activeView}
+        panels={{
+          practice: (
+            <>
       <section className="console-rail-section" aria-label="Practice areas">
         <div className="console-rail">
           {rail.map((item, index) => {
@@ -454,6 +496,12 @@ export function ProgressDashboard({
           </article>
         </div>
       </section>
+            </>
+          ),
+          library: libraryPanel,
+          insights: insightsPanel,
+        }}
+      />
     </main>
   )
 }

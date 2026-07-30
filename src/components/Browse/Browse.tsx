@@ -2,6 +2,7 @@ import { useBrowseTree } from './useBrowseTree.ts'
 import type { Question } from '../../types.ts'
 
 type BrowseProps = {
+  embedded?: boolean
   questions: Question[]
   dueCount: number
   timedMode: boolean
@@ -16,6 +17,7 @@ const DIFFICULTY_ORDER = ['Easy', 'Medium', 'Hard']
 const TIME_LIMITS = [60, 90, 120]
 
 export function Browse({
+  embedded = false,
   questions,
   dueCount,
   timedMode,
@@ -26,13 +28,17 @@ export function Browse({
   onOpenDashboard,
 }: BrowseProps) {
   const { tree, expanded, toggle } = useBrowseTree(questions)
+  const Root = embedded ? 'section' : 'main'
 
   return (
-    <main className="browse app-shell">
-      <header className="app-header">
+    <Root
+      className={embedded ? 'browse browse--embedded' : 'browse app-shell'}
+      aria-label={embedded ? 'Library' : undefined}
+    >
+      {!embedded && <header className="app-header">
         <span className="wordmark">clarity<span>.</span></span>
         <button className="link-button" type="button" onClick={onOpenDashboard}>Dashboard</button>
-      </header>
+      </header>}
 
       <section className="browse-intro">
         <p className="eyebrow">SAT Reading &amp; Writing</p>
@@ -117,7 +123,7 @@ export function Browse({
           )
         })}
       </section>
-    </main>
+    </Root>
   )
 }
 

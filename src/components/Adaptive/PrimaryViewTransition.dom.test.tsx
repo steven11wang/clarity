@@ -23,12 +23,16 @@ Object.defineProperty(globalThis, 'navigator', {
 globals.HTMLElement = dom.window.HTMLElement
 globals.Element = dom.window.Element
 globals.Node = dom.window.Node
+globals.localStorage = dom.window.localStorage
 globals.IS_REACT_ACT_ENVIRONMENT = true
 
 const { createElement } = await import('react')
 const { act } = await import('react')
 const { createRoot } = await import('react-dom/client')
 const { PrimaryViewTransition } = await import('./PrimaryViewTransition.tsx')
+const { ProgressDashboard } = await import('./ProgressDashboard.tsx')
+const { Browse } = await import('../Browse/Browse.tsx')
+const { Dashboard } = await import('../Dashboard/Dashboard.tsx')
 
 const container = dom.window.document.getElementById('root')!
 const root = createRoot(container)
@@ -106,5 +110,115 @@ describe('primary view transition', () => {
       container.querySelectorAll('.console-primary-layer').length,
       1,
     )
+  })
+})
+
+describe('persistent console shell', () => {
+  it('keeps the scene and header mounted while the active primary panel changes', async () => {
+    const shellContainer = dom.window.document.createElement('div')
+    dom.window.document.body.append(shellContainer)
+    const shellRoot = createRoot(shellContainer)
+    const cards = [{
+      domain: 'Information and Ideas' as const,
+      characterStage: 'Noobie' as const,
+      currentLevel: 'Noobie' as const,
+      completedSkills: 1,
+      totalSkills: 4,
+      checkpointStatus: '3 skills to go',
+      recommended: true,
+      chosen: true,
+      finished: false,
+    }]
+
+    async function renderShell(activeView: PrimaryConsoleView) {
+      await act(async () => {
+        shellRoot.render(createElement(ProgressDashboard, {
+          activeView,
+          libraryPanel: createElement('p', null, 'Embedded library'),
+          insightsPanel: createElement('p', null, 'Embedded insights'),
+          cards,
+          onSelectDomain: () => {},
+          onUpdateScore: () => {},
+          onOpenPractice: () => {},
+          onOpenLibrary: () => {},
+          onOpenInsights: () => {},
+        }))
+      })
+    }
+
+    await renderShell('practice')
+    const sceneBefore = shellContainer.querySelector('.console-hero-wash')
+    const headerBefore = shellContainer.querySelector('.console-header')
+    const wordmark = shellContainer.querySelector('.console-wordmark')
+
+    assert.equal(wordmark?.tagName, 'BUTTON')
+    assert.equal(wordmark?.getAttribute('aria-label'), 'Open Practice home')
+
+    await renderShell('library')
+
+    assert.equal(shellContainer.querySelector('.console-hero-wash'), sceneBefore)
+    assert.equal(shellContainer.querySelector('.console-header'), headerBefore)
+    assert.match(shellContainer.textContent ?? '', /Embedded library/)
+    assert.equal(
+      shellContainer.querySelector('[aria-current="page"]')?.textContent,
+      'Library',
+    )
+
+    await renderShell('insights')
+
+    assert.equal(shellContainer.querySelector('.console-hero-wash'), sceneBefore)
+    assert.equal(shellContainer.querySelector('.console-header'), headerBefore)
+    assert.match(shellContainer.textContent ?? '', /Embedded insights/)
+    assert.equal(
+      shellContainer.querySelector('[aria-current="page"]')?.textContent,
+      'Insights',
+    )
+
+    await act(async () => {
+      shellRoot.unmount()
+    })
+    shellContainer.remove()
+  })
+})
+
+describe('embedded primary panels', () => {
+  it('renders Library and Insights without standalone page headers', async () => {
+    const panelContainer = dom.window.document.createElement('div')
+    dom.window.document.body.append(panelContainer)
+    const panelRoot = createRoot(panelContainer)
+
+    await act(async () => {
+      panelRoot.render(createElement(Browse, {
+        embedded: true,
+        questions: [],
+        dueCount: 0,
+        timedMode: false,
+        timeLimitSec: 90,
+        onToggleTimed: () => {},
+        onChangeLimit: () => {},
+        onStart: () => {},
+        onOpenDashboard: () => {},
+      }))
+    })
+
+    assert.ok(panelContainer.querySelector('.browse--embedded'))
+    assert.equal(panelContainer.querySelector('.app-header'), null)
+    assert.equal(panelContainer.querySelector('main'), null)
+
+    await act(async () => {
+      panelRoot.render(createElement(Dashboard, {
+        embedded: true,
+        onBack: () => {},
+      }))
+    })
+
+    assert.ok(panelContainer.querySelector('.dashboard--embedded'))
+    assert.equal(panelContainer.querySelector('.app-header'), null)
+    assert.equal(panelContainer.querySelector('main'), null)
+
+    await act(async () => {
+      panelRoot.unmount()
+    })
+    panelContainer.remove()
   })
 })

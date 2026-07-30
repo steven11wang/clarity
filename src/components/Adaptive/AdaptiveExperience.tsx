@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, type ReactNode } from 'react'
 
 import {
   canStartCheckpoint,
@@ -51,6 +51,7 @@ import {
   ProgressDashboard,
   type DomainCardView,
 } from './ProgressDashboard.tsx'
+import type { PrimaryConsoleView } from './primaryViewTransition.ts'
 import { TieSelection } from './TieSelection.tsx'
 import type { Attempt, FirstPass } from '../../types.ts'
 
@@ -60,9 +61,13 @@ export type AdaptiveAttemptReference = {
 }
 
 type AdaptiveExperienceProps = {
+  primaryView: PrimaryConsoleView
+  libraryPanel: ReactNode
+  insightsPanel: ReactNode
   questions: Question[]
   progression: ProgressionState | null
   onProgressionChange: (state: ProgressionState) => void
+  onOpenPractice: () => void
   onOpenLibrary: () => void
   onOpenInsights: () => void
   onRecordAnswers: (
@@ -108,9 +113,13 @@ type ContentFailure = {
 }
 
 export function AdaptiveExperience({
+  primaryView,
+  libraryPanel,
+  insightsPanel,
   questions,
   progression,
   onProgressionChange,
+  onOpenPractice,
   onOpenLibrary,
   onOpenInsights,
   onRecordAnswers,
@@ -849,9 +858,13 @@ export function AdaptiveExperience({
 
   return (
     <ProgressDashboard
+      activeView={primaryView}
+      libraryPanel={libraryPanel}
+      insightsPanel={insightsPanel}
       cards={cards}
       onSelectDomain={chooseDomain}
       onUpdateScore={() => setIsUpdatingScore(true)}
+      onOpenPractice={onOpenPractice}
       onOpenLibrary={onOpenLibrary}
       onOpenInsights={onOpenInsights}
     />
