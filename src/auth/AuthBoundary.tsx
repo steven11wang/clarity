@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react'
 import type { User } from '@supabase/supabase-js'
 
+import { ConsoleAudioProvider } from '../audio/ConsoleAudioProvider.tsx'
+import { AuthProfileProvider } from './AuthContext.tsx'
 import { isSupabaseConfigured, supabase } from '../lib/supabase.ts'
 import { restoreOrSeedCloudState, syncCloudState } from '../storage/cloud.ts'
 import { subscribeStorageChanges } from '../storage/index.ts'
@@ -78,7 +80,10 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
 
   if (!isSupabaseConfigured) {
     return (
-      <LocalProfileGate>{children}</LocalProfileGate>
+      <>
+        <ConsoleAudioProvider scene="auth" />
+        <LocalProfileGate>{children}</LocalProfileGate>
+      </>
     )
   }
 
@@ -92,28 +97,35 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
   }
 
   if (!user) {
-    return <SignIn />
+    return (
+      <>
+        <ConsoleAudioProvider scene="auth" />
+        <SignIn />
+      </>
+    )
   }
 
   return (
     <>
-      <div className="account-chip">
-        <span title={user.email}>{user.email}</span>
-        <button
-          type="button"
-          onClick={() => {
-            void supabase!.auth.signOut()
-          }}
-        >
-          Sign out
-        </button>
-      </div>
       {syncError && (
         <div className="sync-warning" role="status">
           Saved on this device. Cloud sync will retry after your next change. {syncError}
         </div>
       )}
-      {children}
+      <AuthProfileProvider
+        value={{
+          email: user.email ?? null,
+          displayName: typeof user.user_metadata?.display_name === 'string'
+            ? user.user_metadata.display_name
+            : user.email?.split('@')[0] ?? 'Account',
+          isLocal: false,
+          signOut: async () => {
+            await supabase!.auth.signOut()
+          },
+        }}
+      >
+        {children}
+      </AuthProfileProvider>
     </>
   )
 }
@@ -126,10 +138,16 @@ function LocalProfileGate({ children }: { children: ReactNode }) {
   if (selected) {
     return (
       <>
-        <div className="account-chip account-chip--local" title="Progress is saved on this device">
-          Dara · local profile
-        </div>
-        {children}
+        <AuthProfileProvider
+          value={{
+            email: null,
+            displayName: 'Dara',
+            isLocal: true,
+            signOut: null,
+          }}
+        >
+          {children}
+        </AuthProfileProvider>
       </>
     )
   }
@@ -144,7 +162,14 @@ function LocalProfileGate({ children }: { children: ReactNode }) {
         <h1 id="profile-gate-title">Welcome back to Clarity</h1>
         <p>Who’s studying?</p>
         <div className="profile-gate__profiles">
-          <button className="profile-gate__add" type="button" aria-label="Add another user">
+          <button
+            className="profile-gate__add"
+            type="button"
+            aria-label="Add another user"
+            data-ui-sound="true"
+            data-ui-sound-hover="hover"
+            data-ui-sound-click="open"
+          >
             <span>+</span>
             <strong>Add User</strong>
           </button>
@@ -159,6 +184,9 @@ function LocalProfileGate({ children }: { children: ReactNode }) {
                 setSelected(true)
               }}
               aria-label="Continue as Dara"
+              data-ui-sound="true"
+              data-ui-sound-hover="hover"
+              data-ui-sound-click="select"
             >
               <span>⌁</span>
             </button>
@@ -167,7 +195,16 @@ function LocalProfileGate({ children }: { children: ReactNode }) {
             <span className="profile-gate__options">▤ &nbsp; Options</span>
           </div>
         </div>
-        <button className="profile-gate__power" type="button" aria-label="Exit Clarity">↻</button>
+        <button
+          className="profile-gate__power"
+          type="button"
+          aria-label="Exit Clarity"
+          data-ui-sound="true"
+          data-ui-sound-hover="hover"
+          data-ui-sound-click="open"
+        >
+          ↻
+        </button>
       </section>
     </main>
   )
@@ -225,6 +262,9 @@ function SignIn() {
                 setMode('sign-up')
                 setShowForm(true)
               }}
+              data-ui-sound="true"
+              data-ui-sound-hover="hover"
+              data-ui-sound-click="open"
             >
               <span>+</span>
               <strong>Add User</strong>
@@ -233,14 +273,17 @@ function SignIn() {
               <span className="profile-gate__controller" aria-hidden="true">▰</span>
               <small>1</small>
               <button
-                className="profile-gate__avatar"
-                type="button"
-                onClick={() => {
-                  setMode('sign-in')
-                  setShowForm(true)
-                }}
-                aria-label="Sign in as Dara"
-              >
+              className="profile-gate__avatar"
+              type="button"
+              onClick={() => {
+                setMode('sign-in')
+                setShowForm(true)
+              }}
+              aria-label="Sign in as Dara"
+              data-ui-sound="true"
+              data-ui-sound-hover="hover"
+              data-ui-sound-click="select"
+            >
                 <span>⌁</span>
               </button>
               <strong>Dara</strong>
@@ -249,6 +292,9 @@ function SignIn() {
                 className="profile-gate__options profile-gate__options--button"
                 type="button"
                 onClick={() => setShowForm(true)}
+                data-ui-sound="true"
+                data-ui-sound-hover="hover"
+                data-ui-sound-click="open"
               >
                 ▤ &nbsp; Sign-in options
               </button>
@@ -271,6 +317,9 @@ function SignIn() {
             setError(null)
             setMessage(null)
           }}
+          data-ui-sound="true"
+          data-ui-sound-hover="hover"
+          data-ui-sound-click="select"
         >
           ← Choose profile
         </button>
@@ -315,7 +364,14 @@ function SignIn() {
           </label>
           {error && <p className="auth-message auth-message--error" role="alert">{error}</p>}
           {message && <p className="auth-message" role="status">{message}</p>}
-          <button className="button button--full" type="submit" disabled={busy}>
+          <button
+            className="button button--full"
+            type="submit"
+            disabled={busy}
+            data-ui-sound="true"
+            data-ui-sound-hover="hover"
+            data-ui-sound-click="select"
+          >
             {busy ? 'Please wait…' : mode === 'sign-in' ? 'Sign in' : 'Create account'}
           </button>
         </form>
@@ -328,6 +384,9 @@ function SignIn() {
             setError(null)
             setMessage(null)
           }}
+          data-ui-sound="true"
+          data-ui-sound-hover="hover"
+          data-ui-sound-click="open"
         >
           {mode === 'sign-in' ? 'New to Clarity? Create an account' : 'Already have an account? Sign in'}
         </button>
