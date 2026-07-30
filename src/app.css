@@ -8,26 +8,6 @@
 body { margin: 0; min-width: 320px; background: rgba(16,22,38,0.55); }
 button { font: inherit; }
 
-.account-chip {
-  align-items: center;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 99px;
-  box-shadow: 0 5px 18px rgba(0,0,0,0.45);
-  color: rgba(255,255,255,0.62);
-  display: flex;
-  font-size: .74rem;
-  gap: .55rem;
-  max-width: min(360px, calc(100vw - 1.5rem));
-  padding: .35rem .45rem .35rem .75rem;
-  position: fixed;
-  bottom: 2.85rem;
-  right: .75rem;
-  z-index: 30;
-}
-.account-chip > span { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.account-chip button { background: rgba(255,255,255,0.10); border: 0; border-radius: 99px; color: #8cb4ff; cursor: pointer; font-size: .7rem; font-weight: 700; padding: .25rem .55rem; }
-.account-chip--local { background: rgba(240,192,74,0.14); border-color: rgba(240,192,74,0.36); color: #f0c04a; }
 .sync-warning { background: rgba(240,192,74,0.14); border-bottom: 1px solid rgba(240,192,74,0.36); color: #f0c04a; font-size: .78rem; padding: .45rem 1rem; text-align: center; }
 
 .auth-shell { align-items: center; display: grid; min-height: 100vh; padding: 2rem 1rem; }

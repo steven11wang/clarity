@@ -71,7 +71,6 @@ body::after {
 .recommendation-callout,
 .review-primer,
 .review-primer__action,
-.account-chip,
 .dev-bar {
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
@@ -172,10 +171,17 @@ body::after {
   border-color: rgba(255, 255, 255, 0.14);
   color: var(--console-text);
 }
+.reason-select {
+  color-scheme: dark;
+}
+.reason-select option {
+  background: #000000;
+  color: #ffffff;
+}
 .choice:hover:not(:disabled), .option:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--cobalt-light); }
 .choice--selected { background: rgba(43, 91, 199, 0.24); border-color: var(--cobalt); }
 .choice-letter { background: rgba(255, 255, 255, 0.12); color: var(--console-text); }
-.choice--selected .choice-letter { background: var(--cobalt); color: #ffffff; }
+.choice--selected .choice-letter { background: transparent; color: var(--console-text); }
 
 /* Focus: the console's bright white + cobalt ring. */
 :focus-visible { outline: 2px solid #ffffff; outline-offset: 2px; }
@@ -199,16 +205,15 @@ body::after {
 .question-meta { background: rgba(255, 255, 255, 0.06); border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
 .passage { border-right-color: rgba(255, 255, 255, 0.1); }
 
-/* Dev bar / account chip: dense console chrome. */
+/* Dev bar: dense console chrome. */
 .dev-bar { background: var(--glass-surface-strong); border-top: 1px solid var(--glass-border); }
-.account-chip { background: var(--glass-surface); border-color: var(--glass-border); box-shadow: var(--shadow-console); }
-.account-chip button { background: var(--cobalt); color: #ffffff; }
 
 /* Dark ink on solid amber / lime fills (never white-on-yellow). */
 .review-primer__signal,
 .choice-tag--chose,
 .done-flag { color: #241a00 !important; }
 .batch-choice:hover { border-color: var(--cobalt-light); }
+.batch-choice--selected .choice-letter { background: transparent; color: var(--console-text); }
 
 a { color: var(--cobalt-light); text-decoration: none; }
 a:hover { color: #ffffff; }
@@ -251,7 +256,9 @@ a:hover { color: #ffffff; }
   right: -8%;
   top: 0;
   transition: background .35s ease;
+  transform-origin: 78% 18%;
 }
+.console-hero-wash--switching { animation: consoleHeroWashPop .38s cubic-bezier(.18,.82,.24,1); }
 .console-hero-wash::before,
 .console-hero-wash::after,
 .console-hero-wash span {
@@ -448,6 +455,13 @@ a:hover { color: #ffffff; }
   z-index: 1;
 }
 .console-hero__copy { max-width: 34rem; }
+.console-hero__copy--switching {
+  animation: consoleHeroCopyReveal .44s cubic-bezier(.2,.8,.2,1) .16s both;
+}
+.console-hero__copy--settled {
+  opacity: 1;
+  transform: translateY(0);
+}
 .console-hero__copy > p {
   color: var(--cobalt-light);
   font-size: .76rem;
@@ -494,6 +508,32 @@ a:hover { color: #ffffff; }
   color: #fff;
 }
 .console-button--secondary:hover { background: rgba(255,255,255,.08); }
+
+@keyframes consoleHeroWashPop {
+  0% {
+    filter: saturate(.88) brightness(.92);
+    transform: scale(.94);
+  }
+  58% {
+    filter: saturate(1.15) brightness(1.08);
+    transform: scale(1.035);
+  }
+  100% {
+    filter: saturate(1) brightness(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes consoleHeroCopyReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 .console-status-row {
   align-items: center;
@@ -572,21 +612,6 @@ a:hover { color: #ffffff; }
 }
 .console-widget p { color: rgba(255,255,255,.58); line-height: 1.45; }
 .console-session-widget__body { align-items: center; display: flex; gap: 1.15rem; }
-.console-days {
-  align-items: center;
-  background: conic-gradient(#b7d945 0 86%, rgba(255,255,255,.14) 86%);
-  border-radius: 50%;
-  display: flex;
-  flex: 0 0 4.55rem;
-  flex-direction: column;
-  height: 4.55rem;
-  justify-content: center;
-  position: relative;
-}
-.console-days::before { background: #0a1024; border-radius: 50%; content: ''; inset: .43rem; position: absolute; }
-.console-days b, .console-days small { position: relative; }
-.console-days b { font-size: 1.45rem; font-weight: 300; }
-.console-days small { color: rgba(255,255,255,.45); font-size: .65rem; font-weight: 700; letter-spacing: .08em; }
 .console-session-widget__body strong { font-size: 1rem; }
 .console-session-widget__body p { font-size: .82rem; margin: .5rem 0 0; }
 .console-energy { color: rgba(255,255,255,.44); display: flex; font-size: .67rem; font-weight: 700; justify-content: space-between; letter-spacing: .08em; margin-top: 1.25rem; }

@@ -1,4 +1,4 @@
-import { useMemo, useState, type CSSProperties } from 'react'
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 
 import {
   DOMAIN_PRESENTATION,
@@ -7,6 +7,7 @@ import {
   type Level,
   type SatDomain,
 } from '../../progression/config.ts'
+import { SettingsPopover } from '../Settings/SettingsPopover.tsx'
 
 export type DomainCardView = {
   domain: SatDomain
@@ -35,6 +36,78 @@ type ConsoleSelection =
   | { kind: 'trophies' }
 
 const TILE_MARKS = ['◎', '◇', '≋', '▥']
+const HERO_BACKGROUND_LEAD_MS = 180
+const HERO_TEXT_SETTLE_MS = 320
+
+function selectionsMatch(left: ConsoleSelection, right: ConsoleSelection) {
+  if (left.kind !== right.kind) return false
+  return left.kind !== 'domain' || right.kind !== 'domain' || left.domain === right.domain
+}
+
+function buildHero(
+  selection: ConsoleSelection,
+  cards: DomainCardView[],
+  totalSkills: number,
+  securedSkills: number,
+  onSelectDomain: (domain: SatDomain) => void,
+  onOpenLibrary: () => void,
+  onOpenInsights: () => void,
+  onUpdateScore: () => void,
+  setSelection: (selection: ConsoleSelection) => void,
+) {
+  if (selection.kind === 'today') {
+    const next = cards.find((card) => card.recommended) ?? cards[0]
+    return {
+      kicker: 'TODAY · YOUR NEXT MOVE',
+      title: `${totalSkills - securedSkills} skills are waiting for you.`,
+      body: `${DOMAIN_PRESENTATION[next.domain].shortName} is the strongest place to continue. Your path, completed skills, and checkpoint progress are all saved.`,
+      primary: 'Continue recommended path',
+      secondary: 'Browse practice library',
+      primaryAction: () => onSelectDomain(next.domain),
+      secondaryAction: onOpenLibrary,
+    }
+  }
+  if (selection.kind === 'reviews') {
+    return {
+      kicker: 'SPACED RETURN · REVIEW QUEUE',
+      title: 'Every miss comes back in disguise.',
+      body: 'Choices are reshuffled and the wording changes, so recognition cannot carry you. Revisit the ideas that need another pass.',
+      primary: 'Open review library',
+      secondary: 'Return to today',
+      primaryAction: onOpenLibrary,
+      secondaryAction: () => setSelection({ kind: 'today' }),
+    }
+  }
+  if (selection.kind === 'trophies') {
+    return {
+      kicker: 'INSIGHTS · PROGRESS',
+      title: `${securedSkills} skills secured so far.`,
+      body: 'See your calibration, accuracy, review history, and the patterns behind your strongest sessions.',
+      primary: 'Open learning insights',
+      secondary: 'Update score report',
+      primaryAction: onOpenInsights,
+      secondaryAction: onUpdateScore,
+    }
+  }
+
+  const card = cards.find((entry) => entry.domain === selection.domain) ?? cards[0]
+  const presentation = DOMAIN_PRESENTATION[card.domain]
+  const remaining = Math.max(0, card.totalSkills - card.completedSkills)
+  return {
+    kicker: `${presentation.shortName.toUpperCase()} · ${
+      card.finished ? 'MASTERED' : `${card.currentLevel.toUpperCase()} TRAINING`
+    }`,
+    title: card.domain,
+    body: presentation.description,
+    primary: card.finished ? 'Visit completed path' : 'Open this path',
+    secondary:
+      remaining === 0
+        ? card.checkpointStatus
+        : `${remaining} ${remaining === 1 ? 'skill' : 'skills'} until checkpoint`,
+    primaryAction: () => onSelectDomain(card.domain),
+    secondaryAction: () => onSelectDomain(card.domain),
+  }
+}
 
 export function ProgressDashboard({
   cards,
@@ -51,6 +124,13 @@ export function ProgressDashboard({
     kind: 'domain',
     domain: firstDomain,
   })
+  const [heroSelection, setHeroSelection] = useState<ConsoleSelection>({
+    kind: 'domain',
+    domain: firstDomain,
+  })
+  const [heroTransitionState, setHeroTransitionState] = useState<'idle' | 'switching'>('idle')
+  const [heroMotionKey, setHeroMotionKey] = useState(0)
+  const transitionTimers = useRef<number[]>([])
 
   const totalSkills = cards.reduce((sum, card) => sum + card.totalSkills, 0)
   const securedSkills = cards.reduce((sum, card) => sum + card.completedSkills, 0)
@@ -60,70 +140,52 @@ export function ProgressDashboard({
       ? cards.find((card) => card.domain === selection.domain) ?? cards[0]
       : null
 
-  const hero = useMemo(() => {
-    if (selection.kind === 'today') {
-      const next = cards.find((card) => card.recommended) ?? cards[0]
-      return {
-        kicker: 'TODAY · YOUR NEXT MOVE',
-        title: `${totalSkills - securedSkills} skills are waiting for you.`,
-        body: `${DOMAIN_PRESENTATION[next.domain].shortName} is the strongest place to continue. Your path, completed skills, and checkpoint progress are all saved.`,
-        primary: 'Continue recommended path',
-        secondary: 'Browse practice library',
-        primaryAction: () => onSelectDomain(next.domain),
-        secondaryAction: onOpenLibrary,
-      }
-    }
-    if (selection.kind === 'reviews') {
-      return {
-        kicker: 'SPACED RETURN · REVIEW QUEUE',
-        title: 'Every miss comes back in disguise.',
-        body: 'Choices are reshuffled and the wording changes, so recognition cannot carry you. Revisit the ideas that need another pass.',
-        primary: 'Open review library',
-        secondary: 'Return to today',
-        primaryAction: onOpenLibrary,
-        secondaryAction: () => setSelection({ kind: 'today' }),
-      }
-    }
-    if (selection.kind === 'trophies') {
-      return {
-        kicker: 'INSIGHTS · PROGRESS',
-        title: `${securedSkills} skills secured so far.`,
-        body: 'See your calibration, accuracy, review history, and the patterns behind your strongest sessions.',
-        primary: 'Open learning insights',
-        secondary: 'Update score report',
-        primaryAction: onOpenInsights,
-        secondaryAction: onUpdateScore,
-      }
-    }
-
-    const card = selectedCard!
-    const presentation = DOMAIN_PRESENTATION[card.domain]
-    const remaining = Math.max(0, card.totalSkills - card.completedSkills)
-    return {
-      kicker: `${presentation.shortName.toUpperCase()} · ${
-        card.finished ? 'MASTERED' : `${card.currentLevel.toUpperCase()} TRAINING`
-      }`,
-      title: card.domain,
-      body: presentation.description,
-      primary: card.finished ? 'Visit completed path' : 'Open this path',
-      secondary:
-        remaining === 0
-          ? card.checkpointStatus
-          : `${remaining} ${remaining === 1 ? 'skill' : 'skills'} until checkpoint`,
-      primaryAction: () => onSelectDomain(card.domain),
-      secondaryAction: () => onSelectDomain(card.domain),
-    }
-  }, [
+  const hero = useMemo(() => buildHero(
+    heroSelection,
     cards,
+    totalSkills,
+    securedSkills,
+    onSelectDomain,
+    onOpenLibrary,
+    onOpenInsights,
+    onUpdateScore,
+    setSelection,
+  ), [
+    cards,
+    heroSelection,
     onOpenInsights,
     onOpenLibrary,
     onSelectDomain,
     onUpdateScore,
     securedSkills,
-    selectedCard,
-    selection,
     totalSkills,
   ])
+
+  useEffect(() => {
+    if (cards.length === 0) return
+    if (selectionsMatch(selection, heroSelection)) return
+
+    setHeroTransitionState('switching')
+    setHeroMotionKey((value) => value + 1)
+    transitionTimers.current.forEach((timer) => window.clearTimeout(timer))
+    transitionTimers.current = [
+      window.setTimeout(() => {
+        setHeroSelection(selection)
+      }, HERO_BACKGROUND_LEAD_MS),
+      window.setTimeout(() => {
+        setHeroTransitionState('idle')
+      }, HERO_BACKGROUND_LEAD_MS + HERO_TEXT_SETTLE_MS),
+    ]
+
+    return () => {
+      transitionTimers.current.forEach((timer) => window.clearTimeout(timer))
+      transitionTimers.current = []
+    }
+  }, [cards.length, heroSelection, selection])
+
+  useEffect(() => () => {
+    transitionTimers.current.forEach((timer) => window.clearTimeout(timer))
+  }, [])
 
   const rail: Array<{
     label: string
@@ -159,7 +221,13 @@ export function ProgressDashboard({
           : `console-dashboard--${selection.kind}`
       }`}
     >
-      <div className="console-hero-wash" aria-hidden="true">
+      <div
+        key={`wash-${heroMotionKey}`}
+        className={`console-hero-wash ${
+          heroTransitionState === 'switching' ? 'console-hero-wash--switching' : ''
+        }`}
+        aria-hidden="true"
+      >
         <span />
         <i />
       </div>
@@ -167,14 +235,58 @@ export function ProgressDashboard({
       <header className="console-header">
         <span className="console-wordmark">clarity<span>.</span></span>
         <nav className="console-nav" aria-label="Main navigation">
-          <button className="console-nav__active" type="button" onClick={() => setSelection({ kind: 'today' })}>Practice</button>
-          <button type="button" onClick={onOpenLibrary}>Library</button>
-          <button type="button" onClick={onOpenInsights}>Insights</button>
+          <button
+            className="console-nav__active"
+            type="button"
+            onClick={() => setSelection({ kind: 'today' })}
+            data-ui-sound="true"
+            data-ui-sound-hover="hover"
+            data-ui-sound-click="select"
+          >
+            Practice
+          </button>
+          <button
+            type="button"
+            onClick={onOpenLibrary}
+            data-ui-sound="true"
+            data-ui-sound-hover="hover"
+            data-ui-sound-click="select"
+          >
+            Library
+          </button>
+          <button
+            type="button"
+            onClick={onOpenInsights}
+            data-ui-sound="true"
+            data-ui-sound-hover="hover"
+            data-ui-sound-click="select"
+          >
+            Insights
+          </button>
         </nav>
         <div className="console-header__actions">
-          <button type="button" aria-label="Search practice library" onClick={onOpenLibrary}>⌕</button>
-          <button type="button" aria-label="Update score report" onClick={onUpdateScore}>⚙</button>
-          <button className="console-avatar" type="button" aria-label="Update learner profile" onClick={onUpdateScore}>⌁</button>
+          <button
+            type="button"
+            aria-label="Search practice library"
+            onClick={onOpenLibrary}
+            data-ui-sound="true"
+            data-ui-sound-hover="hover"
+            data-ui-sound-click="open"
+          >
+            ⌕
+          </button>
+          <SettingsPopover onScoreUpdate={onUpdateScore} />
+          <button
+            className="console-avatar"
+            type="button"
+            aria-label="Update learner profile"
+            onClick={onUpdateScore}
+            data-ui-sound="true"
+            data-ui-sound-hover="hover"
+            data-ui-sound-click="open"
+          >
+            ⌁
+          </button>
         </div>
       </header>
 
@@ -197,6 +309,9 @@ export function ProgressDashboard({
                 onClick={() => setSelection(item.selection)}
                 aria-pressed={selected}
                 aria-label={item.label}
+                data-ui-sound="true"
+                data-ui-sound-hover="hover"
+                data-ui-sound-click={item.card ? 'select' : 'open'}
               >
                 <span className="console-tile__layers" aria-hidden="true" />
                 <span className="console-tile__mark" aria-hidden="true">{item.mark}</span>
@@ -213,13 +328,36 @@ export function ProgressDashboard({
       </section>
 
       <section className="console-hero">
-        <div className="console-hero__copy">
+        <div
+          key={heroMotionKey}
+          className={`console-hero__copy ${
+            heroTransitionState === 'switching' ? 'console-hero__copy--switching' : 'console-hero__copy--settled'
+          }`}
+        >
           <p>{hero.kicker}</p>
           <h1>{hero.title}</h1>
           <span>{hero.body}</span>
           <div className="console-hero__actions">
-            <button className="console-button console-button--primary" type="button" onClick={hero.primaryAction}>{hero.primary}</button>
-            <button className="console-button console-button--secondary" type="button" onClick={hero.secondaryAction}>{hero.secondary}</button>
+            <button
+              className="console-button console-button--primary"
+              type="button"
+              onClick={hero.primaryAction}
+              data-ui-sound="true"
+              data-ui-sound-hover="hover"
+              data-ui-sound-click="select"
+            >
+              {hero.primary}
+            </button>
+            <button
+              className="console-button console-button--secondary"
+              type="button"
+              onClick={hero.secondaryAction}
+              data-ui-sound="true"
+              data-ui-sound-hover="hover"
+              data-ui-sound-click="open"
+            >
+              {hero.secondary}
+            </button>
           </div>
         </div>
       </section>
@@ -235,11 +373,28 @@ export function ProgressDashboard({
         </div>
         <span className="console-status-divider" />
         <strong className="console-growth">+12%</strong>
-        <button type="button" onClick={onOpenLibrary}><span>◷</span> Review practice</button>
-        <button className="console-status-row__gate" type="button" onClick={() => {
-          const ready = cards.find((card) => card.checkpointStatus === 'Ready')
-          onSelectDomain((ready ?? cards[0]).domain)
-        }}><span>♙</span> Checkpoint progress</button>
+        <button
+          type="button"
+          onClick={onOpenLibrary}
+          data-ui-sound="true"
+          data-ui-sound-hover="hover"
+          data-ui-sound-click="open"
+        >
+          <span>◷</span> Review practice
+        </button>
+        <button
+          className="console-status-row__gate"
+          type="button"
+          onClick={() => {
+            const ready = cards.find((card) => card.checkpointStatus === 'Ready')
+            onSelectDomain((ready ?? cards[0]).domain)
+          }}
+          data-ui-sound="true"
+          data-ui-sound-hover="hover"
+          data-ui-sound-click="open"
+        >
+          <span>♙</span> Checkpoint progress
+        </button>
       </section>
 
       <section className="console-widget-grid">
@@ -247,7 +402,6 @@ export function ProgressDashboard({
           <article className="console-widget console-session-widget">
             <h2>Session</h2>
             <div className="console-session-widget__body">
-              <span className="console-days"><b>6</b><small>DAYS</small></span>
               <div><strong>Focus session · choose your next set</strong><p>Your next focused activity is ready whenever you are.</p></div>
             </div>
             <div className="console-energy"><span>ENERGY</span><b>{Math.max(40, 100 - (totalSkills - securedSkills) * 2)}%</b></div>
