@@ -171,7 +171,7 @@ export function SkillLesson({
         ) : tab === 'lesson' ? (
           <LessonPanel tabs={tabs} />
         ) : tab === 'example' ? (
-          <ExamplePanel tabs={tabs} oneMove={summary.oneMove} />
+          <ExamplePanel skill={summary.skill} tabs={tabs} oneMove={summary.oneMove} />
         ) : tab === 'tips' ? (
           <TipsPanel tabs={tabs} />
         ) : (
@@ -325,7 +325,15 @@ function numberWord(count: number): string {
 
 // --- 02 Worked example ------------------------------------------------------
 
-function ExamplePanel({ tabs, oneMove }: { tabs: LessonTabs; oneMove: string }) {
+function ExamplePanel({
+  skill,
+  tabs,
+  oneMove,
+}: {
+  skill: string
+  tabs: LessonTabs
+  oneMove: string
+}) {
   // One example, deliberately. Two or three in a row turns a lesson into a
   // problem set; the practice quiz on the next tab is where volume belongs.
   const entry = tabs.examples[0]
@@ -350,24 +358,32 @@ function ExamplePanel({ tabs, oneMove }: { tabs: LessonTabs; oneMove: string }) 
         you rule them out — the same move you will make on the real test.
       </p>
 
-      <WorkedExample key={entry.key} example={entry.example} oneMove={oneMove} />
+      <WorkedExample key={entry.key} example={entry.example} skill={skill} oneMove={oneMove} />
     </article>
   )
 }
 
 /**
- * The example is gated behind writing a test phrase. Committing to a prediction
- * before seeing the choices is the single habit these lessons are trying to
- * build, so the choices stay blurred until the student writes one or skips.
+ * The example is gated behind a skill-specific prediction. Committing to the
+ * relevant move before seeing the choices is the habit these lessons are trying
+ * to build, so the choices stay blurred until the student writes one or skips.
  */
-function WorkedExample({ example, oneMove }: { example: LessonExample; oneMove: string }) {
+function WorkedExample({
+  example,
+  skill,
+  oneMove,
+}: {
+  example: LessonExample
+  skill: string
+  oneMove: string
+}) {
   const [phrase, setPhrase] = useState('')
   const [gateOpen, setGateOpen] = useState(false)
   const [chosen, setChosen] = useState<ChoiceLetter | null>(null)
   const [struck, setStruck] = useState<ChoiceLetter[]>([])
   const [revealed, setRevealed] = useState(false)
   const correct = chosen === example.answer
-  const hint = testPhraseHint(oneMove)
+  const gate = workedExampleGate(skill, oneMove)
 
   function toggleStrike(letter: ChoiceLetter) {
     setStruck((current) =>
@@ -401,16 +417,14 @@ function WorkedExample({ example, oneMove }: { example: LessonExample; oneMove: 
 
         {!gateOpen && (
           <div className="lesson-gate">
-            <p className="lesson-gate__title">Write your test phrase</p>
-            <p className="lesson-gate__hint">
-              Compress the claim into a handful of words before you look at the choices.
-            </p>
+            <p className="lesson-gate__title">{gate.label}</p>
+            <p className="lesson-gate__hint">{gate.hint}</p>
             <input
               className="lesson-gate__input"
               type="text"
               value={phrase}
-              placeholder={hint}
-              aria-label="Your test phrase"
+              placeholder={gate.placeholder}
+              aria-label={gate.inputLabel}
               onChange={(event) => setPhrase(event.target.value)}
             />
             <div className="lesson-gate__actions">
@@ -430,7 +444,7 @@ function WorkedExample({ example, oneMove }: { example: LessonExample; oneMove: 
 
         {gateOpen && phrase.trim().length > 0 && (
           <p className="lesson-gate__echo">
-            Your test phrase: <strong>{phrase.trim()}</strong>
+            Your {gate.phraseLabel}: <strong>{phrase.trim()}</strong>
           </p>
         )}
 
@@ -543,6 +557,105 @@ function WorkedExample({ example, oneMove }: { example: LessonExample; oneMove: 
       </section>
     </div>
   )
+}
+
+type WorkedExampleGate = {
+  label: string
+  hint: string
+  placeholder: string
+  phraseLabel: string
+  inputLabel: string
+}
+
+type WorkedExampleGateCopy = Omit<WorkedExampleGate, 'placeholder'> & {
+  placeholder?: string
+}
+
+const WORKED_EXAMPLE_GATES: Record<string, WorkedExampleGateCopy> = {
+  'Command of Evidence': {
+    label: 'Write your test phrase',
+    hint: 'Compress the claim into a handful of words before you look at the choices.',
+    phraseLabel: 'test phrase',
+    inputLabel: 'Your test phrase',
+  },
+  'Central Ideas and Details': {
+    label: 'Your one-sentence summary',
+    hint: 'What is the text centrally saying? Your own words, before the choices.',
+    placeholder: "e.g. she weaves to make color 3-D — it's painting by other means",
+    phraseLabel: 'summary',
+    inputLabel: 'Your summary',
+  },
+  Inferences: {
+    label: 'Predict the ending',
+    hint: 'Note what “which suggests that” is asking for, then draft the sentence yourself.',
+    placeholder: "e.g. you'd have to keep rewarding them or it stops working",
+    phraseLabel: 'prediction',
+    inputLabel: 'Your prediction',
+  },
+  'Words in Context': {
+    label: 'Your own word for the blank',
+    hint: 'Note the clue after the colon, then fill the blank in your own words.',
+    placeholder: 'e.g. hardly ever played',
+    phraseLabel: 'prediction',
+    inputLabel: 'Your prediction',
+  },
+  'Text Structure and Purpose': {
+    label: 'Describe the shape',
+    hint: 'One sentence, no proper nouns. What does this text do, in order?',
+    placeholder: 'e.g. old view → study → new view',
+    phraseLabel: 'description',
+    inputLabel: 'Your description',
+  },
+  'Cross-Text Connections': {
+    label: 'Label both texts',
+    hint: 'A few words for each position, then name the relationship between them.',
+    placeholder: 'e.g. T1: lanes cut delay / T2: only if connected',
+    phraseLabel: 'pair of labels',
+    inputLabel: 'Your pair of labels',
+  },
+  Transitions: {
+    label: 'Name the relationship',
+    hint: 'Summarize both sentences, then say which of the five jobs the blank needs.',
+    placeholder: 'e.g. cheaper and identical BUT not selling — contrast',
+    phraseLabel: 'note',
+    inputLabel: 'Your note',
+  },
+  'Rhetorical Synthesis': {
+    label: 'State the requirement',
+    hint: 'Turn the goal into a checklist before you read the choices.',
+    placeholder: 'e.g. must say what most fish do AND what this one does',
+    phraseLabel: 'requirement',
+    inputLabel: 'Your requirement',
+  },
+  'Form, Structure, and Sense': {
+    label: 'What rule is being tested?',
+    hint: 'Look at what changes across the four choices, then name the subject the verb must match.',
+    placeholder: 'e.g. subject–verb agreement; subject = collection (singular)',
+    phraseLabel: 'diagnosis',
+    inputLabel: 'Your diagnosis',
+  },
+  Boundaries: {
+    label: 'Is each side a full sentence?',
+    hint: 'Check the text on both sides of the blank, then say which marks are legal.',
+    placeholder: 'e.g. both sides complete → period or semicolon',
+    phraseLabel: 'check',
+    inputLabel: 'Your check',
+  },
+}
+
+function workedExampleGate(skill: string, oneMove: string): WorkedExampleGate {
+  const gate = WORKED_EXAMPLE_GATES[skill]
+  if (gate) {
+    return { ...gate, placeholder: gate.placeholder ?? testPhraseHint(oneMove) }
+  }
+
+  return {
+    label: 'Write your test phrase',
+    hint: 'Compress the claim into a handful of words before you look at the choices.',
+    placeholder: testPhraseHint(oneMove),
+    phraseLabel: 'test phrase',
+    inputLabel: 'Your test phrase',
+  }
 }
 
 /** The one-move line usually carries a quoted specimen phrase; borrow it. */

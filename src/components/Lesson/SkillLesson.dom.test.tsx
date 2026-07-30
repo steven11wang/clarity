@@ -80,8 +80,8 @@ async function openTab(label: string) {
   await click(byText('.lesson-tab', label))
 }
 
-before(async () => {
-  const summary = getSkillLessonSummary('Command of Evidence')
+async function renderLesson(skill: string) {
+  const summary = getSkillLessonSummary(skill)
   assert.ok(summary)
   await act(async () => {
     root.render(
@@ -100,6 +100,21 @@ before(async () => {
   await act(async () => {
     await new Promise((resolve) => setTimeout(resolve, 0))
   })
+}
+
+async function fillInput(input: HTMLInputElement, value: string) {
+  await act(async () => {
+    const setValue = Object.getOwnPropertyDescriptor(
+      dom.window.HTMLInputElement.prototype,
+      'value',
+    )?.set
+    setValue?.call(input, value)
+    input.dispatchEvent(new dom.window.Event('input', { bubbles: true }))
+  })
+}
+
+before(async () => {
+  await renderLesson('Command of Evidence')
 })
 
 after(() => {
@@ -222,5 +237,21 @@ describe('skill lesson shell', () => {
     await openTab('Practice')
     const forward = all('.lesson-actions .button')
     assert.equal(forward.length, 0, 'Practice is the last tab')
+  })
+
+  it('uses a requirement-specific scratchpad for Rhetorical Synthesis', async () => {
+    await renderLesson('Rhetorical Synthesis')
+    await openTab('Worked example')
+
+    assert.ok(text().includes('State the requirement'))
+    assert.ok(text().includes('Turn the goal into a checklist before you read the choices.'))
+    const input = container.querySelector('.lesson-gate__input') as HTMLInputElement | null
+    assert.ok(input)
+    assert.equal(input.placeholder, 'e.g. must say what most fish do AND what this one does')
+    assert.equal(input.getAttribute('aria-label'), 'Your requirement')
+
+    await fillInput(input, 'must contrast the snailfish with most fish')
+    await click(byText('.button', 'Show the choices'))
+    assert.ok(text().includes('Your requirement: must contrast the snailfish with most fish'))
   })
 })
