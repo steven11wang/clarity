@@ -3,6 +3,8 @@ import type { User } from '@supabase/supabase-js'
 
 import { ConsoleAudioProvider } from '../audio/ConsoleAudioProvider.tsx'
 import { AuthProfileProvider } from './AuthContext.tsx'
+import { ProfileChooser } from './ProfileChooser.tsx'
+import { AVATARS, listProfileShortcuts, type AvatarId, type ProfileShortcut, upsertProfileShortcut } from './profileShortcuts.ts'
 import { isSupabaseConfigured, supabase } from '../lib/supabase.ts'
 import { restoreOrSeedCloudState, syncCloudState } from '../storage/cloud.ts'
 import { subscribeStorageChanges } from '../storage/index.ts'
@@ -78,6 +80,16 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
     }
   }, [user, syncing])
 
+  useEffect(() => {
+    if (!user) return
+    upsertProfileShortcut({
+      id: user.id,
+      email: user.email ?? '',
+      displayName: typeof user.user_metadata?.display_name === 'string' ? user.user_metadata.display_name : user.email?.split('@')[0] ?? 'Account',
+      avatarId: typeof user.user_metadata?.avatar_id === 'string' ? user.user_metadata.avatar_id as AvatarId : 'orbit',
+    })
+  }, [user])
+
   if (!isSupabaseConfigured) {
     return (
       <>
@@ -134,18 +146,19 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
 }
 
 export function LocalProfileGate({ children }: { children: ReactNode }) {
-  const [selected, setSelected] = useState(
-    () => window.sessionStorage.getItem('clarity-active-profile') === 'Dara',
-  )
+  const [selected, setSelected] = useState<ProfileShortcut | null>(() => {
+    const activeId = window.sessionStorage.getItem('clarity-active-profile')
+    return listProfileShortcuts().find((profile) => profile.id === activeId) ?? null
+  })
   const [showSignUp, setShowSignUp] = useState(false)
 
   function openAccount() {
     window.sessionStorage.removeItem('clarity-active-profile')
-    setSelected(false)
+    setSelected(null)
   }
 
   if (showSignUp) {
-    return <SignIn initialMode="sign-up" />
+    return <SignIn initialMode="sign-up" onLocalProfileCreated={(profile) => { setSelected(profile); setShowSignUp(false) }} />
   }
 
   if (selected) {
@@ -154,7 +167,7 @@ export function LocalProfileGate({ children }: { children: ReactNode }) {
         <AuthProfileProvider
           value={{
             email: null,
-            displayName: 'Dara',
+            displayName: selected.displayName,
             isLocal: true,
             signOut: null,
             openAccount,
@@ -166,57 +179,34 @@ export function LocalProfileGate({ children }: { children: ReactNode }) {
     )
   }
 
-  return (
-    <main className="profile-gate">
-      <div className="profile-gate__scanlines" aria-hidden="true" />
-      <div className="profile-gate__motes" aria-hidden="true">
-        {Array.from({ length: 12 }, (_, index) => <i key={index} />)}
-      </div>
-      <section className="profile-gate__content" aria-labelledby="profile-gate-title">
-        <h1 id="profile-gate-title">Welcome back to Clarity</h1>
-        <p>Who’s studying?</p>
-        <div className="profile-gate__profiles">
-          <button
-            className="profile-gate__add"
-            type="button"
-            aria-label="Add another user"
-            onClick={() => setShowSignUp(true)}
-            data-ui-sound="true"
-            data-ui-sound-hover="hover"
-            data-ui-sound-click="open"
-          >
-            <span>+</span>
-            <strong>Add User</strong>
-          </button>
-        </div>
-        <button
-          className="profile-gate__power"
-          type="button"
-          aria-label="Exit Clarity"
-          data-ui-sound="true"
-          data-ui-sound-hover="hover"
-          data-ui-sound-click="open"
-        >
-          ↻
-        </button>
-      </section>
-    </main>
-  )
+  return <ProfileChooser profiles={listProfileShortcuts()} onAddUser={() => setShowSignUp(true)} onChoose={(profile) => {
+    window.sessionStorage.setItem('clarity-active-profile', profile.id)
+    setSelected(profile)
+  }} />
 }
 
-export function SignIn({ initialMode = 'sign-in' }: { initialMode?: 'sign-in' | 'sign-up' } = {}) {
+export function SignIn({ initialMode = 'sign-in', onLocalProfileCreated }: { initialMode?: 'sign-in' | 'sign-up'; onLocalProfileCreated?: (profile: ProfileShortcut) => void } = {}) {
   const [mode, setMode] = useState<'sign-in' | 'sign-up'>(initialMode)
   const [showForm, setShowForm] = useState(initialMode === 'sign-up')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [displayName, setDisplayName] = useState('')
+  const [avatarId, setAvatarId] = useState<AvatarId | null>(null)
   const [busy, setBusy] = useState(false)
   const [message, setMessage] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   async function submit(event: FormEvent) {
     event.preventDefault()
-    if (!supabase) return
+    if (!supabase) {
+      if (mode === 'sign-up' && avatarId) {
+        const name = displayName.trim() || email.split('@')[0] || 'Learner'
+        const profile = upsertProfileShortcut({ id: `local-${email || name}`, email, displayName: name, avatarId })
+        if (onLocalProfileCreated) onLocalProfileCreated(profile)
+        else setShowForm(false)
+      }
+      return
+    }
     setBusy(true)
     setError(null)
     setMessage(null)
@@ -226,7 +216,7 @@ export function SignIn({ initialMode = 'sign-in' }: { initialMode?: 'sign-in' | 
         ? await supabase.auth.signUp({
             email,
             password,
-            options: { data: { display_name: displayName.trim() || undefined } },
+            options: { data: { display_name: displayName.trim() || undefined, avatar_id: avatarId ?? 'orbit' } },
           })
         : await supabase.auth.signInWithPassword({ email, password })
 
@@ -296,14 +286,10 @@ export function SignIn({ initialMode = 'sign-in' }: { initialMode?: 'sign-in' | 
 
         <form className="auth-form" onSubmit={submit}>
           {mode === 'sign-up' && (
-            <label className="field">
-              <span>Display name <small>(optional)</small></span>
-              <input
-                autoComplete="name"
-                value={displayName}
-                onChange={(event) => setDisplayName(event.target.value)}
-              />
-            </label>
+            <>
+              <label className="field"><span>Display name <small>(optional)</small></span><input autoComplete="name" value={displayName} onChange={(event) => setDisplayName(event.target.value)} /></label>
+              <fieldset className="avatar-picker"><legend>Choose your avatar</legend><div>{AVATARS.map((avatar) => <button key={avatar.id} type="button" aria-pressed={avatarId === avatar.id} aria-label={avatar.label} onClick={() => setAvatarId(avatar.id)}>{avatar.glyph}</button>)}</div></fieldset>
+            </>
           )}
           <label className="field">
             <span>Email</span>
@@ -331,7 +317,7 @@ export function SignIn({ initialMode = 'sign-in' }: { initialMode?: 'sign-in' | 
           <button
             className="button button--full"
             type="submit"
-            disabled={busy}
+            disabled={busy || (mode === 'sign-up' && !avatarId)}
             data-ui-sound="true"
             data-ui-sound-hover="hover"
             data-ui-sound-click="select"

@@ -59,6 +59,30 @@ describe('first-time local profile chooser', () => {
   })
 })
 
+describe('remembered local profile chooser', () => {
+  it('shows a saved learner beside Add User and opens their dashboard without a PIN', async () => {
+    dom.window.sessionStorage.clear()
+    dom.window.localStorage.clear()
+    dom.window.localStorage.setItem('clarity-profile-shortcuts-v1', JSON.stringify([
+      { id: 'local-ada', email: 'ada@example.com', displayName: 'Ada', avatarId: 'spark' },
+    ]))
+
+    await act(async () => {
+      root.render(createElement(LocalProfileGate, { key: 'remembered-profile', children: createElement('p', null, 'Dashboard') }))
+    })
+
+    const profile = container.querySelector<HTMLButtonElement>('[aria-label="Continue as Ada"]')
+    assert.ok(profile)
+    assert.match(container.textContent ?? '', /Add User/)
+
+    await act(async () => {
+      profile.click()
+    })
+
+    assert.match(container.textContent ?? '', /Dashboard/)
+  })
+})
+
 describe('configured profile chooser', () => {
   it('shows only Add User and opens sign-up without Dara', async () => {
     await act(async () => {
