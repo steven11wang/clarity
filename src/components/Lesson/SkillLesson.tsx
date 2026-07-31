@@ -378,7 +378,8 @@ function WorkedExample({
   oneMove: string
 }) {
   const [phrase, setPhrase] = useState('')
-  const [gateOpen, setGateOpen] = useState(false)
+  const showChoicesImmediately = skill === 'Form, Structure, and Sense'
+  const [gateOpen, setGateOpen] = useState(showChoicesImmediately)
   const [chosen, setChosen] = useState<ChoiceLetter | null>(null)
   const [struck, setStruck] = useState<ChoiceLetter[]>([])
   const [revealed, setRevealed] = useState(false)
@@ -415,7 +416,7 @@ function WorkedExample({
         <p className="lesson-section__label">Question</p>
         <p className="lesson-example__prompt">{example.prompt}</p>
 
-        {!gateOpen && (
+        {(showChoicesImmediately || !gateOpen) && (
           <div className="lesson-gate">
             <p className="lesson-gate__title">{gate.label}</p>
             <p className="lesson-gate__hint">{gate.hint}</p>
@@ -428,9 +429,11 @@ function WorkedExample({
               onChange={(event) => setPhrase(event.target.value)}
             />
             <div className="lesson-gate__actions">
-              <button className="button" type="button" onClick={() => setGateOpen(true)}>
-                Show the choices
-              </button>
+              {!showChoicesImmediately && (
+                <button className="button" type="button" onClick={() => setGateOpen(true)}>
+                  Show the choices
+                </button>
+              )}
               <button
                 className="link-button"
                 type="button"

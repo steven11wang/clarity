@@ -1,3 +1,4 @@
+import { assetPath } from '../../lib/assetPath.ts'
 import type { Question, TableData } from '../../types.ts'
 import { segmentSentences } from './sentence.ts'
 import './passage.css'
@@ -93,7 +94,7 @@ export function Passage({
       ) : question.image ? (
         <figure className="passage__figure">
           <img
-            src={question.image.startsWith('/') ? question.image : `/${question.image}`}
+            src={assetPath(question.image)}
             alt={question.figure_description}
           />
         </figure>

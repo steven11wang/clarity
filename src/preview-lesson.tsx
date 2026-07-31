@@ -13,9 +13,7 @@ import './console-theme.css'
 function Harness() {
   const params = new URLSearchParams(window.location.search)
   // null shows the library, mirroring the dashboard's Lessons tab.
-  const [skill, setSkill] = useState<string | null>(
-    params.get('skill') ?? SKILL_LESSON_INDEX[0].skill,
-  )
+  const [skill, setSkill] = useState<string | null>(params.get('skill'))
   if (skill === null) {
     return <LessonLibrary onSelectSkill={setSkill} onBack={() => setSkill(null)} />
   }

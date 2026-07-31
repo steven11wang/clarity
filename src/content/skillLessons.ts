@@ -19,6 +19,7 @@
 //                          attribute on a dynamic import while still serving
 //                          the file as a JS module, which the browser rejects.
 
+import { assetPath } from '../lib/assetPath.ts'
 import indexRaw from './skillLessonIndex.json' with { type: 'json' }
 
 export type LessonTable = string[][]
@@ -109,7 +110,7 @@ type LessonPagesFile = {
   parts: Record<string, LessonPart[]>
 }
 
-export const LESSON_PAGES_PATH = '/lessons/skill-lessons.json'
+export const LESSON_PAGES_PATH = assetPath('/lessons/skill-lessons.json')
 
 let pagesPromise: Promise<LessonPagesFile> | null = null
 

@@ -63,38 +63,33 @@ after(() => {
 describe('lessons console landing', () => {
   it('opens with the recommended domain selected across four portals', () => {
     assert.equal(container.querySelectorAll('.adaptive-header').length, 0)
-    assert.equal(container.querySelectorAll('.lesson-console__tile').length, 4)
+    assert.equal(container.querySelectorAll('.lesson-portal-door').length, 4)
     assert.equal(
       container
-        .querySelector('.lesson-console__tile[aria-pressed="true"]')
+        .querySelector('.lesson-portal-door[aria-pressed="true"]')
         ?.getAttribute('data-domain'),
       'Information and Ideas',
     )
-    assert.equal(
-      container.querySelector('.lesson-console__tile--continue'),
-      null,
-    )
+    assert.ok(container.querySelector('.lesson-portal-room__continue'))
   })
 
-  it('filters the detail list by domain', async () => {
+  it('opens selected and recommended lessons from the portal room', async () => {
     await click(
       container.querySelector(
-        '.lesson-console__tile[data-domain="Craft and Structure"]',
+        '.lesson-portal-door[data-domain="Craft and Structure"]',
       ),
     )
-
-    const rows = [
-      ...container.querySelectorAll('.lesson-console__lesson-row'),
-    ]
-    assert.ok(rows.length > 0)
-    rows.forEach((row) => {
-      assert.equal(row.getAttribute('data-domain'), 'Craft and Structure')
-    })
+    assert.match(
+      container.querySelector('.lesson-portal-room__title')?.textContent ?? '',
+      /Craft and Structure/,
+    )
+    await click(container.querySelector('.lesson-portal-room__enter'))
+    assert.equal(selectedSkill, 'Words in Context')
+    await click(container.querySelector('.lesson-portal-room__continue'))
+    assert.equal(selectedSkill, 'Command of Evidence')
   })
 
   it('opens the selected lesson', async () => {
-    const row = container.querySelector('.lesson-console__lesson-row')
-    await click(row)
-    assert.equal(selectedSkill, row?.getAttribute('data-skill'))
+    assert.equal(container.querySelectorAll('.lesson-portal-door').length, 4)
   })
 })

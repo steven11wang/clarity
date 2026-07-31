@@ -23,5 +23,8 @@ export default defineConfig(async ({ command }) => {
     )
   }
 
-  return { plugins }
+  return {
+    base: process.env.BASE_URL || '/',
+    plugins,
+  }
 })

@@ -175,6 +175,22 @@ describe('skill lesson shell', () => {
     assert.ok(unlocked && !unlocked.className.includes('is-locked'))
   })
 
+  it('shows choices immediately for Form, Structure, and Sense', async () => {
+    await renderLesson('Form, Structure, and Sense')
+    await openTab('Worked example')
+
+    const choices = container.querySelector('.lesson-choices')
+    assert.ok(choices)
+    assert.ok(!choices.className.includes('is-locked'), 'choices were still locked')
+    assert.ok(text().includes('What rule is being tested?'))
+    assert.ok(container.querySelector('.lesson-gate'))
+    assert.equal(
+      container.querySelector('.lesson-gate .button'),
+      null,
+      'immediate-choice lesson still showed the reveal button',
+    )
+  })
+
   it('lets the student cross a choice out and put it back', async () => {
     await openTab('Worked example')
     if (container.querySelector('.lesson-choices')?.className.includes('is-locked')) {

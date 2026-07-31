@@ -1,6 +1,7 @@
+import { assetPath } from '../lib/assetPath.ts'
 import type { Question } from '../types.ts'
 
-const QUESTIONS_PATH = '/data/questions.json'
+const QUESTIONS_PATH = assetPath('/data/questions.json')
 
 export async function loadQuestions(): Promise<Question[]> {
   const response = await fetch(QUESTIONS_PATH)

@@ -77,7 +77,6 @@ export function DomainPath({
         <button className="wordmark wordmark--button" type="button" onClick={onBack} aria-label="Back">
           clarity<span>.</span>
         </button>
-        <button className="link-button" type="button" onClick={onBack}>All domains</button>
       </header>
 
       <section className={`domain-path__hero ${finished ? 'domain-path__hero--finished' : ''}`}>

@@ -304,7 +304,7 @@ a:hover { color: #ffffff; }
   gap: 2.25rem;
   height: 5.3rem;
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 .console-wordmark {
   background: none;
@@ -869,6 +869,45 @@ a:hover { color: #ffffff; }
 .profile-gate__avatar span { font-size: 4.6rem; transform: rotate(-10deg); }
 .profile-gate__learner > strong { font-size: 1.55rem; font-weight: 300; margin-top: 1.2rem; }
 .profile-gate__learner > p { color: rgba(255,255,255,.58); margin: .55rem 0 0; }
+.profile-gate__pin {
+  background: rgba(7, 13, 30, .86);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 1rem;
+  box-shadow: 0 1.5rem 4rem rgba(0,0,0,.3);
+  display: grid;
+  gap: .8rem;
+  margin-top: 2.2rem;
+  padding: 1.1rem;
+  width: min(21rem, calc(100vw - 2rem));
+}
+.profile-gate__pin label { color: rgba(255,255,255,.88); font-size: .9rem; font-weight: 700; }
+.profile-gate__pin input {
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: .65rem;
+  color: #fff;
+  font: inherit;
+  font-size: 1.2rem;
+  letter-spacing: .25em;
+  padding: .7rem .8rem;
+  text-align: center;
+}
+.profile-gate__pin input:focus { border-color: var(--cobalt-light); outline: 2px solid rgba(104,159,255,.24); }
+.profile-gate__pin > div { display: flex; gap: .6rem; justify-content: flex-end; }
+.profile-gate__pin button {
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 999px;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: .8rem;
+  font-weight: 700;
+  padding: .55rem .85rem;
+}
+.profile-gate__pin button[type='submit'] { background: var(--cobalt); border-color: transparent; }
+.profile-gate__pin button:disabled { cursor: wait; opacity: .55; }
+.profile-gate__content > [role='alert'] { color: #ff9b92; font-size: .85rem; margin-top: .85rem; }
 .profile-gate__options { color: rgba(255,255,255,.76); margin-top: 1.15rem; }
 .profile-gate__options--button {
   background: none;

@@ -9,9 +9,25 @@ type SettingsPopoverProps = {
 }
 
 export function SettingsPopover({ onScoreUpdate }: SettingsPopoverProps) {
-  const { email, displayName, isLocal, signOut, avatarId = 'orbit', updateAvatar } = useAuthProfile()
+  const {
+    email,
+    displayName,
+    isLocal,
+    signOut,
+    profileId,
+    avatarId = 'orbit',
+    updateAvatar,
+    hasProfilePin = false,
+    setProfilePin,
+    clearProfilePin,
+  } = useAuthProfile()
   const [open, setOpen] = useState(false)
   const [editingProfile, setEditingProfile] = useState(false)
+  const [editingPin, setEditingPin] = useState(false)
+  const [newPin, setNewPin] = useState('')
+  const [confirmPin, setConfirmPin] = useState('')
+  const [pinError, setPinError] = useState<string | null>(null)
+  const [savingPin, setSavingPin] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const panelId = 'clarity-settings-popover'
   const accountLabel = isLocal ? `${displayName} · local profile` : email ?? displayName
@@ -38,6 +54,36 @@ export function SettingsPopover({ onScoreUpdate }: SettingsPopoverProps) {
   function closeAnd(action: () => void) {
     setOpen(false)
     action()
+  }
+
+  function resetPinForm() {
+    setEditingPin(false)
+    setNewPin('')
+    setConfirmPin('')
+    setPinError(null)
+  }
+
+  async function savePin() {
+    if (!/^\d{4,8}$/.test(newPin)) {
+      setPinError('Use a 4–8 digit PIN.')
+      return
+    }
+    if (newPin !== confirmPin) {
+      setPinError('Those PINs don’t match.')
+      return
+    }
+    if (!setProfilePin) return
+
+    setSavingPin(true)
+    setPinError(null)
+    try {
+      await setProfilePin(newPin)
+      resetPinForm()
+    } catch (error) {
+      setPinError(error instanceof Error ? error.message : 'Clarity couldn’t save that PIN.')
+    } finally {
+      setSavingPin(false)
+    }
   }
 
   return (
@@ -74,6 +120,72 @@ export function SettingsPopover({ onScoreUpdate }: SettingsPopoverProps) {
               <span className="settings-popover__chevron" aria-hidden="true">›</span>
             </button>
             {editingProfile && updateAvatar && <div className="settings-avatar-picker" aria-label="Avatar choices">{AVATARS.map((avatar) => <button key={avatar.id} type="button" aria-pressed={avatarId === avatar.id} aria-label={`Use ${avatar.label} avatar`} onClick={() => { void updateAvatar(avatar.id); setEditingProfile(false) }}>{avatar.glyph}</button>)}</div>}
+
+            {profileId && setProfilePin && clearProfilePin && (
+              <>
+                <button
+                  className="settings-popover__row settings-popover__row--button"
+                  type="button"
+                  onClick={() => {
+                    setEditingPin((value) => !value)
+                    setPinError(null)
+                  }}
+                >
+                  <span className="settings-popover__icon" aria-hidden="true">⌁</span>
+                  <span>
+                    <strong>Profile PIN</strong>
+                    <small>{hasProfilePin ? 'PIN enabled · stays on this device' : 'No PIN · device only'}</small>
+                  </span>
+                  <span className="settings-popover__chevron" aria-hidden="true">›</span>
+                </button>
+                {editingPin && (
+                  <div className="settings-pin-form">
+                    <p>This PIN stays on this device.</p>
+                    <label>
+                      <span>{hasProfilePin ? 'New PIN' : 'PIN'}</span>
+                      <input
+                        aria-label="New profile PIN"
+                        type="password"
+                        inputMode="numeric"
+                        autoComplete="off"
+                        value={newPin}
+                        onChange={(event) => setNewPin(event.target.value)}
+                      />
+                    </label>
+                    <label>
+                      <span>Confirm PIN</span>
+                      <input
+                        aria-label="Confirm profile PIN"
+                        type="password"
+                        inputMode="numeric"
+                        autoComplete="off"
+                        value={confirmPin}
+                        onChange={(event) => setConfirmPin(event.target.value)}
+                      />
+                    </label>
+                    {pinError && <p className="settings-pin-form__error" role="alert">{pinError}</p>}
+                    <div className="settings-pin-form__actions">
+                      {hasProfilePin && (
+                        <button
+                          className="settings-pin-form__remove"
+                          type="button"
+                          onClick={() => {
+                            clearProfilePin()
+                            resetPinForm()
+                          }}
+                        >
+                          Remove PIN
+                        </button>
+                      )}
+                      <button type="button" onClick={resetPinForm}>Cancel</button>
+                      <button type="button" data-profile-pin-save disabled={savingPin} onClick={() => { void savePin() }}>
+                        {savingPin ? 'Saving…' : hasProfilePin ? 'Change PIN' : 'Set PIN'}
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
 
             <button
               className="settings-popover__row settings-popover__row--button"

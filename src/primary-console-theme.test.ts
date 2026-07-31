@@ -32,6 +32,18 @@ test('primary panel movement is removed for reduced motion', () => {
   )
 })
 
+test('header stays above primary content so open menus remain clickable', () => {
+  const stylesheet = readFileSync(
+    new URL('./console-theme.css', import.meta.url),
+    'utf8',
+  )
+
+  assert.match(
+    stylesheet,
+    /\.console-header\s*\{[^}]*z-index:\s*3/s,
+  )
+})
+
 test('lessons use an in-frame portal grid and responsive reader layout', () => {
   const stylesheet = readFileSync(
     new URL('./components/Lesson/lesson.css', import.meta.url),

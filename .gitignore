@@ -6,8 +6,14 @@ dist/
 tools/.venv/
 tools/__pycache__/
 tools/dom-tests/
-public/data/*.json
-public/data/images/*
+# The deployed site fetches /data/questions.json and its figures at runtime, so
+# those ship with the repo. Everything else in public/data is build scratch.
+public/data/*.full.json
+public/data/*.sample.json
+public/data/parse-report.json
+public/data/quarantine.json
+public/data/validation-quarantine.json
+public/data/validation-report.json
 .superpowers/
 .worktrees/
 .claude/

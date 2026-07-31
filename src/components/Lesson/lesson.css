@@ -811,6 +811,433 @@
 }
 
 /* --- Persistent console: Lessons landing ------------------------------ */
+.lesson-portal-room {
+  /* Single vanishing point: doors, floor and figure all aim at this spot so the
+     room reads as one-point perspective seen over the learner's shoulder. */
+  --portal-vanish-x: 50%;
+  --portal-vanish-y: 44%;
+  background:
+    radial-gradient(
+      66% 56% at 50% 40%,
+      #29477f 0%,
+      #1b315d 28%,
+      #101e3b 52%,
+      #080e20 76%,
+      #040812 100%
+    );
+  height: clamp(42rem, calc(100vh - 8.3rem), 64rem);
+  isolation: isolate;
+  min-height: 42rem;
+  overflow: hidden;
+  perspective: 1150px;
+  perspective-origin: var(--portal-vanish-x) var(--portal-vanish-y);
+  position: relative;
+}
+.lesson-portal-room__light {
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(82, 126, 218, 0.2),
+    rgba(39, 73, 145, 0.09) 38%,
+    transparent 70%
+  );
+  height: 82%;
+  left: 50%;
+  pointer-events: none;
+  position: absolute;
+  top: 2%;
+  transform: translateX(-50%);
+  width: min(76.4vw, 68.75rem);
+  z-index: 1;
+}
+
+.lesson-portal-room__doors {
+  inset: 0;
+  perspective: 1150px;
+  perspective-origin: var(--portal-vanish-x) var(--portal-vanish-y);
+  position: absolute;
+  transform-style: preserve-3d;
+  z-index: 2;
+}
+
+.lesson-portal-door {
+  --lesson-accent: #5f8fea;
+  background: transparent;
+  border: 0;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: filter 160ms ease, color 160ms ease, transform 260ms ease;
+}
+
+.lesson-portal-door:nth-child(1),
+.lesson-portal-door:nth-child(4) {
+  bottom: 20%;
+  height: clamp(25rem, 51vh, 37rem);
+  width: clamp(12rem, 17.4vw, 17.5rem);
+}
+
+/* Each door pivots on the edge nearest the vanishing point, so its far edge
+   shrinks and its near edge grows: top and bottom rails slant into the room. */
+.lesson-portal-door:nth-child(1) {
+  left: 6%;
+  transform: rotateY(52deg);
+  transform-origin: right center;
+}
+
+.lesson-portal-door:nth-child(2),
+.lesson-portal-door:nth-child(3) {
+  bottom: 29%;
+  height: clamp(18rem, 32.2vh, 23.5rem);
+  width: clamp(10rem, 13.2vw, 13.5rem);
+}
+
+.lesson-portal-door:nth-child(2) {
+  left: 24%;
+  transform: translateZ(-90px) rotateY(48deg);
+  transform-origin: right center;
+}
+
+.lesson-portal-door:nth-child(3) {
+  right: 24%;
+  transform: translateZ(-90px) rotateY(-48deg);
+  transform-origin: left center;
+}
+
+.lesson-portal-door:nth-child(4) {
+  right: 6%;
+  transform: rotateY(-52deg);
+  transform-origin: left center;
+}
+
+.lesson-portal-door:hover {
+  filter: brightness(1.12);
+}
+
+.lesson-portal-door:nth-child(1):hover,
+.lesson-portal-door:nth-child(1)[aria-pressed='true'] {
+  transform: rotateY(46deg) translateZ(30px);
+}
+
+.lesson-portal-door:nth-child(2):hover,
+.lesson-portal-door:nth-child(2)[aria-pressed='true'] {
+  transform: translateZ(-50px) rotateY(43deg);
+}
+
+.lesson-portal-door:nth-child(3):hover,
+.lesson-portal-door:nth-child(3)[aria-pressed='true'] {
+  transform: translateZ(-50px) rotateY(-43deg);
+}
+
+.lesson-portal-door:nth-child(4):hover,
+.lesson-portal-door:nth-child(4)[aria-pressed='true'] {
+  transform: rotateY(-46deg) translateZ(30px);
+}
+
+.lesson-portal-door:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 6px;
+}
+
+.lesson-portal-door__frame {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--lesson-accent) 24%, transparent),
+    rgba(5, 10, 24, 0.1)
+  );
+  border: clamp(0.8rem, 1.5vw, 1.375rem) solid
+    color-mix(in srgb, var(--lesson-accent) 76%, #dce7ff);
+  border-bottom: 0;
+  box-shadow: 0 34px 60px -30px rgba(0, 0, 0, 0.72);
+  inset: 0;
+  opacity: 0.72;
+  position: absolute;
+  transition: opacity 160ms ease, border-color 160ms ease;
+}
+
+.lesson-portal-door:nth-child(2) .lesson-portal-door__frame,
+.lesson-portal-door:nth-child(3) .lesson-portal-door__frame {
+  border-width: clamp(0.65rem, 1.05vw, 0.95rem);
+  border-bottom-width: 0;
+}
+
+.lesson-portal-door[aria-pressed='true'] {
+  color: #ffffff;
+}
+
+.lesson-portal-door[aria-pressed='true'] .lesson-portal-door__frame {
+  border-color: color-mix(in srgb, var(--lesson-accent) 90%, #ffffff);
+  box-shadow:
+    0 34px 60px -30px rgba(0, 0, 0, 0.72),
+    0 0 60px -6px color-mix(in srgb, var(--lesson-accent) 55%, transparent);
+  opacity: 1;
+}
+
+.lesson-portal-door__icon {
+  align-items: center;
+  display: flex;
+  height: 75%;
+  justify-content: center;
+  position: relative;
+}
+
+.lesson-portal-door svg {
+  filter: drop-shadow(0 0 14px color-mix(in srgb, var(--lesson-accent) 72%, transparent));
+  height: clamp(2.2rem, 3vw, 3rem);
+  width: clamp(2.2rem, 3vw, 3rem);
+}
+
+.lesson-portal-door > span:last-child {
+  bottom: clamp(3rem, 7vh, 5rem);
+  font-size: clamp(0.65rem, 0.8vw, 1rem);
+  font-weight: 700;
+  left: 1rem;
+  letter-spacing: 0.12em;
+  position: absolute;
+  right: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* The hero column sits over the two inner doors, so only its own controls
+   should catch the pointer. */
+.lesson-portal-room__hero {
+  align-items: center;
+  display: flex;
+  pointer-events: none;
+  flex-direction: column;
+  gap: 0.875rem;
+  left: 50%;
+  position: absolute;
+  text-align: center;
+  top: 6%;
+  transform: translateX(-50%);
+  width: min(45.8vw, 41.25rem);
+  z-index: 4;
+}
+
+.lesson-portal-room__hero header {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.lesson-portal-room__hero p,
+.lesson-portal-room__continue span {
+  color: #8cb4ff;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.lesson-portal-room__hero h1 {
+  color: #ffffff;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(3rem, 4vw, 4.5rem);
+  font-weight: 300;
+  letter-spacing: -0.022em;
+  line-height: 1.14;
+  margin: 0;
+}
+
+.lesson-portal-room__hero header > span {
+  color: rgba(255, 255, 255, 0.7);
+  display: block;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  max-width: 31.25rem;
+}
+
+.lesson-portal-room__enter {
+  margin-top: 0.75rem;
+  pointer-events: auto;
+  min-height: 3rem;
+  min-width: 11.25rem;
+}
+
+.lesson-portal-room__hero small {
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.075em;
+}
+
+.lesson-portal-room__floor {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(140, 180, 255, 0.16),
+      transparent 12%,
+      transparent 88%,
+      rgba(140, 180, 255, 0.16)
+    ),
+    linear-gradient(180deg, #172645 0%, #101a31 46%, #080d1b 100%);
+  bottom: 0;
+  clip-path: polygon(46% 0, 54% 0, 100% 100%, 0 100%);
+  height: 17rem;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  width: min(112vw, 95rem);
+  z-index: 1;
+}
+
+/* Horizon seam where the floor plane meets the far wall. */
+.lesson-portal-room__floor::before {
+  background: radial-gradient(
+    40% 100% at 50% 100%,
+    rgba(150, 190, 255, 0.22),
+    transparent 70%
+  );
+  content: '';
+  height: 3rem;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: -1.25rem;
+}
+
+.lesson-portal-room__figure {
+  animation: lesson-portal-figure-in 320ms ease-out;
+  bottom: 5.5rem;
+  color: #ffffff;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  width: clamp(11rem, 15vw, 15rem);
+  z-index: 3;
+}
+
+@keyframes lesson-portal-figure-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px) scale(0.96);
+  }
+}
+
+.lesson-portal-room__figure .domain-character {
+  filter: drop-shadow(0 18px 34px rgba(0, 0, 0, 0.6));
+  width: 100%;
+}
+
+.lesson-portal-room__figure svg {
+  display: block;
+  width: 100%;
+}
+
+.lesson-portal-room__continue {
+  align-items: center;
+  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
+  background: rgba(7, 14, 30, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 1rem;
+  bottom: 1.5rem;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  color: #ffffff;
+  display: flex;
+  gap: 1.5rem;
+  left: 50%;
+  max-width: 43.75rem;
+  min-height: 4rem;
+  padding: 1rem 1.125rem 1rem 1.625rem;
+  position: absolute;
+  text-align: left;
+  transform: translateX(-50%);
+  width: calc(100% - 2rem);
+  z-index: 5;
+}
+
+.lesson-portal-room__continue strong {
+  flex: 1;
+  font-size: 1.05rem;
+  font-weight: 400;
+}
+
+.lesson-portal-room__continue em {
+  color: #8cb4ff;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.lesson-portal-room__continue:hover {
+  background: rgba(12, 24, 51, 0.9);
+}
+
+.lesson-portal-room__continue:focus-visible {
+  outline: 2px solid #8cb4ff;
+  outline-offset: 3px;
+}
+
+@media (max-width: 720px) {
+  .lesson-portal-room {
+    height: auto;
+    min-height: 42rem;
+    padding: 1rem;
+  }
+
+  .lesson-portal-room__doors {
+    display: grid;
+    gap: 0.55rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    perspective: none;
+    position: relative;
+  }
+
+  .lesson-portal-door,
+  .lesson-portal-door:nth-child(n),
+  .lesson-portal-door:nth-child(n):hover,
+  .lesson-portal-door:nth-child(n)[aria-pressed='true'] {
+    bottom: auto;
+    height: 8rem;
+    left: auto;
+    position: relative;
+    right: auto;
+    transform: none;
+    width: auto;
+  }
+
+  .lesson-portal-door > span:last-child {
+    bottom: 0.75rem;
+  }
+
+  .lesson-portal-room__hero {
+    left: auto;
+    padding: 3rem 0 9rem;
+    pointer-events: auto;
+    position: relative;
+    top: auto;
+    transform: none;
+    width: 100%;
+  }
+
+  .lesson-portal-room__hero h1 {
+    font-size: clamp(2.35rem, 11vw, 3.2rem);
+  }
+
+  .lesson-portal-room__hero header > span {
+    font-size: 0.95rem;
+  }
+
+  .lesson-portal-room__floor,
+  .lesson-portal-room__figure {
+    display: none;
+  }
+
+  .lesson-portal-room__continue {
+    bottom: 1rem;
+    gap: 0.75rem;
+  }
+
+  .lesson-portal-room__continue span {
+    display: none;
+  }
+}
 .lesson-console {
   padding: clamp(1.3rem, 3vw, 2.4rem) 0 5rem;
 }

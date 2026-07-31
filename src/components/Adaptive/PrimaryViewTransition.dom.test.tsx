@@ -192,6 +192,52 @@ describe('persistent console shell', () => {
     })
     shellContainer.remove()
   })
+
+  it('does not show a return-to-today action in due reviews', async () => {
+    const reviewContainer = dom.window.document.createElement('div')
+    dom.window.document.body.append(reviewContainer)
+    const reviewRoot = createRoot(reviewContainer)
+    const cards = [{
+      domain: 'Information and Ideas' as const,
+      characterStage: 'Noobie' as const,
+      currentLevel: 'Noobie' as const,
+      completedSkills: 1,
+      totalSkills: 4,
+      checkpointStatus: '3 skills to go',
+      recommended: true,
+      chosen: true,
+      finished: false,
+    }]
+
+    await act(async () => {
+      reviewRoot.render(createElement(ProgressDashboard, {
+        activeView: 'practice',
+        lessonsPanel: createElement('p'),
+        libraryPanel: createElement('p'),
+        insightsPanel: createElement('p'),
+        cards,
+        onSelectDomain: () => {},
+        onUpdateScore: () => {},
+        onOpenPractice: () => {},
+        onOpenLessons: () => {},
+        onOpenLibrary: () => {},
+        onOpenInsights: () => {},
+      }))
+    })
+
+    await act(async () => {
+      ;(reviewContainer.querySelector('[aria-label="Due reviews"]') as HTMLButtonElement).click()
+      await new Promise((resolve) => setTimeout(resolve, 500))
+    })
+
+    const heroButtons = [...reviewContainer.querySelectorAll('.console-hero__actions button')]
+    assert.equal(heroButtons.some((button) => button.textContent === 'Return to today'), false)
+
+    await act(async () => {
+      reviewRoot.unmount()
+    })
+    reviewContainer.remove()
+  })
 })
 
 describe('embedded primary panels', () => {

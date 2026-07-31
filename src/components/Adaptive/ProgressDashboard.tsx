@@ -68,7 +68,6 @@ function buildHero(
   onSelectDomain: (domain: SatDomain) => void,
   onOpenLibrary: () => void,
   onOpenInsights: () => void,
-  onUpdateScore: () => void,
   setSelection: (selection: ConsoleSelection) => void,
 ) {
   if (selection.kind === 'today') {
@@ -89,9 +88,7 @@ function buildHero(
       title: 'Every miss comes back in disguise.',
       body: 'Choices are reshuffled and the wording changes, so recognition cannot carry you. Revisit the ideas that need another pass.',
       primary: 'Open review library',
-      secondary: 'Return to today',
       primaryAction: onOpenLibrary,
-      secondaryAction: () => setSelection({ kind: 'today' }),
     }
   }
   if (selection.kind === 'trophies') {
@@ -100,9 +97,7 @@ function buildHero(
       title: `${securedSkills} skills secured so far.`,
       body: 'See your calibration, accuracy, review history, and the patterns behind your strongest sessions.',
       primary: 'Open learning insights',
-      secondary: 'Update score report',
       primaryAction: onOpenInsights,
-      secondaryAction: onUpdateScore,
     }
   }
 
@@ -171,7 +166,6 @@ export function ProgressDashboard({
     onSelectDomain,
     onOpenLibrary,
     onOpenInsights,
-    onUpdateScore,
     setSelection,
   ), [
     cards,
@@ -179,7 +173,6 @@ export function ProgressDashboard({
     onOpenInsights,
     onOpenLibrary,
     onSelectDomain,
-    onUpdateScore,
     securedSkills,
     totalSkills,
   ])
@@ -402,16 +395,18 @@ export function ProgressDashboard({
             >
               {hero.primary}
             </button>
-            <button
-              className="console-button console-button--secondary"
-              type="button"
-              onClick={hero.secondaryAction}
-              data-ui-sound="true"
-              data-ui-sound-hover="hover"
-              data-ui-sound-click="open"
-            >
-              {hero.secondary}
-            </button>
+            {hero.secondary && hero.secondaryAction ? (
+              <button
+                className="console-button console-button--secondary"
+                type="button"
+                onClick={hero.secondaryAction}
+                data-ui-sound="true"
+                data-ui-sound-hover="hover"
+                data-ui-sound-click="open"
+              >
+                {hero.secondary}
+              </button>
+            ) : null}
           </div>
         </div>
       </section>

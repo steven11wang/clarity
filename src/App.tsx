@@ -5,8 +5,8 @@ import {
   type AdaptiveAttemptReference,
 } from './components/Adaptive/AdaptiveExperience.tsx'
 import type { BatchAnswers } from './components/Adaptive/BatchQuiz.tsx'
-import { Browse } from './components/Browse/Browse.tsx'
 import { Dashboard } from './components/Dashboard/Dashboard.tsx'
+import { Library } from './components/Library/Library.tsx'
 import { AnswerPass } from './components/QuestionInteraction/AnswerPass.tsx'
 import { QuestionInteraction } from './components/QuestionInteraction/QuestionInteraction.tsx'
 import { firstPassAttempt } from './components/QuestionInteraction/model.ts'
@@ -317,8 +317,7 @@ function App() {
         <AdaptiveExperience
           primaryView={primaryView}
           libraryPanel={(
-            <Browse
-              embedded
+            <Library
               questions={questions}
               dueCount={dueNow}
               timedMode={timedMode}

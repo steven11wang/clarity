@@ -1,4 +1,4 @@
-import { useMemo, useState, type CSSProperties } from 'react'
+import { useState, type CSSProperties } from 'react'
 import {
   Blend,
   BookOpenText,
@@ -6,6 +6,8 @@ import {
   WholeWord,
   type LucideIcon,
 } from 'lucide-react'
+
+import { CharacterBack } from '../Adaptive/Character.tsx'
 
 import {
   DOMAIN_PRESENTATION,
@@ -15,7 +17,6 @@ import {
 import { hasSeenLesson } from '../../storage/index.ts'
 import {
   SKILL_LESSON_INDEX,
-  type SkillLessonSummary,
 } from '../../content/skillLessons.ts'
 import './lesson.css'
 
@@ -50,20 +51,16 @@ export function LessonLibrary({
     domain: continueLesson.domain as SatDomain,
   })
 
-  const visibleLessons = useMemo(
-    () =>
-      SKILL_LESSON_INDEX.filter(
-        (entry) => entry.domain === selection.domain,
-      ),
-    [selection],
-  )
-
   const selectedDomain = selection.domain
   const selectedPresentation = DOMAIN_PRESENTATION[selectedDomain]
+  const selectedLesson =
+    SKILL_LESSON_INDEX.find((lesson) => lesson.domain === selectedDomain) ??
+    continueLesson
 
   return (
-    <section className="lesson-console" aria-label="Lessons">
-      <div className="lesson-console__rail" aria-label="Lesson collections">
+    <section className="lesson-portal-room" aria-label="Lessons">
+      <div className="lesson-portal-room__light" aria-hidden="true" />
+      <div className="lesson-portal-room__doors" aria-label="Lesson collections">
         {SAT_DOMAINS.map((domain) => {
           const presentation = DOMAIN_PRESENTATION[domain]
           const Icon = DOMAIN_ICONS[domain]
@@ -71,7 +68,7 @@ export function LessonLibrary({
 
           return (
             <button
-              className="lesson-console__tile"
+              className="lesson-portal-door"
               type="button"
               key={domain}
               data-domain={domain}
@@ -84,7 +81,8 @@ export function LessonLibrary({
               data-ui-sound-hover="hover"
               data-ui-sound-click="select"
             >
-              <span className="lesson-console__tile-icon" aria-hidden="true">
+              <span className="lesson-portal-door__frame" aria-hidden="true" />
+              <span className="lesson-portal-door__icon" aria-hidden="true">
                 <Icon strokeWidth={1.45} />
               </span>
               <span>{presentation.shortName}</span>
@@ -92,60 +90,27 @@ export function LessonLibrary({
           )
         })}
       </div>
-
-      <div className="lesson-console__detail" aria-live="polite">
-        <header className="lesson-console__detail-head">
+      <div className="lesson-portal-room__hero" aria-live="polite">
+        <header>
           <p>{selectedPresentation.shortName.toUpperCase()} · LESSONS</p>
-          <h1>{selectedDomain}</h1>
+          <h1 className="lesson-portal-room__title">{selectedDomain}</h1>
           <span>{selectedPresentation.description}</span>
         </header>
-        <div className="lesson-console__lesson-list">
-          {visibleLessons.map((lesson, index) => (
-            <LessonRow
-              lesson={lesson}
-              index={index}
-              key={lesson.skill}
-              onSelectSkill={onSelectSkill}
-            />
-          ))}
-        </div>
+        <button className="console-button console-button--primary lesson-portal-room__enter" type="button" onClick={() => onSelectSkill(selectedLesson.skill)}>Enter this path</button>
+        <small>{selectedLesson.skill} · {hasSeenLesson(selectedLesson.skill) ? 'Review' : 'Start lesson'}</small>
       </div>
+      <div className="lesson-portal-room__floor" aria-hidden="true" />
+      <div
+        className="lesson-portal-room__figure"
+        data-domain={selectedDomain}
+        key={selectedDomain}
+        aria-hidden="true"
+      >
+        <CharacterBack domain={selectedDomain} />
+      </div>
+      <button className="lesson-portal-room__continue" type="button" onClick={() => onSelectSkill(continueLesson.skill)}>
+        <span>Continue learning</span><strong>{continueLesson.skill}</strong><em>Resume →</em>
+      </button>
     </section>
-  )
-}
-
-function LessonRow({
-  lesson,
-  index,
-  onSelectSkill,
-}: {
-  lesson: SkillLessonSummary
-  index: number
-  onSelectSkill: (skill: string) => void
-}) {
-  const seen = hasSeenLesson(lesson.skill)
-
-  return (
-    <button
-      className="lesson-console__lesson-row"
-      type="button"
-      data-domain={lesson.domain}
-      data-skill={lesson.skill}
-      onClick={() => onSelectSkill(lesson.skill)}
-      data-ui-sound="true"
-      data-ui-sound-hover="hover"
-      data-ui-sound-click="open"
-    >
-      <span className="lesson-console__lesson-index">
-        {String(index + 1).padStart(2, '0')}
-      </span>
-      <span className="lesson-console__lesson-copy">
-        <strong>{lesson.skill}</strong>
-        <small>{lesson.nutshell}</small>
-      </span>
-      <span className="lesson-console__lesson-state">
-        {seen ? 'Review' : 'Start'}
-      </span>
-    </button>
   )
 }

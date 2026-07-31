@@ -19,6 +19,38 @@ const FEATURES = [
   { skin: '#b97858', hair: '#3e2e2a' },
 ] as const
 
+/** Back view used by the lessons portal room, where the camera sits behind the
+ * learner. No face — the point is that you are looking over their shoulder. */
+export function CharacterBack({ domain }: { domain: SatDomain }) {
+  const index = SAT_DOMAINS.indexOf(domain)
+  const { skin, hair } = FEATURES[index]
+  const { accent } = DOMAIN_PRESENTATION[domain]
+
+  return (
+    <div
+      className="domain-character domain-character--back"
+      style={{ '--character-accent': accent } as CSSProperties}
+      aria-hidden="true"
+    >
+      <svg viewBox="0 0 240 205" focusable="false">
+        <ellipse cx="120" cy="196" rx="52" ry="8" fill="#02060f" opacity=".55" />
+        <path d="M106 142v50M134 142v50" fill="none" stroke="#1d2946" strokeWidth="16" strokeLinecap="round" />
+        <rect x="110" y="62" width="20" height="20" rx="8" fill={skin} />
+        <path d="M120 78c-22 0-36 11-40 27l-6 36c0 8 19 13 46 13s46-5 46-13l-6-36c-4-16-18-27-40-27z" fill={accent} />
+        <path d="M84 96l-9 46M156 96l9 46" fill="none" stroke={accent} strokeWidth="14" strokeLinecap="round" />
+        <circle cx="74" cy="146" r="7" fill={skin} />
+        <circle cx="166" cy="146" r="7" fill={skin} />
+        <rect x="96" y="92" width="48" height="54" rx="12" fill="#0d1730" opacity=".92" />
+        <path d="M104 92l6-14M136 92l-6-14" stroke="#0d1730" strokeWidth="7" strokeLinecap="round" />
+        <rect x="108" y="106" width="24" height="18" rx="5" fill={accent} opacity=".85" />
+        <circle cx="120" cy="44" r="31" fill={hair} />
+        <path d="M91 50c-2 12 6 22 29 22s31-10 29-22c-4 16-14 24-29 24s-25-8-29-24z" fill={skin} opacity=".35" />
+        <circle cx="120" cy="20" r="26" fill="#ffffff" opacity=".05" />
+      </svg>
+    </div>
+  )
+}
+
 function CharacterAccessory({ index, accent }: { index: number; accent: string }) {
   if (index === 0) return <><circle cx="177" cy="137" r="15" fill="#e8f3ef" stroke={accent} strokeWidth="3" /><path d="M188 148l12 13" stroke={accent} strokeWidth="5" strokeLinecap="round" /></>
   if (index === 1) return <><path d="M164 119l28 8-7 30-28-8z" fill="#fff8db" stroke={accent} strokeWidth="3" /><path d="M164 133l22 6M162 141l20 6" stroke={accent} strokeWidth="2" /></>

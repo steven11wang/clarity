@@ -4,7 +4,15 @@ import type { User } from '@supabase/supabase-js'
 import { ConsoleAudioProvider } from '../audio/ConsoleAudioProvider.tsx'
 import { AuthProfileProvider } from './AuthContext.tsx'
 import { ProfileChooser } from './ProfileChooser.tsx'
-import { AVATARS, listProfileShortcuts, type AvatarId, type ProfileShortcut, upsertProfileShortcut } from './profileShortcuts.ts'
+import {
+  AVATARS,
+  clearProfilePin,
+  listProfileShortcuts,
+  setProfilePin,
+  type AvatarId,
+  type ProfileShortcut,
+  upsertProfileShortcut,
+} from './profileShortcuts.ts'
 import { isSupabaseConfigured, supabase } from '../lib/supabase.ts'
 import { restoreOrSeedCloudState, syncCloudState } from '../storage/cloud.ts'
 import { subscribeStorageChanges } from '../storage/index.ts'
@@ -18,6 +26,8 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
   const [checking, setChecking] = useState(isSupabaseConfigured)
   const [syncing, setSyncing] = useState(false)
   const [syncError, setSyncError] = useState<string | null>(null)
+  const [unlockedUserId, setUnlockedUserId] = useState<string | null>(null)
+  const [profileRevision, setProfileRevision] = useState(0)
   const syncedUserId = useRef<string | null>(null)
 
   useEffect(() => {
@@ -29,10 +39,14 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
       setUser(data.session?.user ?? null)
       setChecking(false)
     })
-    const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data } = supabase.auth.onAuthStateChange((event, session) => {
       setUser(session?.user ?? null)
       setChecking(false)
-      if (!session) syncedUserId.current = null
+      if (event === 'SIGNED_IN' && session?.user) setUnlockedUserId(session.user.id)
+      if (!session) {
+        syncedUserId.current = null
+        setUnlockedUserId(null)
+      }
     })
     return () => {
       active = false
@@ -108,14 +122,20 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
     )
   }
 
-  if (!user) {
+  if (!user || unlockedUserId !== user.id) {
     return (
       <>
         <ConsoleAudioProvider scene="auth" />
-        <AccountChooser />
+        <AccountChooser
+          activeUserId={user?.id ?? null}
+          onUnlock={(profile) => setUnlockedUserId(profile.id)}
+        />
       </>
     )
   }
+
+  void profileRevision
+  const activeShortcut = listProfileShortcuts().find((profile) => profile.id === user.id)
 
   return (
     <>
@@ -135,13 +155,23 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
             await supabase!.auth.signOut()
           },
           openAccount: () => {
-            void supabase!.auth.signOut()
+            setUnlockedUserId(null)
           },
+          profileId: user.id,
           avatarId: typeof user.user_metadata?.avatar_id === 'string' ? user.user_metadata.avatar_id : 'orbit',
           updateAvatar: async (avatarId) => {
             await supabase!.auth.updateUser({ data: { avatar_id: avatarId } })
             upsertProfileShortcut({ id: user.id, email: user.email ?? '', displayName: typeof user.user_metadata?.display_name === 'string' ? user.user_metadata.display_name : user.email?.split('@')[0] ?? 'Account', avatarId: avatarId as AvatarId })
             setUser((current) => current ? { ...current, user_metadata: { ...current.user_metadata, avatar_id: avatarId } } : current)
+          },
+          hasProfilePin: Boolean(activeShortcut?.pin),
+          setProfilePin: async (pin) => {
+            await setProfilePin(user.id, pin)
+            setProfileRevision((revision) => revision + 1)
+          },
+          clearProfilePin: () => {
+            clearProfilePin(user.id)
+            setProfileRevision((revision) => revision + 1)
           },
         }}
       >
@@ -164,7 +194,11 @@ export function LocalProfileGate({ children }: { children: ReactNode }) {
   }
 
   if (showSignUp) {
-    return <SignIn initialMode="sign-up" onLocalProfileCreated={(profile) => { setSelected(profile); setShowSignUp(false) }} />
+    return <SignIn
+      initialMode="sign-up"
+      onChooseProfile={() => setShowSignUp(false)}
+      onLocalProfileCreated={(profile) => { setSelected(profile); setShowSignUp(false) }}
+    />
   }
 
   if (selected) {
@@ -177,10 +211,18 @@ export function LocalProfileGate({ children }: { children: ReactNode }) {
             isLocal: true,
             signOut: null,
             openAccount,
+            profileId: selected.id,
             avatarId: selected.avatarId,
             updateAvatar: async (avatarId) => {
               const updated = upsertProfileShortcut({ ...selected, avatarId: avatarId as AvatarId })
               setSelected(updated)
+            },
+            hasProfilePin: Boolean(selected.pin),
+            setProfilePin: async (pin) => {
+              setSelected(await setProfilePin(selected.id, pin))
+            },
+            clearProfilePin: () => {
+              setSelected(clearProfilePin(selected.id))
             },
           }}
         >
@@ -196,17 +238,45 @@ export function LocalProfileGate({ children }: { children: ReactNode }) {
   }} />
 }
 
-function AccountChooser() {
+export function AccountChooser({
+  activeUserId = null,
+  onUnlock = () => {},
+}: {
+  activeUserId?: string | null
+  onUnlock?: (profile: ProfileShortcut) => void
+} = {}) {
   const [selected, setSelected] = useState<ProfileShortcut | null>(null)
   const [creating, setCreating] = useState(false)
-  if (creating) return <SignIn initialMode="sign-up" />
-  if (selected) return <SignIn initialEmail={selected.email} />
-  return <ProfileChooser profiles={listProfileShortcuts()} onAddUser={() => setCreating(true)} onChoose={setSelected} />
+  if (creating) return <SignIn initialMode="sign-up" onChooseProfile={() => setCreating(false)} />
+  if (selected) return <SignIn initialEmail={selected.email} onChooseProfile={() => setSelected(null)} />
+  return <ProfileChooser profiles={listProfileShortcuts()} onAddUser={() => {
+    if (activeUserId && supabase) {
+      void supabase.auth.signOut().finally(() => setCreating(true))
+    } else {
+      setCreating(true)
+    }
+  }} onChoose={(profile) => {
+    if (profile.id === activeUserId) {
+      onUnlock(profile)
+    } else {
+      setSelected(profile)
+    }
+  }} />
 }
 
-export function SignIn({ initialMode = 'sign-in', initialEmail = '', onLocalProfileCreated }: { initialMode?: 'sign-in' | 'sign-up'; initialEmail?: string; onLocalProfileCreated?: (profile: ProfileShortcut) => void } = {}) {
+export function SignIn({
+  initialMode = 'sign-in',
+  initialEmail = '',
+  onChooseProfile,
+  onLocalProfileCreated,
+}: {
+  initialMode?: 'sign-in' | 'sign-up'
+  initialEmail?: string
+  onChooseProfile?: () => void
+  onLocalProfileCreated?: (profile: ProfileShortcut) => void
+} = {}) {
   const [mode, setMode] = useState<'sign-in' | 'sign-up'>(initialMode)
-  const [showForm, setShowForm] = useState(initialMode === 'sign-up')
+  const [showForm, setShowForm] = useState(initialMode === 'sign-up' || initialEmail.length > 0)
   const [email, setEmail] = useState(initialEmail)
   const [password, setPassword] = useState('')
   const [displayName, setDisplayName] = useState('')
@@ -287,6 +357,10 @@ export function SignIn({ initialMode = 'sign-in', initialEmail = '', onLocalProf
           className="auth-back"
           type="button"
           onClick={() => {
+            if (onChooseProfile) {
+              onChooseProfile()
+              return
+            }
             setShowForm(false)
             setError(null)
             setMessage(null)
