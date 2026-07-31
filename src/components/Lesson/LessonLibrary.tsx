@@ -2,7 +2,6 @@ import { useMemo, useState, type CSSProperties } from 'react'
 import {
   Blend,
   BookOpenText,
-  Play,
   Search,
   WholeWord,
   type LucideIcon,
@@ -27,7 +26,6 @@ type LessonLibraryProps = {
 }
 
 type LessonSelection =
-  | { kind: 'continue' }
   | { kind: 'domain'; domain: SatDomain }
 
 const DOMAIN_ICONS: Record<SatDomain, LucideIcon> = {
@@ -45,52 +43,31 @@ export function LessonLibrary({
   onSelectSkill,
   recommendedSkill,
 }: LessonLibraryProps) {
-  const [selection, setSelection] = useState<LessonSelection>({
-    kind: 'continue',
-  })
   const continueLesson =
     lessonForSkill(recommendedSkill) ?? SKILL_LESSON_INDEX[0]
+  const [selection, setSelection] = useState<LessonSelection>({
+    kind: 'domain',
+    domain: continueLesson.domain as SatDomain,
+  })
 
   const visibleLessons = useMemo(
     () =>
-      selection.kind === 'domain'
-        ? SKILL_LESSON_INDEX.filter(
-            (entry) => entry.domain === selection.domain,
-          )
-        : [continueLesson],
-    [continueLesson, selection],
+      SKILL_LESSON_INDEX.filter(
+        (entry) => entry.domain === selection.domain,
+      ),
+    [selection],
   )
 
-  const selectedDomain =
-    selection.kind === 'domain' ? selection.domain : null
-  const selectedPresentation = selectedDomain
-    ? DOMAIN_PRESENTATION[selectedDomain]
-    : null
+  const selectedDomain = selection.domain
+  const selectedPresentation = DOMAIN_PRESENTATION[selectedDomain]
 
   return (
     <section className="lesson-console" aria-label="Lessons">
       <div className="lesson-console__rail" aria-label="Lesson collections">
-        <button
-          className="lesson-console__tile lesson-console__tile--continue"
-          type="button"
-          aria-pressed={selection.kind === 'continue'}
-          onClick={() => setSelection({ kind: 'continue' })}
-          style={{ '--lesson-accent': '#2b5bc7' } as CSSProperties}
-          data-ui-sound="true"
-          data-ui-sound-hover="hover"
-          data-ui-sound-click="select"
-        >
-          <span className="lesson-console__tile-icon" aria-hidden="true">
-            <Play strokeWidth={1.55} />
-          </span>
-          <span>Continue learning</span>
-        </button>
-
         {SAT_DOMAINS.map((domain) => {
           const presentation = DOMAIN_PRESENTATION[domain]
           const Icon = DOMAIN_ICONS[domain]
-          const selected =
-            selection.kind === 'domain' && selection.domain === domain
+          const selected = selection.domain === domain
 
           return (
             <button
@@ -117,61 +94,23 @@ export function LessonLibrary({
       </div>
 
       <div className="lesson-console__detail" aria-live="polite">
-        {selection.kind === 'continue' ? (
-          <ContinueLesson
-            lesson={continueLesson}
-            onSelectSkill={onSelectSkill}
-          />
-        ) : (
-          <>
-            <header className="lesson-console__detail-head">
-              <p>{selectedPresentation?.shortName.toUpperCase()} · LESSONS</p>
-              <h1>{selectedDomain}</h1>
-              <span>{selectedPresentation?.description}</span>
-            </header>
-            <div className="lesson-console__lesson-list">
-              {visibleLessons.map((lesson, index) => (
-                <LessonRow
-                  lesson={lesson}
-                  index={index}
-                  key={lesson.skill}
-                  onSelectSkill={onSelectSkill}
-                />
-              ))}
-            </div>
-          </>
-        )}
+        <header className="lesson-console__detail-head">
+          <p>{selectedPresentation.shortName.toUpperCase()} · LESSONS</p>
+          <h1>{selectedDomain}</h1>
+          <span>{selectedPresentation.description}</span>
+        </header>
+        <div className="lesson-console__lesson-list">
+          {visibleLessons.map((lesson, index) => (
+            <LessonRow
+              lesson={lesson}
+              index={index}
+              key={lesson.skill}
+              onSelectSkill={onSelectSkill}
+            />
+          ))}
+        </div>
       </div>
     </section>
-  )
-}
-
-function ContinueLesson({
-  lesson,
-  onSelectSkill,
-}: {
-  lesson: SkillLessonSummary
-  onSelectSkill: (skill: string) => void
-}) {
-  const presentation =
-    DOMAIN_PRESENTATION[lesson.domain as SatDomain]
-
-  return (
-    <article className="lesson-console__continue">
-      <p>{presentation.shortName.toUpperCase()} · CONTINUE LEARNING</p>
-      <h1>{lesson.skill}</h1>
-      <span>{lesson.nutshell}</span>
-      <button
-        className="console-button console-button--primary"
-        type="button"
-        onClick={() => onSelectSkill(lesson.skill)}
-        data-ui-sound="true"
-        data-ui-sound-hover="hover"
-        data-ui-sound-click="open"
-      >
-        {hasSeenLesson(lesson.skill) ? 'Continue lesson' : 'Start lesson'}
-      </button>
-    </article>
   )
 }
 

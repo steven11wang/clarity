@@ -61,16 +61,19 @@ after(() => {
 })
 
 describe('lessons console landing', () => {
-  it('opens as an embedded five-tile console rail', () => {
+  it('opens with the recommended domain selected across four portals', () => {
     assert.equal(container.querySelectorAll('.adaptive-header').length, 0)
-    assert.equal(container.querySelectorAll('.lesson-console__tile').length, 5)
-    assert.match(
-      container.querySelector(
-        '.lesson-console__tile[aria-pressed="true"]',
-      )?.textContent ?? '',
-      /Continue learning/,
+    assert.equal(container.querySelectorAll('.lesson-console__tile').length, 4)
+    assert.equal(
+      container
+        .querySelector('.lesson-console__tile[aria-pressed="true"]')
+        ?.getAttribute('data-domain'),
+      'Information and Ideas',
     )
-    assert.match(container.textContent ?? '', /Command of Evidence/)
+    assert.equal(
+      container.querySelector('.lesson-console__tile--continue'),
+      null,
+    )
   })
 
   it('filters the detail list by domain', async () => {

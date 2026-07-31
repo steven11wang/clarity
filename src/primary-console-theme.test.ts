@@ -32,7 +32,7 @@ test('primary panel movement is removed for reduced motion', () => {
   )
 })
 
-test('lessons use the console rail and responsive reader layout', () => {
+test('lessons use an in-frame portal grid and responsive reader layout', () => {
   const stylesheet = readFileSync(
     new URL('./components/Lesson/lesson.css', import.meta.url),
     'utf8',
@@ -40,7 +40,7 @@ test('lessons use the console rail and responsive reader layout', () => {
 
   assert.match(
     stylesheet,
-    /\.lesson-console__rail\s*\{[^}]*display:\s*flex/s,
+    /\.lesson-console__rail\s*\{[^}]*display:\s*grid[^}]*grid-template-columns:\s*repeat\(4,\s*minmax\(0,\s*1fr\)\)/s,
   )
   assert.match(
     stylesheet,
@@ -52,6 +52,10 @@ test('lessons use the console rail and responsive reader layout', () => {
   )
   assert.match(
     stylesheet,
-    /@media\s*\(max-width:\s*720px\)[\s\S]*\.lesson-console__detail/s,
+    /@media\s*\(max-width:\s*820px\)[\s\S]*\.lesson-console__rail\s*\{[^}]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/s,
+  )
+  assert.match(
+    stylesheet,
+    /@media\s*\(max-width:\s*460px\)[\s\S]*\.lesson-console__rail\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)/s,
   )
 })
