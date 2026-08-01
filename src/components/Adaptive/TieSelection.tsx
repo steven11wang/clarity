@@ -30,7 +30,7 @@ export function TieSelection({ candidates, results, onSelect }: TieSelectionProp
         <h1 id="tie-title">Which character should grow first?</h1>
         <p>
           These domains share your lowest starting level. Choose the one you want to
-          strengthen first—you can visit every other domain from your dashboard at any time.
+          strengthen first - you can visit every other domain from your dashboard at any time.
         </p>
       </section>
 

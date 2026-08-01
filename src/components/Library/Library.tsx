@@ -1,9 +1,66 @@
 import { useState, type CSSProperties } from 'react'
-import { ArrowLeft, LockKeyhole, Plus, UnlockKeyhole, X } from 'lucide-react'
+import { ArrowLeft, ChevronLeft, ChevronRight, ExternalLink, LockKeyhole, Plus, UnlockKeyhole, X } from 'lucide-react'
 
 import { Browse } from '../Browse/Browse.tsx'
+import beginnerGuide from '../../content/beginnerGuide.json'
+import libraryResources from '../../content/libraryResources.json'
+import mastersNote from '../../content/mastersNote.json'
 import type { Question } from '../../types.ts'
 import './library.css'
+
+type LibraryResource = {
+  title: string
+  url: string
+  description: string
+}
+
+type BeginnerGuideBlock =
+  | { type: 'p'; text: string }
+  | { type: 'callout'; label: string; text: string }
+
+type BeginnerGuideChapter = {
+  id: string
+  number: number
+  title: string
+  blocks: BeginnerGuideBlock[]
+}
+
+type BeginnerGuide = {
+  title: string
+  chapters: BeginnerGuideChapter[]
+}
+
+const BEGINNER_GUIDE = beginnerGuide as BeginnerGuide
+
+type MastersBlock =
+  | { type: 'p'; text: string }
+  | { type: 'list'; items: string[] }
+  | { type: 'drill'; label: string; text: string }
+
+type MastersEntry = {
+  id: string
+  section: string
+  rule: string
+  blocks: MastersBlock[]
+  source: { label: string; url: string }
+}
+
+type MastersSection = {
+  id: string
+  label: string
+  short: string
+  summary: string
+}
+
+type MastersNote = {
+  title: string
+  subtitle: string
+  attribution: string
+  sections: MastersSection[]
+  entries: MastersEntry[]
+}
+
+const MASTERS_NOTE = mastersNote as MastersNote
 
 type LibraryProps = {
   questions: Question[]
@@ -33,12 +90,12 @@ const BOOKS: LibraryBook[] = [
     key: 'masters',
     kicker: 'ADVANCED',
     title: "Master's note",
-    meta: '18 entries',
+    meta: `${MASTERS_NOTE.entries.length} entries`,
     description:
-      'The hard-won rules you wrote yourself after each miss — trap answers, tone shifts, and the patterns that keep coming back.',
+      'The hard-won rules behind an 800 - how to eliminate answers, catch your own rationalizations, find the author in the noise, and review a section so it actually pays.',
     facts: [
-      { value: '18', label: 'ENTRIES' },
-      { value: '—', label: 'LAST EDIT' },
+      { value: String(MASTERS_NOTE.entries.length), label: 'ENTRIES' },
+      { value: String(MASTERS_NOTE.sections.length), label: 'CHAPTERS' },
     ],
     tone: 'blue',
   },
@@ -48,10 +105,10 @@ const BOOKS: LibraryBook[] = [
     title: "Beginner's guide",
     meta: '9 chapters',
     description:
-      'Question types, timing, and how the section is built — the ground floor, written plainly and read in one sitting.',
+      'Vocabulary, your untimed dictionary score, and the five-step path to stronger critical thinking - the ground floor for SAT Reading.',
     facts: [
       { value: '9', label: 'CHAPTERS' },
-      { value: '—', label: 'READ' },
+      { value: '-', label: 'READ' },
     ],
     tone: 'indigo',
   },
@@ -59,12 +116,12 @@ const BOOKS: LibraryBook[] = [
     key: 'resources',
     kicker: 'REFERENCE',
     title: 'Resources',
-    meta: '32 saved',
+    meta: '5 picks',
     description:
-      'Passages, vocabulary sets, and outside reading you flagged for later — everything you saved, in one place.',
+      'The official apps, question banks, and outside tools worth bookmarking - curated for serious score gains.',
     facts: [
-      { value: '32', label: 'SAVED' },
-      { value: '6', label: 'FOLDERS' },
+      { value: '5', label: 'PICKS' },
+      { value: 'OFFICIAL', label: 'FOCUS' },
     ],
     tone: 'violet',
   },
@@ -74,7 +131,7 @@ const BOOKS: LibraryBook[] = [
     title: 'Notebook',
     meta: 'Blank pages',
     description:
-      'A blank book for whatever is in your head mid-session — a rule you just noticed, a word to look up, a plan for tomorrow.',
+      'A blank book for whatever is in your head mid-session - a rule you just noticed, a word to look up, a plan for tomorrow.',
     facts: [
       { value: '0', label: 'PAGES' },
       { value: 'NEW', label: 'STATUS' },
@@ -114,7 +171,7 @@ export function Library(props: LibraryProps) {
           <h1>The library<br />is open.</h1>
           <p className="library__lede">
             Every note you’ve written, every guide you’ve unlocked, and the
-            full question vault — kept in one room.
+            full question vault - kept in one room.
           </p>
           <button
             className="console-button console-button--primary library__enter"
@@ -223,6 +280,210 @@ export function Library(props: LibraryProps) {
   )
 }
 
+function BeginnerGuidePage({ guide }: { guide: BeginnerGuide }) {
+  const [chapterIndex, setChapterIndex] = useState(0)
+  const chapter = guide.chapters[chapterIndex]
+  const hasPrev = chapterIndex > 0
+  const hasNext = chapterIndex < guide.chapters.length - 1
+
+  return (
+    <div className="library__guide">
+      <p className="library__guide-kicker">CHAPTER {chapter.number}</p>
+      <h3 className="library__guide-title">{chapter.title}</h3>
+      <div className="library__guide-body">
+        {chapter.blocks.map((block, index) =>
+          block.type === 'callout' ? (
+            <aside key={index} className="library__guide-callout">
+              <strong>{block.label}</strong>
+              <p>{block.text}</p>
+            </aside>
+          ) : (
+            <p key={index}>{block.text}</p>
+          ),
+        )}
+      </div>
+      <nav className="library__guide-nav" aria-label="Chapter navigation">
+        <button
+          className="library__guide-nav-btn"
+          type="button"
+          disabled={!hasPrev}
+          onClick={() => setChapterIndex((index) => index - 1)}
+        >
+          <ChevronLeft aria-hidden="true" />
+          Previous
+        </button>
+        <ol className="library__guide-toc">
+          {guide.chapters.map((entry, index) => (
+            <li key={entry.id}>
+              <button
+                className={index === chapterIndex ? 'is-active' : undefined}
+                type="button"
+                aria-current={index === chapterIndex ? 'page' : undefined}
+                aria-label={`Chapter ${entry.number}: ${entry.title}`}
+                onClick={() => setChapterIndex(index)}
+              >
+                {entry.number}
+              </button>
+            </li>
+          ))}
+        </ol>
+        <button
+          className="library__guide-nav-btn"
+          type="button"
+          disabled={!hasNext}
+          onClick={() => setChapterIndex((index) => index + 1)}
+        >
+          Next
+          <ChevronRight aria-hidden="true" />
+        </button>
+      </nav>
+    </div>
+  )
+}
+
+function MastersNotePage({ note }: { note: MastersNote }) {
+  const [sectionId, setSectionId] = useState<string>('all')
+  const [entryIndex, setEntryIndex] = useState(0)
+
+  const entries =
+    sectionId === 'all'
+      ? note.entries
+      : note.entries.filter((entry) => entry.section === sectionId)
+  const index = Math.min(entryIndex, entries.length - 1)
+  const entry = entries[index]
+  const section = note.sections.find((item) => item.id === entry.section)
+  const hasPrev = index > 0
+  const hasNext = index < entries.length - 1
+
+  const selectSection = (id: string) => {
+    setSectionId(id)
+    setEntryIndex(0)
+  }
+
+  return (
+    <div className="library__masters">
+      <nav className="library__masters-tabs" aria-label="Note chapters">
+        <button
+          className={sectionId === 'all' ? 'is-active' : undefined}
+          type="button"
+          aria-pressed={sectionId === 'all'}
+          onClick={() => selectSection('all')}
+        >
+          ALL
+        </button>
+        {note.sections.map((item) => (
+          <button
+            key={item.id}
+            className={sectionId === item.id ? 'is-active' : undefined}
+            type="button"
+            aria-pressed={sectionId === item.id}
+            aria-label={item.label}
+            onClick={() => selectSection(item.id)}
+          >
+            {item.short}
+          </button>
+        ))}
+      </nav>
+
+      <article className="library__masters-entry">
+        <p className="library__masters-kicker">
+          <span>ENTRY {String(index + 1).padStart(2, '0')} / {String(entries.length).padStart(2, '0')}</span>
+          <em>{section?.label}</em>
+        </p>
+        <h3 className="library__masters-rule">{entry.rule}</h3>
+        <div className="library__masters-body">
+          {entry.blocks.map((block, blockIndex) => {
+            if (block.type === 'list') {
+              return (
+                <ul key={blockIndex} className="library__masters-list">
+                  {block.items.map((item) => <li key={item}>{item}</li>)}
+                </ul>
+              )
+            }
+            if (block.type === 'drill') {
+              return (
+                <aside key={blockIndex} className="library__masters-drill">
+                  <strong>{block.label}</strong>
+                  <p>{block.text}</p>
+                </aside>
+              )
+            }
+            return <p key={blockIndex}>{block.text}</p>
+          })}
+        </div>
+        <p className="library__masters-source">
+          <a href={entry.source.url} target="_blank" rel="noopener noreferrer">
+            {entry.source.label}
+            <ExternalLink aria-hidden="true" />
+          </a>
+        </p>
+      </article>
+
+      <nav className="library__guide-nav" aria-label="Entry navigation">
+        <button
+          className="library__guide-nav-btn"
+          type="button"
+          disabled={!hasPrev}
+          onClick={() => setEntryIndex(index - 1)}
+        >
+          <ChevronLeft aria-hidden="true" />
+          Previous
+        </button>
+        <ol className="library__masters-ticks">
+          {entries.map((item, itemIndex) => (
+            <li key={item.id}>
+              <button
+                className={itemIndex === index ? 'is-active' : undefined}
+                type="button"
+                aria-current={itemIndex === index ? 'true' : undefined}
+                aria-label={item.rule}
+                onClick={() => setEntryIndex(itemIndex)}
+              />
+            </li>
+          ))}
+        </ol>
+        <button
+          className="library__guide-nav-btn"
+          type="button"
+          disabled={!hasNext}
+          onClick={() => setEntryIndex(index + 1)}
+        >
+          Next
+          <ChevronRight aria-hidden="true" />
+        </button>
+      </nav>
+    </div>
+  )
+}
+
+function ResourcesPage({ resources }: { resources: LibraryResource[] }) {
+  return (
+    <div className="library__resources">
+      <p className="library__resources-kicker">CURATED PICKS</p>
+      <ol className="library__resource-list">
+        {resources.map((resource, index) => (
+          <li key={resource.url} className="library__resource-item">
+            <span className="library__resource-index">{index + 1}</span>
+            <div>
+              <h3>
+                <a
+                  href={resource.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {resource.title}
+                  <ExternalLink aria-hidden="true" />
+                </a>
+              </h3>
+              <p>{resource.description}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  )
+}
+
 function BookOverlay({
   book,
   note,
@@ -241,6 +502,9 @@ function BookOverlay({
           <p className="library__eyebrow">{book.kicker}</p>
           <h2>{book.title}</h2>
           <p>{book.description}</p>
+          {book.key === 'masters' && (
+            <p className="library__spread-credit">{MASTERS_NOTE.attribution}</p>
+          )}
           <dl>
             {book.facts.map((fact) => <div key={fact.label}><dt>{fact.value}</dt><dd>{fact.label}</dd></div>)}
           </dl>
@@ -256,6 +520,12 @@ function BookOverlay({
               <textarea value={note} onChange={(event) => onChangeNote(event.target.value)} placeholder="Jot it down…" />
               <small>Saved for this visit</small>
             </label>
+          ) : book.key === 'resources' ? (
+            <ResourcesPage resources={libraryResources as LibraryResource[]} />
+          ) : book.key === 'beginner' ? (
+            <BeginnerGuidePage guide={BEGINNER_GUIDE} />
+          ) : book.key === 'masters' ? (
+            <MastersNotePage note={MASTERS_NOTE} />
           ) : (
             <div className="library__coming-soon">
               <Plus aria-hidden="true" />

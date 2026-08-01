@@ -126,9 +126,10 @@ export function DomainPath({
         </section>
       ) : (
         <>
+          {/* No "01" numeral on the gate: it is the only gate on the page, so
+              the number counts a series the student never sees. */}
           {!diagnosticComplete && (
             <section className="diagnostic-gate">
-              <div className="diagnostic-gate__number" aria-hidden="true">01</div>
               <div>
                 <p className="eyebrow">First: the full picture</p>
                 <h2>Take the full domain quiz before skill mini quizzes.</h2>

@@ -1,12 +1,14 @@
 export type PrimaryConsoleView =
   | 'practice'
   | 'lessons'
+  | 'reviews'
   | 'library'
   | 'insights'
 
 const PRIMARY_VIEW_ORDER: PrimaryConsoleView[] = [
   'practice',
   'lessons',
+  'reviews',
   'library',
   'insights',
 ]

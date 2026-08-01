@@ -17,7 +17,7 @@
 }
 
 .lesson-title h1 {
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-family: Geist, ui-sans-serif, system-ui, sans-serif;
   font-size: clamp(1.9rem, 5vw, 2.9rem);
   font-weight: 300;
   letter-spacing: -0.04em;
@@ -88,14 +88,14 @@
   -webkit-backdrop-filter: blur(24px) saturate(1.3);
   backdrop-filter: blur(24px) saturate(1.3);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 14px;
+  border-radius: var(--r-lg);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
   padding: clamp(1.4rem, 4vw, 2.6rem);
 }
 
 .lesson-page__head {
   color: #ffffff;
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-family: Geist, ui-sans-serif, system-ui, sans-serif;
   font-size: clamp(1.4rem, 3.4vw, 1.9rem);
   font-weight: 300;
   letter-spacing: -0.03em;
@@ -117,7 +117,7 @@
 
 .lesson-page h3 {
   color: #ffffff;
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-family: Geist, ui-sans-serif, system-ui, sans-serif;
   font-size: 1.02rem;
   font-weight: 650;
   letter-spacing: -0.01em;
@@ -193,7 +193,7 @@
 .lesson-step__n {
   align-items: center;
   background: #8cb4ff;
-  border-radius: 99px;
+  border-radius: var(--r-pill);
   color: #05070f;
   display: flex;
   font-size: 0.7rem;
@@ -244,7 +244,7 @@
 .lesson-part-banner {
   background: rgba(43, 91, 199, 0.16);
   border: 1px solid rgba(140, 180, 255, 0.28);
-  border-radius: 12px;
+  border-radius: var(--r-md);
   margin-bottom: 1.4rem;
   padding: 0.85rem 1rem;
 }
@@ -266,7 +266,7 @@
 .lesson-tip {
   background: rgba(16, 22, 38, 0.55);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 12px;
+  border-radius: var(--r-md);
   padding: 1.1rem 1.2rem;
 }
 
@@ -312,7 +312,7 @@
 .lesson-figure {
   background: rgba(10, 14, 26, 0.72);
   border: 1px dashed rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
+  border-radius: var(--r-md);
   margin: 0 0 1rem;
   padding: 0.9rem 1rem;
 }
@@ -364,7 +364,7 @@
 /* --- Worked example: passage left, question right ---------------------- */
 .lesson-worked {
   border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 12px;
+  border-radius: var(--r-md);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   margin-top: 1.2rem;
@@ -397,7 +397,7 @@
 .lesson-pip {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 8px;
+  border-radius: var(--r-sm);
   color: rgba(255, 255, 255, 0.62);
   cursor: pointer;
   font: inherit;
@@ -422,7 +422,7 @@
 .lesson-gate {
   background: rgba(43, 91, 199, 0.16);
   border: 1px dashed rgba(140, 180, 255, 0.5);
-  border-radius: 12px;
+  border-radius: var(--r-md);
   margin: 0 0 1.1rem;
   padding: 1rem 1.1rem;
 }
@@ -468,7 +468,7 @@
 
 .lesson-gate__echo {
   background: rgba(43, 91, 199, 0.16);
-  border-radius: 8px;
+  border-radius: var(--r-sm);
   color: rgba(255, 255, 255, 0.86) !important;
   font-size: 0.88rem !important;
   padding: 0.5rem 0.7rem;
@@ -499,7 +499,7 @@
   align-items: flex-start;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 12px;
+  border-radius: var(--r-md);
   color: rgba(255, 255, 255, 0.86);
   cursor: pointer;
   display: grid;
@@ -532,7 +532,7 @@
 .lesson-choice__letter {
   align-items: center;
   background: rgba(255, 255, 255, 0.14);
-  border-radius: 7px;
+  border-radius: var(--r-sm);
   display: flex;
   font-size: 0.78rem;
   font-weight: 750;
@@ -576,7 +576,7 @@
   align-self: stretch;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 10px;
+  border-radius: var(--r-md);
   color: rgba(255, 255, 255, 0.4);
   cursor: pointer;
   font: inherit;
@@ -611,7 +611,7 @@
 .lesson-explanation {
   background: rgba(255, 255, 255, 0.06);
   border-left: 4px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
+  border-radius: var(--r-md);
   margin-top: 0.5rem;
   padding: 0.95rem 1.1rem;
 }
@@ -689,7 +689,7 @@
 .lesson-index__item {
   background: rgba(16, 22, 38, 0.55);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 12px;
+  border-radius: var(--r-md);
   cursor: pointer;
   display: grid;
   font: inherit;
@@ -740,7 +740,7 @@
   backdrop-filter: blur(24px) saturate(1.3);
   background: rgba(10, 14, 26, 0.72);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 14px;
+  border-radius: var(--r-lg);
   bottom: 1rem;
   display: flex;
   gap: 1rem;
@@ -833,6 +833,33 @@
   perspective-origin: var(--portal-vanish-x) var(--portal-vanish-y);
   position: relative;
 }
+.lesson-portal-room__back {
+  background: rgba(7, 14, 30, 0.66);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--r-pill);
+  color: rgba(255, 255, 255, 0.78);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  left: 1.5rem;
+  letter-spacing: 0.02em;
+  padding: 0.55rem 1rem;
+  position: absolute;
+  top: 1.5rem;
+  z-index: 6;
+}
+
+.lesson-portal-room__back:hover {
+  background: rgba(12, 24, 51, 0.86);
+  color: #ffffff;
+}
+
+.lesson-portal-room__back:focus-visible {
+  outline: 2px solid #8cb4ff;
+  outline-offset: 3px;
+}
+
 .lesson-portal-room__light {
   background: radial-gradient(
     50% 50% at 50% 50%,
@@ -852,6 +879,9 @@
 
 .lesson-portal-room__doors {
   inset: 0;
+  /* The container's own plane sits at z=0, in front of the two doors pushed
+     back with translateZ — so it must not swallow their clicks. */
+  pointer-events: none;
   perspective: 1150px;
   perspective-origin: var(--portal-vanish-x) var(--portal-vanish-y);
   position: absolute;
@@ -861,12 +891,14 @@
 
 .lesson-portal-door {
   --lesson-accent: #5f8fea;
+  --door-frame: clamp(0.75rem, 1.35vw, 1.25rem);
   background: transparent;
   border: 0;
   color: rgba(255, 255, 255, 0.6);
   cursor: pointer;
   font: inherit;
   padding: 0;
+  pointer-events: auto;
   position: absolute;
   transform-style: preserve-3d;
   transition: filter 160ms ease, color 160ms ease, transform 260ms ease;
@@ -941,26 +973,90 @@
   outline-offset: 6px;
 }
 
+/* The frame is the casing: pale stonework, only faintly tinted by the hall's
+   colour. Everything inside it is the leaf, and the leaf is the colour. */
 .lesson-portal-door__frame {
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--lesson-accent) 24%, transparent),
-    rgba(5, 10, 24, 0.1)
-  );
-  border: clamp(0.8rem, 1.5vw, 1.375rem) solid
-    color-mix(in srgb, var(--lesson-accent) 76%, #dce7ff);
-  border-bottom: 0;
-  box-shadow: 0 34px 60px -30px rgba(0, 0, 0, 0.72);
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--lesson-accent) 16%, #e6edff) 0%,
+      color-mix(in srgb, var(--lesson-accent) 22%, #9fb0d6) 42%,
+      color-mix(in srgb, var(--lesson-accent) 26%, #4b5a80) 100%
+    );
+  border-radius: 0.5rem 0.5rem 0 0;
+  box-shadow:
+    0 34px 60px -30px rgba(0, 0, 0, 0.72),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
   inset: 0;
-  opacity: 0.72;
+  opacity: 0.66;
   position: absolute;
-  transition: opacity 160ms ease, border-color 160ms ease;
+  transition: opacity 160ms ease, box-shadow 160ms ease;
 }
 
-.lesson-portal-door:nth-child(2) .lesson-portal-door__frame,
-.lesson-portal-door:nth-child(3) .lesson-portal-door__frame {
-  border-width: clamp(0.65rem, 1.05vw, 0.95rem);
-  border-bottom-width: 0;
+/* The door leaf, recessed inside the casing and flooded with the accent. */
+.lesson-portal-door__leaf {
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--lesson-accent) 82%, #ffffff) 0%,
+      var(--lesson-accent) 38%,
+      color-mix(in srgb, var(--lesson-accent) 58%, #050a18) 100%
+    );
+  border-radius: 0.2rem 0.2rem 0 0;
+  bottom: 0;
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--lesson-accent) 40%, #ffffff),
+    inset 0 2rem 3.5rem -2rem rgba(255, 255, 255, 0.45),
+    inset 0 -3rem 4rem -1.5rem rgba(2, 6, 18, 0.55);
+  left: var(--door-frame);
+  position: absolute;
+  right: var(--door-frame);
+  top: var(--door-frame);
+}
+
+/* Raised panel moulding, so the leaf reads as a door and not a slab. */
+.lesson-portal-door__leaf::before {
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-bottom: 0;
+  border-radius: 0.15rem 0.15rem 0 0;
+  bottom: 12%;
+  box-shadow: inset 0 0 2.5rem rgba(2, 6, 18, 0.28);
+  content: '';
+  left: 12%;
+  position: absolute;
+  right: 12%;
+  top: 8%;
+}
+
+/* Handle, on the swing edge — the edge away from the hinge. */
+.lesson-portal-door__leaf::after {
+  background: linear-gradient(180deg, #f4f8ff, #9aa9c9);
+  border-radius: var(--r-pill);
+  bottom: 42%;
+  box-shadow: 0 1px 3px rgba(2, 6, 18, 0.55);
+  content: '';
+  height: 0.32rem;
+  position: absolute;
+  width: 1.15rem;
+}
+
+.lesson-portal-door:nth-child(1) .lesson-portal-door__leaf::after,
+.lesson-portal-door:nth-child(2) .lesson-portal-door__leaf::after {
+  left: 8%;
+}
+
+.lesson-portal-door:nth-child(3) .lesson-portal-door__leaf::after,
+.lesson-portal-door:nth-child(4) .lesson-portal-door__leaf::after {
+  right: 8%;
+}
+
+.lesson-portal-door:nth-child(2),
+.lesson-portal-door:nth-child(3) {
+  --door-frame: clamp(0.6rem, 1vw, 0.9rem);
+}
+
+.lesson-portal-door:hover .lesson-portal-door__frame {
+  opacity: 0.85;
 }
 
 .lesson-portal-door[aria-pressed='true'] {
@@ -968,11 +1064,19 @@
 }
 
 .lesson-portal-door[aria-pressed='true'] .lesson-portal-door__frame {
-  border-color: color-mix(in srgb, var(--lesson-accent) 90%, #ffffff);
   box-shadow:
     0 34px 60px -30px rgba(0, 0, 0, 0.72),
-    0 0 60px -6px color-mix(in srgb, var(--lesson-accent) 55%, transparent);
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    0 0 60px -6px color-mix(in srgb, var(--lesson-accent) 65%, transparent);
   opacity: 1;
+}
+
+.lesson-portal-door[aria-pressed='true'] .lesson-portal-door__leaf {
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--lesson-accent) 25%, #ffffff),
+    inset 0 2rem 3.5rem -2rem rgba(255, 255, 255, 0.6),
+    inset 0 -3rem 4rem -1.5rem rgba(2, 6, 18, 0.45),
+    0 0 2.5rem color-mix(in srgb, var(--lesson-accent) 45%, transparent);
 }
 
 .lesson-portal-door__icon {
@@ -984,21 +1088,36 @@
 }
 
 .lesson-portal-door svg {
-  filter: drop-shadow(0 0 14px color-mix(in srgb, var(--lesson-accent) 72%, transparent));
+  filter: drop-shadow(0 3px 10px rgba(2, 6, 18, 0.55));
   height: clamp(2.2rem, 3vw, 3rem);
   width: clamp(2.2rem, 3vw, 3rem);
 }
 
-.lesson-portal-door > span:last-child {
+.lesson-portal-door__label {
   bottom: clamp(3rem, 7vh, 5rem);
+  display: grid;
   font-size: clamp(0.65rem, 0.8vw, 1rem);
   font-weight: 700;
+  gap: 0.4rem;
   left: 1rem;
   letter-spacing: 0.12em;
   position: absolute;
   right: 1rem;
   text-align: center;
+  text-shadow: 0 2px 8px rgba(2, 6, 18, 0.5);
   text-transform: uppercase;
+}
+
+.lesson-portal-door__label em {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.62em;
+  font-style: normal;
+  font-weight: 750;
+  letter-spacing: 0.18em;
+}
+
+.lesson-portal-door[aria-pressed='true'] .lesson-portal-door__label em {
+  color: #ffffff;
 }
 
 /* The hero column sits over the two inner doors, so only its own controls
@@ -1037,7 +1156,7 @@
 
 .lesson-portal-room__hero h1 {
   color: #ffffff;
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-family: Geist, ui-sans-serif, system-ui, sans-serif;
   font-size: clamp(3rem, 4vw, 4.5rem);
   font-weight: 300;
   letter-spacing: -0.022em;
@@ -1136,7 +1255,7 @@
   backdrop-filter: blur(24px);
   background: rgba(7, 14, 30, 0.82);
   border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 1rem;
+  border-radius: var(--r-lg);
   bottom: 1.5rem;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
   color: #ffffff;
@@ -1193,6 +1312,7 @@
   .lesson-portal-door:nth-child(n),
   .lesson-portal-door:nth-child(n):hover,
   .lesson-portal-door:nth-child(n)[aria-pressed='true'] {
+    --door-frame: 0.5rem;
     bottom: auto;
     height: 8rem;
     left: auto;
@@ -1202,8 +1322,12 @@
     width: auto;
   }
 
-  .lesson-portal-door > span:last-child {
-    bottom: 0.75rem;
+  .lesson-portal-door__label {
+    bottom: 0.6rem;
+  }
+
+  .lesson-portal-door__icon {
+    height: 66%;
   }
 
   .lesson-portal-room__hero {
@@ -1238,6 +1362,168 @@
     display: none;
   }
 }
+
+/* --- Persistent console: one hall's skill list ------------------------- */
+.lesson-skill-picker {
+  --lesson-accent: #5f8fea;
+  background:
+    radial-gradient(
+      72% 52% at 50% 0%,
+      color-mix(in srgb, var(--lesson-accent) 26%, transparent) 0%,
+      transparent 68%
+    ),
+    linear-gradient(180deg, #101e3b 0%, #080e20 62%, #040812 100%);
+  min-height: clamp(42rem, calc(100vh - 8.3rem), 64rem);
+  padding: clamp(1.5rem, 3vw, 3rem) clamp(1rem, 3vw, 2.5rem) 4rem;
+  position: relative;
+}
+
+.lesson-skill-picker__back {
+  background: rgba(7, 14, 30, 0.66);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--r-pill);
+  color: rgba(255, 255, 255, 0.78);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 0.55rem 1rem;
+}
+
+.lesson-skill-picker__back:hover {
+  background: rgba(12, 24, 51, 0.86);
+  color: #ffffff;
+}
+
+.lesson-skill-picker__back:focus-visible {
+  outline: 2px solid #8cb4ff;
+  outline-offset: 3px;
+}
+
+.lesson-skill-picker__hero {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: clamp(1.5rem, 4vw, 3rem) auto clamp(2rem, 4vw, 3rem);
+  max-width: 44rem;
+  text-align: center;
+}
+
+.lesson-skill-picker__mark {
+  align-items: center;
+  background: color-mix(in srgb, var(--lesson-accent) 22%, rgba(7, 14, 30, 0.8));
+  border: 1px solid color-mix(in srgb, var(--lesson-accent) 45%, transparent);
+  border-radius: var(--r-lg);
+  color: #ffffff;
+  display: flex;
+  height: 3.25rem;
+  justify-content: center;
+  width: 3.25rem;
+}
+
+.lesson-skill-picker__mark svg {
+  height: 1.6rem;
+  width: 1.6rem;
+}
+
+.lesson-skill-picker__hero p {
+  color: #8cb4ff;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.lesson-skill-picker__title {
+  color: #ffffff;
+  font-family: Geist, ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(2.25rem, 3.6vw, 3.5rem);
+  font-weight: 300;
+  letter-spacing: -0.022em;
+  line-height: 1.14;
+  margin: 0;
+}
+
+.lesson-skill-picker__hero > span {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}
+
+.lesson-skill-picker__list {
+  display: grid;
+  gap: 0.875rem;
+  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+  list-style: none;
+  margin: 0 auto;
+  max-width: 62rem;
+  padding: 0;
+}
+
+.lesson-skill-card {
+  align-items: flex-start;
+  background: rgba(9, 18, 38, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--r-lg);
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  font: inherit;
+  gap: 0.5rem;
+  height: 100%;
+  padding: 1.25rem 1.375rem 1.125rem;
+  text-align: left;
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+  width: 100%;
+}
+
+.lesson-skill-card:hover {
+  background: rgba(16, 32, 66, 0.92);
+  border-color: color-mix(in srgb, var(--lesson-accent) 55%, transparent);
+  transform: translateY(-2px);
+}
+
+.lesson-skill-card:focus-visible {
+  outline: 2px solid #8cb4ff;
+  outline-offset: 3px;
+}
+
+.lesson-skill-card strong {
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.lesson-skill-card span {
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.lesson-skill-card em {
+  color: #8cb4ff;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.075em;
+  margin-top: auto;
+  padding-top: 0.35rem;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lesson-skill-card {
+    transition: none;
+  }
+
+  .lesson-skill-card:hover {
+    transform: none;
+  }
+}
+
 .lesson-console {
   padding: clamp(1.3rem, 3vw, 2.4rem) 0 5rem;
 }
@@ -1266,7 +1552,7 @@
       #071021 78%
     );
   border: 0;
-  border-radius: 1.05rem;
+  border-radius: var(--r-lg);
   color: #fff;
   cursor: pointer;
   display: flex;
@@ -1371,7 +1657,7 @@
   align-items: center;
   background: rgba(8, 15, 32, 0.58);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 1rem;
+  border-radius: var(--r-lg);
   color: #fff;
   cursor: pointer;
   display: grid;
@@ -1497,7 +1783,7 @@
   align-items: center;
   background: rgba(8, 15, 32, 0.58);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 0.9rem;
+  border-radius: var(--r-lg);
   min-height: 3.6rem;
   padding: 0.8rem 1rem;
 }
@@ -1516,7 +1802,7 @@
 .lesson-reader .lesson-page {
   background: rgba(8, 15, 32, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.11);
-  border-radius: 1.15rem;
+  border-radius: var(--r-lg);
   box-shadow: none;
   padding: clamp(1.5rem, 4vw, 3rem);
 }
@@ -1524,7 +1810,7 @@
 .lesson-reader .lesson-actions {
   background: rgba(8, 15, 32, 0.82);
   border-color: rgba(255, 255, 255, 0.12);
-  border-radius: 1rem;
+  border-radius: var(--r-lg);
 }
 
 .lesson-console button:focus-visible,

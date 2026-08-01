@@ -39,6 +39,7 @@ const root = createRoot(container)
 const panels = {
   practice: createElement('p', null, 'Practice panel'),
   lessons: createElement('p', null, 'Lessons panel'),
+  reviews: createElement('p', null, 'Reviews panel'),
   library: createElement('p', null, 'Library panel'),
   insights: createElement('p', null, 'Insights panel'),
 }
@@ -136,6 +137,7 @@ describe('persistent console shell', () => {
         shellRoot.render(createElement(ProgressDashboard, {
           activeView,
           lessonsPanel: createElement('p', null, 'Embedded lessons'),
+          reviewsPanel: createElement('p', null, 'Embedded reviews'),
           libraryPanel: createElement('p', null, 'Embedded library'),
           insightsPanel: createElement('p', null, 'Embedded insights'),
           cards,
@@ -143,6 +145,7 @@ describe('persistent console shell', () => {
           onUpdateScore: () => {},
           onOpenPractice: () => {},
           onOpenLessons: () => {},
+          onOpenReviews: () => {},
           onOpenLibrary: () => {},
           onOpenInsights: () => {},
         }))
@@ -162,10 +165,8 @@ describe('persistent console shell', () => {
     assert.equal(shellContainer.querySelector('.console-hero-wash'), sceneBefore)
     assert.equal(shellContainer.querySelector('.console-header'), headerBefore)
     assert.match(shellContainer.textContent ?? '', /Embedded lessons/)
-    assert.equal(
-      shellContainer.querySelector('[aria-current="page"]')?.textContent,
-      'Lessons',
-    )
+    // Lessons lives on the practice rail now, so no nav tab claims the page.
+    assert.equal(shellContainer.querySelector('[aria-current="page"]'), null)
 
     await renderShell('library')
 
@@ -185,6 +186,12 @@ describe('persistent console shell', () => {
     assert.equal(
       shellContainer.querySelector('[aria-current="page"]')?.textContent,
       'Insights',
+    )
+    assert.deepEqual(
+      [...shellContainer.querySelectorAll('.console-nav button')].map(
+        (button) => button.textContent,
+      ),
+      ['Practice', 'Reviews', 'Library', 'Insights'],
     )
 
     await act(async () => {
@@ -213,6 +220,7 @@ describe('persistent console shell', () => {
       reviewRoot.render(createElement(ProgressDashboard, {
         activeView: 'practice',
         lessonsPanel: createElement('p'),
+        reviewsPanel: createElement('p'),
         libraryPanel: createElement('p'),
         insightsPanel: createElement('p'),
         cards,
@@ -220,6 +228,7 @@ describe('persistent console shell', () => {
         onUpdateScore: () => {},
         onOpenPractice: () => {},
         onOpenLessons: () => {},
+        onOpenReviews: () => {},
         onOpenLibrary: () => {},
         onOpenInsights: () => {},
       }))
@@ -237,6 +246,72 @@ describe('persistent console shell', () => {
       reviewRoot.unmount()
     })
     reviewContainer.remove()
+  })
+
+  it('sends the due-reviews hero into the mistake vault, not the library', async () => {
+    const heroContainer = dom.window.document.createElement('div')
+    dom.window.document.body.append(heroContainer)
+    const heroRoot = createRoot(heroContainer)
+    const cards = [{
+      domain: 'Information and Ideas' as const,
+      characterStage: 'Noobie' as const,
+      currentLevel: 'Noobie' as const,
+      completedSkills: 1,
+      totalSkills: 4,
+      checkpointStatus: '3 skills to go',
+      recommended: true,
+      chosen: true,
+      finished: false,
+    }]
+    let reviewsOpened = 0
+    let libraryOpened = 0
+
+    await act(async () => {
+      heroRoot.render(createElement(ProgressDashboard, {
+        activeView: 'practice',
+        lessonsPanel: createElement('p'),
+        reviewsPanel: createElement('p', null, 'Embedded vault'),
+        libraryPanel: createElement('p'),
+        insightsPanel: createElement('p'),
+        cards,
+        dueCount: 3,
+        onSelectDomain: () => {},
+        onUpdateScore: () => {},
+        onOpenPractice: () => {},
+        onOpenLessons: () => {},
+        onOpenReviews: () => { reviewsOpened += 1 },
+        onOpenLibrary: () => { libraryOpened += 1 },
+        onOpenInsights: () => {},
+      }))
+    })
+
+    await act(async () => {
+      ;(heroContainer.querySelector('[aria-label="Due reviews"]') as HTMLButtonElement).click()
+      await new Promise((resolve) => setTimeout(resolve, 500))
+    })
+
+    const primary = heroContainer.querySelector(
+      '.console-hero__actions .console-button--primary',
+    ) as HTMLButtonElement
+    assert.equal(primary.textContent, 'Open the mistake vault')
+
+    await act(async () => {
+      primary.click()
+    })
+
+    assert.equal(reviewsOpened, 1)
+    assert.equal(libraryOpened, 0)
+
+    // The nav tab carries the due count and lands on the vault panel.
+    const reviewsTab = [...heroContainer.querySelectorAll('.console-nav button')].find(
+      (button) => button.textContent?.startsWith('Reviews'),
+    ) as HTMLButtonElement
+    assert.equal(reviewsTab.textContent, 'Reviews (3)')
+
+    await act(async () => {
+      heroRoot.unmount()
+    })
+    heroContainer.remove()
   })
 })
 

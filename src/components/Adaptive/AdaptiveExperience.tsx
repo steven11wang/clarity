@@ -67,13 +67,16 @@ export type AdaptiveAttemptReference = {
 
 type AdaptiveExperienceProps = {
   primaryView: PrimaryConsoleView
+  reviewsPanel: ReactNode
   libraryPanel: ReactNode
   insightsPanel: ReactNode
+  dueCount: number
   questions: Question[]
   progression: ProgressionState | null
   onProgressionChange: (state: ProgressionState) => void
   onOpenPractice: () => void
   onOpenLessons: () => void
+  onOpenReviews: () => void
   onOpenLibrary: () => void
   onOpenInsights: () => void
   onRecordAnswers: (
@@ -114,7 +117,7 @@ type Screen =
   | 'content-error'
 
 // A lesson is either gating a quiz the student is about to start (first time on
-// the skill), or opened on its own as a reread — from the skill card, or from
+// the skill), or opened on its own as a reread - from the skill card, or from
 // the dashboard's Lessons tab.
 type PendingLesson = {
   /** The lesson on screen. */
@@ -139,13 +142,16 @@ type ContentFailure = {
 
 export function AdaptiveExperience({
   primaryView,
+  reviewsPanel,
   libraryPanel,
   insightsPanel,
+  dueCount,
   questions,
   progression,
   onProgressionChange,
   onOpenPractice,
   onOpenLessons,
+  onOpenReviews,
   onOpenLibrary,
   onOpenInsights,
   onRecordAnswers,
@@ -177,12 +183,15 @@ export function AdaptiveExperience({
   const [isUpdatingScore, setIsUpdatingScore] = useState(false)
   const [submittedAnswers, setSubmittedAnswers] = useState<BatchAnswers>({})
   const [reviewQuestions, setReviewQuestions] = useState<Question[]>([])
+  const [reviewFlaggedIds, setReviewFlaggedIds] = useState<string[]>([])
   const [reviewIndex, setReviewIndex] = useState(0)
-  const [reviewReady, setReviewReady] = useState(false)
   const [attemptReferences, setAttemptReferences] = useState<
     Record<string, AdaptiveAttemptReference>
   >({})
   const [pendingLesson, setPendingLesson] = useState<PendingLesson | null>(null)
+  // Which lesson hall the student has open, so finishing a lesson lands back on
+  // the skill list it was started from rather than the portal room.
+  const [lessonHall, setLessonHall] = useState<SatDomain | null>(null)
 
   function openAssessment(next: Assessment) {
     if (!progression) return
@@ -239,8 +248,8 @@ export function AdaptiveExperience({
     setDraftAnswers({})
     setSubmittedAnswers({})
     setReviewQuestions([])
+    setReviewFlaggedIds([])
     setReviewIndex(0)
-    setReviewReady(false)
     setAttemptReferences({})
     setFeedback(null)
     setPendingLesson(null)
@@ -451,7 +460,7 @@ export function AdaptiveExperience({
     })
   }
 
-  function submitAssessment(answers: BatchAnswers) {
+  function submitAssessment(answers: BatchAnswers, flaggedIds: string[]) {
     if (!assessment) return
     const score = assessment.questions.filter(
       (question) => answers[question.id] === question.answer,
@@ -459,6 +468,25 @@ export function AdaptiveExperience({
     const missedQuestions = assessment.questions.filter(
       (question) => answers[question.id] !== question.answer,
     )
+    const flaggedQuestions = assessment.questions.filter((question) =>
+      flaggedIds.includes(question.id),
+    )
+    const flaggedSummary =
+      flaggedQuestions.length > 0
+        ? [
+            `You flagged ${flaggedQuestions.length} ${
+              flaggedQuestions.length === 1 ? 'question' : 'questions'
+            } for review: ${flaggedQuestions
+              .map((question, i) => {
+                const index = assessment.questions.indexOf(question)
+                const correct = answers[question.id] === question.answer
+                return `Q${index + 1} (${correct ? 'correct' : 'missed'})${
+                  i === flaggedQuestions.length - 1 ? '' : ','
+                }`
+              })
+              .join(' ')}`,
+          ]
+        : []
 
     if (assessment.kind === 'diagnostic') {
       const next = submitDiagnostic(progression!, {
@@ -480,8 +508,8 @@ export function AdaptiveExperience({
       setAttemptReferences(references)
       setSubmittedAnswers(answers)
       setReviewQuestions(missedQuestions)
+      setReviewFlaggedIds(flaggedIds)
       setReviewIndex(0)
-      setReviewReady(false)
       clearAdaptiveDraft()
       setFeedback({
         eyebrow: 'Full diagnostic complete',
@@ -494,6 +522,7 @@ export function AdaptiveExperience({
         details: [
           'This baseline does not lower or erase progress.',
           'Mini quizzes now focus on one skill at a time.',
+          ...flaggedSummary,
         ],
         success: missedQuestions.length === 0,
         nextLabel: missedQuestions.length
@@ -536,7 +565,7 @@ export function AdaptiveExperience({
           title = `${assessment.skill} is back on track.`
           message = 'You rebuilt the foundation and completed the original level with 3/3.'
         } else {
-          title = `3/3 — ${assessment.skill} complete.`
+          title = `3/3 - ${assessment.skill} complete.`
           message = 'That skill is secured at this level. Your progress is saved.'
         }
       } else {
@@ -564,6 +593,7 @@ export function AdaptiveExperience({
           } because this skill’s fresh-question pool is limited.`,
         )
       }
+      details.push(...flaggedSummary)
 
       onProgressionChange(next)
       const references = onRecordAnswers(
@@ -576,6 +606,7 @@ export function AdaptiveExperience({
       setAttemptReferences(references)
       setSubmittedAnswers(answers)
       setReviewQuestions(missedQuestions)
+      setReviewFlaggedIds(flaggedIds)
       setReviewIndex(0)
       clearAdaptiveDraft()
       setFeedback({
@@ -625,6 +656,7 @@ export function AdaptiveExperience({
           } reused after fresher questions ran out.`,
         )
       }
+      details.push(...flaggedSummary)
 
       onProgressionChange(next)
       const references = onRecordAnswers(
@@ -637,6 +669,7 @@ export function AdaptiveExperience({
       setAttemptReferences(references)
       setSubmittedAnswers(answers)
       setReviewQuestions(missedQuestions)
+      setReviewFlaggedIds(flaggedIds)
       setReviewIndex(0)
       clearAdaptiveDraft()
       setFeedback({
@@ -651,7 +684,7 @@ export function AdaptiveExperience({
         score,
         total: assessment.questions.length,
         message: passed
-          ? 'A perfect mixed challenge—your character just grew.'
+          ? 'A perfect mixed challenge - your character just grew.'
           : 'Redo each missed question before opening the focused repair plan. Your original checkpoint score still determines progression.',
         details,
         success: passed,
@@ -696,10 +729,19 @@ export function AdaptiveExperience({
     )
   }
 
-  if (screen === 'result' && feedback) {
+  if (screen === 'result' && feedback && assessment) {
+    const breakdown = assessment.questions.map((question) => ({
+      id: question.id,
+      prompt: question.prompt,
+      skill: question.skill,
+      chosen: submittedAnswers[question.id] ?? '',
+      correctAnswer: question.answer,
+      correct: submittedAnswers[question.id] === question.answer,
+    }))
     return (
       <AssessmentResult
         {...feedback}
+        breakdown={breakdown}
         onNext={() => {
           if (reviewQuestions.length > 0) {
             setScreen('review')
@@ -728,21 +770,42 @@ export function AdaptiveExperience({
       correct: false,
       timeMs: null,
       timedOut: false,
+      struckChoices: [],
     }
     const progress = Math.round(((reviewIndex + 1) / reviewQuestions.length) * 100)
 
     return (
       <main className="adaptive-shell">
         <header className="adaptive-header">
-          <span className="wordmark">clarity<span>.</span></span>
+          <button
+            className="wordmark wordmark--button"
+            type="button"
+            onClick={() => {
+              clearAssessmentUi()
+              setScreen('dashboard')
+            }}
+            aria-label="Leave this review"
+          >
+            clarity<span>.</span>
+          </button>
           <span className="adaptive-header__context">
             Missed-question review
           </span>
+          <button
+            className="link-button"
+            type="button"
+            onClick={() => {
+              clearAssessmentUi()
+              setScreen('dashboard')
+            }}
+          >
+            Leave review
+          </button>
         </header>
 
         <section className="question-progress" aria-label="Review progress">
           <div className="progress-copy">
-            <span>Review — {reviewIndex + 1} of {reviewQuestions.length}</span>
+            <span>Review - {reviewIndex + 1} of {reviewQuestions.length}</span>
             <span>{progress}%</span>
           </div>
           <div className="progress-track">
@@ -759,15 +822,12 @@ export function AdaptiveExperience({
             <span className="meta-dot" aria-hidden="true">•</span>
             <span>{question.skill}</span>
             <span className="difficulty">{question.difficulty}</span>
+            {reviewFlaggedIds.includes(question.id) && (
+              <span className="question-meta__flag">🚩 Flagged</span>
+            )}
           </div>
 
-          {!reviewReady ? (
-            <ReviewPrimer
-              question={question}
-              chosen={submittedAnswers[question.id] ?? ''}
-              onContinue={() => setReviewReady(true)}
-            />
-          ) : <QuestionInteraction
+          <QuestionInteraction
             key={`${assessment.id}:${question.id}`}
             question={question}
             isReview={false}
@@ -785,13 +845,12 @@ export function AdaptiveExperience({
             onNext={() => {
               if (reviewIndex + 1 < reviewQuestions.length) {
                 setReviewIndex((index) => index + 1)
-                setReviewReady(false)
               } else {
                 clearAssessmentUi()
                 setScreen('domain')
               }
             }}
-          />}
+          />
         </article>
       </main>
     )
@@ -967,8 +1026,10 @@ export function AdaptiveExperience({
     ) : (
       <LessonLibrary
         recommendedSkill={recommendedLessonSkill}
+        hall={lessonHall}
+        onHallChange={setLessonHall}
         onSelectSkill={(skill) => openLessonReread(skill, 'lessons')}
-        onBack={onOpenPractice}
+        onBack={() => openPrimaryView(onOpenPractice)}
       />
     )
   const shellActiveView =
@@ -978,6 +1039,7 @@ export function AdaptiveExperience({
 
   function openPrimaryView(action: () => void) {
     setPendingLesson(null)
+    setLessonHall(null)
     setScreen('dashboard')
     action()
   }
@@ -986,61 +1048,19 @@ export function AdaptiveExperience({
     <ProgressDashboard
       activeView={shellActiveView}
       lessonsPanel={lessonsPanel}
+      reviewsPanel={reviewsPanel}
       libraryPanel={libraryPanel}
       insightsPanel={insightsPanel}
       cards={cards}
+      dueCount={dueCount}
       onSelectDomain={chooseDomain}
       onUpdateScore={() => setIsUpdatingScore(true)}
       onOpenPractice={() => openPrimaryView(onOpenPractice)}
       onOpenLessons={() => openPrimaryView(onOpenLessons)}
+      onOpenReviews={() => openPrimaryView(onOpenReviews)}
       onOpenLibrary={() => openPrimaryView(onOpenLibrary)}
       onOpenInsights={() => openPrimaryView(onOpenInsights)}
     />
   )
 }
 
-function ReviewPrimer({
-  question,
-  chosen,
-  onContinue,
-}: {
-  question: Question
-  chosen: string
-  onContinue: () => void
-}) {
-  const isConventions = question.domain === 'Standard English Conventions'
-  const knowledge = isConventions
-    ? {
-        title: 'A sentence-boundary rule is missing.',
-        body: 'Before choosing punctuation, test each side of the blank. If both sides are complete sentences, a period or semicolon works; a comma by itself creates a comma splice.',
-        action: 'Label the clause before and after the blank as complete or incomplete.',
-      }
-    : {
-        title: 'The question’s job and the evidence drifted apart.',
-        body: 'A wrong answer often sounds true but does not do the exact job named in the prompt. Re-read the task first, then require a specific phrase in the passage to support the choice.',
-        action: 'Say “I need an answer that…” in your own words before trying again.',
-      }
-
-  return (
-    <section className="review-primer" aria-labelledby="review-primer-title">
-      <div className="review-primer__signal" aria-hidden="true">!</div>
-      <div>
-        <p className="eyebrow">Oh! Here’s the missing knowledge</p>
-        <h1 id="review-primer-title">{knowledge.title}</h1>
-        <p>{knowledge.body}</p>
-        <div className="review-primer__action">
-          <strong>Use it now</strong>
-          <span>{knowledge.action}</span>
-        </div>
-        {chosen && (
-          <p className="review-primer__previous">
-            Your first answer was <strong>{chosen}</strong>. It will be marked when you retry.
-          </p>
-        )}
-        <button className="button" type="button" onClick={onContinue}>
-          Apply the lesson and try again →
-        </button>
-      </div>
-    </section>
-  )
-}

@@ -273,8 +273,9 @@ AUTHORED_PAGES = {
                 {
                     'type': 'li',
                     'text': '✓ Hicks, a printmaker by training, turned to textiles.  '
-                            '✗ Hicks, a printmaker by training — turned to textiles.',
+                            '✓ Hicks — a printmaker by training — turned to textiles.',
                 },
+                {'type': 'li', 'text': '✗ Hicks, a printmaker by training — turned to textiles.'},
                 {'type': 'h4', 'text': '3. Not punctuating at all'},
                 {
                     'type': 'p',

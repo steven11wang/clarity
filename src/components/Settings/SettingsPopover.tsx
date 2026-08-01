@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { ChevronRight, Contrast, KeyRound, Settings, TrendingUp, UserRound } from 'lucide-react'
 
 import { useAuthProfile } from '../../auth/AuthContext.tsx'
 import { AVATARS } from '../../auth/profileShortcuts.ts'
@@ -99,7 +100,7 @@ export function SettingsPopover({ onScoreUpdate }: SettingsPopoverProps) {
         data-ui-sound-hover="hover"
         data-ui-sound-click="open"
       >
-        ⚙
+        <Settings size={19} strokeWidth={1.5} absoluteStrokeWidth />
       </button>
 
       {open && (
@@ -112,12 +113,12 @@ export function SettingsPopover({ onScoreUpdate }: SettingsPopoverProps) {
 
           <div className="settings-popover__rows">
             <button className="settings-popover__row settings-popover__row--button" type="button" onClick={() => setEditingProfile((value) => !value)}>
-              <span className="settings-popover__icon" aria-hidden="true">◎</span>
+              <span className="settings-popover__icon" aria-hidden="true"><UserRound size={17} strokeWidth={1.5} absoluteStrokeWidth /></span>
               <span>
                 <strong>Profile</strong>
                 <small>{editingProfile ? 'Choose avatar' : displayName}</small>
               </span>
-              <span className="settings-popover__chevron" aria-hidden="true">›</span>
+              <span className="settings-popover__chevron" aria-hidden="true"><ChevronRight size={15} strokeWidth={1.5} absoluteStrokeWidth /></span>
             </button>
             {editingProfile && updateAvatar && <div className="settings-avatar-picker" aria-label="Avatar choices">{AVATARS.map((avatar) => <button key={avatar.id} type="button" aria-pressed={avatarId === avatar.id} aria-label={`Use ${avatar.label} avatar`} onClick={() => { void updateAvatar(avatar.id); setEditingProfile(false) }}>{avatar.glyph}</button>)}</div>}
 
@@ -131,12 +132,12 @@ export function SettingsPopover({ onScoreUpdate }: SettingsPopoverProps) {
                     setPinError(null)
                   }}
                 >
-                  <span className="settings-popover__icon" aria-hidden="true">⌁</span>
+                  <span className="settings-popover__icon" aria-hidden="true"><KeyRound size={17} strokeWidth={1.5} absoluteStrokeWidth /></span>
                   <span>
                     <strong>Profile PIN</strong>
                     <small>{hasProfilePin ? 'PIN enabled · stays on this device' : 'No PIN · device only'}</small>
                   </span>
-                  <span className="settings-popover__chevron" aria-hidden="true">›</span>
+                  <span className="settings-popover__chevron" aria-hidden="true"><ChevronRight size={15} strokeWidth={1.5} absoluteStrokeWidth /></span>
                 </button>
                 {editingPin && (
                   <div className="settings-pin-form">
@@ -192,16 +193,16 @@ export function SettingsPopover({ onScoreUpdate }: SettingsPopoverProps) {
               type="button"
               onClick={() => closeAnd(onScoreUpdate)}
             >
-              <span className="settings-popover__icon" aria-hidden="true">↗</span>
+              <span className="settings-popover__icon" aria-hidden="true"><TrendingUp size={17} strokeWidth={1.5} absoluteStrokeWidth /></span>
               <span>
                 <strong>Score update</strong>
                 <small>Refresh your starting score</small>
               </span>
-              <span className="settings-popover__chevron" aria-hidden="true">›</span>
+              <span className="settings-popover__chevron" aria-hidden="true"><ChevronRight size={15} strokeWidth={1.5} absoluteStrokeWidth /></span>
             </button>
 
             <div className="settings-popover__row">
-              <span className="settings-popover__icon" aria-hidden="true">◐</span>
+              <span className="settings-popover__icon" aria-hidden="true"><Contrast size={17} strokeWidth={1.5} absoluteStrokeWidth /></span>
               <span>
                 <strong>Appearance</strong>
                 <small>Dark mode</small>

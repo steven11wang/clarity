@@ -95,9 +95,49 @@ describe('Library flow', () => {
     assert.match(container.textContent ?? '', /Question bank/)
   })
 
-  it('opens a placeholder volume from the shelf', async () => {
+  it("opens the Master's note with sourced entries", async () => {
     await click(bookButton("Master's note"))
-    assert.match(container.textContent ?? '', /Pages coming soon/)
+    assert.match(container.textContent ?? '', /ENTRY 01 \/ 26/)
+    assert.match(container.textContent ?? '', /Vocabulary sets the ceiling/)
+    const source = container.querySelector('a[href*="thecollegepanda.com"]')
+    assert.ok(source)
+    assert.equal(source?.getAttribute('target'), '_blank')
+
+    await click(buttonByText('Next'))
+    assert.match(container.textContent ?? '', /ENTRY 02 \/ 26/)
+
+    const tacticsTab = [...container.querySelectorAll('.library__masters-tabs button')]
+      .find((button) => button.textContent?.trim() === 'TACTICS') ?? null
+    await click(tacticsTab)
+    assert.match(container.textContent ?? '', /ENTRY 01 \/ 05/)
+    assert.match(container.textContent ?? '', /purpose questions/i)
+
+    await click(buttonByText('Close book'))
+  })
+
+  it('opens the Resources volume with linked picks', async () => {
+    await click(bookButton('Resources'))
+    await click(bookButton('Resources'))
+    assert.match(container.textContent ?? '', /Bluebook™ Testing App/)
+    assert.match(container.textContent ?? '', /Khan Academy/)
+    const link = container.querySelector('a[href*="khanacademy.org"]')
+    assert.ok(link)
+    assert.equal(link?.getAttribute('target'), '_blank')
+    await click(buttonByText('Close book'))
+  })
+
+  it('opens the Beginner guide with chapter content', async () => {
+    await click(bookButton("Beginner's guide"))
+    await click(bookButton("Beginner's guide"))
+    assert.match(container.textContent ?? '', /Untimed Dictionary Score/)
+    assert.match(container.textContent ?? '', /Start Here/)
+    await click(buttonByText('Next'))
+    assert.match(container.textContent ?? '', /Build Your Vocabulary Base/)
+    const chapterSix = container.querySelector(
+      'button[aria-label="Chapter 6: Learning to Eliminate"]',
+    )
+    await click(chapterSix)
+    assert.match(container.textContent ?? '', /Learning to Eliminate/)
     await click(buttonByText('Close book'))
   })
 

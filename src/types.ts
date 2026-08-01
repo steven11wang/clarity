@@ -69,6 +69,7 @@ export type FirstPass = {
   correct: boolean
   timeMs: number | null
   timedOut: boolean
+  struckChoices: string[] // choices crossed out during the answer pass, for the review to show back
 }
 
 // The persisted record of one completed question attempt. Every field the

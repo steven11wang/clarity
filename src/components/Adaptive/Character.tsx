@@ -20,7 +20,7 @@ const FEATURES = [
 ] as const
 
 /** Back view used by the lessons portal room, where the camera sits behind the
- * learner. No face — the point is that you are looking over their shoulder. */
+ * learner. No face - the point is that you are looking over their shoulder. */
 export function CharacterBack({ domain }: { domain: SatDomain }) {
   const index = SAT_DOMAINS.indexOf(domain)
   const { skin, hair } = FEATURES[index]

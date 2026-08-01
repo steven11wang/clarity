@@ -7,6 +7,7 @@ import {
 import type { BatchAnswers } from './components/Adaptive/BatchQuiz.tsx'
 import { Dashboard } from './components/Dashboard/Dashboard.tsx'
 import { Library } from './components/Library/Library.tsx'
+import { MistakeVault } from './components/Review/MistakeVault.tsx'
 import { AnswerPass } from './components/QuestionInteraction/AnswerPass.tsx'
 import { QuestionInteraction } from './components/QuestionInteraction/QuestionInteraction.tsx'
 import { firstPassAttempt } from './components/QuestionInteraction/model.ts'
@@ -36,7 +37,7 @@ import type { Attempt, FirstPass, Question } from './types.ts'
 import './app.css'
 
 type LoadState = 'loading' | 'ready' | 'empty' | 'error'
-type View = 'adaptive' | 'lessons' | 'browse' | 'practice' | 'insights'
+type View = 'adaptive' | 'lessons' | 'browse' | 'practice' | 'insights' | 'reviews'
 type SessionPhase = 'answer' | 'review-intro' | 'review' | 'summary'
 
 function App() {
@@ -78,12 +79,21 @@ function App() {
       .catch(() => setLoadState('error'))
   }, [])
 
-  const dueNow = useMemo(() => {
+  // Re-read the queue whenever it changes or the student moves between views - 
+  // the vault and the due badge must never show a stale count.
+  const reviewSnapshot = useMemo(() => {
     void reviewsVersion
-    const reviews = getReviews()
-    const nowTs = now()
-    return Object.values(reviews).filter((r) => r.stage >= 0 && r.dueAt <= nowTs).length
+    void view
+    return { reviews: getReviews(), at: now() }
   }, [reviewsVersion, view])
+
+  const dueNow = useMemo(
+    () =>
+      Object.values(reviewSnapshot.reviews).filter(
+        (item) => item.stage >= 0 && item.dueAt <= reviewSnapshot.at,
+      ).length,
+    [reviewSnapshot],
+  )
 
   function startSession(subset: Question[]) {
     setStream(buildStream(subset, getReviews(), now()))
@@ -191,13 +201,11 @@ function App() {
     const nowTs = now()
 
     if (item.isReview && existing) {
-      saveReview(applyReview(existing, isClean(attempt.correct, attempt.evidenceScore), demo, nowTs))
+      saveReview(applyReview(existing, isClean(attempt.correct), demo, nowTs))
     } else if (attempt.timedOut) {
       saveReview(scheduleMistake(existing, attempt.questionId, 'timeout', demo, nowTs))
     } else if (!attempt.correct) {
       saveReview(scheduleMistake(existing, attempt.questionId, 'miss', demo, nowTs))
-    } else if (attempt.hiddenError) {
-      saveReview(scheduleMistake(existing, attempt.questionId, 'hidden-error', demo, nowTs))
     }
     setReviewsVersion((v) => v + 1)
   }
@@ -306,11 +314,13 @@ function App() {
     const primaryView =
       view === 'lessons'
         ? 'lessons'
-        : view === 'browse'
-          ? 'library'
-          : view === 'insights'
-            ? 'insights'
-            : 'practice'
+        : view === 'reviews'
+          ? 'reviews'
+          : view === 'browse'
+            ? 'library'
+            : view === 'insights'
+              ? 'insights'
+              : 'practice'
 
     return (
       <>
@@ -328,6 +338,16 @@ function App() {
               onOpenDashboard={() => setView('adaptive')}
             />
           )}
+          reviewsPanel={(
+            <MistakeVault
+              questions={questions}
+              reviews={reviewSnapshot.reviews}
+              now={reviewSnapshot.at}
+              onStart={startSession}
+              onBack={() => setView('adaptive')}
+            />
+          )}
+          dueCount={dueNow}
           insightsPanel={(
             <Dashboard
               embedded
@@ -339,6 +359,7 @@ function App() {
           onProgressionChange={updateProgression}
           onOpenPractice={() => setView('adaptive')}
           onOpenLessons={() => setView('lessons')}
+          onOpenReviews={() => setView('reviews')}
           onOpenLibrary={() => setView('browse')}
           onOpenInsights={() => setView('insights')}
           onRecordAnswers={recordAdaptiveAnswers}
@@ -383,7 +404,7 @@ function App() {
             <p className="eyebrow">Answers locked in</p>
             <h1>{right} right, {reviewList.length} to review.</h1>
             <p>
-              No scores to chase — the value is here. Redo each one you missed, diagnose it in your own
+              No scores to chase - the value is here. Redo each one you missed, diagnose it in your own
               words, then see the reasoning. They’ll come back later, disguised, until they can’t catch you.
             </p>
             <button className="button" type="button" onClick={() => setSessionPhase('review')}>
@@ -409,7 +430,7 @@ function App() {
 
         <section className="question-progress" aria-label="Session progress">
           <div className="progress-copy">
-            <span>{inReview ? 'Review' : 'Answer'} — {pos + 1} of {total}</span>
+            <span>{inReview ? 'Review' : 'Answer'} - {pos + 1} of {total}</span>
             <span>{progress}%</span>
           </div>
           <div className="progress-track">

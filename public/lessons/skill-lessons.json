@@ -4061,7 +4061,11 @@
        },
        {
         "type": "li",
-        "text": "✓ Hicks, a printmaker by training, turned to textiles.  ✗ Hicks, a printmaker by training — turned to textiles."
+        "text": "✓ Hicks, a printmaker by training, turned to textiles.  ✓ Hicks — a printmaker by training — turned to textiles."
+       },
+       {
+        "type": "li",
+        "text": "✗ Hicks, a printmaker by training — turned to textiles."
        },
        {
         "type": "h4",

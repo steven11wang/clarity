@@ -14,6 +14,11 @@ public/data/parse-report.json
 public/data/quarantine.json
 public/data/validation-quarantine.json
 public/data/validation-report.json
+# Third-party article text pulled down by tools/download_college_panda.py.
+# Regenerate locally rather than redistributing someone else's writing.
+content/
+# Pre-redesign snapshot of src/ — git history serves the same purpose.
+design-backup-2026-07-31/
 .superpowers/
 .worktrees/
 .claude/

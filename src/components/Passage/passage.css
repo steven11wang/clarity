@@ -6,6 +6,16 @@
   line-height: 1.6;
 }
 
+.passage__label {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 1rem 0 0.4rem;
+}
+
+.passage > div:first-child .passage__label {
+  margin-top: 0;
+}
+
 .passage__text--selectable {
   cursor: default;
 }
@@ -24,7 +34,7 @@
 }
 
 .passage__text--selectable .passage__sentence {
-  border-radius: 3px;
+  border-radius: var(--r-sm);
   cursor: pointer;
   transition: background 0.12s;
 }
@@ -45,7 +55,7 @@
 
 /* Research notes (Rhetorical Synthesis etc.) — a real bulleted list. */
 .passage__notes {
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-family: Geist, ui-sans-serif, system-ui, sans-serif;
   font-size: 1.02rem;
   line-height: 1.6;
   list-style: disc;

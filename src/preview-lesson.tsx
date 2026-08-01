@@ -8,7 +8,7 @@ import { SkillLesson } from './components/Lesson/SkillLesson.tsx'
 import { SKILL_LESSON_INDEX, getSkillLessonSummary } from './content/skillLessons.ts'
 import './app.css'
 import './components/Adaptive/adaptive.css'
-import './console-theme.css'
+import './console-theme-v2.css'
 
 function Harness() {
   const params = new URLSearchParams(window.location.search)

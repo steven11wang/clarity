@@ -1,20 +1,20 @@
 .hero-stat { align-items: baseline; display: flex; gap: .8rem; flex-wrap: wrap; margin: 1.5rem 0 2rem; }
-.hero-number { color: #8cb4ff; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: clamp(3rem, 10vw, 5rem); font-weight: 300; letter-spacing: -.04em; line-height: 1; }
+.hero-number { color: #8cb4ff; font-family: Geist, ui-sans-serif, system-ui, sans-serif; font-size: clamp(3rem, 10vw, 5rem); font-weight: 300; letter-spacing: -.04em; line-height: 1; }
 .hero-label { color: rgba(255,255,255,0.62); font-size: 1.05rem; font-weight: 600; }
 
-.empty { background: rgba(255,255,255,0.06); border-radius: 10px; color: rgba(255,255,255,0.62); line-height: 1.6; max-width: 620px; padding: 1.4rem 1.5rem; }
+.empty { background: rgba(255,255,255,0.06); border-radius: var(--r-md); color: rgba(255,255,255,0.62); line-height: 1.6; max-width: 620px; padding: 1.4rem 1.5rem; }
 
 .dash-grid { display: grid; gap: 1.1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.card { background: rgba(16,22,38,0.55); border: 1px solid rgba(255,255,255,0.14); border-radius: 10px; padding: 1.2rem 1.3rem; }
+.card { background: rgba(16,22,38,0.55); border: 1px solid rgba(255,255,255,0.14); border-radius: var(--r-md); padding: 1.2rem 1.3rem; }
 .card h2 { font-size: 1.05rem; margin: 0 0 .2rem; }
 .card-sub { color: rgba(255,255,255,0.55); font-size: .84rem; margin: 0 0 1rem; }
-.card-note { background: rgba(255,255,255,0.06); border-radius: 8px; color: rgba(255,255,255,0.62); font-size: .82rem; line-height: 1.45; margin: 1rem 0 0; padding: .6rem .75rem; }
+.card-note { background: rgba(255,255,255,0.06); border-radius: var(--r-sm); color: rgba(255,255,255,0.62); font-size: .82rem; line-height: 1.45; margin: 1rem 0 0; padding: .6rem .75rem; }
 .muted { color: rgba(255,255,255,0.45); font-size: .88rem; }
 
 .bars { display: grid; gap: 1rem; list-style: none; margin: 0; padding: 0; }
 .bar-row { color: rgba(255,255,255,0.86); display: flex; font-size: .9rem; font-weight: 600; justify-content: space-between; margin-bottom: .35rem; }
 .bar-count { color: rgba(255,255,255,0.62); font-weight: 650; }
-.bar-track { background: rgba(255,255,255,0.06); border-radius: 99px; height: 8px; overflow: hidden; }
+.bar-track { background: rgba(255,255,255,0.06); border-radius: var(--r-pill); height: 8px; overflow: hidden; }
 .bar-fill { background: #2b5bc7; border-radius: inherit; height: 100%; min-width: 3px; }
 .bar-fill--alarm { background: #f0c04a; }
 .bar-plan { color: rgba(255,255,255,0.55); font-size: .8rem; line-height: 1.4; margin: .4rem 0 0; }
@@ -22,10 +22,36 @@
 .calib { display: grid; gap: .9rem; list-style: none; margin: 0; padding: 0; }
 
 .health { display: grid; gap: .8rem; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
-.health-cell { background: rgba(255,255,255,0.06); border-radius: 10px; padding: .9rem 1rem; }
-.health-num { color: #ffffff; display: block; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 1.8rem; font-weight: 300; line-height: 1; }
+.health-cell { background: rgba(255,255,255,0.06); border-radius: var(--r-md); padding: .9rem 1rem; }
+.health-num { color: #ffffff; display: block; font-family: Geist, ui-sans-serif, system-ui, sans-serif; font-size: 1.8rem; font-weight: 300; line-height: 1; }
 .health-label { color: rgba(255,255,255,0.62); font-size: .8rem; }
+
+/* Empty Insights: the panels that will fill in, drawn at rest. */
+.dash-empty { display: grid; gap: 1.4rem; justify-items: start; }
+.dash-empty .empty { margin: 0; }
+.dash-grid--ghost { grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; }
+.card--ghost { opacity: .5; }
+.card--ghost h2 { font-size: .95rem; }
+.ghost-bars { display: grid; gap: .85rem; list-style: none; margin: .3rem 0 0; padding: 0; }
+.ghost-bars i {
+  background: rgba(255,255,255,0.09);
+  border-radius: var(--r-pill);
+  display: block;
+  height: 8px;
+}
+/* Uneven widths so the placeholder reads as a chart at rest, not as a
+   loading skeleton that is still waiting on a request. */
+.ghost-bars li:nth-child(1) i { width: 82%; }
+.ghost-bars li:nth-child(2) i { width: 58%; }
+.ghost-bars li:nth-child(3) i { width: 41%; }
+.ghost-bars li:nth-child(4) i { width: 24%; }
+
+@media (max-width: 900px) {
+  .dash-grid--ghost { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 
 @media (max-width: 720px) {
   .dash-grid { grid-template-columns: 1fr; }
+  .dash-grid--ghost { grid-template-columns: 1fr; }
+  .dash-empty { justify-items: stretch; }
 }

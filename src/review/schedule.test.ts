@@ -19,12 +19,9 @@ describe('resurrection schedule', () => {
     assert.equal(item.reason, 'miss')
   })
 
-  it('clears on a correct answer unless its evidence clearly missed', () => {
-    assert.equal(isClean(true, 'full'), true)
-    assert.equal(isClean(true, null), true) // not evidence-checked (missed-only review)
-    assert.equal(isClean(true, 'partial'), true)
-    assert.equal(isClean(true, 'miss'), false) // right for the wrong reason
-    assert.equal(isClean(false, 'full'), false)
+  it('clears on a correct answer only', () => {
+    assert.equal(isClean(true), true)
+    assert.equal(isClean(false), false)
   })
 
   it('advances a stage on a clean clear and retires after the last', () => {
@@ -33,7 +30,9 @@ describe('resurrection schedule', () => {
     assert.equal(item.stage, 1)
     item = applyReview(item, true, true, 200) // stage 1 → 2
     assert.equal(item.stage, 2)
-    item = applyReview(item, true, true, 300) // stage 2 → retired
+    item = applyReview(item, true, true, 300) // stage 2 → 3
+    assert.equal(item.stage, 3)
+    item = applyReview(item, true, true, 400) // stage 3 → retired
     assert.equal(item.stage, RETIRED_STAGE)
     assert.equal(isDue(item, 1e15), false) // retired is never due
   })

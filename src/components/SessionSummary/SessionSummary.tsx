@@ -19,7 +19,7 @@ export function SessionSummary({ attempts, onPracticeMore, onDashboard }: Props)
   const correct = attempts.filter((a) => a.correct).length
   const incorrect = total - correct
   const scorePct = total ? Math.round((correct / total) * 100) : 0
-  const diagnosed = attempts.filter((a) => !a.correct || a.hiddenError).length
+  const diagnosed = attempts.filter((a) => !a.correct).length
   const timedOut = attempts.filter((a) => a.timedOut).length
 
   return (
@@ -38,10 +38,10 @@ export function SessionSummary({ attempts, onPracticeMore, onDashboard }: Props)
 
       <section className="summary-hero">
         <p className="eyebrow">Session complete</p>
-        <h1>You scored <strong>{scorePct}%</strong> — {correct} of {total} correct.</h1>
+        <h1>You scored <strong>{scorePct}%</strong> - {correct} of {total} correct.</h1>
         <p>
           {diagnosed === 0
-            ? 'A clean run — nothing new to bring back.'
+            ? 'A clean run - nothing new to bring back.'
             : `You diagnosed ${diagnosed} ${diagnosed === 1 ? 'error' : 'errors'}. Each is scheduled to come back until it can’t catch you.`}
         </p>
         <div className="score-bar" role="img" aria-label={`${correct} correct, ${incorrect} incorrect`}>
@@ -59,7 +59,7 @@ export function SessionSummary({ attempts, onPracticeMore, onDashboard }: Props)
       <section className="card">
         <h2>Coming back to you</h2>
         {upcoming.length === 0 ? (
-          <p className="muted">Nothing scheduled — a clean run. Start another set to keep the streak.</p>
+          <p className="muted">Nothing scheduled - a clean run. Start another set to keep the streak.</p>
         ) : (
           <ul className="return-list">
             {upcoming.map((item) => (

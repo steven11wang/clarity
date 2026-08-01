@@ -25,7 +25,7 @@
   --radius-tile: 12px;
 
   color-scheme: dark;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-family: Geist, ui-sans-serif, system-ui, -apple-system, sans-serif;
   color: var(--console-text);
 }
 
@@ -98,7 +98,7 @@ body::after {
   border-radius: var(--radius-tile);
 }
 
-/* --- Type: Inter 300 display, one family ----------------------------- */
+/* --- Type: Geist 300 display, one family ----------------------------- */
 .wordmark,
 .auth-card h1,
 .pass-intro h1,
@@ -117,7 +117,7 @@ body::after {
 .section-heading h2,
 .checkpoint-panel h2,
 .domain-complete h2 {
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-family: Geist, ui-sans-serif, system-ui, sans-serif;
   font-weight: 300;
   letter-spacing: -0.4px;
 }
@@ -242,8 +242,8 @@ a:hover { color: #ffffff; }
 .console-dashboard--domain-1 { --hero-accent: #4c84ff; }
 .console-dashboard--domain-2 { --hero-accent: #b7d945; }
 .console-dashboard--domain-3 { --hero-accent: #9875db; }
+.console-dashboard--lessons { --hero-accent: #8cb4ff; }
 .console-dashboard--reviews { --hero-accent: #f0c04a; }
-.console-dashboard--trophies { --hero-accent: #9875db; }
 
 .console-hero-wash {
   background:

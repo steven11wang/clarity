@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 
-import { TRAP_LABELS } from '../../content/traps.ts'
 import { computeStats } from '../../review/stats.ts'
 import { getAttempts, getReviews, now } from '../../storage/index.ts'
 import type { Confidence, ErrorCause } from '../../types.ts'
@@ -20,14 +19,14 @@ const CONFIDENCE_LABELS: Record<Confidence, string> = {
   guessing: 'Guessing',
 }
 
-// Each mistake type implies a different fix — spell it out so the numbers turn
+// Each mistake type implies a different fix - spell it out so the numbers turn
 // into a study plan, not just a scoreboard.
 const CAUSE_PLAN: Record<ErrorCause, string> = {
   'misread-passage': 'Slow down on the text; annotate as you read.',
   'misread-question': 'Re-read the prompt before the choices.',
-  trap: 'Study your trap profile below — you keep meeting the same ones.',
+  trap: 'Study your trap profile below - you keep meeting the same ones.',
   'knowledge-gap': 'This is content to learn, not a careless slip.',
-  rushed: 'A timing problem, not a knowledge one — pace differently.',
+  rushed: 'A timing problem, not a knowledge one - pace differently.',
 }
 
 export function Dashboard({
@@ -39,7 +38,6 @@ export function Dashboard({
 }) {
   const stats = useMemo(() => computeStats(getAttempts(), getReviews(), now()), [])
   const maxCause = Math.max(1, ...stats.causeBreakdown.map((c) => c.count))
-  const maxTrap = Math.max(1, ...stats.trapProfile.map((t) => t.count))
   const Root = embedded ? 'section' : 'main'
 
   return (
@@ -65,7 +63,36 @@ export function Dashboard({
       </section>
 
       {stats.totalAttempts === 0 ? (
-        <p className="empty">Diagnose your first error and it’ll show up here. Every trap you find now is one that can’t catch you on test day.</p>
+        /* Empty state is the shape of the full state, not a lone sentence in a
+           void. Each panel names the report it will become, so the room reads
+           as "not filled in yet" rather than "broken". No placeholder numbers:
+           inventing a 47% here would be inventing data. */
+        <div className="dash-empty">
+          <p className="empty">
+            Diagnose your first error and it’ll show up here. Every trap you find now is one that
+            can’t catch you on test day.
+          </p>
+          <button className="button" type="button" onClick={onBack}>
+            Start a practice set
+          </button>
+          <div className="dash-grid dash-grid--ghost" aria-hidden="true">
+            {[
+              { title: 'Where your errors come from', sub: 'Each type points to a different fix.', rows: 4 },
+              { title: 'Calibration', sub: 'How often each confidence level is actually right.', rows: 3 },
+              { title: 'Error-log health', sub: 'What is due, open, and cleared for good.', rows: 2 },
+            ].map((panel) => (
+              <section className="card card--ghost" key={panel.title}>
+                <h2>{panel.title}</h2>
+                <p className="card-sub">{panel.sub}</p>
+                <ul className="ghost-bars">
+                  {Array.from({ length: panel.rows }, (_, row) => (
+                    <li key={row}><i /></li>
+                  ))}
+                </ul>
+              </section>
+            ))}
+          </div>
+        </div>
       ) : (
         <div className="dash-grid">
           <section className="card">
@@ -100,7 +127,7 @@ export function Dashboard({
                   <li key={row.confidence}>
                     <div className="bar-row">
                       <span>{CONFIDENCE_LABELS[row.confidence]}</span>
-                      <span className="bar-count">{pct === null ? '—' : `${pct}% right`} <span className="muted">({row.total})</span></span>
+                      <span className="bar-count">{pct === null ? '-' : `${pct}% right`} <span className="muted">({row.total})</span></span>
                     </div>
                     <div className="bar-track">
                       <div className={`bar-fill ${alarm ? 'bar-fill--alarm' : ''}`} style={{ width: `${pct ?? 0}%` }} />
@@ -109,27 +136,7 @@ export function Dashboard({
                 )
               })}
             </ul>
-            <p className="card-note">“Sure” but wrong is the most fixable error there is — high confidence means the correction sticks.</p>
-          </section>
-
-          <section className="card">
-            <h2>Trap profile</h2>
-            <p className="card-sub">The distractor patterns that catch you most.</p>
-            {stats.trapProfile.length === 0 ? (
-              <p className="muted">No traps named yet.</p>
-            ) : (
-              <ul className="bars">
-                {stats.trapProfile.map(({ trap, count }) => (
-                  <li key={trap}>
-                    <div className="bar-row">
-                      <span>{TRAP_LABELS[trap]}</span>
-                      <span className="bar-count">{count}</span>
-                    </div>
-                    <div className="bar-track"><div className="bar-fill" style={{ width: `${(count / maxTrap) * 100}%` }} /></div>
-                  </li>
-                ))}
-              </ul>
-            )}
+            <p className="card-note">“Sure” but wrong is the most fixable error there is - high confidence means the correction sticks.</p>
           </section>
 
           <section className="card">
@@ -146,10 +153,6 @@ export function Dashboard({
               <div className="health-cell">
                 <span className="health-num">{stats.queue.retired}</span>
                 <span className="health-label">cleared for good</span>
-              </div>
-              <div className="health-cell">
-                <span className="health-num">{stats.hiddenErrors}</span>
-                <span className="health-label">right for the wrong reason</span>
               </div>
               <div className="health-cell">
                 <span className="health-num">{stats.timedOut}</span>

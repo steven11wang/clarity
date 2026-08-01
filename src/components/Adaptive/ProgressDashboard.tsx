@@ -6,6 +6,17 @@ import {
   type CSSProperties,
   type ReactNode,
 } from 'react'
+import {
+  BookOpen,
+  Flag,
+  GitMerge,
+  GraduationCap,
+  House,
+  RotateCcw,
+  Search,
+  Type as TypeIcon,
+  UserRound,
+} from 'lucide-react'
 
 import {
   DOMAIN_PRESENTATION,
@@ -34,13 +45,16 @@ export type DomainCardView = {
 type ProgressDashboardProps = {
   activeView: PrimaryConsoleView
   lessonsPanel: ReactNode
+  reviewsPanel: ReactNode
   libraryPanel: ReactNode
   insightsPanel: ReactNode
   cards: DomainCardView[]
+  dueCount?: number
   onSelectDomain: (domain: SatDomain) => void
   onUpdateScore: () => void
   onOpenPractice: () => void
   onOpenLessons: () => void
+  onOpenReviews: () => void
   onOpenLibrary: () => void
   onOpenInsights: () => void
 }
@@ -48,10 +62,15 @@ type ProgressDashboardProps = {
 type ConsoleSelection =
   | { kind: 'today' }
   | { kind: 'domain'; domain: SatDomain }
+  | { kind: 'lessons' }
   | { kind: 'reviews' }
-  | { kind: 'trophies' }
 
-const TILE_MARKS = ['◎', '◇', '≋', '▥']
+// One icon family (Lucide) at one stroke weight, instead of Unicode glyphs.
+// Glyphs came from whichever symbol font the OS happened to have, so the rail
+// rendered at four different optical weights and shifted between platforms.
+const TILE_ICON_SIZE = 26
+const TILE_ICONS = [Search, BookOpen, GitMerge, TypeIcon]
+const LESSON_TILE_ACCENT = '#8cb4ff'
 const HERO_BACKGROUND_LEAD_MS = 180
 const HERO_TEXT_SETTLE_MS = 320
 
@@ -65,9 +84,11 @@ function buildHero(
   cards: DomainCardView[],
   totalSkills: number,
   securedSkills: number,
+  dueCount: number,
   onSelectDomain: (domain: SatDomain) => void,
+  onOpenLessons: () => void,
+  onOpenReviews: () => void,
   onOpenLibrary: () => void,
-  onOpenInsights: () => void,
   setSelection: (selection: ConsoleSelection) => void,
 ) {
   if (selection.kind === 'today') {
@@ -82,25 +103,27 @@ function buildHero(
       secondaryAction: onOpenLibrary,
     }
   }
+  if (selection.kind === 'lessons') {
+    return {
+      kicker: 'LESSONS · CLASSROOM',
+      title: 'Learn the move before you drill it.',
+      body: 'Four lesson halls, one per domain. Step inside, pick the skill you want to understand, and read the Foundations lesson before the questions come at you.',
+      primary: 'Enter classroom',
+      primaryAction: onOpenLessons,
+    }
+  }
   if (selection.kind === 'reviews') {
     return {
-      kicker: 'SPACED RETURN · REVIEW QUEUE',
-      title: 'Every miss comes back in disguise.',
-      body: 'Choices are reshuffled and the wording changes, so recognition cannot carry you. Revisit the ideas that need another pass.',
-      primary: 'Open review library',
-      primaryAction: onOpenLibrary,
+      kicker: 'SPACED RETURN · MISTAKE VAULT',
+      title:
+        dueCount > 0
+          ? `${dueCount} ${dueCount === 1 ? 'miss is' : 'misses are'} ready to come back.`
+          : 'Every miss comes back in disguise.',
+      body: 'Wrong answers are filed in the vault and handed back on a widening schedule - 1 day, 3 days, a week, a month. Clear all four and the question retires.',
+      primary: 'Open the mistake vault',
+      primaryAction: onOpenReviews,
     }
   }
-  if (selection.kind === 'trophies') {
-    return {
-      kicker: 'INSIGHTS · PROGRESS',
-      title: `${securedSkills} skills secured so far.`,
-      body: 'See your calibration, accuracy, review history, and the patterns behind your strongest sessions.',
-      primary: 'Open learning insights',
-      primaryAction: onOpenInsights,
-    }
-  }
-
   const card = cards.find((entry) => entry.domain === selection.domain) ?? cards[0]
   const presentation = DOMAIN_PRESENTATION[card.domain]
   const remaining = Math.max(0, card.totalSkills - card.completedSkills)
@@ -123,13 +146,16 @@ function buildHero(
 export function ProgressDashboard({
   activeView,
   lessonsPanel,
+  reviewsPanel,
   libraryPanel,
   insightsPanel,
   cards,
+  dueCount = 0,
   onSelectDomain,
   onUpdateScore,
   onOpenPractice,
   onOpenLessons,
+  onOpenReviews,
   onOpenLibrary,
   onOpenInsights,
 }: ProgressDashboardProps) {
@@ -163,15 +189,19 @@ export function ProgressDashboard({
     cards,
     totalSkills,
     securedSkills,
+    dueCount,
     onSelectDomain,
+    onOpenLessons,
+    onOpenReviews,
     onOpenLibrary,
-    onOpenInsights,
     setSelection,
   ), [
     cards,
+    dueCount,
     heroSelection,
-    onOpenInsights,
+    onOpenLessons,
     onOpenLibrary,
+    onOpenReviews,
     onSelectDomain,
     securedSkills,
     totalSkills,
@@ -203,21 +233,34 @@ export function ProgressDashboard({
     transitionTimers.current.forEach((timer) => window.clearTimeout(timer))
   }, [])
 
+  // Domains and Lessons are the "game" tiles - the things you actually go and
+  // play. Today and reviews stay utility marks. Insights left the rail; it is a
+  // nav tab beside Library now.
   const rail: Array<{
     label: string
-    mark: string
+    Mark: typeof House
     selection: ConsoleSelection
+    game: boolean
+    accent?: string
     card?: DomainCardView
   }> = [
-    { label: 'Today', mark: '⌂', selection: { kind: 'today' } },
+    { label: 'Today', Mark: House, selection: { kind: 'today' }, game: false },
     ...cards.map((card, index) => ({
       label: DOMAIN_PRESENTATION[card.domain].shortName,
-      mark: TILE_MARKS[index],
+      Mark: TILE_ICONS[index] ?? Search,
       selection: { kind: 'domain', domain: card.domain } as ConsoleSelection,
+      game: true,
+      accent: DOMAIN_PRESENTATION[card.domain].accent,
       card,
     })),
-    { label: 'Due reviews', mark: '◷', selection: { kind: 'reviews' } },
-    { label: 'Trophies', mark: '♜', selection: { kind: 'trophies' } },
+    {
+      label: 'Lessons',
+      Mark: GraduationCap,
+      selection: { kind: 'lessons' },
+      game: true,
+      accent: LESSON_TILE_ACCENT,
+    },
+    { label: 'Due reviews', Mark: RotateCcw, selection: { kind: 'reviews' }, game: false },
   ]
 
   const activeRailIndex = rail.findIndex((item) => {
@@ -278,17 +321,6 @@ export function ProgressDashboard({
             Practice
           </button>
           <button
-            className={activeView === 'lessons' ? 'console-nav__active' : undefined}
-            type="button"
-            aria-current={activeView === 'lessons' ? 'page' : undefined}
-            onClick={onOpenLessons}
-            data-ui-sound="true"
-            data-ui-sound-hover="hover"
-            data-ui-sound-click="select"
-          >
-            Lessons
-          </button>
-          <button
             className={activeView === 'library' ? 'console-nav__active' : undefined}
             type="button"
             aria-current={activeView === 'library' ? 'page' : undefined}
@@ -320,7 +352,7 @@ export function ProgressDashboard({
             data-ui-sound-hover="hover"
             data-ui-sound-click="open"
           >
-            ⌕
+            <Search size={19} strokeWidth={1.5} absoluteStrokeWidth />
           </button>
           <SettingsPopover onScoreUpdate={onUpdateScore} />
           <button
@@ -332,7 +364,7 @@ export function ProgressDashboard({
             data-ui-sound-hover="hover"
             data-ui-sound-click="open"
           >
-            ⌁
+            <UserRound size={18} strokeWidth={1.5} absoluteStrokeWidth />
           </button>
         </div>
       </header>
@@ -346,14 +378,13 @@ export function ProgressDashboard({
         <div className="console-rail">
           {rail.map((item, index) => {
             const selected = index === activeRailIndex
-            const accent =
-              item.card ? DOMAIN_PRESENTATION[item.card.domain].accent : '#2b5bc7'
+            const accent = item.accent ?? '#2b5bc7'
             return (
               <button
                 className={[
                   'console-tile',
                   selected ? 'console-tile--selected' : '',
-                  item.card ? 'console-tile--game' : 'console-tile--utility',
+                  item.game ? 'console-tile--game' : 'console-tile--utility',
                 ].filter(Boolean).join(' ')}
                 style={{ '--tile-accent': accent } as CSSProperties}
                 type="button"
@@ -363,10 +394,12 @@ export function ProgressDashboard({
                 aria-label={item.label}
                 data-ui-sound="true"
                 data-ui-sound-hover="hover"
-                data-ui-sound-click={item.card ? 'select' : 'open'}
+                data-ui-sound-click={item.game ? 'select' : 'open'}
               >
                 <span className="console-tile__layers" aria-hidden="true" />
-                <span className="console-tile__mark" aria-hidden="true">{item.mark}</span>
+                <span className="console-tile__mark" aria-hidden="true">
+                  <item.Mark size={TILE_ICON_SIZE} strokeWidth={1.5} absoluteStrokeWidth />
+                </span>
               </button>
             )
           })}
@@ -424,12 +457,13 @@ export function ProgressDashboard({
         <strong className="console-growth">+12%</strong>
         <button
           type="button"
-          onClick={onOpenLibrary}
+          onClick={onOpenReviews}
           data-ui-sound="true"
           data-ui-sound-hover="hover"
           data-ui-sound-click="open"
         >
-          <span>◷</span> Review practice
+          <span><RotateCcw size={17} strokeWidth={1.5} absoluteStrokeWidth /></span> Review practice
+          {dueCount > 0 ? ` · ${dueCount} due` : ''}
         </button>
         <button
           className="console-status-row__gate"
@@ -442,7 +476,7 @@ export function ProgressDashboard({
           data-ui-sound-hover="hover"
           data-ui-sound-click="open"
         >
-          <span>♙</span> Checkpoint progress
+          <span><Flag size={17} strokeWidth={1.5} absoluteStrokeWidth /></span> Checkpoint progress
         </button>
       </section>
 
@@ -491,7 +525,7 @@ export function ProgressDashboard({
                 <i className={card.completedSkills === card.totalSkills ? 'is-done' : ''}>
                   {card.completedSkills === card.totalSkills ? '✓' : card.totalSkills - card.completedSkills}
                 </i>
-                <span>{DOMAIN_PRESENTATION[card.domain].shortName} — {card.checkpointStatus}</span>
+                <span>{DOMAIN_PRESENTATION[card.domain].shortName} - {card.checkpointStatus}</span>
               </button>
             ))}
           </article>
@@ -506,6 +540,7 @@ export function ProgressDashboard({
             </>
           ),
           lessons: lessonsPanel,
+          reviews: reviewsPanel,
           library: libraryPanel,
           insights: insightsPanel,
         }}

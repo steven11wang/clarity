@@ -60,6 +60,7 @@ before(async () => {
         children: createElement(ProgressDashboard, {
           activeView: 'practice',
           lessonsPanel: null,
+          reviewsPanel: null,
           libraryPanel: null,
           insightsPanel: null,
           cards,
@@ -67,6 +68,7 @@ before(async () => {
           onUpdateScore: () => { scoreUpdateCalls += 1 },
           onOpenPractice: () => {},
           onOpenLessons: () => {},
+          onOpenReviews: () => {},
           onOpenLibrary: () => {},
           onOpenInsights: () => {},
         }),

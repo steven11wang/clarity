@@ -1,5 +1,14 @@
 import { useEffect, useRef } from 'react'
 
+export type ResultBreakdownItem = {
+  id: string
+  prompt: string
+  skill: string
+  chosen: string
+  correctAnswer: string
+  correct: boolean
+}
+
 type AssessmentResultProps = {
   eyebrow: string
   title: string
@@ -9,6 +18,7 @@ type AssessmentResultProps = {
   details?: string[]
   success: boolean
   nextLabel: string
+  breakdown?: ResultBreakdownItem[]
   onNext: () => void
   onDashboard: () => void
 }
@@ -22,6 +32,7 @@ export function AssessmentResult({
   details = [],
   success,
   nextLabel,
+  breakdown = [],
   onNext,
   onDashboard,
 }: AssessmentResultProps) {
@@ -63,6 +74,37 @@ export function AssessmentResult({
           <ul>
             {details.map((detail) => <li key={detail}>{detail}</li>)}
           </ul>
+        </section>
+      )}
+
+      {breakdown.length > 0 && (
+        <section className="assessment-result__breakdown" aria-labelledby="result-breakdown-title">
+          <h2 id="result-breakdown-title">Question by question</h2>
+          <ol>
+            {breakdown.map((item, index) => (
+              <li
+                key={item.id}
+                className={`result-breakdown__item ${
+                  item.correct ? 'result-breakdown__item--correct' : 'result-breakdown__item--incorrect'
+                }`}
+              >
+                <span className="result-breakdown__status" aria-hidden="true">
+                  {item.correct ? '✓' : '✗'}
+                </span>
+                <span className="result-breakdown__body">
+                  <span className="result-breakdown__meta">
+                    Q{index + 1} · {item.skill}
+                  </span>
+                  <span className="result-breakdown__prompt">{item.prompt}</span>
+                  <span className="result-breakdown__answer">
+                    {item.correct
+                      ? `Your answer: ${item.chosen}`
+                      : `Your answer: ${item.chosen || '-'} · Correct: ${item.correctAnswer}`}
+                  </span>
+                </span>
+              </li>
+            ))}
+          </ol>
         </section>
       )}
 

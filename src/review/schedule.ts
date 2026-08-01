@@ -1,13 +1,22 @@
-import type { EvidenceScore, ReviewItem } from '../types.ts'
+import type { ReviewItem } from '../types.ts'
 
 const DAY = 24 * 60 * 60 * 1000
 
-// Real spaced intervals: ~2 days, ~7 days, ~30 days.
-export const REVIEW_INTERVALS_MS = [2 * DAY, 7 * DAY, 30 * DAY]
+// Real spaced intervals. The zeroth return is the same-session review pass that
+// runs right after the answer pass; these are the four returns after it:
+// tomorrow, 3 days, a week, a month.
+export const REVIEW_INTERVALS_MS = [1 * DAY, 3 * DAY, 7 * DAY, 30 * DAY]
 
-// Demo mode compresses the same three stages to seconds so the whole
+// Demo mode compresses the same four stages to seconds so the whole
 // resurrection loop is testable in one sitting.
-export const DEMO_INTERVALS_MS = [20 * 1000, 60 * 1000, 180 * 1000]
+export const DEMO_INTERVALS_MS = [15 * 1000, 45 * 1000, 90 * 1000, 180 * 1000]
+
+// Human labels for each stage, indexed the same way as the intervals.
+export const STAGE_LABELS = ['1 day', '3 days', '1 week', '1 month']
+
+export function stageLabel(stage: number): string {
+  return STAGE_LABELS[stage] ?? 'retired'
+}
 
 export function intervalsFor(demo: boolean): number[] {
   return demo ? DEMO_INTERVALS_MS : REVIEW_INTERVALS_MS
@@ -45,12 +54,9 @@ export function scheduleMistake(
   }
 }
 
-// Did a resurfacing clear this stage? A correct answer clears — unless its
-// evidence was checked and clearly missed ("right for the wrong reason"). In
-// missed-only review a correct answer isn't evidence-checked (score is null),
-// so correctness alone clears it.
-export function isClean(correct: boolean, evidenceScore: EvidenceScore | null): boolean {
-  return correct && evidenceScore !== 'miss'
+// Did a resurfacing clear this stage? Correctness alone clears it.
+export function isClean(correct: boolean): boolean {
+  return correct
 }
 
 // Apply a resurfacing result to a queued item. A clean clear advances a stage

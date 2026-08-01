@@ -53,17 +53,17 @@ export function Browse({
         <p>Every wrong answer becomes a diagnosed, re-tested lesson. Choose a focus, or take the mix.</p>
         {dueCount > 0 && (
           <button className="due-banner" type="button" onClick={() => onStart(questions)}>
-            <strong>{dueCount}</strong> {dueCount === 1 ? 'question is' : 'questions are'} due to resurface — they’re woven into any set you start.
+            <strong>{dueCount}</strong> {dueCount === 1 ? 'question is' : 'questions are'} due to resurface - they’re woven into any set you start.
           </button>
         )}
         <button className="button" type="button" onClick={() => onStart(questions)}>
-          Start the mix — {questions.length} questions
+          Start the mix - {questions.length} questions
         </button>
 
         <div className="timed-control">
           <label className="timed-toggle">
             <input type="checkbox" checked={timedMode} onChange={onToggleTimed} />
-            <span><strong>Timed mode</strong> — a clock runs while you answer; run out and the question moves on and comes back later.</span>
+            <span><strong>Timed mode</strong> - a clock runs while you answer; run out and the question moves on and comes back later.</span>
           </label>
           {timedMode && (
             <div className="timed-limits" role="group" aria-label="Time per question">

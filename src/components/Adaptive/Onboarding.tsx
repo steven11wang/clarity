@@ -482,7 +482,7 @@ export function Onboarding({
                           <option value="">Choose Easy, Medium, or Hard</option>
                           {DIFFICULTIES.map((difficulty) => (
                             <option key={difficulty} value={difficulty}>
-                              {difficulty} — {LEVEL_HELP[difficulty]}
+                              {difficulty} - {LEVEL_HELP[difficulty]}
                             </option>
                           ))}
                         </select>

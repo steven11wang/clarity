@@ -18,7 +18,7 @@ type BatchQuizProps = {
   initialAnswers: BatchAnswers
   onAnswersChange: (answers: BatchAnswers) => void
   onCancel: () => void
-  onSubmit: (answers: BatchAnswers) => void
+  onSubmit: (answers: BatchAnswers, flagged: string[]) => void
 }
 
 export function BatchQuiz({
@@ -42,11 +42,17 @@ export function BatchQuiz({
   const [submitting, setSubmitting] = useState(false)
   const [struckChoices, setStruckChoices] = useState<string[]>([])
   const [abcMode, setAbcMode] = useState(false)
+  const [flagged, setFlagged] = useState<Record<string, boolean>>({})
   const submitLock = useRef(false)
   const answered = questions.filter((question) => answers[question.id]).length
   const complete = answered === questions.length
   const currentQuestion = questions[currentIndex]
   const canGoBack = currentIndex > 0
+  const flaggedCount = Object.values(flagged).filter(Boolean).length
+
+  function toggleFlag(questionId: string) {
+    setFlagged((current) => ({ ...current, [questionId]: !current[questionId] }))
+  }
 
   useEffect(() => {
     setStruckChoices([])
@@ -70,7 +76,10 @@ export function BatchQuiz({
     submitLock.current = true
     setSubmitting(true)
     try {
-      onSubmit(answers)
+      onSubmit(
+        answers,
+        questions.filter((question) => flagged[question.id]).map((question) => question.id),
+      )
     } catch (error) {
       submitLock.current = false
       setSubmitting(false)
@@ -106,7 +115,7 @@ export function BatchQuiz({
         >
           <div className="batch-progress__copy">
             <span>Question {currentIndex + 1} of {questions.length}</span>
-            <span>{answered} answered</span>
+            <span>{answered} answered{flaggedCount > 0 ? ` · ${flaggedCount} flagged` : ''}</span>
           </div>
           <div className="progress-track" role="tablist" aria-label="Questions">
             {questions.map((question, index) => (
@@ -115,12 +124,13 @@ export function BatchQuiz({
                   'progress-segment',
                   answers[question.id] ? 'progress-segment--done' : '',
                   index === currentIndex ? 'progress-segment--current' : '',
+                  flagged[question.id] ? 'progress-segment--flagged' : '',
                 ].filter(Boolean).join(' ')}
                 key={question.id}
                 type="button"
                 role="tab"
                 aria-selected={index === currentIndex}
-                aria-label={`Go to question ${index + 1}${answers[question.id] ? ', answered' : ''}`}
+                aria-label={`Go to question ${index + 1}${answers[question.id] ? ', answered' : ''}${flagged[question.id] ? ', flagged for review' : ''}`}
                 onClick={() => jumpToQuestion(index)}
               />
             ))}
@@ -138,7 +148,17 @@ export function BatchQuiz({
               <fieldset className="batch-question" key={question.id}>
                 <legend>
                   <span>Question {index + 1}</span>
-                  <span>{question.skill}</span>
+                  <span className="batch-question__legend-right">
+                    <button
+                      type="button"
+                      className={`flag-toggle ${flagged[question.id] ? 'flag-toggle--active' : ''}`}
+                      aria-pressed={!!flagged[question.id]}
+                      onClick={() => toggleFlag(question.id)}
+                    >
+                      {flagged[question.id] ? '🚩 Flagged' : '⚑ Flag for review'}
+                    </button>
+                    {question.skill}
+                  </span>
                 </legend>
                 <div className="batch-question__body">
                   <Passage question={question} />

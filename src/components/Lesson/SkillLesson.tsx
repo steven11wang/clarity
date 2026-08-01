@@ -288,7 +288,7 @@ function BriefArticle({
 
       {longVersion.length > 0 && (
         <details className="lesson-more">
-          <summary>The long version — worked-through detail on each point</summary>
+          <summary>The long version - worked-through detail on each point</summary>
           {longVersion.map((text, index) => (
             <p key={index}>{text}</p>
           ))}
@@ -343,7 +343,7 @@ function ExamplePanel({
       <article className="lesson-page">
         <p className="eyebrow">Worked example</p>
         <h2 className="lesson-page__head">No worked example for this skill yet.</h2>
-        <p>Head to Practice — the method on the Lesson tab is enough to start.</p>
+        <p>Head to Practice - the method on the Lesson tab is enough to start.</p>
       </article>
     )
   }
@@ -355,7 +355,7 @@ function ExamplePanel({
       </p>
       <p className="lesson-page__intro">
         Work this one yourself before revealing the explanation. Cross out choices as
-        you rule them out — the same move you will make on the real test.
+        you rule them out - the same move you will make on the real test.
       </p>
 
       <WorkedExample key={entry.key} example={entry.example} skill={skill} oneMove={oneMove} />
@@ -532,7 +532,7 @@ function WorkedExample({
                 {chosen === null
                   ? `The answer is ${example.answer}.`
                   : correct
-                    ? `Correct — ${example.answer}.`
+                    ? `Correct - ${example.answer}.`
                     : `Not quite. You chose ${chosen}; the answer is ${example.answer}.`}
               </p>
               {example.explanation.map((block, index) =>
@@ -584,7 +584,7 @@ const WORKED_EXAMPLE_GATES: Record<string, WorkedExampleGateCopy> = {
   'Central Ideas and Details': {
     label: 'Your one-sentence summary',
     hint: 'What is the text centrally saying? Your own words, before the choices.',
-    placeholder: "e.g. she weaves to make color 3-D — it's painting by other means",
+    placeholder: "e.g. she weaves to make color 3-D - it's painting by other means",
     phraseLabel: 'summary',
     inputLabel: 'Your summary',
   },
@@ -619,7 +619,7 @@ const WORKED_EXAMPLE_GATES: Record<string, WorkedExampleGateCopy> = {
   Transitions: {
     label: 'Name the relationship',
     hint: 'Summarize both sentences, then say which of the five jobs the blank needs.',
-    placeholder: 'e.g. cheaper and identical BUT not selling — contrast',
+    placeholder: 'e.g. cheaper and identical BUT not selling - contrast',
     phraseLabel: 'note',
     inputLabel: 'Your note',
   },
@@ -677,7 +677,7 @@ function TipsPanel({ tabs }: { tabs: LessonTabs }) {
       <p className="eyebrow">Top tips</p>
       <p className="lesson-page__intro">
         Secondary strategies. Expect one or two to earn their keep on any given
-        question — the method on the Lesson tab is the main approach.
+        question - the method on the Lesson tab is the main approach.
       </p>
 
       {cards.length > 0 ? (

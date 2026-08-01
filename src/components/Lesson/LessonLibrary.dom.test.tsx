@@ -73,23 +73,60 @@ describe('lessons console landing', () => {
     assert.ok(container.querySelector('.lesson-portal-room__continue'))
   })
 
-  it('opens selected and recommended lessons from the portal room', async () => {
-    await click(
+  it('walks portal → skill list → lesson', async () => {
+    const door = () =>
       container.querySelector(
         '.lesson-portal-door[data-domain="Craft and Structure"]',
-      ),
-    )
+      )
+
+    // First click only selects the door: the room stays put.
+    await click(door())
+    assert.equal(container.querySelectorAll('.lesson-portal-door').length, 4)
+    assert.equal(door()?.getAttribute('aria-pressed'), 'true')
     assert.match(
       container.querySelector('.lesson-portal-room__title')?.textContent ?? '',
       /Craft and Structure/,
     )
-    await click(container.querySelector('.lesson-portal-room__enter'))
+
+    // The second click on the selected door walks through it.
+    await click(door())
+
+    // The hall lists every skill in that domain before anything starts.
+    assert.equal(container.querySelectorAll('.lesson-portal-door').length, 0)
+    assert.match(
+      container.querySelector('.lesson-skill-picker__title')?.textContent ?? '',
+      /Craft and Structure/,
+    )
+    const skills = [...container.querySelectorAll('.lesson-skill-card')].map(
+      (card) => card.getAttribute('data-skill'),
+    )
+    assert.ok(skills.length > 1)
+    assert.ok(skills.includes('Words in Context'))
+    assert.equal(selectedSkill, '')
+
+    await click(
+      container.querySelector('.lesson-skill-card[data-skill="Words in Context"]'),
+    )
     assert.equal(selectedSkill, 'Words in Context')
+  })
+
+  it('returns to the portal room and resumes the recommended lesson', async () => {
+    await click(container.querySelector('.lesson-skill-picker__back'))
+    assert.equal(container.querySelectorAll('.lesson-portal-door').length, 4)
+    assert.match(
+      container.querySelector('.lesson-portal-room__title')?.textContent ?? '',
+      /Craft and Structure/,
+    )
+
     await click(container.querySelector('.lesson-portal-room__continue'))
     assert.equal(selectedSkill, 'Command of Evidence')
   })
 
-  it('opens the selected lesson', async () => {
-    assert.equal(container.querySelectorAll('.lesson-portal-door').length, 4)
+  it('opens the selected hall from the hero button', async () => {
+    await click(container.querySelector('.lesson-portal-room__enter'))
+    assert.match(
+      container.querySelector('.lesson-skill-picker__title')?.textContent ?? '',
+      /Craft and Structure/,
+    )
   })
 })
