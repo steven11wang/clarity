@@ -1,0 +1,617 @@
+{
+  "title": "Master's note",
+  "subtitle": "Rules for the reading section, in the order you should learn them.",
+  "attribution": "Notes distilled from The College Panda's SAT Reading essays by Nielson Phu. Each entry links back to the original article.",
+  "sections": [
+    {
+      "id": "vocabulary",
+      "label": "Sharpen the axe",
+      "short": "VOCAB",
+      "summary": "Nothing else works until the words do."
+    },
+    {
+      "id": "diagnosis",
+      "label": "Diagnosis",
+      "short": "UDS",
+      "summary": "Measure what is actually costing you points."
+    },
+    {
+      "id": "elimination",
+      "label": "Elimination",
+      "short": "CUT",
+      "summary": "Find the wrong answers, not the right one."
+    },
+    {
+      "id": "bias",
+      "label": "Your own mind",
+      "short": "BIAS",
+      "summary": "The trap you build yourself."
+    },
+    {
+      "id": "tactics",
+      "label": "Question tactics",
+      "short": "TACTICS",
+      "summary": "Purpose questions and the author's voice."
+    },
+    {
+      "id": "review",
+      "label": "The review loop",
+      "short": "REVIEW",
+      "summary": "Where the score actually moves."
+    }
+  ],
+  "entries": [
+    {
+      "id": "vocab-ceiling",
+      "section": "vocabulary",
+      "rule": "Vocabulary sets the ceiling on everything else.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Strategy, question types, note-taking — none of it pays off while you are guessing at the words. Reading passages still pull hard vocabulary and nineteenth-century prose, and the test is built to punish readers who are inferring meaning instead of knowing it."
+        },
+        {
+          "type": "p",
+          "text": "Treat words as the first project, not a side project. Everything in this notebook after this page assumes you can read the sentence."
+        },
+        {
+          "type": "drill",
+          "label": "DO THIS FIRST",
+          "text": "Before any timed practice, commit to a fixed daily vocabulary block. Ten to fifteen minutes, every day, no exceptions."
+        }
+      ],
+      "source": {
+        "label": "The One Thing That Will Improve Your Reading Score the Most",
+        "url": "https://thecollegepanda.com/the-one-thing-that-will-improve-your-reading-score-the-most/"
+      }
+    },
+    {
+      "id": "vocab-in-choices",
+      "section": "vocabulary",
+      "rule": "The decisive words are in the answer choices.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Students expect hard vocabulary in the passage and get ambushed by it in the options. A single qualifier — unilaterally, exacerbated, abate — is often the entire reason a choice is wrong: too strong, too narrow, or describing something the passage never claims."
+        },
+        {
+          "type": "p",
+          "text": "A question you would call easy becomes unanswerable when one word in each option is fog. That is a vocabulary miss recorded as a reasoning miss."
+        },
+        {
+          "type": "drill",
+          "label": "WHEN REVIEWING",
+          "text": "For every question you missed, underline the words inside the answer choices you could not have defined out loud. Those go on flashcards tonight."
+        }
+      ],
+      "source": {
+        "label": "The One Thing That Will Improve Your Reading Score the Most",
+        "url": "https://thecollegepanda.com/the-one-thing-that-will-improve-your-reading-score-the-most/"
+      }
+    },
+    {
+      "id": "vocab-top-400",
+      "section": "vocabulary",
+      "rule": "Learn the top 400 words. Then stop and go practice.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Frequency is wildly uneven: a few hundred words carry most of the difficulty across released exams. Four hundred is the dose that buys the largest score gain for the least time — students have covered it in two to three weeks at fifteen minutes a day."
+        },
+        {
+          "type": "p",
+          "text": "Thousand-word lists are not more virtuous, just slower. Returns fall off hard past the frequent core, and the hours are better spent on passages."
+        }
+      ],
+      "source": {
+        "label": "Memorize the Top 400 SAT Words Without Frustration",
+        "url": "https://thecollegepanda.com/memorize-the-top-400-sat-words-without-frustration/"
+      }
+    },
+    {
+      "id": "vocab-spaced-repetition",
+      "section": "vocabulary",
+      "rule": "Use spaced repetition, not a stack of cards.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Paper stacks and printed lists fail in three predictable ways: you re-read words you already know, you lose track of the ones you forgot last week, and you never know when to stop, so you feel guilty and quit."
+        },
+        {
+          "type": "p",
+          "text": "Spaced-repetition software — Anki is the standard free option — resurfaces each word right before you would forget it, so hard words come back often and known words fade out. It also caps the day's queue, which is what makes the habit survivable."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Grade honestly: again if you drew a blank, good if it took effort, easy if it was instant.",
+            "Once per day, minimum. The schedule only works if it runs.",
+            "Sync to your phone so the queue travels with you."
+          ]
+        }
+      ],
+      "source": {
+        "label": "Memorize the Top 400 SAT Words Without Frustration",
+        "url": "https://thecollegepanda.com/memorize-the-top-400-sat-words-without-frustration/"
+      }
+    },
+    {
+      "id": "vocab-capture",
+      "section": "vocabulary",
+      "rule": "Capture every unknown word the moment you meet it.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "The best words to study are the ones that just beat you on a real passage. Keep a dictionary one click away — a desktop dictionary app or a browser pop-up extension — because any friction in looking a word up means you will skip it."
+        },
+        {
+          "type": "p",
+          "text": "Look it up, then add it to the deck in the same motion. A word you looked up and did not record is a word you will look up again next month."
+        }
+      ],
+      "source": {
+        "label": "The One Thing That Will Improve Your Reading Score the Most",
+        "url": "https://thecollegepanda.com/the-one-thing-that-will-improve-your-reading-score-the-most/"
+      }
+    },
+    {
+      "id": "uds-measure",
+      "section": "diagnosis",
+      "rule": "Measure your untimed dictionary score before you practice.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Take a reading section you have never seen. No clock. Dictionary open. Look up every word you do not know, in the passage and in the questions, and genuinely try to get every item right. Score it. That number is your untimed dictionary score."
+        },
+        {
+          "type": "p",
+          "text": "It removes vocabulary and speed from the equation, so what remains is a clean reading of your critical thinking."
+        }
+      ],
+      "source": {
+        "label": "How to Get an 800 in SAT Reading",
+        "url": "https://thecollegepanda.com/get-800-sat-reading/"
+      }
+    },
+    {
+      "id": "uds-two-gaps",
+      "section": "diagnosis",
+      "rule": "Read the two gaps.",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "Perfect score minus your UDS = what you are losing to critical thinking.",
+            "Your UDS minus your real timed score = what you are losing to vocabulary and speed."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Two numbers, two separate training programs. A student with a 750 UDS and a 600 real score does not have a comprehension problem — they have a hundred and fifty points sitting in words and pacing."
+        }
+      ],
+      "source": {
+        "label": "How to Get an 800 in SAT Reading",
+        "url": "https://thecollegepanda.com/get-800-sat-reading/"
+      }
+    },
+    {
+      "id": "uds-route",
+      "section": "diagnosis",
+      "rule": "Route yourself by the UDS number.",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "UDS 740+: your thinking is already there. Spend everything on vocabulary and timed sections.",
+            "UDS around 700: knowing the words will not be enough. Something in your reasoning is losing points to second-best answers.",
+            "UDS near 600: comprehension itself needs work. Stay untimed and with a dictionary while you dissect your reasoning."
+          ]
+        },
+        {
+          "type": "drill",
+          "label": "WHY IT MATTERS",
+          "text": "A low scorer with a high UDS usually turns around fast — the ceiling was never the problem, and knowing that changes how hard they are willing to work."
+        }
+      ],
+      "source": {
+        "label": "How to Get an 800 in SAT Reading",
+        "url": "https://thecollegepanda.com/get-800-sat-reading/"
+      }
+    },
+    {
+      "id": "read-untimed",
+      "section": "elimination",
+      "rule": "Read untimed until you can state the main point as an argument.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "One passage at a time, no clock. Read the italicized blurb first. Underline and look up new words as you go. Reread as many times as it takes — zoning out is normal, just refocus and go again."
+        },
+        {
+          "type": "p",
+          "text": "Then say the main point out loud. A topic is not a main point. \"Dinosaurs\" is a topic; \"portraying dinosaurs as monsters blocks us from understanding them\" is a main point. For fiction, summarize what happened in a sentence or two."
+        },
+        {
+          "type": "drill",
+          "label": "EXPECT",
+          "text": "Twenty-plus minutes on a single passage at this stage. That is the work, not a sign you are slow."
+        }
+      ],
+      "source": {
+        "label": "How to Get an 800 in SAT Reading",
+        "url": "https://thecollegepanda.com/get-800-sat-reading/"
+      }
+    },
+    {
+      "id": "cross-before-circle",
+      "section": "elimination",
+      "rule": "Cross out before you circle.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Even when the right answer jumps out, go through the other three and say why each one fails before you commit. Do not circle anything until the crossing out is done."
+        },
+        {
+          "type": "p",
+          "text": "The goal of a pass through the choices is not to find the winner. It is to remove as many losers as possible, as confidently as possible. Leftover live options are what make you outguess yourself."
+        }
+      ],
+      "source": {
+        "label": "How to Get an 800 in SAT Reading",
+        "url": "https://thecollegepanda.com/get-800-sat-reading/"
+      }
+    },
+    {
+      "id": "name-the-flaw",
+      "section": "elimination",
+      "rule": "Name the flaw. \"Sounds wrong\" is not a reason.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "There must be a concrete defect in every wrong choice, or the test would have multiple right answers. Almost all of them fall into a short list:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Too extreme.",
+            "Too general, or too narrow.",
+            "Off topic entirely.",
+            "True, but not supported by the passage.",
+            "Does not answer the question that was asked.",
+            "Does not match the lines being referenced.",
+            "Not the author's intent or main idea.",
+            "Built on your assumption rather than the author's."
+          ]
+        },
+        {
+          "type": "drill",
+          "label": "SAY IT OUT LOUD",
+          "text": "Verbalizing the specific defect is the whole exercise. Vague reasons train nothing."
+        }
+      ],
+      "source": {
+        "label": "Eliminate, Don't Vindicate; Nullify, Don't Justify",
+        "url": "https://thecollegepanda.com/eliminate-dont-vindicate-nullify-dont-justify/"
+      }
+    },
+    {
+      "id": "two-modes",
+      "section": "elimination",
+      "rule": "Switch modes deliberately: eliminate first, justify second.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Any choice can be judged two ways — reasons it is right, reasons it is wrong. Under pressure, students only ever run the first mode, and that is where they get stuck between two options."
+        },
+        {
+          "type": "p",
+          "text": "Elimination moves you forward; justification does not. Two reasons why two choices are right leaves you with two choices. One reason why one of them is wrong ends the question."
+        }
+      ],
+      "source": {
+        "label": "Eliminate, Don't Vindicate; Nullify, Don't Justify",
+        "url": "https://thecollegepanda.com/eliminate-dont-vindicate-nullify-dont-justify/"
+      }
+    },
+    {
+      "id": "no-reason-keep-alive",
+      "section": "elimination",
+      "rule": "No reason to kill it? Leave it alive.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "If you cannot name a defect, the choice stays in play. Eliminating on vibes destroys the whole method — it feels like progress while quietly removing correct answers."
+        },
+        {
+          "type": "p",
+          "text": "One simple reason an answer is wrong outweighs any elaborate reason it might be right. Elaborate is the warning sign."
+        }
+      ],
+      "source": {
+        "label": "Eliminate, Don't Vindicate; Nullify, Don't Justify",
+        "url": "https://thecollegepanda.com/eliminate-dont-vindicate-nullify-dont-justify/"
+      }
+    },
+    {
+      "id": "physically-cross-out",
+      "section": "elimination",
+      "rule": "Physically cross it out.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Striking the choice commits the decision and clears your attention for what is left. A choice you rejected mentally but left on screen keeps pulling you back for another look."
+        },
+        {
+          "type": "drill",
+          "label": "DIGITAL TEST",
+          "text": "Use the answer-eliminator tool in the testing app. Same purpose as a pencil line."
+        }
+      ],
+      "source": {
+        "label": "Eliminate, Don't Vindicate; Nullify, Don't Justify",
+        "url": "https://thecollegepanda.com/eliminate-dont-vindicate-nullify-dont-justify/"
+      }
+    },
+    {
+      "id": "confirmation-bias",
+      "section": "bias",
+      "rule": "Stare at any answer long enough and you will build a case for it.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "This is confirmation bias, and it is documented. In Wason's classic rule-discovery task, subjects given a sequence tested only examples that fit their guess, never one that could break it — and the large majority got the rule wrong."
+        },
+        {
+          "type": "p",
+          "text": "Same instinct on reading: you pick a favorite and start manufacturing support instead of testing it. The strongest test-takers are not better at spotting right answers; they are better at spotting wrong ones."
+        }
+      ],
+      "source": {
+        "label": "Eliminate, Don't Vindicate; Nullify, Don't Justify",
+        "url": "https://thecollegepanda.com/eliminate-dont-vindicate-nullify-dont-justify/"
+      }
+    },
+    {
+      "id": "no-projection",
+      "section": "bias",
+      "rule": "Do not project your own feeling onto the passage.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Tone questions are where this shows up. A student blows up one gloomy detail in a cheerful passage into ominous foreshadowing, because that is what dark clouds mean in English class. A reader excited by a jungle setting picks thrilling for a paragraph that describes a researcher's frustration."
+        },
+        {
+          "type": "p",
+          "text": "Read the passage as it is, not as you would have written it. Tone comes from the author's language, not from the subject matter and not from your reaction to it."
+        }
+      ],
+      "source": {
+        "label": "Eliminate, Don't Vindicate; Nullify, Don't Justify",
+        "url": "https://thecollegepanda.com/eliminate-dont-vindicate-nullify-dont-justify/"
+      }
+    },
+    {
+      "id": "catch-yourself",
+      "section": "bias",
+      "rule": "When you feel yourself forcing it, stop.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "There is a specific uneasy feeling that comes from making something make sense. Treat it as an alarm, and do one of two things:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Flip to falsifying — go looking for the reason each surviving choice fails.",
+            "Leave it, answer another question, come back with a cold head."
+          ]
+        }
+      ],
+      "source": {
+        "label": "Eliminate, Don't Vindicate; Nullify, Don't Justify",
+        "url": "https://thecollegepanda.com/eliminate-dont-vindicate-nullify-dont-justify/"
+      }
+    },
+    {
+      "id": "interrogate-key-terms",
+      "section": "tactics",
+      "rule": "On purpose questions, interrogate the key terms in every choice.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Purpose questions ask what a line, phrase, or paragraph mainly serves to do. Their choices are built out of abstract nouns, and each one hides a question you must be able to answer from the text."
+        },
+        {
+          "type": "list",
+          "items": [
+            "\"highlight a point about friendship\" — what friendship? where?",
+            "\"illustrate the depths of a passion\" — what passion, and what shows its depth?",
+            "\"respond to a challenge\" — who challenged what?",
+            "\"support an observation about a behavior\" — which behavior, observed where?"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "The harder the question, the more aggressively you should define the terms. This works just as well on the easy ones — run it there anyway, so it is automatic when it counts."
+        }
+      ],
+      "source": {
+        "label": "SAT Reading Strategies: How to Answer Purpose Questions",
+        "url": "https://thecollegepanda.com/sat-reading-strategies-how-to-answer-purpose-questions/"
+      }
+    },
+    {
+      "id": "concrete-or-wrong",
+      "section": "tactics",
+      "rule": "If you cannot answer concretely, the choice is wrong.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Point at the words in the passage. If naming the passion or the behavior takes hand-waving, the option is not grounded — it is your interpretation wearing the passage's clothes."
+        },
+        {
+          "type": "p",
+          "text": "Answer choices are as open to misreading as the passage is. Be a skeptic about both."
+        }
+      ],
+      "source": {
+        "label": "SAT Reading Strategies: How to Answer Purpose Questions",
+        "url": "https://thecollegepanda.com/sat-reading-strategies-how-to-answer-purpose-questions/"
+      }
+    },
+    {
+      "id": "hunt-the-pivot",
+      "section": "tactics",
+      "rule": "Hunt for the pivot — the point where the author stops reporting and starts arguing.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "One author does not mean one voice. Much of a passage can be background, evidence, or somebody else's position, signalled by attribution and quotation. The pivot is the shift where the author takes a side."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Look for turn words: but, yet, however, still.",
+            "Look for the tone going direct and declarative after paragraphs of attribution.",
+            "The author's view continues in the sentences after the pivot — read those too."
+          ]
+        },
+        {
+          "type": "drill",
+          "label": "COMMON MISS",
+          "text": "Naming the opening summary of someone else's argument as the author's main idea. If it is attributed to a named person, it is not the author's claim."
+        }
+      ],
+      "source": {
+        "label": "SAT Reading Strategies: Watch Out For Pivots",
+        "url": "https://thecollegepanda.com/sat-reading-strategies-watch-out-for-pivots/"
+      }
+    },
+    {
+      "id": "pivots-anywhere",
+      "section": "tactics",
+      "rule": "Pivots live anywhere, and there can be several.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Forget the topic-sentence rule you were taught for essays. Real writing puts the turn mid-paragraph, in the last line, or in the opening sentence — wherever it lands."
+        },
+        {
+          "type": "p",
+          "text": "A pivot also does not have to disagree with what came before; it can reaffirm it. And a passage can hold more than one, since writing is a back-and-forth. Underline each one as you read so author-opinion questions become a lookup instead of a re-read."
+        }
+      ],
+      "source": {
+        "label": "SAT Reading Strategies: Watch Out For Pivots",
+        "url": "https://thecollegepanda.com/sat-reading-strategies-watch-out-for-pivots/"
+      }
+    },
+    {
+      "id": "no-pivot-no-question",
+      "section": "tactics",
+      "rule": "No pivot usually means no author-opinion question.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Straight narration and pure explanation often carry no authorial stance — and they will not ask you for one. Do not invent an opinion where the passage never takes a position."
+        },
+        {
+          "type": "drill",
+          "label": "PAIRED PASSAGES",
+          "text": "Find each author's pivot, put the two claims side by side, and the relationship question is mostly answered before you read the options."
+        }
+      ],
+      "source": {
+        "label": "SAT Reading Strategies: Watch Out For Pivots",
+        "url": "https://thecollegepanda.com/sat-reading-strategies-watch-out-for-pivots/"
+      }
+    },
+    {
+      "id": "star-dont-x",
+      "section": "review",
+      "rule": "Star the correct answers. Do not X the wrong ones.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "After a section, mark the correct answer on every question — including the ones you got right. This is not grading; it sets up a review pass over the whole section rather than over your mistakes."
+        },
+        {
+          "type": "p",
+          "text": "Questions you got right while guessing between two choices are hiding the same gap as the ones you missed."
+        }
+      ],
+      "source": {
+        "label": "How to Get an 800 in SAT Reading",
+        "url": "https://thecollegepanda.com/get-800-sat-reading/"
+      }
+    },
+    {
+      "id": "review-by-scenario",
+      "section": "review",
+      "rule": "Review by scenario, not by right and wrong.",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "Right, but you could not eliminate the others — highest value. Work out why each close choice actually fails.",
+            "Wrong, and the right answer was still in play — same gap, worse luck. What separates your pick from the real one?",
+            "Wrong, and you had eliminated the right answer — the worst case. You misread something; find exactly what.",
+            "Right, and you killed all three others cleanly — spend zero time here."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Come out of every review with a specific, written reflection per question. Vague takeaways change nothing next week."
+        }
+      ],
+      "source": {
+        "label": "How to Get an 800 in SAT Reading",
+        "url": "https://thecollegepanda.com/get-800-sat-reading/"
+      }
+    },
+    {
+      "id": "review-time-budget",
+      "section": "review",
+      "rule": "Budget real time for reflection.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Below a 650, plan on at least twenty minutes of reflection per reading section you complete. This step, not the answering, is where the score moves."
+        },
+        {
+          "type": "p",
+          "text": "Doing more sections while skipping review is how students practice for months and stay flat."
+        }
+      ],
+      "source": {
+        "label": "How to Get an 800 in SAT Reading",
+        "url": "https://thecollegepanda.com/get-800-sat-reading/"
+      }
+    },
+    {
+      "id": "ramping-up",
+      "section": "review",
+      "rule": "Four sections untimed, then put the clock on.",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Run the full loop — read, eliminate, correct, reflect — on four official reading sections untimed with a dictionary. Then repeat the exact same process on the remaining sections, timed and without a dictionary."
+        },
+        {
+          "type": "p",
+          "text": "If timed sections feel like drowning, go back to untimed. It means vocabulary or reading is not solid yet, and the clock will not teach you either one."
+        },
+        {
+          "type": "drill",
+          "label": "HONEST NOTE",
+          "text": "This is a long-term plan. Two weeks out from a test, it is the wrong plan — practice volume and triage instead."
+        }
+      ],
+      "source": {
+        "label": "How to Get an 800 in SAT Reading",
+        "url": "https://thecollegepanda.com/get-800-sat-reading/"
+      }
+    }
+  ]
+}

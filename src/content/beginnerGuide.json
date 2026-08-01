@@ -1,0 +1,122 @@
+{
+  "title": "The Ultimate Beginner's Guide to SAT Reading",
+  "chapters": [
+    {
+      "id": "start-here",
+      "number": 1,
+      "title": "Start Here",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "For people who struggle with their SAT scores, a fantastic first step is to calculate your Untimed Dictionary Score (UDS). This is the score you achieve by taking a practice test without a time limit, using a dictionary app or a tool like KhanPrep to look up unfamiliar words as you go."
+        },
+        {
+          "type": "p",
+          "text": "Here is a comprehensive breakdown of how to build your reading skills from the ground up, combining core critical thinking strategies with updates for the modern test format."
+        }
+      ]
+    },
+    {
+      "id": "vocabulary",
+      "number": 2,
+      "title": "Build Your Vocabulary Base",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "There is no point in diving into endless practice tests until you have a strong vocabulary foundation. The first priority should always be to memorize the most frequently appearing SAT words."
+        },
+        {
+          "type": "p",
+          "text": "Without this baseline, the passages and answer choices will simply be too difficult to comprehend."
+        }
+      ]
+    },
+    {
+      "id": "uds",
+      "number": 3,
+      "title": "Discover Your UDS",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "To find your UDS, take a fresh practice test and complete the reading section untimed while looking up any unknown words. Your goal here is to take as much time as you need to get every single question right. Once finished, calculate your score."
+        },
+        {
+          "type": "callout",
+          "label": "If your UDS is ~800",
+          "text": "You already possess the necessary critical thinking skills. The gap between your actual score and an 800 is strictly due to a lack of vocabulary and speed."
+        },
+        {
+          "type": "callout",
+          "label": "If your UDS is ~600–700",
+          "text": "Vocabulary and timing are not your only hurdles. This indicates a gap in critical thinking, meaning you might be falling for trap answers or misinterpreting the text."
+        }
+      ]
+    },
+    {
+      "id": "five-steps",
+      "number": 4,
+      "title": "The 5-Step Critical Thinking Approach",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "If your UDS is below your target score, you need to actively dissect your thinking process using these five steps. The chapters that follow walk through each one in detail."
+        }
+      ]
+    },
+    {
+      "id": "learning-to-read",
+      "number": 5,
+      "title": "Learning to Read",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Read passages untimed, look up new vocabulary, and force yourself to state the author's main point at the end of each text."
+        }
+      ]
+    },
+    {
+      "id": "learning-to-eliminate",
+      "number": 6,
+      "title": "Learning to Eliminate",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Do not just hunt for the correct answer. Start by crossing out choices that are unrelated, extreme, or unsupported by the text, and verbalize why they are wrong."
+        }
+      ]
+    },
+    {
+      "id": "correction",
+      "number": 7,
+      "title": "Correction",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "When reviewing your practice, star the correct answers on your sheet instead of just putting an 'X' next to the wrong ones. You must look at every question again, regardless of whether you got it right or wrong."
+        }
+      ]
+    },
+    {
+      "id": "reflection",
+      "number": 8,
+      "title": "Reflection",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "This is the most crucial step for growth. If you guessed right, figure out why the other options were incorrect. If you got it wrong, deeply analyze the difference in logic between your answer and the correct one."
+        }
+      ]
+    },
+    {
+      "id": "ramping-up",
+      "number": 9,
+      "title": "Ramping Up",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Once you are highly comfortable with untimed practice and your critical thinking has improved, start timing yourself and put the dictionary away."
+        }
+      ]
+    }
+  ]
+}

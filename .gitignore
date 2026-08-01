@@ -16,9 +16,10 @@ public/data/validation-quarantine.json
 public/data/validation-report.json
 # Third-party article text pulled down by tools/download_college_panda.py.
 # Regenerate locally rather than redistributing someone else's writing.
-content/
+# Anchored: src/content/ is real source and must stay tracked.
+/content/
 # Pre-redesign snapshot of src/ — git history serves the same purpose.
-design-backup-2026-07-31/
+/design-backup-2026-07-31/
 .superpowers/
 .worktrees/
 .claude/

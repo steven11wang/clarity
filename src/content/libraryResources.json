@@ -1,0 +1,27 @@
+[
+  {
+    "title": "Bluebook™ Testing App",
+    "url": "https://bluebook.collegeboard.org/students/download-bluebook",
+    "description": "The College Board's official app is the gold standard for SAT prep. It features six full-length digital exams. Practicing here is the best way to master the digital interface, pacing, and exact question styles you'll see on test day."
+  },
+  {
+    "title": "Nonadaptive SAT® Practice Tests",
+    "url": "https://satsuite.collegeboard.org/practice/practice-tests/paper",
+    "description": "Designed for paper-based testing, these linear exams overlap heavily with Bluebook. However, they include unique, high-difficulty questions worth hunting down. Print them out and tackle them one section at a time. Repetition is key to mastery, so do not stress about repeating questions you have already seen."
+  },
+  {
+    "title": "The College Board's Educator Question Bank",
+    "url": "https://satsuiteeducatorquestionbank.collegeboard.org/",
+    "description": "This database compiles thousands of official questions. Its biggest advantage is the search filter. You can explicitly exclude questions from the Bluebook tests (saving those for full diagnostic runs) and filter by specific topics and difficulty levels to rapidly drill your weak spots."
+  },
+  {
+    "title": "The College Panda",
+    "url": "https://thecollegepanda.com/",
+    "description": "Essential for locking in top-tier scores for highly competitive admissions, especially in Math and Writing. Created by a perfect-scorer, this site skips the basics and focuses on advanced, highly challenging questions. Master these, and the real SAT feels easy. It also offers excellent free tools like score calculators, grammar cheat sheets, and TI-84 shortcuts."
+  },
+  {
+    "title": "Khan Academy",
+    "url": "https://www.khanacademy.org/test-prep/sat",
+    "description": "As the College Board's official partner, Khan Academy is perfect for targeted skill-building. With the August test approaching fast, efficiency matters. Once you identify weak areas using Bluebook or the Question Bank, use Khan Academy's free, adaptive mini-drills to patch those exact knowledge gaps quickly."
+  }
+]
