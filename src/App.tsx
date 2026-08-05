@@ -6,6 +6,7 @@ import {
 } from './components/Adaptive/AdaptiveExperience.tsx'
 import type { BatchAnswers } from './components/Adaptive/BatchQuiz.tsx'
 import { Dashboard } from './components/Dashboard/Dashboard.tsx'
+import { PracticeExamPanel } from './components/Exam/PracticeExamPanel.tsx'
 import { Library } from './components/Library/Library.tsx'
 import { MistakeVault } from './components/Review/MistakeVault.tsx'
 import { AnswerPass } from './components/QuestionInteraction/AnswerPass.tsx'
@@ -37,7 +38,14 @@ import type { Attempt, FirstPass, Question } from './types.ts'
 import './app.css'
 
 type LoadState = 'loading' | 'ready' | 'empty' | 'error'
-type View = 'adaptive' | 'lessons' | 'browse' | 'practice' | 'insights' | 'reviews'
+type View =
+  | 'adaptive'
+  | 'lessons'
+  | 'browse'
+  | 'practice'
+  | 'exam'
+  | 'insights'
+  | 'reviews'
 type SessionPhase = 'answer' | 'review-intro' | 'review' | 'summary'
 
 function App() {
@@ -314,18 +322,21 @@ function App() {
     const primaryView =
       view === 'lessons'
         ? 'lessons'
-        : view === 'reviews'
-          ? 'reviews'
-          : view === 'browse'
-            ? 'library'
-            : view === 'insights'
-              ? 'insights'
-              : 'practice'
+        : view === 'exam'
+          ? 'exam'
+          : view === 'reviews'
+            ? 'reviews'
+            : view === 'browse'
+              ? 'library'
+              : view === 'insights'
+                ? 'insights'
+                : 'practice'
 
     return (
       <>
         <AdaptiveExperience
           primaryView={primaryView}
+          examPanel={<PracticeExamPanel onBack={() => setView('adaptive')} />}
           libraryPanel={(
             <Library
               questions={questions}
@@ -358,6 +369,7 @@ function App() {
           progression={progression}
           onProgressionChange={updateProgression}
           onOpenPractice={() => setView('adaptive')}
+          onOpenExam={() => setView('exam')}
           onOpenLessons={() => setView('lessons')}
           onOpenReviews={() => setView('reviews')}
           onOpenLibrary={() => setView('browse')}

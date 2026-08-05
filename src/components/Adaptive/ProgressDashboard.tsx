@@ -8,6 +8,7 @@ import {
 } from 'react'
 import {
   BookOpen,
+  ClipboardCheck,
   Flag,
   GitMerge,
   GraduationCap,
@@ -44,6 +45,7 @@ export type DomainCardView = {
 
 type ProgressDashboardProps = {
   activeView: PrimaryConsoleView
+  examPanel: ReactNode
   lessonsPanel: ReactNode
   reviewsPanel: ReactNode
   libraryPanel: ReactNode
@@ -53,6 +55,7 @@ type ProgressDashboardProps = {
   onSelectDomain: (domain: SatDomain) => void
   onUpdateScore: () => void
   onOpenPractice: () => void
+  onOpenExam: () => void
   onOpenLessons: () => void
   onOpenReviews: () => void
   onOpenLibrary: () => void
@@ -63,6 +66,7 @@ type ConsoleSelection =
   | { kind: 'today' }
   | { kind: 'domain'; domain: SatDomain }
   | { kind: 'lessons' }
+  | { kind: 'exam' }
   | { kind: 'reviews' }
 
 // One icon family (Lucide) at one stroke weight, instead of Unicode glyphs.
@@ -71,6 +75,7 @@ type ConsoleSelection =
 const TILE_ICON_SIZE = 26
 const TILE_ICONS = [Search, BookOpen, GitMerge, TypeIcon]
 const LESSON_TILE_ACCENT = '#8cb4ff'
+const EXAM_TILE_ACCENT = '#f0b64d'
 const HERO_BACKGROUND_LEAD_MS = 180
 const HERO_TEXT_SETTLE_MS = 320
 
@@ -87,6 +92,7 @@ function buildHero(
   dueCount: number,
   onSelectDomain: (domain: SatDomain) => void,
   onOpenLessons: () => void,
+  onOpenExam: () => void,
   onOpenReviews: () => void,
   onOpenLibrary: () => void,
   setSelection: (selection: ConsoleSelection) => void,
@@ -110,6 +116,15 @@ function buildHero(
       body: 'Four lesson halls, one per domain. Step inside, pick the skill you want to understand, and read the Foundations lesson before the questions come at you.',
       primary: 'Enter classroom',
       primaryAction: onOpenLessons,
+    }
+  }
+  if (selection.kind === 'exam') {
+    return {
+      kicker: 'PRACTICE EXAM · FULL LENGTH',
+      title: 'Sit the whole section, test-day rules.',
+      body: 'Two timed Reading and Writing modules in the same testing app you will face on the day: one question at a time, mark for review, cross out answers, highlight the passage. Scored only when you submit.',
+      primary: 'Open practice exam',
+      primaryAction: onOpenExam,
     }
   }
   if (selection.kind === 'reviews') {
@@ -145,6 +160,7 @@ function buildHero(
 
 export function ProgressDashboard({
   activeView,
+  examPanel,
   lessonsPanel,
   reviewsPanel,
   libraryPanel,
@@ -154,6 +170,7 @@ export function ProgressDashboard({
   onSelectDomain,
   onUpdateScore,
   onOpenPractice,
+  onOpenExam,
   onOpenLessons,
   onOpenReviews,
   onOpenLibrary,
@@ -192,6 +209,7 @@ export function ProgressDashboard({
     dueCount,
     onSelectDomain,
     onOpenLessons,
+    onOpenExam,
     onOpenReviews,
     onOpenLibrary,
     setSelection,
@@ -199,6 +217,7 @@ export function ProgressDashboard({
     cards,
     dueCount,
     heroSelection,
+    onOpenExam,
     onOpenLessons,
     onOpenLibrary,
     onOpenReviews,
@@ -260,6 +279,13 @@ export function ProgressDashboard({
       game: true,
       accent: LESSON_TILE_ACCENT,
     },
+    {
+      label: 'Practice exam',
+      Mark: ClipboardCheck,
+      selection: { kind: 'exam' },
+      game: true,
+      accent: EXAM_TILE_ACCENT,
+    },
     { label: 'Due reviews', Mark: RotateCcw, selection: { kind: 'reviews' }, game: false },
   ]
 
@@ -307,9 +333,15 @@ export function ProgressDashboard({
         </button>
         <nav className="console-nav" aria-label="Main navigation">
           <button
-            className={activeView === 'practice' ? 'console-nav__active' : undefined}
+            className={
+              activeView === 'practice' || activeView === 'exam'
+                ? 'console-nav__active'
+                : undefined
+            }
             type="button"
-            aria-current={activeView === 'practice' ? 'page' : undefined}
+            aria-current={
+              activeView === 'practice' || activeView === 'exam' ? 'page' : undefined
+            }
             onClick={() => {
               setSelection({ kind: 'today' })
               onOpenPractice()
@@ -539,6 +571,7 @@ export function ProgressDashboard({
       </section>
             </>
           ),
+          exam: examPanel,
           lessons: lessonsPanel,
           reviews: reviewsPanel,
           library: libraryPanel,

@@ -38,6 +38,7 @@ const container = dom.window.document.getElementById('root')!
 const root = createRoot(container)
 const panels = {
   practice: createElement('p', null, 'Practice panel'),
+  exam: createElement('p', null, 'Exam panel'),
   lessons: createElement('p', null, 'Lessons panel'),
   reviews: createElement('p', null, 'Reviews panel'),
   library: createElement('p', null, 'Library panel'),
@@ -136,6 +137,7 @@ describe('persistent console shell', () => {
       await act(async () => {
         shellRoot.render(createElement(ProgressDashboard, {
           activeView,
+          examPanel: createElement('p', null, 'Embedded exam'),
           lessonsPanel: createElement('p', null, 'Embedded lessons'),
           reviewsPanel: createElement('p', null, 'Embedded reviews'),
           libraryPanel: createElement('p', null, 'Embedded library'),
@@ -144,6 +146,7 @@ describe('persistent console shell', () => {
           onSelectDomain: () => {},
           onUpdateScore: () => {},
           onOpenPractice: () => {},
+          onOpenExam: () => {},
           onOpenLessons: () => {},
           onOpenReviews: () => {},
           onOpenLibrary: () => {},
@@ -219,6 +222,7 @@ describe('persistent console shell', () => {
     await act(async () => {
       reviewRoot.render(createElement(ProgressDashboard, {
         activeView: 'practice',
+        examPanel: createElement('p'),
         lessonsPanel: createElement('p'),
         reviewsPanel: createElement('p'),
         libraryPanel: createElement('p'),
@@ -227,6 +231,7 @@ describe('persistent console shell', () => {
         onSelectDomain: () => {},
         onUpdateScore: () => {},
         onOpenPractice: () => {},
+        onOpenExam: () => {},
         onOpenLessons: () => {},
         onOpenReviews: () => {},
         onOpenLibrary: () => {},
@@ -269,6 +274,7 @@ describe('persistent console shell', () => {
     await act(async () => {
       heroRoot.render(createElement(ProgressDashboard, {
         activeView: 'practice',
+        examPanel: createElement('p'),
         lessonsPanel: createElement('p'),
         reviewsPanel: createElement('p', null, 'Embedded vault'),
         libraryPanel: createElement('p'),
@@ -278,6 +284,7 @@ describe('persistent console shell', () => {
         onSelectDomain: () => {},
         onUpdateScore: () => {},
         onOpenPractice: () => {},
+        onOpenExam: () => {},
         onOpenLessons: () => {},
         onOpenReviews: () => { reviewsOpened += 1 },
         onOpenLibrary: () => { libraryOpened += 1 },

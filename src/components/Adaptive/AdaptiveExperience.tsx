@@ -67,6 +67,7 @@ export type AdaptiveAttemptReference = {
 
 type AdaptiveExperienceProps = {
   primaryView: PrimaryConsoleView
+  examPanel: ReactNode
   reviewsPanel: ReactNode
   libraryPanel: ReactNode
   insightsPanel: ReactNode
@@ -75,6 +76,7 @@ type AdaptiveExperienceProps = {
   progression: ProgressionState | null
   onProgressionChange: (state: ProgressionState) => void
   onOpenPractice: () => void
+  onOpenExam: () => void
   onOpenLessons: () => void
   onOpenReviews: () => void
   onOpenLibrary: () => void
@@ -142,6 +144,7 @@ type ContentFailure = {
 
 export function AdaptiveExperience({
   primaryView,
+  examPanel,
   reviewsPanel,
   libraryPanel,
   insightsPanel,
@@ -150,6 +153,7 @@ export function AdaptiveExperience({
   progression,
   onProgressionChange,
   onOpenPractice,
+  onOpenExam,
   onOpenLessons,
   onOpenReviews,
   onOpenLibrary,
@@ -1047,6 +1051,7 @@ export function AdaptiveExperience({
   return (
     <ProgressDashboard
       activeView={shellActiveView}
+      examPanel={examPanel}
       lessonsPanel={lessonsPanel}
       reviewsPanel={reviewsPanel}
       libraryPanel={libraryPanel}
@@ -1056,6 +1061,7 @@ export function AdaptiveExperience({
       onSelectDomain={chooseDomain}
       onUpdateScore={() => setIsUpdatingScore(true)}
       onOpenPractice={() => openPrimaryView(onOpenPractice)}
+      onOpenExam={() => openPrimaryView(onOpenExam)}
       onOpenLessons={() => openPrimaryView(onOpenLessons)}
       onOpenReviews={() => openPrimaryView(onOpenReviews)}
       onOpenLibrary={() => openPrimaryView(onOpenLibrary)}
