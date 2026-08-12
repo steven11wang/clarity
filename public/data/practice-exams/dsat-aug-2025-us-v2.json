@@ -1,0 +1,2285 @@
+{
+  "id": "dsat-aug-2025-us-v2",
+  "title": "Digital SAT August 2025 · US",
+  "section": "Section 1",
+  "subject": "Reading and Writing",
+  "answerKeySource": "derived",
+  "assetBase": "dsat-aug-2025-us-v2-assets",
+  "modules": [
+    {
+      "id": "module-1",
+      "number": 1,
+      "subject": "Reading and Writing",
+      "label": "Module 1",
+      "durationSeconds": 1920,
+      "questions": [
+        {
+          "id": "module-1-q1",
+          "number": 1,
+          "passage": [
+            "The chili pepper was domesticated in Mexico. It differs physically from the wild plant it is descended from. In terms of physical structure, summer squash also differs from its wild ancestor. Summer squash is known for its soft rind and mild-tasting flesh. Yet its ancestor, the wild Johnny gourd, ______ a hard rind and bitter flesh."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "assists"
+            },
+            {
+              "letter": "B",
+              "text": "refuses"
+            },
+            {
+              "letter": "C",
+              "text": "requests"
+            },
+            {
+              "letter": "D",
+              "text": "possesses"
+            }
+          ],
+          "answer": "D",
+          "topic": "Craft and Structure",
+          "subtopic": "Words in Context",
+          "difficulty": "easy",
+          "explanation": {
+            "summary": "Summer squash has a soft rind and mild flesh; \"yet\" its wild ancestor has a hard rind and bitter flesh. The blank is doing nothing more than \"has.\"",
+            "choices": {
+              "A": "Assists takes someone being helped, not a list of features.",
+              "B": "A gourd cannot refuse a rind.",
+              "C": "Requests makes no sense of physical traits a plant simply has.",
+              "D": "Correct. Possesses is the plain \"has\" the contrast calls for."
+            }
+          }
+        },
+        {
+          "id": "module-1-q2",
+          "number": 2,
+          "passage": [
+            "The Apollo Moon landings (1969–1972) brought radiation detectors and lunar dust detectors to the Moon and produced large amounts of data, much of which was stored on technologies that are now obsolete. A data-transfer project is working to ______ these data so that the information is available to researcher Philip Metzger, who is investigating the long-term effects of being on the Moon."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "amend"
+            },
+            {
+              "letter": "B",
+              "text": "improve"
+            },
+            {
+              "letter": "C",
+              "text": "simplify"
+            },
+            {
+              "letter": "D",
+              "text": "salvage"
+            }
+          ],
+          "answer": "D",
+          "topic": "Craft and Structure",
+          "subtopic": "Words in Context",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The data sit on obsolete technology, and the project is working to get them into Metzger’s hands. The blank is about rescuing them from that state.",
+            "choices": {
+              "A": "Amend means correct. The data are not wrong, only stranded.",
+              "B": "Improve does not describe rescuing files from dead formats.",
+              "C": "Simplify has nothing to do with obsolete storage.",
+              "D": "Correct. Salvage is recovering something that would otherwise be lost."
+            }
+          }
+        },
+        {
+          "id": "module-1-q3",
+          "number": 3,
+          "passage": [
+            "New and interesting research conducted by Suleiman A. Al-Sweedan and Moath Alhaj is inspired by their observation that though studies of the effect of high altitude on blood chemistry are ______, the effect on blood chemistry of living in locations below sea level, such as the California towns of Niland and Imperial, has received comparatively little notice."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "equivocal"
+            },
+            {
+              "letter": "B",
+              "text": "copious"
+            },
+            {
+              "letter": "C",
+              "text": "sporadic"
+            },
+            {
+              "letter": "D",
+              "text": "preliminary"
+            }
+          ],
+          "answer": "B",
+          "topic": "Craft and Structure",
+          "subtopic": "Words in Context",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "\"Though\" sets two bodies of research against each other, and the below-sea-level side \"has received comparatively little notice.\" The blank has to be the plentiful side.",
+            "choices": {
+              "A": "Equivocal means ambiguous, which gives no contrast with \"little notice.\"",
+              "B": "Correct. Copious high-altitude studies against comparatively little notice is the contrast \"though\" sets up.",
+              "C": "Sporadic means scattered — the same side as \"little notice,\" so nothing is contrasted.",
+              "D": "Preliminary describes how far along research is, not how much of it there is."
+            }
+          }
+        },
+        {
+          "id": "module-1-q4",
+          "number": 4,
+          "passage": [
+            "In the architectural process called modular construction, a building is manufactured in modules under controlled conditions and then assembled at its intended location. ______ of this approach cite fewer weather delays and a greater potential for reuse and recycling."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Proponents"
+            },
+            {
+              "letter": "B",
+              "text": "Components"
+            },
+            {
+              "letter": "C",
+              "text": "Epitomes"
+            },
+            {
+              "letter": "D",
+              "text": "Safeguards"
+            }
+          ],
+          "answer": "A",
+          "topic": "Craft and Structure",
+          "subtopic": "Words in Context",
+          "difficulty": "easy",
+          "explanation": {
+            "summary": "The blank is the subject of \"cite fewer weather delays and a greater potential for reuse and recycling\" — the people making the case for modular construction.",
+            "choices": {
+              "A": "Correct. Proponents argue for something, and citing advantages is what they do.",
+              "B": "Components are parts of a thing, and parts cannot cite anything.",
+              "C": "An epitome is a perfect example, not a person who makes arguments.",
+              "D": "Safeguards are protections, not advocates."
+            }
+          }
+        },
+        {
+          "id": "module-1-q5",
+          "number": 5,
+          "passage": [
+            "Land art, or earth art, is characterized by its large scale and the fact that it’s often placed in remote or surprising locations. Land art is also notable for the wildly diverse ways in which it is created: Robert Smithson’s Spiral Jetty, for instance, was created by arranging rocks in a large spiral in Utah’s Great Salt Lake, whereas for Circular Surface Planar Displacement Drawing, Michael Heizer made lines in a desert lake bed by driving a motorcycle in certain patterns."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice best describes the overall structure of the text?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "The text outlines a common misconception about a kind of art, then offers an explanation for why that misconception persists."
+            },
+            {
+              "letter": "B",
+              "text": "The text compares two works of art, then provides details about the lives of the artists who created them."
+            },
+            {
+              "letter": "C",
+              "text": "The text conveys a definition of a kind of art, then addresses a well-established criticism of the art."
+            },
+            {
+              "letter": "D",
+              "text": "The text describes a particular genre of art, then cites examples illustrating an important characteristic of that genre."
+            }
+          ],
+          "answer": "D",
+          "topic": "Craft and Structure",
+          "subtopic": "Text Structure and Purpose",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The first sentence defines land art; the rest gives Spiral Jetty and the motorcycle drawing to show the \"wildly diverse ways\" it gets made.",
+            "choices": {
+              "A": "No misconception is raised.",
+              "B": "The artists’ lives are never discussed.",
+              "C": "No criticism of the art is addressed.",
+              "D": "Correct. Genre described, then examples illustrating one important characteristic of it."
+            }
+          }
+        },
+        {
+          "id": "module-1-q6",
+          "number": 6,
+          "passage": [
+            "Fossil evidence indicates that the End-Triassic mass extinction—the relatively sudden die-off of about 80 percent of species (including many species of dinosaurs)—occurred approximately 201 million years ago. Researchers have identified the effects of volcanic activity as a possible initial cause of this mass extinction. But mass extinctions, <u>while abrupt in geological terms,</u> unfold over thousands or millions of years: it’s likely that multiple factors drove extensive species loss."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice best states the function of the underlined portion in the text as a whole?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "It expands on the uncertainty mentioned earlier regarding the pace of extinction of species of dinosaurs relative to that of other species."
+            },
+            {
+              "letter": "B",
+              "text": "It offers support for an earlier claim about the primary cause of a mass extinction that is then qualified by the information that follows."
+            },
+            {
+              "letter": "C",
+              "text": "It emphasizes that a question about the beginning of a mass extinction raised by the researchers mentioned earlier is still unresolved."
+            },
+            {
+              "letter": "D",
+              "text": "It concedes that the pace of mass extinctions as described in the information that follows is perceived differently when considered from another point of view."
+            }
+          ],
+          "answer": "D",
+          "topic": "Craft and Structure",
+          "subtopic": "Text Structure and Purpose",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "The main clause says mass extinctions \"unfold over thousands or millions of years.\" The underlined aside grants, before that, that geologists still call them abrupt.",
+            "choices": {
+              "A": "No uncertainty about how fast dinosaurs died out was raised earlier.",
+              "B": "It does not support the volcanic-cause claim; it qualifies the word \"sudden.\"",
+              "C": "No unresolved question about the beginning of the extinction is raised.",
+              "D": "Correct. It concedes that the slow pace described after it looks abrupt from the geological point of view."
+            }
+          }
+        },
+        {
+          "id": "module-1-q7",
+          "number": 7,
+          "passage": [
+            "Dust aboard the International Space Station (ISS) contains many microbes common in dust on Earth, and scientists found that the levels of Aspergillus sydowii fungal spores and Lactobacillus helveticus bacteria in ISS dust were not concerning when relative humidity (RH) was kept within the ISS’s standard range (25%–75%). When exposed to constant RH of 85% and above (which can happen where handwashing occurs), however, these microbial populations expanded rapidly."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice best states the main purpose of the text?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "To describe an effect of RH on the growth of one fungal species and one bacterial species in ISS dust"
+            },
+            {
+              "letter": "B",
+              "text": "To explain why RH on the ISS can reach levels high enough to promote bacterial and fungal growth"
+            },
+            {
+              "letter": "C",
+              "text": "To outline the methods the ISS crew uses to monitor RH levels and microbial growth aboard the ISS"
+            },
+            {
+              "letter": "D",
+              "text": "To demonstrate that A. sydowii and L. helveticus respond differently to elevated RH conditions aboard the ISS than they do on Earth"
+            }
+          ],
+          "answer": "A",
+          "topic": "Craft and Structure",
+          "subtopic": "Text Structure and Purpose",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "One finding, stated in two halves: the two microbes stay unconcerning inside the ISS’s standard humidity range, and expand rapidly at constant RH of 85 percent and above.",
+            "choices": {
+              "A": "Correct. The effect of RH on those two species in ISS dust is the entire content of the text.",
+              "B": "Handwashing is mentioned in passing; the text does not set out to explain why RH rises.",
+              "C": "No monitoring methods are described.",
+              "D": "Earth comes up only to say the microbes are common in dust there. No different response is shown."
+            }
+          }
+        },
+        {
+          "id": "module-1-q8",
+          "number": 8,
+          "passage": [
+            "The following text is from Yung Wing’s 1909 memoir My Life in China and America.",
+            "We landed in New York on the 12th of April, 1847, after a passage of ninety-eight days of unprecedented fair weather. The New York of 1847 was altogether a different city from the New York of 1909. It was a city of only 250,000 or 300,000 inhabitants; now it is a metropolis rivaling London in population, wealth and commerce. The whole of Manhattan Island is turned into a city of skyscrapers, churches and palatial residences."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice best states the main idea of the text?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "The journey to New York City was extremely demanding for Yung."
+            },
+            {
+              "letter": "B",
+              "text": "New York City has become more developed and populated since Yung’s arrival in 1847."
+            },
+            {
+              "letter": "C",
+              "text": "The architecture in New York City is more beautiful than that in London."
+            },
+            {
+              "letter": "D",
+              "text": "Yung has experienced significant personal growth in the time since his arrival to New York City in 1847."
+            }
+          ],
+          "answer": "B",
+          "topic": "Information and Ideas",
+          "subtopic": "Central Ideas and Details",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "Yung sets 1847 against 1909: a city of 250,000 or 300,000 then, a metropolis rivaling London now, with Manhattan turned into skyscrapers and palatial residences.",
+            "choices": {
+              "A": "He calls the passage ninety-eight days of \"unprecedented fair weather.\"",
+              "B": "Correct. Growth in population and development since 1847 is the whole comparison.",
+              "C": "London is the yardstick for population, wealth, and commerce, not beauty.",
+              "D": "No personal growth is described."
+            }
+          }
+        },
+        {
+          "id": "module-1-q9",
+          "number": 9,
+          "passage": [
+            "Pollination syndromes are suites of floral traits that have independently evolved as a result of selection pressure exerted by pollinators; psychophilous (butterfly-pollinated) flowers, for example, frequently exhibit a narrow, tubular shape. In a review of previous studies covering 417 plant species, Victor Rosas-Guerrero et al. concluded that the syndromes reliably predict angiosperms’ most effective pollinators. However, in a response paper, Jeff Ollerton et al. note that RosasGuerrero et al. may have inadvertently excluded studies published before the term “pollinator effectiveness” came into common use."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "What does the text most strongly suggest about the study conducted by Rosas-Guerrero et al.?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Because the study contained data on a limited number of plant species, its conclusion is accurate for those species but cannot be applied to species not in the study."
+            },
+            {
+              "letter": "B",
+              "text": "A limitation in the methodology used by the researchers may entail that the study’s conclusion is not well supported."
+            },
+            {
+              "letter": "C",
+              "text": "Due to the difficulty of gathering representative research on angiosperms, the study may have included previous research with a focus too heterogeneous to be comparable."
+            },
+            {
+              "letter": "D",
+              "text": "The approach selected by the researchers enabled them to sort through and remove obviously incomplete or inconsistent data before conducting their analysis."
+            }
+          ],
+          "answer": "B",
+          "topic": "Information and Ideas",
+          "subtopic": "Inferences",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "Ollerton et al. point out that the review may have inadvertently excluded studies published before \"pollinator effectiveness\" came into common use. That is a flaw in how the evidence was gathered.",
+            "choices": {
+              "A": "The review covered 417 species. The objection is about studies missed, not species missing.",
+              "B": "Correct. An inadvertent exclusion is a methodological limitation, and it leaves the conclusion less well supported.",
+              "C": "The objection is that studies were left out, not that mismatched ones were let in.",
+              "D": "The exclusion is described as inadvertent, not as deliberate screening."
+            }
+          }
+        },
+        {
+          "id": "module-1-q10",
+          "number": 10,
+          "passage": [
+            "The US Department of Agriculture’s Fruit and Tree Nuts Outlook is a document that covers a variety of subjects, from the influence of changing climate on agricultural production to the effect of stinkbug damage on pear crops. A student studying agricultural economics is consulting a graph in the document that shows the prices for which several types of nuts have been sold by growers in the United States over four growing seasons from 2016 to 2020. The student wishes to determine in which season walnuts reached their lowest price. Consulting the graph, the student finds that this season was the ______"
+          ],
+          "figure": {
+            "alt": "Question 10 graphic",
+            "src": "dsat-aug-2025-us-v2-assets/question-10-graph.svg"
+          },
+          "table": null,
+          "stem": "Which choice most effectively uses data from the graph to complete the statement?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "2016/17 season."
+            },
+            {
+              "letter": "B",
+              "text": "2017/18 season."
+            },
+            {
+              "letter": "C",
+              "text": "2019/20 season."
+            },
+            {
+              "letter": "D",
+              "text": "2018/19 season."
+            }
+          ],
+          "answer": "D",
+          "topic": "Information and Ideas",
+          "subtopic": "Command of Evidence",
+          "difficulty": "easy",
+          "explanation": {
+            "summary": "Follow the walnut series across the four seasons and find its low point. It falls in 2018/19.",
+            "choices": {
+              "A": "Walnuts sit higher in 2016/17.",
+              "B": "This is where the walnut series peaks, not bottoms out.",
+              "C": "Close to the 2016/17 level, still above the 2018/19 low.",
+              "D": "Correct. The walnut series reaches its lowest price in the 2018/19 season."
+            }
+          }
+        },
+        {
+          "id": "module-1-q11",
+          "number": 11,
+          "passage": [
+            "Peter Pan is a 1911 novel by J.M. Barrie. In the fantasy novel, a dog named Nana is a nurse (nanny) for the children in the Darling family— Wendy, John, and Michael. The narrator describes Nana as planning for events like a human would: ______"
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which quotation from Peter Pan best illustrates the claim?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "“The Darlings had become acquainted with [Nana] in Kensington Gardens.”"
+            },
+            {
+              "letter": "B",
+              "text": "“On John’s [soccer] days [Nana] never once forgot his sweater, and she usually carried an umbrella in her mouth in case of rain.”"
+            },
+            {
+              "letter": "C",
+              "text": "“Mrs. Darling loved to have everything just so, and Mr. Darling had a passion for being exactly like his neighbours.”"
+            },
+            {
+              "letter": "D",
+              "text": "“While [Mrs. Darling] slept she had a dream.”"
+            }
+          ],
+          "answer": "B",
+          "topic": "Information and Ideas",
+          "subtopic": "Command of Evidence",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The claim is that Nana plans for events the way a person would, so the quotation has to show her preparing in advance.",
+            "choices": {
+              "A": "How the Darlings came to know her.",
+              "B": "Correct. Remembering the sweater on match days and carrying an umbrella \"in case of rain\" is planning ahead.",
+              "C": "About Mr. and Mrs. Darling, not Nana.",
+              "D": "About Mrs. Darling’s dream."
+            }
+          }
+        },
+        {
+          "id": "module-1-q12",
+          "number": 12,
+          "passage": [
+            "Lin-Tai Ho and colleagues counted fish in a tide pool in Taiwan at several times during the year and found that some species had a significantly higher maximum population count than others. For example, the highest count for the combtooth blenny was 62 individuals in January of 2001, whereas the highest count for the three-lined rainbowfish was ______"
+          ],
+          "figure": {
+            "alt": "Question 12 graphic",
+            "src": "dsat-aug-2025-us-v2-assets/question-12-graph.svg"
+          },
+          "table": null,
+          "stem": "Which choice most effectively uses data from the graph to complete the example?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "16 individuals in October of 2001."
+            },
+            {
+              "letter": "B",
+              "text": "3 individuals in October of 2001."
+            },
+            {
+              "letter": "C",
+              "text": "72 individuals in January of 2001."
+            },
+            {
+              "letter": "D",
+              "text": "13 individuals in October of 2001."
+            }
+          ],
+          "answer": "B",
+          "topic": "Information and Ideas",
+          "subtopic": "Command of Evidence",
+          "difficulty": "easy",
+          "explanation": {
+            "summary": "The sentence needs the highest count for the three-lined rainbowfish. That series runs along the bottom of the graph and reaches its peak in October, at about 3.",
+            "choices": {
+              "A": "Sixteen matches no point on the rainbowfish series.",
+              "B": "Correct. The rainbowfish series sits near zero until October, where it peaks at about 3.",
+              "C": "Seventy-two is above even the blenny’s January peak of 62, and it is not the rainbowfish.",
+              "D": "About 13 in October is the barred flagtail, a different series."
+            }
+          }
+        },
+        {
+          "id": "module-1-q13",
+          "number": 13,
+          "passage": [
+            "Twinflower (Linnaea borealis) plants are native to Alaska, where harsh conditions have historically impeded potential invasive species. As the boreal climate has warmed in recent decades, however, narrowleaf hawksbeard (Crepis tectorum) plants have established themselves in Alaska. It has been suggested that warming-induced delays in the onset of subfreezing temperatures in autumn can benefit invasives more than native species; to evaluate this possibility, biologists Christa Mulder and Katie Spellman tracked L. borealis and C. tectorum, along with other native and invasive species, over several years, concluding that invasives are advantaged by delays in subfreezing temperature onset in Alaska."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which finding, if true, would most directly support Mulder and Spellman’s conclusion?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Although L. borealis and C. tectorum both tended to produce more leaves overall in years with late subfreezing temperature onset than they did in years with historically typical temperature patterns, the years with late subfreezing temperature onset also had early growing season onset in spring."
+            },
+            {
+              "letter": "B",
+              "text": "Although significant interannual variations in subfreezing temperature onset were observed during the study, neither C. tectorum nor L. borealis showed any significant interannual variation in the cessation of leaf production."
+            },
+            {
+              "letter": "C",
+              "text": "Although L. borealis and C. tectorum tended to stop producing leaves at about the same time in years with historically typical temperature patterns, C. tectorum stopped producing leaves sooner than L. borealis did in years with late subfreezing temperature onset."
+            },
+            {
+              "letter": "D",
+              "text": "Although L. borealis and C. tectorum both tended to produce leaves later into autumn in years with late subfreezing temperature onset, the extension was much greater for C. tectorum than for L. borealis."
+            }
+          ],
+          "answer": "D",
+          "topic": "Information and Ideas",
+          "subtopic": "Command of Evidence",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "The conclusion is that late subfreezing onset favours invasives over natives. Support has to show the invasive gaining more from the delay than the native does.",
+            "choices": {
+              "A": "Both producing more leaves, with early spring onset as a confound, does not separate invasive from native.",
+              "B": "No difference between them at all would leave the conclusion unsupported.",
+              "C": "The invasive stopping sooner would mean it gained less from the delay, not more.",
+              "D": "Correct. Both extend leaf production, but the invasive C. tectorum extends much further — that is the advantage claimed."
+            }
+          }
+        },
+        {
+          "id": "module-1-q14",
+          "number": 14,
+          "passage": [
+            "India has classified the spiraling whitefly as an invasive species that could harm some of the country’s native species. But researchers Alejandro Camacho and Jason McLachlan have pointed out that “invasive” and “native” are labels that describe temporary circumstances. Changes in Earth’s climate may force animals from their current ranges. Climate changes may also create good habitats in areas where a species couldn’t live previously. These observations suggest that ______"
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice most logically completes the text?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "changes in Earth’s climate are likely to result in the spiraling whitefly establishing itself as a native species in locations other than India."
+            },
+            {
+              "letter": "B",
+              "text": "India was previously home to some spiraling whiteflies but they were outcompeted by invading species."
+            },
+            {
+              "letter": "C",
+              "text": "it’s appropriate for India to designate certain species as invasive but the country should designate the spiraling whitefly as native."
+            },
+            {
+              "letter": "D",
+              "text": "India may eventually need to reexamine its designation of the spiraling whitefly as invasive."
+            }
+          ],
+          "answer": "D",
+          "topic": "Information and Ideas",
+          "subtopic": "Inferences",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "Camacho and McLachlan call \"invasive\" and \"native\" labels for temporary circumstances, and climate change moves species ranges. The conclusion has to be about the label, not the insect.",
+            "choices": {
+              "A": "The text says ranges shift; it does not predict where the whitefly ends up native.",
+              "B": "No earlier whitefly population in India is mentioned.",
+              "C": "Nothing says the whitefly should be called native now.",
+              "D": "Correct. If the labels describe temporary circumstances, India may have to revisit this one."
+            }
+          }
+        },
+        {
+          "id": "module-1-q15",
+          "number": 15,
+          "passage": [
+            "Many ranching terms come from Spanish. For example, the word “hackamore” (a halter) ______ from the Spanish word jáquima, and “rodeo” (a roundup) derives from rodear. This is because the first Anglo, African, and Native American cattle ranchers in the southwestern US learned the trade from Spanish-speaking Mexican vaqueros, or cowboys."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "were deriving"
+            },
+            {
+              "letter": "B",
+              "text": "derives"
+            },
+            {
+              "letter": "C",
+              "text": "derive"
+            },
+            {
+              "letter": "D",
+              "text": "have derived"
+            }
+          ],
+          "answer": "B",
+          "topic": "Standard English Conventions",
+          "subtopic": "Form, Structure, and Sense",
+          "difficulty": "easy",
+          "explanation": {
+            "summary": "The subject is the singular \"the word ‘hackamore,’\" and the parallel verb later in the sentence is \"derives.\"",
+            "choices": {
+              "A": "Past progressive, and plural.",
+              "B": "Correct. Singular subject, present tense, matching \"rodeo ... derives from rodear.\"",
+              "C": "Plural, so it does not agree with \"the word.\"",
+              "D": "Present perfect and plural."
+            }
+          }
+        },
+        {
+          "id": "module-1-q16",
+          "number": 16,
+          "passage": [
+            "A preserved specimen of the marine protist G. ungulata collected from the Caribbean has been identified as the species holotype, a term ______ that this specimen serves as the basis for all formal scientific descriptions of the species."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "indicated"
+            },
+            {
+              "letter": "B",
+              "text": "has indicated"
+            },
+            {
+              "letter": "C",
+              "text": "indicating"
+            },
+            {
+              "letter": "D",
+              "text": "is indicating"
+            }
+          ],
+          "answer": "C",
+          "topic": "Standard English Conventions",
+          "subtopic": "Form, Structure, and Sense",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The sentence already has its verb, \"has been identified.\" The blank modifies \"a term,\" so it takes a participle.",
+            "choices": {
+              "A": "A finite verb with no clause to head.",
+              "B": "Same problem in the present perfect.",
+              "C": "Correct. \"A term indicating that this specimen serves as the basis ...\" modifies the noun in front of it.",
+              "D": "Another finite verb."
+            }
+          }
+        },
+        {
+          "id": "module-1-q17",
+          "number": 17,
+          "passage": [
+            "Debuting in 1982, Children’s Art: Traveling Through the Imagination is just one of the ______ that have been curated by the staff of the San Francisco International Airport."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "hundred’s of exhibits"
+            },
+            {
+              "letter": "B",
+              "text": "hundreds of exhibits"
+            },
+            {
+              "letter": "C",
+              "text": "hundreds of exhibit’s"
+            },
+            {
+              "letter": "D",
+              "text": "hundreds of exhibits’"
+            }
+          ],
+          "answer": "B",
+          "topic": "Standard English Conventions",
+          "subtopic": "Form, Structure, and Sense",
+          "difficulty": "easy",
+          "explanation": {
+            "summary": "Nothing in the phrase owns anything. \"Hundreds of exhibits\" is two plain plurals.",
+            "choices": {
+              "A": "\"Hundred’s\" is a possessive where a plural belongs.",
+              "B": "Correct. Both nouns plural, no apostrophes.",
+              "C": "\"Exhibit’s\" is possessive with nothing owned.",
+              "D": "\"Exhibits’\" is a plural possessive with nothing owned."
+            }
+          }
+        },
+        {
+          "id": "module-1-q18",
+          "number": 18,
+          "passage": [
+            "After touching down on Mars on September 3, 1976, the Viking 2 lander spent almost four years exploring the geology of the red planet, including its many ______ To aid in communication, scientists gave informal names like Doc and Plymouth to some of the smaller yet notable rocks discovered."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "craters and rock’s."
+            },
+            {
+              "letter": "B",
+              "text": "crater’s and rocks."
+            },
+            {
+              "letter": "C",
+              "text": "crater’s and rock’s."
+            },
+            {
+              "letter": "D",
+              "text": "craters and rocks."
+            }
+          ],
+          "answer": "D",
+          "topic": "Standard English Conventions",
+          "subtopic": "Form, Structure, and Sense",
+          "difficulty": "easy",
+          "explanation": {
+            "summary": "The lander explored the geology \"including its many craters and rocks.\" Both are plain plurals, and neither owns anything.",
+            "choices": {
+              "A": "\"Rock’s\" is possessive.",
+              "B": "\"Crater’s\" is possessive.",
+              "C": "Both are possessive.",
+              "D": "Correct. Two plain plurals."
+            }
+          }
+        },
+        {
+          "id": "module-1-q19",
+          "number": 19,
+          "passage": [
+            "Leptoptilos dubius, also known as the greater ______ can be found in places like the Inner Gulf of Thailand and Stung Kampong Smach in Cambodia, but more than 80 percent of this endangered stork species is found in Assam, India. There, wildlife biologist Dr. Purnima Devi Barman is on the front lines of a conservation effort that aims to bring adjutants back from near extinction."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "adjutant,"
+            },
+            {
+              "letter": "B",
+              "text": "adjutant;"
+            },
+            {
+              "letter": "C",
+              "text": "adjutant"
+            },
+            {
+              "letter": "D",
+              "text": "adjutant—"
+            }
+          ],
+          "answer": "A",
+          "topic": "Standard English Conventions",
+          "subtopic": "Boundaries",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "\"Also known as the greater adjutant\" is a nonrestrictive appositive, and the comma after \"dubius\" already opened it. It has to be closed the same way.",
+            "choices": {
+              "A": "Correct. The closing comma matches the opening one.",
+              "B": "A semicolon cannot close an appositive that a comma opened.",
+              "C": "With no closing mark, the appositive runs straight into the verb.",
+              "D": "A dash cannot pair with an opening comma."
+            }
+          }
+        },
+        {
+          "id": "module-1-q20",
+          "number": 20,
+          "passage": [
+            "In July 2021, consumer goods cost less in Latvia than in ______ to data from the Organisation for Economic Co-operation and Development. A set of consumer goods priced at 100 US dollars (USD) in the United States would cost 66 USD in Latvia but 112 USD in Ireland."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Ireland, and according"
+            },
+            {
+              "letter": "B",
+              "text": "Ireland, according"
+            },
+            {
+              "letter": "C",
+              "text": "Ireland. According"
+            },
+            {
+              "letter": "D",
+              "text": "Ireland; according"
+            }
+          ],
+          "answer": "B",
+          "topic": "Standard English Conventions",
+          "subtopic": "Boundaries",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "\"According to data from the Organisation for Economic Co-operation and Development\" is a modifying phrase, not a clause, so a comma attaches it.",
+            "choices": {
+              "A": "\"And\" adds a coordinating conjunction with nothing to coordinate.",
+              "B": "Correct. Comma, then the attributing phrase.",
+              "C": "A full stop leaves \"According to data ...\" as a fragment.",
+              "D": "A semicolon needs an independent clause after it."
+            }
+          }
+        },
+        {
+          "id": "module-1-q21",
+          "number": 21,
+          "passage": [
+            "Broadcasting from the Yakama Nation’s lands in central Washington, the Native-run radio station KYNR 1490 AM does much to serve the local Sahaptin-speaking community. ______ it broadcasts local news and music as well as programming in the Sahaptin language."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical transition?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Nevertheless,"
+            },
+            {
+              "letter": "B",
+              "text": "As a result,"
+            },
+            {
+              "letter": "C",
+              "text": "Instead,"
+            },
+            {
+              "letter": "D",
+              "text": "Specifically,"
+            }
+          ],
+          "answer": "D",
+          "topic": "Expression of Ideas",
+          "subtopic": "Transitions",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The first sentence says the station \"does much to serve\" the community. The second says what that consists of — local news, music, Sahaptin-language programming.",
+            "choices": {
+              "A": "Nothing is being conceded.",
+              "B": "The programming is the service itself, not a result of it.",
+              "C": "Nothing is being replaced.",
+              "D": "Correct. \"Specifically\" introduces the detail behind the general claim."
+            }
+          }
+        },
+        {
+          "id": "module-1-q22",
+          "number": 22,
+          "passage": [
+            "From mountains to monuments, deserts to rainforests, and isolated islands to teeming cities, the sites on UNESCO’s World Heritage List are chosen because they hold cultural or natural value that the organization wishes to preserve for future generations. ______ in 2010, UNESCO recognized the importance of Kiribati’s Phoenix Islands Protected Area, home to one of the world’s largest oceanic coral ecosystems, by adding it to the list as a natural heritage site."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical transition?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Accordingly,"
+            },
+            {
+              "letter": "B",
+              "text": "In other words,"
+            },
+            {
+              "letter": "C",
+              "text": "Next,"
+            },
+            {
+              "letter": "D",
+              "text": "By contrast,"
+            }
+          ],
+          "answer": "A",
+          "topic": "Expression of Ideas",
+          "subtopic": "Transitions",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "Sites make the list because they hold cultural or natural value UNESCO wants preserved. The Phoenix Islands, with one of the largest oceanic coral ecosystems, were added for exactly that reason.",
+            "choices": {
+              "A": "Correct. \"Accordingly\" carries the criterion into the case that meets it.",
+              "B": "\"In other words\" restates; this applies the rule instead.",
+              "C": "\"Next\" implies a sequence of steps.",
+              "D": "\"By contrast\" would set the Phoenix Islands against the criterion they satisfy."
+            }
+          }
+        },
+        {
+          "id": "module-1-q23",
+          "number": 23,
+          "passage": [
+            "Some bands choose a name that’s as unique as possible to distinguish themselves from other bands. The punkabilly band the Living End, ______ took a different approach. They chose to name themselves after a song by a well-known band, the Stray Cats."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical transition?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "by contrast,"
+            },
+            {
+              "letter": "B",
+              "text": "secondly,"
+            },
+            {
+              "letter": "C",
+              "text": "for example,"
+            },
+            {
+              "letter": "D",
+              "text": "therefore,"
+            }
+          ],
+          "answer": "A",
+          "topic": "Expression of Ideas",
+          "subtopic": "Transitions",
+          "difficulty": "easy",
+          "explanation": {
+            "summary": "Some bands pick the most unique name they can. The Living End named themselves after a Stray Cats song. Opposite approaches, and the sentence says so.",
+            "choices": {
+              "A": "Correct. \"By contrast\" marks the Living End against the bands just described.",
+              "B": "\"Secondly\" implies an ordered list.",
+              "C": "\"For example\" would make them an instance of picking a unique name, which is what they did not do.",
+              "D": "\"Therefore\" claims a result the sentence does not have."
+            }
+          }
+        },
+        {
+          "id": "module-1-q24",
+          "number": 24,
+          "passage": [
+            "The Brahin meteorite, discovered in Belarus in 1810, weighs approximately 1,814 pounds and is the seventh-largest stony-iron meteorite ever discovered on Earth. The Morito meteorite, discovered in Mexico in 1600, is much larger at 22,300 pounds. ______ the latter is an iron meteorite, and a size difference between meteorites of different compositions isn’t unexpected."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical transition?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Admittedly,"
+            },
+            {
+              "letter": "B",
+              "text": "As a result,"
+            },
+            {
+              "letter": "C",
+              "text": "In conclusion,"
+            },
+            {
+              "letter": "D",
+              "text": "In other words,"
+            }
+          ],
+          "answer": "A",
+          "topic": "Expression of Ideas",
+          "subtopic": "Transitions",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "The blank introduces the fact that softens the comparison just drawn: the two meteorites are different types, so the size gap is not surprising.",
+            "choices": {
+              "A": "Correct. \"Admittedly\" concedes the point that undercuts the comparison.",
+              "B": "No causal line runs from the sizes to the composition.",
+              "C": "Nothing is being concluded.",
+              "D": "The sentence adds a new fact rather than restating the old one."
+            }
+          }
+        },
+        {
+          "id": "module-1-q25",
+          "number": 25,
+          "passage": [
+            "While researching a topic, a student has taken the following notes:",
+            "• People in Central America first began domesticating turkeys around 1,800 years ago.",
+            "• They raised turkeys for their eggs and as guards.",
+            "• People in eastern Europe first began domesticating horses around 6,000 years ago.",
+            "• They raised horses for transportation and for plowing fields."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "The student wants to emphasize a difference between the domestication of turkeys and that of horses. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Though turkeys were domesticated longer ago than horses, both were raised for the same purposes."
+            },
+            {
+              "letter": "B",
+              "text": "People in Central America and eastern Europe first began domesticating turkeys and horses around 1,800 years ago."
+            },
+            {
+              "letter": "C",
+              "text": "While horses were first domesticated 6,000 years ago, turkeys were domesticated more recently, around 1,800 years ago."
+            },
+            {
+              "letter": "D",
+              "text": "Turkeys were first domesticated in eastern Europe, whereas the domestication of horses first occurred in Central America."
+            }
+          ],
+          "answer": "C",
+          "topic": "Expression of Ideas",
+          "subtopic": "Rhetorical Synthesis",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The goal is a difference between the two domestications, so the sentence has to name both and split them on something the notes support.",
+            "choices": {
+              "A": "Says both were raised for the same purposes, which the notes contradict, and frames it as a similarity.",
+              "B": "Gives both the same date, which is wrong for horses.",
+              "C": "Correct. Horses 6,000 years ago against turkeys about 1,800 — both named, one clear difference.",
+              "D": "Swaps the regions."
+            }
+          }
+        },
+        {
+          "id": "module-1-q26",
+          "number": 26,
+          "passage": [
+            "While researching a topic, a student has taken the following notes:",
+            "• An isthmus is a strip of land that connects two larger pieces of land across an expanse of water.",
+            "• It is also known as a land bridge.",
+            "• The Isthmus of Avalon is located in Canada.",
+            "• It connects the Avalon Peninsula to Newfoundland."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "The student wants to provide a specific example of an isthmus. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "In Canada, the Avalon Peninsula is connected to Newfoundland."
+            },
+            {
+              "letter": "B",
+              "text": "There is a land bridge in Canada."
+            },
+            {
+              "letter": "C",
+              "text": "An isthmus, also known as a land bridge, is a strip of land that connects two larger pieces of land across an expanse of water."
+            },
+            {
+              "letter": "D",
+              "text": "One example of an isthmus is the Isthmus of Avalon in Canada."
+            }
+          ],
+          "answer": "D",
+          "topic": "Expression of Ideas",
+          "subtopic": "Rhetorical Synthesis",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The goal is a specific example of an isthmus, so the sentence has to name one.",
+            "choices": {
+              "A": "Describes the connection without calling it an isthmus.",
+              "B": "\"A land bridge in Canada\" names nothing specific.",
+              "C": "Defines the term instead of giving an example of it.",
+              "D": "Correct. It names the Isthmus of Avalon as the example."
+            }
+          }
+        },
+        {
+          "id": "module-1-q27",
+          "number": 27,
+          "passage": [
+            "• India Arie is an African American singer and songwriter.",
+            "• The media outlet All Music has described her music as having “glistening acoustic guitar, churchy organ, and smooth, supple beats.”",
+            "• Her first studio album, Acoustic Soul, was released in 2001.",
+            "• It features the song “Strength, Courage & Wisdom.”",
+            "• Judeth Insel played viola on the album."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice most effectively uses information from the given sentences to specify Judeth Insel’s contribution to India Arie’s music?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "India Arie is an African American singer and songwriter whose music has been described as having “glistening acoustic guitar, churchy organ, and smooth, supple beats.”"
+            },
+            {
+              "letter": "B",
+              "text": "Featuring the song “Strength, Courage & Wisdom,” Acoustic Soul is India Arie’s first studio album."
+            },
+            {
+              "letter": "C",
+              "text": "Acoustic Soul, India Arie’s first studio album, features Judeth Insel."
+            },
+            {
+              "letter": "D",
+              "text": "Judeth Insel played viola on India Arie’s 2001 album Acoustic Soul."
+            }
+          ],
+          "answer": "D",
+          "topic": "Expression of Ideas",
+          "subtopic": "Rhetorical Synthesis",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The goal is to specify Insel’s contribution, so the sentence has to say what she actually did.",
+            "choices": {
+              "A": "About India Arie’s music in general; Insel never appears.",
+              "B": "About the album; Insel never appears.",
+              "C": "Says the album \"features Judeth Insel\" without saying what she played.",
+              "D": "Correct. Viola, on the 2001 album Acoustic Soul — the contribution, specified."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "module-2",
+      "number": 2,
+      "subject": "Reading and Writing",
+      "label": "Module 2",
+      "durationSeconds": 1920,
+      "questions": [
+        {
+          "id": "module-2-q1",
+          "number": 1,
+          "passage": [
+            "A rising illustrator of children’s books spoke at a recent publishing conference about what motivated her to pursue a career in children’s literature. The presenter credited much of her inspiration to ______ Kathleen Atkins Wilson’s work in The Origin of Life on Earth: An African Creation Myth, which was among the presenter’s favorite books as a child."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "a complacency about"
+            },
+            {
+              "letter": "B",
+              "text": "an ambivalence toward"
+            },
+            {
+              "letter": "C",
+              "text": "an affinity for"
+            },
+            {
+              "letter": "D",
+              "text": "a stipulation about"
+            }
+          ],
+          "answer": "C",
+          "topic": "Craft and Structure",
+          "subtopic": "Words in Context",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The presenter \"credited much of her inspiration to\" Wilson’s work, one of her favourite books as a child. The blank needs a positive attachment to it.",
+            "choices": {
+              "A": "Complacency is smug satisfaction, which is not a source of inspiration.",
+              "B": "Ambivalence is mixed feeling — too weak to credit a whole career to.",
+              "C": "Correct. An affinity for the work is the attraction that explains the inspiration.",
+              "D": "A stipulation is a condition in an agreement, not a response to a book."
+            }
+          }
+        },
+        {
+          "id": "module-2-q2",
+          "number": 2,
+          "passage": [
+            "The Art Institute of Chicago houses nearly 300,000 works from around the world. Museum visitors looking to ______ their art-viewing experience should turn to Chicago’s streets, where they can find works ranging from Marc Chagall’s mosaic Four Seasons at Chase Tower to Joseph “Sentrock” Perez’s mural Fly Higher on South Wood Street."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "supplement"
+            },
+            {
+              "letter": "B",
+              "text": "mitigate"
+            },
+            {
+              "letter": "C",
+              "text": "provoke"
+            },
+            {
+              "letter": "D",
+              "text": "satisfy"
+            }
+          ],
+          "answer": "A",
+          "topic": "Craft and Structure",
+          "subtopic": "Words in Context",
+          "difficulty": "easy",
+          "explanation": {
+            "summary": "The museum holds nearly 300,000 works, and the sentence sends visitors out to the streets for more. The blank is about adding to the visit.",
+            "choices": {
+              "A": "Correct. Street murals and mosaics add to the museum visit, which is what supplementing it means.",
+              "B": "Mitigate means lessen, and nothing about the experience is a problem.",
+              "C": "You provoke a reaction, not an art-viewing experience you are extending.",
+              "D": "Satisfying the experience would end it, not send visitors out for more."
+            }
+          }
+        },
+        {
+          "id": "module-2-q3",
+          "number": 3,
+          "passage": [
+            "The people inhabiting the Ice Age sites now known as Shizitan and Kurtak-4 likely began wearing clothing as a defense against the cold, but Ian Gilligan et al. argue that as clothing became ______, its purpose shifted from the purely practical. Once wearing clothing turned into a widespread, familiar practice, differences in clothes could take on social and cultural significance."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "ubiquitous"
+            },
+            {
+              "letter": "B",
+              "text": "divisive"
+            },
+            {
+              "letter": "C",
+              "text": "provisional"
+            },
+            {
+              "letter": "D",
+              "text": "feasible"
+            }
+          ],
+          "answer": "A",
+          "topic": "Craft and Structure",
+          "subtopic": "Words in Context",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "The next sentence hands you the definition: \"Once wearing clothing turned into a widespread, familiar practice.\"",
+            "choices": {
+              "A": "Correct. Ubiquitous is the one-word form of widespread and familiar.",
+              "B": "Divisive means causing disagreement. The social significance that follows is not conflict.",
+              "C": "Provisional means temporary, the opposite of an established practice.",
+              "D": "Feasible is about possibility, and clothing was already being worn."
+            }
+          }
+        },
+        {
+          "id": "module-2-q4",
+          "number": 4,
+          "passage": [
+            "Some researchers posit that the species inhabiting the South Pacific island of Grande Terre belong to clades that predate the island’s split from remnants of the former supercontinent Gondwana around 80 million years ago. A study conducted by Andrea Lucky and Eli M. Sarnat found, however, that the crown age (the age of the most recent common ancestor of all living and extinct species in the clade) of the clade of ants on Grande Terre is 9.0 million years; Lucky and Sarnat further found that the crown age of the clade of ants in the South Pacific generally is also approximately 9.0 million years."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice best describes the overall structure of the text?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "It explains a view some researchers have advanced, then discusses study results that led them to reconsider that view."
+            },
+            {
+              "letter": "B",
+              "text": "It identifies a discrepancy between a hypothesis some researchers have proposed and related research findings, then explains that discrepancy."
+            },
+            {
+              "letter": "C",
+              "text": "It presents a possibility that some researchers have raised, then describes a study that clarifies their reasons for doing so."
+            },
+            {
+              "letter": "D",
+              "text": "It describes an idea that some researchers have put forward, then presents study results that are incompatible with that idea."
+            }
+          ],
+          "answer": "D",
+          "topic": "Craft and Structure",
+          "subtopic": "Text Structure and Purpose",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "Some researchers put the Grande Terre clades before the 80-million-year split from Gondwana. Lucky and Sarnat measured a crown age of 9.0 million years — and the same for the South Pacific generally.",
+            "choices": {
+              "A": "Nobody in the text is described as reconsidering anything.",
+              "B": "The text names no discrepancy for the study to explain; the study is what creates the conflict.",
+              "C": "The study does not clarify their reasoning. It contradicts their date.",
+              "D": "Correct. An idea is put forward, then results that cannot fit it."
+            }
+          }
+        },
+        {
+          "id": "module-2-q5",
+          "number": 5,
+          "passage": [
+            "The following text is from Anne Spencer’s 1922 poem “Translation.”",
+            "We trekked into a far country,",
+            "My friend and I.",
+            "Our deeper content was never spoken,",
+            "But each knew all the other said.",
+            "He told me how calm his soul was laid",
+            "By the lack of <u>anvil and strife.</u>",
+            "“The wooing kestrel,” I said, “mutes his mating-note",
+            "To please the harmony of this sweet silence.”"
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice best describes the function of the reference to “anvil and strife” in the text as a whole?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "It illustrates how the speaker and her friend understand each other well even without being explicit about their feelings."
+            },
+            {
+              "letter": "B",
+              "text": "It symbolizes the speaker’s friend’s view that meaningful work and social engagement are core components of a fulfilling life."
+            },
+            {
+              "letter": "C",
+              "text": "It represents a strong contrast to the speaker’s friend’s current experience of tranquility."
+            },
+            {
+              "letter": "D",
+              "text": "It emphasizes how the speaker and her friend perceive their friendship as being different than anything they see in nature."
+            }
+          ],
+          "answer": "C",
+          "topic": "Craft and Structure",
+          "subtopic": "Text Structure and Purpose",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "The friend’s soul was \"laid calm\" by the lack of anvil and strife. The phrase names the clamour he is away from, and everything around it is quiet — a far country, a kestrel muting its note.",
+            "choices": {
+              "A": "The unspoken understanding is a separate line of the poem.",
+              "B": "Anvil and strife are what he is glad to be without, so they cannot stand for what he values.",
+              "C": "Correct. Clamour and conflict set against his present calm — that is what the phrase is for.",
+              "D": "Nature and the friendship are in harmony in this poem, not in tension."
+            }
+          }
+        },
+        {
+          "id": "module-2-q6",
+          "number": 6,
+          "passage": [
+            "The scenario of a lone Norway lemming engaging in conflict with another Norway lemming over limited resources illustrates a major dimension of social life across animal species, from the solitary to those with complex sociality: <u>intraspecific contact with perceived outsiders.</u> Though one prominent hypothesis posits that sophisticated cognitive adaptations are primarily driven by the demands of various behaviors within established social groups (e.g., cooperative response to predation), interactions with same-species outsiders arguably contribute comparably by favoring nuanced analysis (e.g., evaluation of relative physical status)."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice best describes the function of the underlined portion in the text as a whole?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "It defines a scientific term central to the text’s discussion of the role of complex sociality in driving cognitive adaptations in animals."
+            },
+            {
+              "letter": "B",
+              "text": "It establishes that perceiving an individual of the same species as an outsider exemplifies the kind of analysis mentioned later in the text."
+            },
+            {
+              "letter": "C",
+              "text": "It identifies a particular type of social interaction whose relevance to higher cognition in animals is the overall focus of the text."
+            },
+            {
+              "letter": "D",
+              "text": "It narrows the text’s focus from the full complement of social life dimensions across species to one applicable to only a subset of species."
+            }
+          ],
+          "answer": "C",
+          "topic": "Craft and Structure",
+          "subtopic": "Text Structure and Purpose",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "The underlined phrase names the thing the paragraph argues about: contact with same-species outsiders. Everything after it weighs that against the within-group hypothesis.",
+            "choices": {
+              "A": "It identifies a dimension of social life rather than defining a term, and the text’s point is that within-group sociality is not the whole story.",
+              "B": "It names the interaction itself, not an example of the analysis discussed later.",
+              "C": "Correct. It identifies the interaction type whose relevance to higher cognition the rest of the text argues for.",
+              "D": "It does not narrow the focus to a subset — the text says the dimension runs across species, from the solitary to the highly social."
+            }
+          }
+        },
+        {
+          "id": "module-2-q7",
+          "number": 7,
+          "passage": [
+            "Text 1",
+            "For decades, ornithologists assumed that if they saw a singing purple finch—a bird species found in temperate North America—they must be observing a male. That’s because birdsong has long been considered a male trait; researchers have argued that singing enables males to attract mates and claim territory.",
+            "Text 2",
+            "Recent evidence shows that a female purple finch is as capable of song as a male is. In fact, Karan J. Odom and colleagues found evidence of female song in 71% of the 323 species they examined. They claim that the historical mischaracterization of birdsong as a male trait is largely the result of bias: much of the research ornithologists have carried out has been near universities in the temperate northern hemisphere, where female birdsong is less common than it is in the tropics."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Based on the texts, how would Odom and colleagues (Text 2) most likely respond to the view of birdsong presented in Text 1?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "They would underscore that male songbirds in temperate zones are likely using their songs for different purposes than are male songbirds in the tropics."
+            },
+            {
+              "letter": "B",
+              "text": "They would argue that it was influenced by the kinds of study sites researchers tended to select."
+            },
+            {
+              "letter": "C",
+              "text": "They would claim that other factors than mate attraction and territorial defense have driven the evolution of singing in male birds."
+            },
+            {
+              "letter": "D",
+              "text": "They would suggest that it reflects a tendency to study male birds rather than female birds."
+            }
+          ],
+          "answer": "B",
+          "topic": "Craft and Structure",
+          "subtopic": "Cross-Text Connections",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "Text 2 explains the old assumption by pointing at where the research was done: near universities in the temperate northern hemisphere, where female song is less common than in the tropics.",
+            "choices": {
+              "A": "Text 2 says nothing about male song serving different purposes in different zones.",
+              "B": "Correct. \"The kinds of study sites researchers tended to select\" is Odom’s bias claim in the text’s own terms.",
+              "C": "Text 2 does not dispute why males sing. It disputes that only males do.",
+              "D": "Tempting, but the bias named is about where researchers looked, not which sex they chose to study."
+            }
+          }
+        },
+        {
+          "id": "module-2-q8",
+          "number": 8,
+          "passage": [
+            "Although notorious for its strict formal requirements, the sonnet is nevertheless represented by such wide-ranging examples as Claude McKay’s “America” and Natalie Diaz’s “My American Crown”—poems that differ remarkably in subject, rhythm, and structure. It may seem counterintuitive that the sonnet—ostensibly rigid and timeworn—could accommodate such variety, but poet Carl Phillips contends that the form invites experimentation: when a genre’s conventions are as recognizable as those of the sonnet, the opportunity to subvert them is especially irresistible."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice best states the main idea of the text?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "As a form, the sonnet encourages a surprising amount of variety, even though certain characteristics associated with it suggest this would be unlikely."
+            },
+            {
+              "letter": "B",
+              "text": "That the sonnet remains as popular as it is today is unexpected, given that many of the features associated with the form have long since seemed antiquated to readers."
+            },
+            {
+              "letter": "C",
+              "text": "Although McKay’s and Diaz’s sonnets are both widely celebrated for their striking originality, most modern examples of the form are generally regarded as conventional."
+            },
+            {
+              "letter": "D",
+              "text": "Although the sonnet is now recognized for the way it facilitates experimentation, there was a long period in its history in which very little innovation occurred."
+            }
+          ],
+          "answer": "A",
+          "topic": "Information and Ideas",
+          "subtopic": "Central Ideas and Details",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "Three moves: the form is notoriously strict, the examples differ remarkably, and Phillips explains why — recognizable conventions are the ones most worth subverting.",
+            "choices": {
+              "A": "Correct. Surprising variety despite features that suggest rigidity is the shape of the whole text.",
+              "B": "Popularity is not the subject. Variety inside a strict form is.",
+              "C": "The text never rates most modern sonnets as conventional.",
+              "D": "No stretch of history without innovation is described."
+            }
+          }
+        },
+        {
+          "id": "module-2-q9",
+          "number": 9,
+          "passage": [
+            "Economist Gabriel Zucman finds that 8% of worldwide household wealth is held in tax havens (territories such as Hong Kong with low tax rates for investors who reside outside those territories). Zucman also finds that use of tax havens differs between countries—they are rarely used by investors living in South Korea, while many investors who utilize tax havens reside in Saudi Arabia or Venezuela. Philosopher Ingrid Robeyns disapproves of the use of tax havens as a method of tax avoidance that, though legally permissible, nonetheless helps investors to sidestep payment toward government upkeep."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Based on the text, what does Zucman’s research suggest about investors residing in South Korea?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "They are more likely than residents of Hong Kong to utilize investment strategies that might yield greater returns but that might also result in greater losses."
+            },
+            {
+              "letter": "B",
+              "text": "They are more likely than residents of Venezuela to engage in tax avoidance."
+            },
+            {
+              "letter": "C",
+              "text": "They are engaging in investment practices that Robeyns would acknowledge as beneficial because they are legally permissible."
+            },
+            {
+              "letter": "D",
+              "text": "They are less likely than investors residing in Saudi Arabia to store wealth in Hong Kong."
+            }
+          ],
+          "answer": "D",
+          "topic": "Information and Ideas",
+          "subtopic": "Inferences",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "Zucman reports two things: 8 percent of household wealth sits in havens, and havens are rarely used by South Koreans while many users live in Saudi Arabia or Venezuela.",
+            "choices": {
+              "A": "Investment risk and returns are never discussed.",
+              "B": "Rare use in South Korea makes tax avoidance there less likely, not more.",
+              "C": "Robeyns disapproves of the practice, so she would not grant that it is beneficial.",
+              "D": "Correct. Rare in South Korea against many users in Saudi Arabia, with Hong Kong given as the example haven."
+            }
+          }
+        },
+        {
+          "id": "module-2-q10",
+          "number": 10,
+          "passage": [
+            "Terrestrial plants typically carry a negative electrical charge, while hummingbirds and other pollinators tend to accumulate a positive charge. A team of researchers therefore hypothesized that electrostatic attraction (mutual attraction between objects with opposite charges) might enhance pollen transmission between plants and their pollinator species. The team’s experiments showed that the maximum positive charge of European peacock butterflies is sufficiently high to facilitate electrostatic pollen transfer, a finding that suggests that ______"
+          ],
+          "figure": {
+            "alt": "Question 37 graphic",
+            "src": "dsat-aug-2025-us-v2-assets/question-37-graph.svg"
+          },
+          "table": null,
+          "stem": "Which choice most effectively uses data from the graph to complete the text?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Anna’s hummingbirds and houseflies, having greater maximum charges than European peacock butterflies have, should not demonstrate this capacity."
+            },
+            {
+              "letter": "B",
+              "text": "houseflies should demonstrate the opposite tendency."
+            },
+            {
+              "letter": "C",
+              "text": "the minimum positive charge necessary for a pollinator to induce electrostatic attraction must be greater than 200 pC."
+            },
+            {
+              "letter": "D",
+              "text": "Anna’s hummingbirds should also demonstrate this capacity."
+            }
+          ],
+          "answer": "D",
+          "topic": "Information and Ideas",
+          "subtopic": "Command of Evidence",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "The butterflies’ maximum charge is high enough to facilitate electrostatic transfer. The graph puts Anna’s hummingbirds well above the butterflies.",
+            "choices": {
+              "A": "Hummingbirds do carry a greater charge, but a greater charge argues for the capacity rather than against it — and houseflies are the lowest bar on the graph, not the highest.",
+              "B": "Nothing in the text or the graph supports an opposite tendency for houseflies.",
+              "C": "The graph shows maximum charges, not a threshold for inducing attraction.",
+              "D": "Correct. Hummingbirds top the graph, so if butterflies clear the bar so do they."
+            }
+          }
+        },
+        {
+          "id": "module-2-q11",
+          "number": 11,
+          "passage": [
+            "In medieval England, harpers and minstrels made livings as traveling performers, but the pieces they performed have been a mystery, thought to be lost or never committed to paper at all. Recently, however, James Wade has argued that a manuscript collection compiled in the fifteenth century by Richard Heege contains three pieces likely copied from a repertoire book belonging to a minstrel working in the area around Heege’s home. Wade cites features of the texts indicative of live performance, such as directly appealing to the audience, extensive use of repetition (allowing for easy memorization), and requests for tips (payment) from listeners."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which statement, if true, would most strongly support Wade’s argument?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Traveling minstrels are thought to have performed mainly for elite audiences, and other parts of Heege’s collection reflect his interest in works with popular appeal."
+            },
+            {
+              "letter": "B",
+              "text": "Features like repetition also occur in other texts from the period that were widely read but are not known to have been performed for live audiences."
+            },
+            {
+              "letter": "C",
+              "text": "Heege’s collection contains the earliest examples of the three pieces in question, but each of those pieces occurs in other manuscript collections compiled after Heege’s."
+            },
+            {
+              "letter": "D",
+              "text": "The three pieces in question contain references that presume that the audience is familiar with Holbrooke and other small villages near where Heege lived."
+            }
+          ],
+          "answer": "D",
+          "topic": "Information and Ideas",
+          "subtopic": "Command of Evidence",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "Wade’s claim is local: the pieces came from a repertoire book belonging to a minstrel working near Heege’s home. Evidence tying the material to that area is what supports it.",
+            "choices": {
+              "A": "Elite audiences and popular appeal cut against a local itinerant source rather than supporting one.",
+              "B": "If repetition also appears in texts never performed live, it stops being evidence of performance.",
+              "C": "Later copies say nothing about where the pieces originally came from.",
+              "D": "Correct. References assuming familiarity with Holbrooke and nearby villages place the performer around Heege’s home."
+            }
+          }
+        },
+        {
+          "id": "module-2-q12",
+          "number": 12,
+          "passage": [
+            "The advent of online streaming has led many music listeners to drift away from ownership of music (through downloads or through physical media such as compact discs) in favor of the streaming services Apple Music and AccuRadio, among others. Luis Aguiar studied the effect of the 2011 implementation of a restriction on the free version of the French streaming service Deezer: its unlimited usage was reduced to five hours a month, while the paid premium version’s usage remained unlimited. Aguiar found that listeners who used the free service visited licensed online music sellers (e.g., the iTunes store) and sites that make unlicensed music available to download about 2% less after the restriction was implemented, suggesting that ______"
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice most logically completes the text?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "consumers are unlikely to purchase physical copies of music that is readily available through streaming."
+            },
+            {
+              "letter": "B",
+              "text": "restrictions on the amount of music that can be streamed may actually suppress users’ interest in owning music."
+            },
+            {
+              "letter": "C",
+              "text": "most users of the free streaming service were probably encouraged by the restriction to move to a paid version of the service with unlimited, ad-free listening."
+            },
+            {
+              "letter": "D",
+              "text": "the implementation of the restriction reduced the overall number of users of the streaming service."
+            }
+          ],
+          "answer": "B",
+          "topic": "Information and Ideas",
+          "subtopic": "Inferences",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "After the cap, free users visited licensed sellers and unlicensed download sites about 2 percent less. Restricting streaming did not push them toward owning music; it pushed them away from it.",
+            "choices": {
+              "A": "The study is about a cap on streaming, not about music that stays freely streamable.",
+              "B": "Correct. Less streaming coincided with less acquiring of files, licensed or not, so interest in owning fell.",
+              "C": "Movement to the paid tier is never measured.",
+              "D": "The number of users is never tracked."
+            }
+          }
+        },
+        {
+          "id": "module-2-q13",
+          "number": 13,
+          "passage": [
+            "Exclusively inhabiting tropical countries such as Burundi, wild chimpanzees lack adaptations to seasonal variations in ultraviolet B (UVB) irradiance from sunlight; since UVB exposure enables vertebrates to synthesize vitamin D, Sophie Moittié and colleagues studied zoo chimpanzees in Ireland and other mid-latitude countries to see how vitamin D levels are affected by the seasonal variations in UVB irradiance that occur in those locations. They found that chimpanzees’ vitamin D levels were significantly lower in winter than in summer and appeared unaffected by oral supplementation of vitamin D administered by zookeepers. Moittié and colleagues point out, however, that supplementation was rare, highly varied, and poorly tracked, and therefore they caution against concluding that ______"
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice most logically completes the text?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "winter reductions in UVB irradiance in Ireland and other midlatitude countries can contribute to variations in zoo chimpanzees’ vitamin D levels."
+            },
+            {
+              "letter": "B",
+              "text": "the lack of an observed effect of supplemental vitamin D on zoo chimpanzees in Ireland and other mid-latitude countries may reflect shortcomings in the data rather than actual ineffectiveness."
+            },
+            {
+              "letter": "C",
+              "text": "providing zoo chimpanzees in Ireland and other mid-latitude countries with supplemental vitamin D has no promise as a strategy for offsetting winter reductions in their vitamin D levels."
+            },
+            {
+              "letter": "D",
+              "text": "vitamin D levels among zoo chimpanzees in Ireland and other mid-latitude countries likely show different seasonal patterns than do vitamin D levels among wild chimpanzees in Burundi and other tropical countries."
+            }
+          ],
+          "answer": "C",
+          "topic": "Information and Ideas",
+          "subtopic": "Inferences",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "The \"however\" points at the data problem: supplementation was rare, highly varied, and poorly tracked. That undermines exactly one conclusion — the one about supplementation being useless.",
+            "choices": {
+              "A": "The seasonal difference is the finding they do stand behind, not one they warn against.",
+              "B": "This is the caution itself rather than the conclusion being cautioned against.",
+              "C": "Correct. With bad supplementation data, \"no promise\" is precisely the conclusion that cannot be drawn.",
+              "D": "Wild chimpanzees in Burundi were not studied, and the caveat is about the supplementation data."
+            }
+          }
+        },
+        {
+          "id": "module-2-q14",
+          "number": 14,
+          "passage": [
+            "In an analysis of medieval urbanization in Coventry, Macon, and other European settlements, researchers drew on modern urban scaling theory, which posits that population density in core urban areas increases as a city grows larger. Hypothesizing that this typical relationship would have differed in medieval settlements because of the constraining influence of strong hierarchical social structures (which are much less pronounced in modern cities) on social networking and economic integration—drivers of urban agglomeration—the team created a model that accounted for the presence of restrictive institutions. They found that the typically expected density-size relationship held for each of the 173 medieval settlements whose growth they analyzed, suggesting that ______"
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice most logically completes the text?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "despite a change in the role of social structures over time, there is likely a notable consistency between medieval settlements and modern cities in underlying elements of the social and economic interactions among individuals that shape the development of core urban areas."
+            },
+            {
+              "letter": "B",
+              "text": "the constraining influence of hierarchical medieval institutions likely had a significant effect on individuals in some social groupings but little to no effect on members of other social groupings."
+            },
+            {
+              "letter": "C",
+              "text": "although there tends to be a positive relationship between population size and development of core urban areas for both medieval settlements and modern cities, social institutions likely limited the rate at which population density increased in medieval settlements."
+            },
+            {
+              "letter": "D",
+              "text": "the social and economic dynamics that affect urban agglomeration were likely much different in medieval settlements than in modern cities, despite the similarity across time in population density patterns."
+            }
+          ],
+          "answer": "A",
+          "topic": "Information and Ideas",
+          "subtopic": "Inferences",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "The team expected hierarchical social structures to break the usual density-size relationship. It held in all 173 settlements, so whatever drives that relationship survived the difference in institutions.",
+            "choices": {
+              "A": "Correct. The prediction failed, which points to consistency in the underlying social and economic interactions across the two eras.",
+              "B": "Group-by-group effects are never examined.",
+              "C": "The study found the relationship held. No slower rate of increase was measured.",
+              "D": "Backwards — identical patterns are evidence the dynamics were similar, not different."
+            }
+          }
+        },
+        {
+          "id": "module-2-q15",
+          "number": 15,
+          "passage": [
+            "In a chemical equation, converting between the mass of the reactants and the mass of the product requires knowing each component’s molar mass, a quantification of the average mass of the atoms in a compound. The liquid ______ has a molar mass of 32.04 g/mol."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "compound methanol (CH3OH),"
+            },
+            {
+              "letter": "B",
+              "text": "compound methanol (CH3OH)"
+            },
+            {
+              "letter": "C",
+              "text": "compound, methanol (CH3OH)"
+            },
+            {
+              "letter": "D",
+              "text": "compound, methanol (CH3OH),"
+            }
+          ],
+          "answer": "B",
+          "topic": "Standard English Conventions",
+          "subtopic": "Boundaries",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "\"Methanol\" tells you which liquid compound is meant, so it is restrictive: no comma before it, and nothing between the subject and \"has.\"",
+            "choices": {
+              "A": "The comma after the parenthesis splits the subject from its verb.",
+              "B": "Correct. No punctuation on either side of the name.",
+              "C": "The comma before the name treats an essential name as an aside.",
+              "D": "Both commas are wrong for the same two reasons."
+            }
+          }
+        },
+        {
+          "id": "module-2-q16",
+          "number": 16,
+          "passage": [
+            "In ancient China, silk was used as a commodity currency. By using specific goods like silk as common units of exchange, commodity currency economies streamline trade, which is why they often replaced barter economies. Barter economies eschew ______ that requires what economist W.S. Jevons deems a “double coincidence of wants”—in other words, each trading party must want precisely what the other has."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "currency, in favor of a direct trade system"
+            },
+            {
+              "letter": "B",
+              "text": "currency, in favor of a direct trade system,"
+            },
+            {
+              "letter": "C",
+              "text": "currency in favor of a direct trade system"
+            },
+            {
+              "letter": "D",
+              "text": "currency—in favor of a direct trade system"
+            }
+          ],
+          "answer": "C",
+          "topic": "Standard English Conventions",
+          "subtopic": "Boundaries",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "\"That requires ... a double coincidence of wants\" defines the direct trade system, so nothing may sit between them — and nothing separates \"eschew\" from its object either.",
+            "choices": {
+              "A": "The comma cuts \"currency\" from the phrase that completes the thought.",
+              "B": "The second comma severs \"system\" from the clause that defines it.",
+              "C": "Correct. No punctuation at all.",
+              "D": "The dash sets off an aside the sentence does not have."
+            }
+          }
+        },
+        {
+          "id": "module-2-q17",
+          "number": 17,
+          "passage": [
+            "In economics, potatoes are considered a commodity because they are essentially interchangeable, “essentially” being a word that admits a degree of latitude. In 2021, researchers J. Shorish, M. Stephenson, and M. Zargham devised a mathematical model of fungibility (interchangeability) that would account for such variation. Distinguishing “exactly the same” and “nearly the same” commodities—whether crops, fuel, or precious metals—______ among their primary aims."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "having been"
+            },
+            {
+              "letter": "B",
+              "text": "was"
+            },
+            {
+              "letter": "C",
+              "text": "being"
+            },
+            {
+              "letter": "D",
+              "text": "were"
+            }
+          ],
+          "answer": "B",
+          "topic": "Standard English Conventions",
+          "subtopic": "Form, Structure, and Sense",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "The subject is the gerund phrase \"Distinguishing ... commodities,\" a single act, so the verb is singular. The dashed list of crops, fuel, and metals does not change it.",
+            "choices": {
+              "A": "A participle, leaving the sentence with no main verb.",
+              "B": "Correct. \"Distinguishing ... was among their primary aims.\"",
+              "C": "Another participle.",
+              "D": "Agrees with the plural nouns inside the interruption rather than with the subject."
+            }
+          }
+        },
+        {
+          "id": "module-2-q18",
+          "number": 18,
+          "passage": [
+            "In recent years, the English writer Helen Maria Williams (1759–1827), whose poetry was widely read during her lifetime, has been rediscovered by contemporary audiences—a resurgence of interest that is largely due to literary scholars such as Lia Guerra, whose work ______ the richness of Williams’s poems and the poet’s historical importance to the Romantic literary movement encourages a broader rethinking of British Romanticism itself."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "is highlighting"
+            },
+            {
+              "letter": "B",
+              "text": "has highlighted"
+            },
+            {
+              "letter": "C",
+              "text": "highlighting"
+            },
+            {
+              "letter": "D",
+              "text": "highlights"
+            }
+          ],
+          "answer": "C",
+          "topic": "Standard English Conventions",
+          "subtopic": "Form, Structure, and Sense",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "\"Encourages\" is already the verb of the relative clause, so the blank has to be a participle modifying \"work.\"",
+            "choices": {
+              "A": "A finite verb, giving the clause two.",
+              "B": "Same problem.",
+              "C": "Correct. \"Whose work highlighting ... encourages a broader rethinking.\"",
+              "D": "Same problem."
+            }
+          }
+        },
+        {
+          "id": "module-2-q19",
+          "number": 19,
+          "passage": [
+            "The extensive impact that cadmium sulfide nanoparticles (CdSNPs) have had on pigment technology belies their minuscule size, the nanoparticles typically ______ from only 1 to 100 billionths of a meter."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "ranging"
+            },
+            {
+              "letter": "B",
+              "text": "can range"
+            },
+            {
+              "letter": "C",
+              "text": "range"
+            },
+            {
+              "letter": "D",
+              "text": "will range"
+            }
+          ],
+          "answer": "A",
+          "topic": "Standard English Conventions",
+          "subtopic": "Form, Structure, and Sense",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "The comma after \"size\" attaches a phrase describing the nanoparticles. That takes a participle; a finite verb would splice two clauses together.",
+            "choices": {
+              "A": "Correct. \"The nanoparticles typically ranging from only 1 to 100 billionths of a meter\" is an absolute phrase, which a comma can carry.",
+              "B": "Makes a second independent clause after a comma.",
+              "C": "Same splice.",
+              "D": "Same splice."
+            }
+          }
+        },
+        {
+          "id": "module-2-q20",
+          "number": 20,
+          "passage": [
+            "By occupying the Earth-Moon L2 Lagrange point, where the gravitational forces from Earth and the Moon are in equilibrium, the THEMIS satellite—which studies Earth’s magnetosphere—maintains a constant orbital position relative to the Moon. The orbital stability of objects positioned at a Lagrange point is not ______ spacecraft occupying the Earth-Moon L2 Lagrange point still need to make occasional adjustments, using small amounts of fuel to fine-tune their positions."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "perfect, though,"
+            },
+            {
+              "letter": "B",
+              "text": "perfect, though"
+            },
+            {
+              "letter": "C",
+              "text": "perfect, though;"
+            },
+            {
+              "letter": "D",
+              "text": "perfect; though"
+            }
+          ],
+          "answer": "C",
+          "topic": "Standard English Conventions",
+          "subtopic": "Boundaries",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "\"Though\" here is an adverb meaning \"however,\" belonging to the first clause. What follows is a second independent clause, so the two need a semicolon between them.",
+            "choices": {
+              "A": "A comma between two independent clauses is a splice.",
+              "B": "Reading \"though\" as a conjunction reverses the meaning — the adjustments follow from the imperfect stability rather than standing against it.",
+              "C": "Correct. \"...is not perfect, though; spacecraft ... still need to make occasional adjustments.\"",
+              "D": "Putting the semicolon before \"though\" leaves everything after it a subordinate fragment."
+            }
+          }
+        },
+        {
+          "id": "module-2-q21",
+          "number": 21,
+          "passage": [
+            "Since 1941, the South Side Community Art Center in Chicago, Illinois, has cultivated a multigenerational community of Black creatives—from writer Gwendolyn Brooks, to musician Nat King Cole, to visual artists like Allen Stringfellow and Frank Hayden. ______ it has garnered a reputation as a hub of Black art and culture in Chicago."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical transition?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Accordingly,"
+            },
+            {
+              "letter": "B",
+              "text": "Periodically,"
+            },
+            {
+              "letter": "C",
+              "text": "Nevertheless,"
+            },
+            {
+              "letter": "D",
+              "text": "On the other hand,"
+            }
+          ],
+          "answer": "A",
+          "topic": "Expression of Ideas",
+          "subtopic": "Transitions",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The dashed list of Black creatives is the evidence; the second sentence states what came of it — a reputation as a hub.",
+            "choices": {
+              "A": "Correct. Decades of artists, accordingly a reputation.",
+              "B": "\"Periodically\" says the reputation comes and goes.",
+              "C": "Nothing is being reversed.",
+              "D": "Nothing is being set against anything."
+            }
+          }
+        },
+        {
+          "id": "module-2-q22",
+          "number": 22,
+          "passage": [
+            "For several centuries after the birth of opera in sixteenth-century Florence, Italian remained the default language in which most opera scores were written. ______ opera singers today, such as the soprano Verónica Villarroel, encounter a wide range of Italian terms— from con fuoco (with fire) to lentando (at a decelerating tempo)—when following many eighteenth-century opera scores."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical transition?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Thus,"
+            },
+            {
+              "letter": "B",
+              "text": "However,"
+            },
+            {
+              "letter": "C",
+              "text": "Lastly,"
+            },
+            {
+              "letter": "D",
+              "text": "Granted,"
+            }
+          ],
+          "answer": "A",
+          "topic": "Expression of Ideas",
+          "subtopic": "Transitions",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "Italian was the default language of opera scores, which is exactly why singers today meet Italian terms in eighteenth-century scores.",
+            "choices": {
+              "A": "Correct. \"Thus\" carries the consequence of Italian having been the default.",
+              "B": "The two sentences agree; nothing is being reversed.",
+              "C": "\"Lastly\" closes a list, and there is none.",
+              "D": "\"Granted\" concedes before a counterargument that never arrives."
+            }
+          }
+        },
+        {
+          "id": "module-2-q23",
+          "number": 23,
+          "passage": [
+            "At Storm King Art Center, an outdoor sculpture park in New York, Mark di Suvero’s Mahatma is exposed to rain, snow, heat, and humidity. ______ it remains in good condition due to its material: di Suvero’s sculpture is made of corrosion-resistant steel."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical transition?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "On the contrary,"
+            },
+            {
+              "letter": "B",
+              "text": "In addition,"
+            },
+            {
+              "letter": "C",
+              "text": "As a result,"
+            },
+            {
+              "letter": "D",
+              "text": "That said,"
+            }
+          ],
+          "answer": "D",
+          "topic": "Expression of Ideas",
+          "subtopic": "Transitions",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "Mahatma is exposed to rain, snow, heat, and humidity — and it is still in good condition. The blank has to turn against the expectation the first sentence builds.",
+            "choices": {
+              "A": "\"On the contrary\" denies the first sentence, but the exposure is real.",
+              "B": "\"In addition\" would add another hazard; the sentence delivers good news instead.",
+              "C": "\"As a result\" would make the exposure the cause of the good condition.",
+              "D": "Correct. \"That said\" grants the exposure and then contradicts the outcome you would expect."
+            }
+          }
+        },
+        {
+          "id": "module-2-q24",
+          "number": 24,
+          "passage": [
+            "When constructing grain storage silos with reinforced concrete, engineers anticipate that the material will develop cracks under heavy loads; the reinforcing lattice of steel bars embedded within the concrete is meant to accommodate this inevitability rather than thwart it entirely. ______ it is only upon cracking that reinforced concrete can actuate the full support of the steel. Until then, the steel’s role is largely passive, and the concrete behaves more or less like unreinforced concrete."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical transition?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Indeed,"
+            },
+            {
+              "letter": "B",
+              "text": "Nevertheless,"
+            },
+            {
+              "letter": "C",
+              "text": "However,"
+            },
+            {
+              "letter": "D",
+              "text": "Thus,"
+            }
+          ],
+          "answer": "A",
+          "topic": "Expression of Ideas",
+          "subtopic": "Transitions",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The first sentence says the steel lattice is meant to accommodate cracking rather than prevent it. The second explains why that design makes sense: only after cracking does the steel do its work.",
+            "choices": {
+              "A": "Correct. \"Indeed\" confirms the claim just made and deepens it.",
+              "B": "Nothing is being conceded against.",
+              "C": "The two sentences agree.",
+              "D": "\"Thus\" would make the design intent the cause of the physics, when the physics is the reason for the design."
+            }
+          }
+        },
+        {
+          "id": "module-2-q25",
+          "number": 25,
+          "passage": [
+            "Known as an “empire on which the sun never sets,” the Spanish Empire once controlled portions of five continents. Its legacy can still be seen, and heard, in the Spanish-speaking nation of Argentina, which gained its independence from Spain in the nineteenth century. ______ a former colony’s tie to the Spanish Empire is so tenuous that Spanish is seldom spoken there; an example is the Netherlands, which ceased to be part of the empire in 1648."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical transition?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Sometimes,"
+            },
+            {
+              "letter": "B",
+              "text": "At the same time,"
+            },
+            {
+              "letter": "C",
+              "text": "In addition,"
+            },
+            {
+              "letter": "D",
+              "text": "On the other hand,"
+            }
+          ],
+          "answer": "A",
+          "topic": "Expression of Ideas",
+          "subtopic": "Transitions",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "Argentina still speaks Spanish; the Netherlands does not. The subject is generic — \"a former colony’s tie\" — so the blank has to say that this is how it goes in some cases.",
+            "choices": {
+              "A": "Correct. \"Sometimes\" fits the generic subject and introduces the other kind of case.",
+              "B": "\"At the same time\" concedes a simultaneous truth rather than naming a frequency.",
+              "C": "\"In addition\" would make the Netherlands another instance of the Argentina case.",
+              "D": "Sets up a two-sided contrast, but the sentence generalizes over cases instead of naming a second side."
+            }
+          }
+        },
+        {
+          "id": "module-2-q26",
+          "number": 26,
+          "passage": [
+            "While researching a topic, a student has taken the following notes:",
+            "• A U-shaped curve in a river channel is called a meander.",
+            "• A meander forms when water erodes sediment from one side of the riverbank and redeposits that sediment on the opposite side.",
+            "• Meanders will gradually change shape and migrate downstream over time.",
+            "• A river with high sinuosity has many meanders, and a river with low sinuosity has few.",
+            "• The Congaree River in the United States has high sinuosity."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "The student wants to identify what causes meanders. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Over time, many meanders have formed in the Congaree River, a river in the United States with high sinuosity."
+            },
+            {
+              "letter": "B",
+              "text": "High sinuosity is caused by the formation of many meanders, or curves, in a riverbank over time."
+            },
+            {
+              "letter": "C",
+              "text": "The erosion and redepositing of sediment from one side of a riverbank to the other forms meanders, or curves, over time."
+            },
+            {
+              "letter": "D",
+              "text": "The meanders in the Congaree River will change shape and shift downstream over time."
+            }
+          ],
+          "answer": "C",
+          "topic": "Expression of Ideas",
+          "subtopic": "Rhetorical Synthesis",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The goal is what causes meanders, so the sentence has to name the process that makes them.",
+            "choices": {
+              "A": "Locates meanders in the Congaree without explaining how they got there.",
+              "B": "Reverses cause and effect, and explains sinuosity rather than meanders.",
+              "C": "Correct. Erosion from one bank and redeposition on the other is the formation process.",
+              "D": "Predicts future change rather than giving a cause."
+            }
+          }
+        },
+        {
+          "id": "module-2-q27",
+          "number": 27,
+          "passage": [
+            "While researching a topic, a student has taken the following notes:",
+            "• Modern Pueblo tribal nations were preceded by the Ancestral Puebloan civilization, which occupied parts of the southwestern US until approximately 1600 CE.",
+            "• Long House in southwestern Colorado is a former Ancestral Puebloan settlement inhabited from approximately 1200–1280 CE.",
+            "• It was constructed in a natural cliff alcove and had multistory adobe and stone buildings.",
+            "• These buildings had cube-shaped, contiguous rooms that surrounded kivas.",
+            "• Kivas are round rooms typically used for ceremonial purposes and as gathering spaces."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "The student wants to provide a detailed overview of the structures at Long House. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Constructed in a natural cliff alcove, Long House’s multistory adobe and stone buildings featured round rooms called kivas surrounded by cube-shaped, contiguous rooms."
+            },
+            {
+              "letter": "B",
+              "text": "Long House, whose structures were built by Ancestral Puebloans in southwestern Colorado, was inhabited from approximately 1200–1280 CE."
+            },
+            {
+              "letter": "C",
+              "text": "Located in southwestern Colorado, Long House was designed with kivas, round rooms that were typically used for ceremonial purposes and as gathering spaces."
+            },
+            {
+              "letter": "D",
+              "text": "The Ancestral Puebloans used adobe and stone in the construction of Long House in southwestern Colorado."
+            }
+          ],
+          "answer": "A",
+          "topic": "Expression of Ideas",
+          "subtopic": "Rhetorical Synthesis",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "The goal is a detailed overview of the structures, so the sentence has to stack the structural facts from the notes.",
+            "choices": {
+              "A": "Correct. Cliff alcove, multistory adobe and stone buildings, kivas, and the cube-shaped rooms around them — the structures in one description.",
+              "B": "Gives the builders and the dates, not what was built.",
+              "C": "Describes the kivas only.",
+              "D": "Names the materials and stops there."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

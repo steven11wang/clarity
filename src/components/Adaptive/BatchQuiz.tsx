@@ -1,8 +1,11 @@
 import { useEffect, useId, useMemo, useRef, useState, type FormEvent } from 'react'
 
+import { LookupText } from '../../dictionary/LookupText.tsx'
+import { useWordLookup } from '../../dictionary/useWordLookup.ts'
 import { orderedChoices, type ChoiceLetter } from '../../review/ordering.ts'
 import { toggleChoiceStrikeout } from '../QuestionInteraction/model.ts'
-import { AbcToggle, ChoiceMarker } from '../QuestionInteraction/ChoiceStrikeout.tsx'
+import { AbcToggle, ChoiceMarker, DictionaryToggle } from '../QuestionInteraction/ChoiceStrikeout.tsx'
+import { WordLookupPopover } from '../Exam/WordLookupPopover.tsx'
 import type { Question } from '../../types.ts'
 import { Passage } from '../Passage/Passage.tsx'
 
@@ -42,7 +45,10 @@ export function BatchQuiz({
   const [submitting, setSubmitting] = useState(false)
   const [struckChoices, setStruckChoices] = useState<string[]>([])
   const [abcMode, setAbcMode] = useState(false)
+  const [dictionary, setDictionary] = useState(false)
   const [flagged, setFlagged] = useState<Record<string, boolean>>({})
+
+  const wordLookup = useWordLookup()
   const submitLock = useRef(false)
   const answered = questions.filter((question) => answers[question.id]).length
   const complete = answered === questions.length
@@ -57,6 +63,7 @@ export function BatchQuiz({
   useEffect(() => {
     setStruckChoices([])
     setAbcMode(false)
+    wordLookup.close()
   }, [currentQuestion?.id])
 
   const choices = useMemo(
@@ -161,12 +168,29 @@ export function BatchQuiz({
                   </span>
                 </legend>
                 <div className="batch-question__body">
-                  <Passage question={question} />
+                  <Passage
+                    question={question}
+                    dictionary={dictionary}
+                    onLookup={(req) =>
+                      wordLookup.open({ ...req, source: { examId: assessmentId, questionId: question.id } })
+                    }
+                  />
                   <section className="batch-question__answer" aria-labelledby={promptId}>
                     <p className="batch-question__level">{question.difficulty}</p>
                     <div className="question-heading">
-                      <h2 id={promptId}>{question.prompt}</h2>
-                      <AbcToggle active={abcMode} onToggle={() => setAbcMode((active) => !active)} />
+                      <h2 id={promptId}>
+                        <LookupText
+                          text={question.prompt}
+                          dictionary={dictionary}
+                          onLookup={(req) =>
+                            wordLookup.open({ ...req, source: { examId: assessmentId, questionId: question.id } })
+                          }
+                        />
+                      </h2>
+                      <div className="question-tools">
+                        <DictionaryToggle active={dictionary} onToggle={() => setDictionary((d) => !d)} />
+                        <AbcToggle active={abcMode} onToggle={() => setAbcMode((active) => !active)} />
+                      </div>
                     </div>
                     <div className="batch-choice-list">
                       {choices[question.id].map((choice) => {
@@ -191,7 +215,15 @@ export function BatchQuiz({
                                   onAnswersChange(next)
                                 }}
                               />
-                              <span className="batch-choice__text">{choice.text}</span>
+                              <span className="batch-choice__text">
+                                <LookupText
+                                  text={choice.text}
+                                  dictionary={dictionary}
+                                  onLookup={(req) =>
+                                    wordLookup.open({ ...req, source: { examId: assessmentId, questionId: question.id } })
+                                  }
+                                />
+                              </span>
                             </label>
                             {abcMode && (
                               <ChoiceMarker
@@ -238,6 +270,13 @@ export function BatchQuiz({
           })()}
         </div>
       </form>
+
+      <WordLookupPopover
+        state={wordLookup.state}
+        onClose={wordLookup.close}
+        onToggleSave={wordLookup.toggleSave}
+        onRetry={wordLookup.retry}
+      />
     </main>
   )
 }

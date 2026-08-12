@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import {
+  BookA,
   Bookmark,
   ChevronDown,
   ChevronUp,
@@ -10,9 +11,24 @@ import {
   Sun,
 } from 'lucide-react'
 
+import { useWordLookup } from '../../dictionary/useWordLookup.ts'
 import { ExamFigure } from './ExamFigure.tsx'
 import { ExamPassage } from './ExamPassage.tsx'
-import { formatClock, type ExamModule, type PracticeExam } from './examData.ts'
+import { ExamTable } from './ExamTable.tsx'
+import { LookupText } from '../../dictionary/LookupText.tsx'
+import { WordLookupPopover } from './WordLookupPopover.tsx'
+import {
+  formatClock,
+  moduleDurationSeconds,
+  type ExamModule,
+  type ExamTiming,
+  type PracticeExam,
+} from './examData.ts'
+import {
+  clearPracticeExamDraft,
+  savePracticeExamDraft,
+  type PracticeExamDraft,
+} from '../../storage/index.ts'
 
 export type ExamResult = {
   answers: Record<string, string>
@@ -20,12 +36,29 @@ export type ExamResult = {
   finishedAt: number
   /** Seconds left on the clock when each module ended. */
   timeLeft: Record<string, number>
+  /**
+   * Seconds counted up per module: the spillover past the clock, or the whole
+   * elapsed time when the run was untimed.
+   */
+  overtime: Record<string, number>
+  /** Seconds the learner sat on each question, keyed by question id. */
+  questionSeconds: Record<string, number>
+  untimed: boolean
+  timingLabel: string
+  /** Question IDs that have been successfully re-done in the "Fix your misses" review loop. */
+  fixedMisses?: Record<string, boolean>
+  /** Question IDs that have been reviewed in the question breakdown table. */
+  reviewedQuestions?: Record<string, boolean>
 }
 
 type ExamRunnerProps = {
   exam: PracticeExam
   learnerName: string
   theme: 'dark' | 'light'
+  timing: ExamTiming
+  paceId?: string
+  customMinutes?: number
+  initialDraft?: PracticeExamDraft | null
   onToggleTheme: () => void
   onExit: () => void
   onFinish: (result: ExamResult) => void
@@ -42,27 +75,104 @@ export function ExamRunner({
   exam,
   learnerName,
   theme,
+  timing,
+  paceId,
+  customMinutes,
+  initialDraft,
   onToggleTheme,
   onExit,
   onFinish,
 }: ExamRunnerProps) {
-  const [moduleIndex, setModuleIndex] = useState(0)
-  const [questionIndex, setQuestionIndex] = useState(0)
-  const [screen, setScreen] = useState<Screen>('module-intro')
-  const [answers, setAnswers] = useState<Record<string, string>>({})
-  const [flagged, setFlagged] = useState<Record<string, boolean>>({})
-  const [crossOuts, setCrossOuts] = useState<Record<string, string[]>>({})
-  const [highlights, setHighlights] = useState<Record<string, number[]>>({})
-  const [timeLeft, setTimeLeft] = useState<Record<string, number>>({})
+  const [moduleIndex, setModuleIndex] = useState(
+    () => Math.min(Math.max(0, initialDraft?.moduleIndex ?? 0), exam.modules.length - 1),
+  )
+  const [questionIndex, setQuestionIndex] = useState(
+    () => Math.min(Math.max(0, initialDraft?.questionIndex ?? 0), (exam.modules[initialDraft?.moduleIndex ?? 0]?.questions.length ?? 1) - 1),
+  )
+  const [screen, setScreen] = useState<Screen>(
+    () => initialDraft?.screen ?? 'module-intro',
+  )
+  const [answers, setAnswers] = useState<Record<string, string>>(
+    () => initialDraft?.answers ?? {},
+  )
+  const [flagged, setFlagged] = useState<Record<string, boolean>>(
+    () => initialDraft?.flagged ?? {},
+  )
+  const [crossOuts, setCrossOuts] = useState<Record<string, string[]>>(
+    () => initialDraft?.crossOuts ?? {},
+  )
+  const [highlights, setHighlights] = useState<Record<string, number[]>>(
+    () => initialDraft?.highlights ?? {},
+  )
+  const [timeLeft, setTimeLeft] = useState<Record<string, number>>(
+    () => initialDraft?.timeLeft ?? {},
+  )
+  const [overtimeLog, setOvertimeLog] = useState<Record<string, number>>(
+    () => initialDraft?.overtimeLog ?? {},
+  )
+  const [questionSeconds, setQuestionSeconds] = useState<Record<string, number>>(
+    () => initialDraft?.questionSeconds ?? {},
+  )
   const [crossOutMode, setCrossOutMode] = useState(false)
   const [annotate, setAnnotate] = useState(false)
+  const [dictionary, setDictionary] = useState(false)
   const [timerHidden, setTimerHidden] = useState(false)
   const [directionsOpen, setDirectionsOpen] = useState(false)
   const [navOpen, setNavOpen] = useState(false)
   const [moreOpen, setMoreOpen] = useState(false)
   const [secondsLeft, setSecondsLeft] = useState(
-    exam.modules[0]?.durationSeconds ?? 0,
+    () => initialDraft?.secondsLeft ?? (moduleDurationSeconds(exam.modules[0], timing) ?? 0),
   )
+  /** Seconds counted up: the whole run when untimed, the spillover otherwise. */
+  const [extraSeconds, setExtraSeconds] = useState(
+    () => initialDraft?.extraSeconds ?? 0,
+  )
+  const [overtimeMode, setOvertimeMode] = useState(
+    () => initialDraft?.overtimeMode ?? false,
+  )
+  const [timeUpOpen, setTimeUpOpen] = useState(false)
+
+  useEffect(() => {
+    savePracticeExamDraft({
+      examId: exam.id,
+      paceId: paceId ?? initialDraft?.paceId ?? 'official',
+      customMinutes: customMinutes ?? initialDraft?.customMinutes ?? 20,
+      moduleIndex,
+      questionIndex,
+      screen,
+      answers,
+      flagged,
+      crossOuts,
+      highlights,
+      timeLeft,
+      overtimeLog,
+      questionSeconds,
+      secondsLeft,
+      extraSeconds,
+      overtimeMode,
+      updatedAt: Date.now(),
+    })
+  }, [
+    exam.id,
+    paceId,
+    customMinutes,
+    initialDraft,
+    moduleIndex,
+    questionIndex,
+    screen,
+    answers,
+    flagged,
+    crossOuts,
+    highlights,
+    timeLeft,
+    overtimeLog,
+    questionSeconds,
+    secondsLeft,
+    extraSeconds,
+    overtimeMode,
+  ])
+
+  const wordLookup = useWordLookup()
 
   const module: ExamModule = exam.modules[moduleIndex]
   const question = module.questions[questionIndex]
@@ -71,50 +181,80 @@ export function ExamRunner({
   ).length
   const lastModule = moduleIndex === exam.modules.length - 1
   const running = screen === 'question' || screen === 'review'
+  const untimed = timing.kind === 'untimed'
+  const countingUp = untimed || overtimeMode
 
-  // Latest-value refs keep the one-second interval from restarting (and losing
-  // a tick) every time an answer changes.
-  const advanceRef = useRef<() => void>(() => {})
+  // The clock ticks from an interval that outlives any one question, so the
+  // question it should bill each second is read from a ref, not a closure.
+  const onQuestion = screen === 'question'
+  const billedQuestion = useRef<string | null>(null)
+  billedQuestion.current = onQuestion ? question.id : null
 
   function finishExam(remaining: number) {
+    clearPracticeExamDraft(exam.id)
     onFinish({
       answers,
       flagged: Object.keys(flagged).filter((id) => flagged[id]),
       finishedAt: Date.now(),
       timeLeft: { ...timeLeft, [module.id]: remaining },
+      overtime: { ...overtimeLog, [module.id]: countingUp ? extraSeconds : 0 },
+      questionSeconds,
+      untimed,
+      timingLabel: timing.label,
     })
   }
 
   function advanceModule() {
-    const remaining = Math.max(0, secondsLeft)
+    const remaining = untimed ? 0 : Math.max(0, secondsLeft)
+    setTimeUpOpen(false)
     if (lastModule) {
       finishExam(remaining)
       return
     }
     setTimeLeft((current) => ({ ...current, [module.id]: remaining }))
+    setOvertimeLog((current) => ({
+      ...current,
+      [module.id]: countingUp ? extraSeconds : 0,
+    }))
     setModuleIndex((index) => index + 1)
     setQuestionIndex(0)
-    setSecondsLeft(exam.modules[moduleIndex + 1].durationSeconds)
+    setSecondsLeft(moduleDurationSeconds(exam.modules[moduleIndex + 1], timing) ?? 0)
+    setExtraSeconds(0)
+    setOvertimeMode(false)
     setScreen('module-intro')
     setNavOpen(false)
     setMoreOpen(false)
   }
 
-  advanceRef.current = advanceModule
+  // The dialog holds the clock: nothing ticks while the learner decides.
+  const ticking = running && !timeUpOpen
 
   useEffect(() => {
-    if (!running) return
+    if (!ticking) return
     const timer = window.setInterval(() => {
-      setSecondsLeft((value) => Math.max(0, value - 1))
+      if (countingUp) setExtraSeconds((value) => value + 1)
+      else setSecondsLeft((value) => Math.max(0, value - 1))
+      const id = billedQuestion.current
+      if (id) {
+        setQuestionSeconds((current) => ({
+          ...current,
+          [id]: (current[id] ?? 0) + 1,
+        }))
+      }
     }, 1000)
     return () => window.clearInterval(timer)
-  }, [running])
+  }, [ticking, countingUp])
 
-  // Time is up: the module closes itself, the same way the real app does.
+  // Time is up. Rather than closing the module the way test day does, ask:
+  // keep working past the clock, or submit the section now.
   useEffect(() => {
-    if (!running || secondsLeft > 0) return
-    advanceRef.current()
-  }, [running, secondsLeft])
+    if (!running || untimed || overtimeMode || timeUpOpen) return
+    if (secondsLeft > 0) return
+    setTimeUpOpen(true)
+    setNavOpen(false)
+    setMoreOpen(false)
+    setDirectionsOpen(false)
+  }, [running, untimed, overtimeMode, timeUpOpen, secondsLeft])
 
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
@@ -126,6 +266,13 @@ export function ExamRunner({
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [])
+
+  // A definition belongs to the passage it was opened from: leaving the
+  // question (or the module) closes it.
+  const closeLookup = wordLookup.close
+  useEffect(() => {
+    closeLookup()
+  }, [closeLookup, question.id, screen])
 
   function selectChoice(letter: string) {
     if ((crossOuts[question.id] ?? []).includes(letter)) return
@@ -185,13 +332,20 @@ export function ExamRunner({
           <h1>{module.subject}</h1>
           <p className="exam-interstitial__lead">
             {module.questions.length} questions ·{' '}
-            {Math.round(module.durationSeconds / 60)} minutes. The clock starts
-            when you continue and the module ends on its own when time runs out.
+            {untimed
+              ? 'no time limit, the clock counts up so you can still see your pace.'
+              : `${Math.round(
+                  (moduleDurationSeconds(module, timing) ?? 0) / 60,
+                )} minutes (${timing.label}). The clock starts when you continue; when it runs out you choose whether to keep working or submit the section.`}
           </p>
           <ul className="exam-interstitial__list">
             <li>Mark questions for review and come back to them from the question list.</li>
             <li>Turn on the ABC tool to cross out answers you have ruled out.</li>
             <li>Turn on the highlighter to mark evidence in the passage.</li>
+            <li>
+              Turn on Dictionary and click a word you don’t know — save it and it lands
+              in your Word Bank as a flashcard. Your score is unaffected either way.
+            </li>
           </ul>
           <div className="exam-interstitial__actions">
             <button className="exam-button exam-button--primary" type="button" onClick={() => setScreen('question')}>
@@ -237,6 +391,14 @@ export function ExamRunner({
           <span className="exam-clock exam-clock--hidden" aria-hidden="true">
             ⏱
           </span>
+        ) : countingUp ? (
+          <strong
+            className={`exam-clock ${overtimeMode ? 'exam-clock--overtime' : ''}`}
+            aria-live="off"
+          >
+            {overtimeMode ? `+${formatClock(extraSeconds)}` : formatClock(extraSeconds)}
+            <small>{overtimeMode ? 'past the clock' : 'elapsed'}</small>
+          </strong>
         ) : (
           <strong
             className={`exam-clock ${secondsLeft <= 300 ? 'exam-clock--warning' : ''}`}
@@ -262,6 +424,23 @@ export function ExamRunner({
             <StickyNote size={18} strokeWidth={1.6} />
           </span>
           Highlights &amp; Notes
+        </button>
+        <button
+          className={`exam-tool ${dictionary ? 'exam-tool--active' : ''}`}
+          type="button"
+          aria-pressed={dictionary}
+          title="Click any word in the passage to see what it means"
+          onClick={() => {
+            setDictionary((on) => {
+              if (on) wordLookup.close()
+              return !on
+            })
+          }}
+        >
+          <span aria-hidden="true">
+            <BookA size={18} strokeWidth={1.6} />
+          </span>
+          Dictionary
         </button>
         <button
           className="exam-tool"
@@ -305,6 +484,45 @@ export function ExamRunner({
   )
 
   const banner = <p className="exam-banner">THIS IS A PRACTICE TEST</p>
+
+  const unansweredNow = module.questions.length - answered
+  const timeUpDialog = timeUpOpen ? (
+    <div className="exam-timeup" role="dialog" aria-modal="true" aria-labelledby="exam-timeup-title">
+      <div className="exam-timeup__card">
+        <p className="exam-timeup__eyebrow">Time is up</p>
+        <h2 id="exam-timeup-title">{module.label} has run out of time</h2>
+        <p className="exam-timeup__lead">
+          {unansweredNow > 0
+            ? `${unansweredNow} ${unansweredNow === 1 ? 'question is' : 'questions are'} still blank. `
+            : 'Every question here has an answer. '}
+          On test day the section would close now. In practice you choose: keep
+          working with the clock counting up, or submit this section and move on.
+        </p>
+        <div className="exam-timeup__actions">
+          <button
+            className="exam-button exam-button--primary"
+            type="button"
+            onClick={() => {
+              setTimeUpOpen(false)
+              setOvertimeMode(true)
+            }}
+          >
+            Keep working
+          </button>
+          <button
+            className="exam-button exam-button--muted"
+            type="button"
+            onClick={advanceModule}
+          >
+            {lastModule ? 'Submit the exam' : 'Submit this section'}
+          </button>
+        </div>
+        <p className="exam-timeup__note">
+          Extra time is tracked per module and shown on your report.
+        </p>
+      </div>
+    </div>
+  ) : null
 
   const footer = (
     <footer className="exam-footer">
@@ -410,6 +628,7 @@ export function ExamRunner({
           </div>
         </main>
         {footer}
+        {timeUpDialog}
       </div>
     )
   }
@@ -424,6 +643,7 @@ export function ExamRunner({
       <main className="exam-body">
         <section className="exam-pane exam-pane--passage" aria-label="Passage">
           {question.figure ? <ExamFigure figure={question.figure} /> : null}
+          {question.table ? <ExamTable table={question.table} /> : null}
           <ExamPassage
             key={question.id}
             paragraphs={question.passage}
@@ -431,6 +651,13 @@ export function ExamRunner({
             annotate={annotate}
             onHighlightChange={(indices) =>
               setHighlights((current) => ({ ...current, [question.id]: indices }))
+            }
+            dictionary={dictionary}
+            onLookup={(request) =>
+              wordLookup.open({
+                ...request,
+                source: { examId: exam.id, questionId: question.id },
+              })
             }
           />
         </section>
@@ -465,7 +692,18 @@ export function ExamRunner({
             </button>
           </div>
 
-          <p className="exam-stem">{question.stem}</p>
+          <p className="exam-stem">
+            <LookupText
+              text={question.stem}
+              dictionary={dictionary}
+              onLookup={(request) =>
+                wordLookup.open({
+                  ...request,
+                  source: { examId: exam.id, questionId: question.id },
+                })
+              }
+            />
+          </p>
 
           <ul className="exam-choices">
             {question.choices.map((choice) => {
@@ -484,7 +722,18 @@ export function ExamRunner({
                     onClick={() => selectChoice(choice.letter)}
                   >
                     <span className="exam-choice__letter">{choice.letter}</span>
-                    <span className="exam-choice__text">{choice.text}</span>
+                    <span className="exam-choice__text">
+                      <LookupText
+                        text={choice.text}
+                        dictionary={dictionary}
+                        onLookup={(request) =>
+                          wordLookup.open({
+                            ...request,
+                            source: { examId: exam.id, questionId: question.id },
+                          })
+                        }
+                      />
+                    </span>
                   </button>
                   {crossOutMode ? (
                     <button
@@ -508,6 +757,13 @@ export function ExamRunner({
       </main>
 
       {footer}
+      <WordLookupPopover
+        state={wordLookup.state}
+        onClose={wordLookup.close}
+        onToggleSave={wordLookup.toggleSave}
+        onRetry={wordLookup.retry}
+      />
+      {timeUpDialog}
     </div>
   )
 }

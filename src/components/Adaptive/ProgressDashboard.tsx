@@ -48,6 +48,7 @@ type ProgressDashboardProps = {
   examPanel: ReactNode
   lessonsPanel: ReactNode
   reviewsPanel: ReactNode
+  wordsPanel: ReactNode
   libraryPanel: ReactNode
   insightsPanel: ReactNode
   cards: DomainCardView[]
@@ -58,6 +59,7 @@ type ProgressDashboardProps = {
   onOpenExam: () => void
   onOpenLessons: () => void
   onOpenReviews: () => void
+  onOpenWords: () => void
   onOpenLibrary: () => void
   onOpenInsights: () => void
 }
@@ -163,6 +165,7 @@ export function ProgressDashboard({
   examPanel,
   lessonsPanel,
   reviewsPanel,
+  wordsPanel,
   libraryPanel,
   insightsPanel,
   cards,
@@ -173,6 +176,7 @@ export function ProgressDashboard({
   onOpenExam,
   onOpenLessons,
   onOpenReviews,
+  onOpenWords,
   onOpenLibrary,
   onOpenInsights,
 }: ProgressDashboardProps) {
@@ -362,6 +366,17 @@ export function ProgressDashboard({
             data-ui-sound-click="select"
           >
             Library
+          </button>
+          <button
+            className={activeView === 'words' ? 'console-nav__active' : undefined}
+            type="button"
+            aria-current={activeView === 'words' ? 'page' : undefined}
+            onClick={onOpenWords}
+            data-ui-sound="true"
+            data-ui-sound-hover="hover"
+            data-ui-sound-click="select"
+          >
+            Words
           </button>
           <button
             className={activeView === 'insights' ? 'console-nav__active' : undefined}
@@ -574,6 +589,7 @@ export function ProgressDashboard({
           exam: examPanel,
           lessons: lessonsPanel,
           reviews: reviewsPanel,
+          words: wordsPanel,
           library: libraryPanel,
           insights: insightsPanel,
         }}

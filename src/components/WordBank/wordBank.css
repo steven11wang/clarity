@@ -1,0 +1,290 @@
+/* The word bank is the mistake vault's sibling: same console surface, same
+   ladder language, so a saved word and a missed question feel like one system. */
+
+.wordbank {
+  animation: wordbank-fade 240ms ease both;
+  color: #fff;
+  min-height: 100%;
+  padding: clamp(2.4rem, 5vw, 4.2rem) clamp(0.3rem, 3.5vw, 3.5rem) 4rem;
+}
+
+@keyframes wordbank-fade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+.wordbank__back {
+  align-items: center;
+  background: none;
+  border: 0;
+  color: rgba(255, 255, 255, 0.58);
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 650;
+  gap: 0.42rem;
+  margin-bottom: 1.1rem;
+  padding: 0.2rem 0;
+}
+
+.wordbank__back:hover { color: #fff; }
+.wordbank__back svg { height: 1rem; width: 1rem; }
+
+.wordbank__eyebrow {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  margin: 0;
+}
+
+.wordbank__head h1,
+.wordbank__card h1 {
+  color: #fff;
+  font-size: clamp(2.4rem, 5vw, 3.9rem);
+  font-weight: 300;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  margin: 1.3rem 0 0;
+}
+
+.wordbank__lede {
+  color: rgba(255, 255, 255, 0.68);
+  font-size: clamp(0.98rem, 1.3vw, 1.12rem);
+  font-weight: 350;
+  line-height: 1.6;
+  margin: 1.4rem 0 0;
+  max-width: 38rem;
+}
+
+.wordbank__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 2.1rem;
+}
+
+.wordbank__actions button[disabled] {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.wordbank__stats {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  gap: clamp(1.6rem, 4vw, 3rem);
+  margin: 2.4rem 0 0;
+  padding: 1.5rem 0 0;
+}
+
+.wordbank__stats div { display: grid; gap: 0.45rem; }
+.wordbank__stats dt { font-size: 1.8rem; font-weight: 300; }
+.wordbank__stats dd {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  margin: 0;
+}
+
+.wordbank__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 2.6rem 0 1.4rem;
+}
+
+.wordbank__filters button {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--r-pill);
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 0.82rem;
+  font-weight: 600;
+  gap: 0.55rem;
+  padding: 0.5rem 0.95rem;
+  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+.wordbank__filters button:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
+
+.wordbank__filters button.is-active {
+  background: #fff;
+  border-color: #fff;
+  color: #06080f;
+}
+
+.wordbank__filters button span {
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.65;
+}
+
+.wordbank__empty {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.98rem;
+  margin: 2.4rem 0 0;
+  max-width: 36rem;
+}
+
+.wordbank__list {
+  display: grid;
+  gap: 0.6rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.wordbank__row {
+  align-items: start;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--r-lg);
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1.6rem minmax(0, 1fr) auto;
+  padding: 1rem 1.15rem;
+}
+
+.wordbank__row--due { border-color: rgba(140, 180, 255, 0.4); }
+.wordbank__row--retired { opacity: 0.62; }
+
+.wordbank__row-mark { color: rgba(255, 255, 255, 0.6); }
+.wordbank__row--due .wordbank__row-mark { color: #8cb4ff; }
+
+.wordbank__row-copy { display: grid; gap: 0.35rem; min-width: 0; }
+
+.wordbank__row-copy strong {
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.wordbank__row-copy strong em {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.78rem;
+  font-style: italic;
+  margin-left: 0.4rem;
+}
+
+.wordbank__row-copy p {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.wordbank__row-copy q,
+.wordbank__cloze {
+  color: rgba(255, 255, 255, 0.5);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 0.86rem;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.wordbank__row-state {
+  display: grid;
+  gap: 0.3rem;
+  justify-items: end;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.wordbank__row-state b { font-size: 0.85rem; font-weight: 650; }
+.wordbank__row-state small { color: rgba(255, 255, 255, 0.5); font-size: 0.75rem; }
+
+.wordbank__forget {
+  background: none;
+  border: 0;
+  color: rgba(255, 255, 255, 0.42);
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.wordbank__forget:hover { color: #ff9f8d; }
+
+/* --- Flashcard drill ------------------------------------------------------ */
+
+.wordbank--drill {
+  display: grid;
+  justify-items: center;
+}
+
+.wordbank__progress {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  margin: 0 0 1.2rem;
+  text-transform: uppercase;
+}
+
+.wordbank__card {
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: var(--r-lg);
+  display: grid;
+  gap: 1.3rem;
+  justify-items: center;
+  max-width: 34rem;
+  padding: clamp(1.8rem, 4vw, 3rem);
+  text-align: center;
+  width: 100%;
+}
+
+.wordbank__card--done { justify-items: start; text-align: left; }
+
+.wordbank__cloze {
+  font-size: 1.05rem;
+  max-width: 28rem;
+}
+
+.wordbank__ask {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.88rem;
+  margin: 0;
+}
+
+.wordbank__prompt {
+  font-size: clamp(1.9rem, 4vw, 2.7rem);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+}
+
+.wordbank__answer {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 1rem;
+  line-height: 1.55;
+  margin: 0;
+  max-width: 28rem;
+}
+
+.wordbank__answer em {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
+  font-style: italic;
+  margin-right: 0.4rem;
+}
+
+.wordbank__verdict {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  justify-content: center;
+}
+
+@media (max-width: 640px) {
+  .wordbank__row {
+    grid-template-columns: 1.4rem minmax(0, 1fr);
+  }
+  .wordbank__row-state {
+    grid-column: 2;
+    justify-items: start;
+    text-align: left;
+  }
+}

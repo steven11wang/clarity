@@ -401,6 +401,8 @@ Eliminate (A); this choice is optimistic, but makes no mention of any difficulty
 - Subtopic: Command of Evidence (Quantitative)
 - Difficulty: Medium
 
+![Original figure for Module 1, Question 12](exam_questions_reading_writing_assets/module-1-question-12-figure-1.svg)
+
 <pre>
 Ethanol, created from plants such as corn, sugarcane, soybeans, and rice, is a popular renewable fuel. While ethanol is a viable energy source, its production and use raise ethical questions because food crops are diverted to fuel production when there are large numbers of malnourished people around the world in dire need of food. In addition, economists claim that the amounts of these crops diverted to ethanol production drives up the demand for them, which, in turn, pushes food prices higher.
 
@@ -472,6 +474,8 @@ Predict that the correct answer will likely reflect a decrease in RAI accompanie
 - Topic: Information and Ideas
 - Subtopic: Command of Evidence (Quantitative)
 - Difficulty: Hard
+
+![Original figure for Module 1, Question 14](exam_questions_reading_writing_assets/module-1-question-14-figure-1.svg)
 
 <pre>
 According to the U.S. Census Bureau, approximately 8.7% of Americans moved to a new residence in 2022, and Americans’ most commonly cited reasons for moving in 2022 were related to housing (41.6% of moves), family (26.5%), and employment (16.1%). The Census Bureau also classifies moves by type related to distance, from shorter-distance moves within the same county to medium-distance moves across county boundaries to longer-distance international moves. A researcher was interested in how a person’s primary reason for moving was related to the distance of their relocation. After analyzing the Census Bureau’s data for 2022, the researcher concluded that some reasons for moving were less related to the distance of the move than others. This can be seen most clearly by comparing the percentages of ______

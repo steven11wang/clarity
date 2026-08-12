@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>clarity · home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@200;300;400;500;700&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   clarity — home
+   Base: PS5 console shell (tile rail, hero, widget grid)
+   Overlay: shan shui ink landscape, mineral blue-green, seal red
+   ============================================================ */
+
+:root {
+  /* --- ink ground (never pure black: OLED smear + ink is warm) --- */
+  --ink-900: #05080c;
+  --ink-800: #090f16;
+  --ink-700: #0f1a23;
+  --silk:    rgba(18, 30, 39, 0.58);
+  --silk-hi: rgba(30, 47, 59, 0.72);
+
+  /* --- mineral pigments --- */
+  --azurite:  #2c6e93;   /* 石青 */
+  --azurite-hi:#6fb3d2;
+  --malachite:#4e8a6b;   /* 石绿 */
+  --malachite-hi:#7fc7a4;
+  --cinnabar: #c6402f;   /* 朱砂 — seal red, used once */
+  --cinnabar-hi:#e4634c;
+  --ochre:    #c89b5a;   /* 赭石 */
+
+  /* --- xuan paper whites --- */
+  --paper:    #ede3ce;
+  --ink-text: rgba(237, 227, 206, 0.94);
+  --ink-mid:  rgba(237, 227, 206, 0.62);
+  --ink-low:  rgba(237, 227, 206, 0.40);
+  --hairline: rgba(237, 227, 206, 0.13);
+  --hairline-hi: rgba(111, 179, 210, 0.42);
+
+  /* --- shape scale, mirrors src/app.css --- */
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 22px; --r-pill: 999px;
+
+  --space-1: 8px; --space-2: 16px; --space-3: 24px; --space-4: 40px; --space-5: 64px;
+
+  --ease-console: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--ink-900);
+  color: var(--ink-text);
+  font-family: 'Inter Tight', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--azurite-hi); outline-offset: 3px; border-radius: var(--r-sm); }
+
+/* ============================================================
+   1. LANDSCAPE — the scroll behind everything
+   ============================================================ */
+.scroll-ground { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.scroll-ground::after {  /* xuan paper tooth */
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(237,227,206,0.20) 0.5px, transparent 0.6px);
+  background-size: 3px 3px;
+  opacity: 0.30;
+  mix-blend-mode: overlay;
+}
+.ground-wash {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(120% 90% at 78% 6%, rgba(44,110,147,0.30), transparent 58%),
+    radial-gradient(90% 70% at 12% 4%, rgba(78,138,107,0.16), transparent 62%),
+    linear-gradient(180deg, #0a1620 0%, #060b11 46%, var(--ink-900) 100%);
+}
+.ridges {
+  position: absolute; right: -2vw; top: 16vh;
+  width: min(1120px, 80vw); height: min(700px, 74vh); opacity: 0.86;
+  /* the range sinks into ink before it reaches the widget row */
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 54%, rgba(0,0,0,0.35) 78%, transparent 96%);
+          mask-image: linear-gradient(180deg, #000 0%, #000 54%, rgba(0,0,0,0.35) 78%, transparent 96%);
+}
+.ridges svg { width: 100%; height: 100%; display: block; }
+
+/* mist bands — slow lateral drift, the only ambient motion */
+.mist {
+  position: absolute; left: -25%; width: 150%; height: 190px;
+  background: radial-gradient(closest-side, rgba(219,232,238,0.15), transparent 72%);
+  filter: blur(22px);
+  animation: drift 46s linear infinite;
+}
+.mist--a { top: 20vh; animation-duration: 58s; }
+.mist--b { top: 36vh; opacity: 0.7; animation-duration: 74s; animation-direction: reverse; }
+.mist--c { top: 52vh; opacity: 0.45; animation-duration: 92s; }
+@keyframes drift { from { transform: translate3d(-6%,0,0); } to { transform: translate3d(6%,0,0); } }
+
+/* ============================================================
+   2. SHELL + HEADER
+   ============================================================ */
+.console { position: relative; z-index: 1; margin: 0 auto; max-width: 1560px; padding: 22px clamp(20px, 3.4vw, 52px) 96px; }
+
+.console-header { display: flex; align-items: center; gap: clamp(18px, 3vw, 40px); }
+.wordmark {
+  background: none; border: 0; padding: 0;
+  font-family: 'Noto Serif SC', serif; font-weight: 300; font-size: 30px;
+  letter-spacing: -0.06em; color: var(--paper); line-height: 1;
+}
+.wordmark i { font-style: normal; color: var(--cinnabar-hi); }
+
+.console-nav { display: flex; align-items: center; gap: 4px; margin-left: 6px; }
+.console-nav button {
+  position: relative; background: none; border: 0; padding: 10px 14px;
+  font-size: 15px; font-weight: 500; color: var(--ink-mid);
+  transition: color 200ms var(--ease-console);
+}
+.console-nav button:hover { color: var(--ink-text); }
+.console-nav button[aria-current='page'] { color: var(--paper); font-weight: 600; }
+.console-nav button[aria-current='page']::after {
+  content: ''; position: absolute; left: 14px; right: 14px; bottom: 2px; height: 2px;
+  background: linear-gradient(90deg, var(--cinnabar), var(--ochre));
+  border-radius: var(--r-pill);
+}
+
+.console-header__end { display: flex; align-items: center; gap: 6px; margin-left: auto; }
+.icon-button {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; border: 0; border-radius: 50%;
+  background: transparent; color: var(--ink-mid);
+  transition: background 180ms var(--ease-console), color 180ms var(--ease-console);
+}
+.icon-button:hover { background: rgba(237,227,206,0.09); color: var(--paper); }
+.avatar {
+  width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(237,227,206,0.28);
+  background: radial-gradient(circle at 34% 24%, var(--malachite-hi), var(--malachite) 46%, #0d4038 88%);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: 'Noto Serif SC', serif; font-size: 15px; color: var(--paper);
+}
+
+/* ============================================================
+   3. TILE RAIL — PS5 base, ink glyphs inside
+   ============================================================ */
+.console-rail { margin-top: clamp(22px, 3vw, 34px); }
+.rail-track {
+  display: flex; gap: 12px; overflow-x: auto; padding-bottom: 6px;
+  scrollbar-width: none;
+}
+.rail-track::-webkit-scrollbar { display: none; }
+
+.tile {
+  position: relative; flex: 0 0 auto;
+  width: 92px; height: 92px; border-radius: var(--r-lg);
+  border: 1px solid var(--hairline);
+  background: linear-gradient(160deg, rgba(30,47,59,0.78), rgba(9,15,22,0.85));
+  color: var(--ink-mid);
+  display: grid; place-items: center;
+  transition: transform 220ms var(--ease-console), border-color 220ms var(--ease-console),
+              color 220ms var(--ease-console), box-shadow 220ms var(--ease-console);
+}
+.tile__layers { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; }
+.tile__layers::before, .tile__layers::after {  /* stacked paper sheets */
+  content: ''; position: absolute; inset: 22px;
+  border: 1px solid rgba(237,227,206,0.16); border-radius: 9px;
+  transition: transform 320ms var(--ease-console), opacity 320ms var(--ease-console);
+}
+.tile__layers::before { transform: rotate(-9deg) scale(0.96); opacity: 0.55; }
+.tile__layers::after  { transform: rotate(7deg)  scale(0.88); opacity: 0.34; }
+.tile:hover { transform: translateY(-3px); color: var(--paper); border-color: var(--hairline-hi); }
+.tile:hover .tile__layers::before { transform: rotate(-14deg) scale(1.02); }
+.tile:hover .tile__layers::after  { transform: rotate(12deg) scale(0.94); }
+.tile:active { transform: scale(0.97); }
+.tile svg { position: relative; width: 26px; height: 26px; }
+
+.tile[aria-pressed='true'] {
+  color: var(--paper);
+  border-color: rgba(237,227,206,0.85);
+  background: linear-gradient(160deg, rgba(44,110,147,0.55), rgba(78,138,107,0.30) 58%, rgba(9,15,22,0.92));
+  box-shadow: 0 14px 34px rgba(0,0,0,0.55), inset 0 1px 0 rgba(237,227,206,0.22);
+}
+.tile[data-hall='home'] { background: linear-gradient(160deg, rgba(44,110,147,0.42), rgba(9,15,22,0.9)); }
+.rail-label {
+  margin: 14px 0 0; font-size: 14px; font-weight: 600; letter-spacing: 0.01em; color: var(--ink-text);
+}
+.rail-label span { font-family: 'Noto Serif SC', serif; font-weight: 300; color: var(--ink-low); margin-left: 10px; }
+
+/* ============================================================
+   4. HERO
+   ============================================================ */
+.console-hero {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-4); align-items: end;
+  padding: clamp(48px, 8vw, 104px) 0 clamp(20px, 3vw, 30px);
+}
+.hero-kicker {
+  margin: 0 0 18px; font-size: 12px; font-weight: 700;
+  letter-spacing: 0.22em; color: var(--azurite-hi); text-transform: uppercase;
+}
+.hero-title {
+  margin: 0; max-width: 15ch;
+  font-family: 'Noto Serif SC', serif; font-weight: 200;
+  font-size: clamp(46px, 8vw, 104px); line-height: 0.98; letter-spacing: -0.03em;
+  color: var(--paper);
+  text-wrap: balance;
+}
+.hero-body {
+  margin: 22px 0 0; max-width: 46ch;
+  font-size: clamp(15px, 1.2vw, 17px); line-height: 1.62; color: var(--ink-mid);
+}
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+
+.console-button {
+  border: 1px solid transparent; border-radius: var(--r-pill);
+  padding: 15px 30px; min-height: 48px;
+  font-size: 15px; font-weight: 600; letter-spacing: 0.01em;
+  transition: transform 180ms var(--ease-console), box-shadow 220ms var(--ease-console),
+              background 220ms var(--ease-console), border-color 220ms var(--ease-console);
+}
+.console-button--primary {
+  background: linear-gradient(135deg, #2f7ba3 0%, #276b7f 46%, #2f6f56 100%);
+  color: #f6f1e6;
+  box-shadow: 0 12px 30px rgba(20,70,90,0.45), inset 0 1px 0 rgba(237,227,206,0.28);
+}
+.console-button--primary:hover { transform: translateY(-2px); box-shadow: 0 18px 40px rgba(20,70,90,0.55), inset 0 1px 0 rgba(237,227,206,0.34); }
+.console-button--primary:active { transform: scale(0.975); }
+.console-button--secondary {
+  background: rgba(237,227,206,0.05); border-color: var(--hairline); color: var(--ink-text);
+}
+.console-button--secondary:hover { background: rgba(237,227,206,0.11); border-color: rgba(237,227,206,0.34); }
+.console-button--secondary:active { transform: scale(0.975); }
+
+/* --- signature: the seal 印章 --- */
+.hero-seal { display: grid; justify-items: center; gap: 14px; }
+.seal {
+  position: relative; width: 116px; height: 116px; border-radius: 10px;
+  background: linear-gradient(150deg, var(--cinnabar-hi), var(--cinnabar) 60%, #93291d);
+  color: #fff1e6;
+  display: grid; grid-template-columns: 1fr 1fr; align-content: center;
+  font-family: 'Noto Serif SC', serif; font-weight: 500; font-size: 34px; line-height: 1.06;
+  place-items: center;
+  box-shadow: 0 16px 40px rgba(150,40,25,0.34);
+  /* torn, stamped edge */
+  -webkit-mask-image: radial-gradient(closest-side, #000 96%, transparent 100%);
+          mask-image: radial-gradient(closest-side, #000 96%, transparent 100%);
+}
+.seal::before {
+  content: ''; position: absolute; inset: 9px; border: 2px solid rgba(255,241,230,0.72); border-radius: 4px;
+}
+.seal::after {  /* ink absorption speckle */
+  content: ''; position: absolute; inset: 0; border-radius: inherit;
+  background-image: radial-gradient(rgba(255,255,255,0.5) 0.6px, transparent 0.7px);
+  background-size: 4px 4px; opacity: 0.22; mix-blend-mode: soft-light;
+}
+.seal span { position: relative; }
+.seal-caption {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--ink-low); text-align: center;
+}
+.vertical-verse {
+  writing-mode: vertical-rl; font-family: 'Ma Shan Zheng', 'Noto Serif SC', serif;
+  font-size: 19px; letter-spacing: 0.26em; color: rgba(237,227,206,0.34);
+}
+
+/* ============================================================
+   5. STATUS STRIP
+   ============================================================ */
+.status-row {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 14px;
+  padding: 20px 0 0; border-top: 1px solid var(--hairline);
+}
+.mastery { display: flex; align-items: center; gap: 12px; }
+.mastery__ring {
+  position: relative; width: 48px; height: 48px; border-radius: 50%;
+  background: conic-gradient(var(--malachite-hi) var(--mastery, 36deg), rgba(237,227,206,0.13) 0);
+  display: grid; place-items: center;
+}
+.mastery__ring::after {
+  content: ''; position: absolute; inset: 5px; border-radius: 50%; background: var(--ink-900);
+}
+.mastery__ring svg { position: relative; width: 17px; height: 17px; color: var(--malachite-hi); }
+.mastery strong { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; }
+.status-divider { width: 1px; height: 30px; background: var(--hairline); }
+.growth { font-size: 16px; font-weight: 600; color: var(--malachite-hi); }
+.status-chip {
+  display: inline-flex; align-items: center; gap: 9px; min-height: 44px;
+  padding: 11px 20px; border-radius: var(--r-pill);
+  border: 1px solid var(--hairline); background: rgba(237,227,206,0.04);
+  font-size: 14px; font-weight: 600; color: var(--ink-text);
+  transition: background 180ms var(--ease-console), border-color 180ms var(--ease-console), transform 180ms var(--ease-console);
+}
+.status-chip:hover { background: rgba(237,227,206,0.10); border-color: rgba(237,227,206,0.32); }
+.status-chip:active { transform: scale(0.975); }
+.status-chip svg { width: 17px; height: 17px; color: var(--ochre); }
+.status-chip--gate svg { color: var(--azurite-hi); }
+
+/* ============================================================
+   6. WIDGET GRID — silk panels
+   ============================================================ */
+.widget-grid {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2); margin-top: var(--space-3);
+}
+.widget-stack { display: grid; gap: var(--space-2); align-content: start; }
+
+.widget {
+  position: relative; overflow: hidden;
+  border: 1px solid var(--hairline); border-radius: var(--r-lg);
+  background: linear-gradient(165deg, var(--silk-hi), var(--silk) 55%, rgba(7,12,17,0.78));
+  padding: 22px 22px 24px;
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  transition: border-color 240ms var(--ease-console), transform 240ms var(--ease-console);
+}
+.widget::before {  /* mineral hairline at the top edge */
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--azurite-hi) 22%, var(--malachite-hi) 62%, transparent);
+  opacity: 0.5;
+}
+.widget:hover { border-color: rgba(237,227,206,0.26); transform: translateY(-2px); }
+.widget h2 {
+  margin: 0 0 16px; font-size: 11px; font-weight: 700; letter-spacing: 0.19em;
+  text-transform: uppercase; color: var(--ink-low);
+}
+.widget h2 em {
+  font-style: normal; font-family: 'Noto Serif SC', serif; letter-spacing: 0.12em;
+  margin-left: 9px; color: rgba(237,227,206,0.28);
+}
+.widget strong { font-weight: 600; }
+.widget p { margin: 0; }
+
+/* session */
+.session-widget > div > strong { display: block; font-size: 17px; letter-spacing: -0.01em; }
+.session-widget > div > p { margin-top: 7px; font-size: 14px; color: var(--ink-mid); line-height: 1.55; }
+.energy { display: flex; justify-content: space-between; align-items: baseline; margin-top: 26px; font-size: 11px; font-weight: 700; letter-spacing: 0.16em; color: var(--ink-low); }
+.energy b { font-size: 14px; letter-spacing: 0; color: var(--ink-text); }
+.energy-bar { margin-top: 9px; height: 5px; border-radius: var(--r-pill); background: rgba(237,227,206,0.12); overflow: hidden; }
+.energy-bar i { display: block; height: 100%; width: 82%; border-radius: inherit; background: linear-gradient(90deg, var(--azurite), var(--malachite-hi)); }
+
+/* path status rows */
+.row-button {
+  display: flex; width: 100%; align-items: center; justify-content: space-between;
+  min-height: 44px; padding: 11px 12px; margin: 0 -12px;
+  background: none; border: 0; border-radius: var(--r-md);
+  font-size: 14px; color: var(--ink-text); text-align: left;
+  transition: background 160ms var(--ease-console);
+}
+.row-button:hover { background: rgba(237,227,206,0.07); }
+.row-button b { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--ink-mid); }
+.row-button + .row-button { border-top: 1px solid rgba(237,227,206,0.07); }
+
+/* study guide */
+.guide-line { display: flex; gap: 14px; align-items: flex-start; padding: 11px 0; }
+.guide-line + .guide-line { border-top: 1px solid rgba(237,227,206,0.07); }
+.guide-dot { flex: 0 0 auto; width: 30px; height: 30px; border-radius: 50%; margin-top: 2px; }
+.guide-dot--jade { background: radial-gradient(circle at 34% 26%, var(--azurite-hi), var(--azurite) 62%, #123c53); }
+.guide-dot--gold { background: radial-gradient(circle at 34% 26%, #e6c489, var(--ochre) 60%, #6d4c1f); }
+.guide-line strong { display: block; font-size: 15px; }
+.guide-line small { display: block; margin-top: 4px; font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+
+/* trophies */
+.trophy-widget .trophy-count { font-family: 'Noto Serif SC', serif; font-weight: 200; font-size: 46px; line-height: 1; letter-spacing: -0.03em; }
+.trophy-widget .trophy-count b { font-weight: 400; }
+.trophy-widget .trophy-count span { font-size: 19px; color: var(--ink-low); }
+.trophy-tags { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+.trophy-tags span {
+  padding: 6px 12px; border-radius: var(--r-pill); font-size: 12px; font-weight: 600;
+  border: 1px solid var(--hairline); color: var(--ink-mid);
+}
+.trophy-widget small { display: block; margin-top: 16px; font-size: 13px; color: var(--ink-low); }
+.trophy-widget .branch { position: absolute; right: -10px; bottom: -14px; width: 168px; opacity: 0.5; pointer-events: none; }
+
+/* checkpoint */
+.checkpoint-widget h3 { margin: 0 0 10px; font-family: 'Noto Serif SC', serif; font-weight: 300; font-size: 25px; letter-spacing: -0.02em; }
+.checkpoint-widget > p { font-size: 14px; line-height: 1.58; color: var(--ink-mid); margin-bottom: 14px; }
+.checkpoint-row { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 44px; padding: 9px 12px; margin: 0 -12px; background: none; border: 0; border-radius: var(--r-md); font-size: 14px; color: var(--ink-text); text-align: left; transition: background 160ms var(--ease-console); }
+.checkpoint-row:hover { background: rgba(237,227,206,0.07); }
+.checkpoint-row i {
+  flex: 0 0 auto; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%;
+  background: rgba(237,227,206,0.09); border: 1px solid var(--hairline);
+  font-style: normal; font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums;
+}
+.checkpoint-row i.is-done { background: rgba(78,138,107,0.30); border-color: rgba(127,199,164,0.55); color: var(--malachite-hi); }
+
+/* capacity */
+.capacity-line { display: flex; justify-content: space-between; align-items: baseline; font-size: 14px; color: var(--ink-mid); }
+.capacity-line strong { font-size: 16px; color: var(--ink-text); font-variant-numeric: tabular-nums; }
+.capacity-bar { margin-top: 12px; height: 8px; border-radius: var(--r-pill); background: rgba(237,227,206,0.12); overflow: hidden; }
+.capacity-bar i { display: block; height: 100%; width: 10%; border-radius: inherit; background: linear-gradient(90deg, var(--malachite-hi), var(--azurite-hi)); }
+.capacity-legend { display: flex; gap: 18px; margin-top: 14px; font-size: 12px; color: var(--ink-low); }
+.capacity-legend span { display: inline-flex; align-items: center; gap: 7px; }
+.capacity-legend i { width: 9px; height: 9px; border-radius: 50%; background: var(--malachite-hi); }
+.capacity-legend span:last-child i { background: rgba(237,227,206,0.22); }
+
+/* ============================================================
+   7. ENTRANCE MOTION
+   ============================================================ */
+@keyframes rise { from { opacity: 0; transform: translate3d(0, 18px, 0); } to { opacity: 1; transform: none; } }
+@keyframes tile-in { from { opacity: 0; transform: translate3d(0, 14px, 0) scale(0.93); } to { opacity: 1; transform: none; } }
+@keyframes stamp { 0% { opacity: 0; transform: scale(1.5) rotate(-9deg); } 60% { opacity: 1; transform: scale(0.94) rotate(-3deg); } 100% { opacity: 1; transform: scale(1) rotate(-4deg); } }
+
+.rise { animation: rise 620ms var(--ease-console) both; }
+.tile { animation: tile-in 460ms var(--ease-console) both; animation-delay: calc(var(--i, 0) * 55ms + 90ms); }
+.seal { animation: stamp 700ms var(--ease-console) 520ms both; transform: rotate(-4deg); }
+[data-delay='1'] { animation-delay: 120ms; }
+[data-delay='2'] { animation-delay: 260ms; }
+[data-delay='3'] { animation-delay: 380ms; }
+[data-delay='4'] { animation-delay: 480ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; }
+  .seal { transform: rotate(-4deg); }
+}
+
+/* ============================================================
+   8. RESPONSIVE
+   ============================================================ */
+@media (max-width: 1180px) {
+  .widget-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero-seal { display: none; }
+  .console-hero { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 780px) {
+  .console { padding: 18px 20px 72px; }
+  .console-nav { gap: 0; margin-left: 0; overflow-x: auto; scrollbar-width: none; }
+  .console-nav::-webkit-scrollbar { display: none; }
+  .console-nav button { padding: 10px 11px; font-size: 14px; }
+  .console-nav button[aria-current='page']::after { left: 11px; right: 11px; }
+  .console-header { gap: 10px; }
+  .wordmark { font-size: 25px; }
+  .tile { width: 76px; height: 76px; }
+  .tile__layers::before, .tile__layers::after { inset: 18px; }
+  .console-hero { padding-top: 40px; }
+  .widget-grid { grid-template-columns: minmax(0, 1fr); }
+  /* the range drops below the hero copy on small screens so text keeps its contrast */
+  .ridges {
+    width: 150vw; right: -34vw; top: 40vh; height: 46vh; opacity: 0.5;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 26%, #000 62%, transparent 98%);
+            mask-image: linear-gradient(180deg, transparent 0%, #000 26%, #000 62%, transparent 98%);
+  }
+  .console-nav {
+    -webkit-mask-image: linear-gradient(90deg, #000 82%, transparent 100%);
+            mask-image: linear-gradient(90deg, #000 82%, transparent 100%);
+  }
+  .hero-actions .console-button { flex: 1 1 auto; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ landscape ============ -->
+<div class="scroll-ground" aria-hidden="true">
+  <div class="ground-wash"></div>
+  <div class="ridges">
+    <svg viewBox="0 0 1200 700" preserveAspectRatio="xMaxYMid slice">
+      <defs>
+        <!-- low displacement: keeps the peaks sharp, roughens only the edge -->
+        <filter id="brush" x="-6%" y="-6%" width="112%" height="112%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.02 0.05" numOctaves="3" seed="11" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+        <linearGradient id="far" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#5d93a6" stop-opacity="0.52"/>
+          <stop offset="62%" stop-color="#173042" stop-opacity="0.30"/>
+          <stop offset="100%" stop-color="#0b141c" stop-opacity="0.04"/>
+        </linearGradient>
+        <linearGradient id="mid" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3f92b0" stop-opacity="0.72"/>
+          <stop offset="60%" stop-color="#123244" stop-opacity="0.42"/>
+          <stop offset="100%" stop-color="#08111a" stop-opacity="0.06"/>
+        </linearGradient>
+        <linearGradient id="near" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#39917a" stop-opacity="0.86"/>
+          <stop offset="55%" stop-color="#123c3b" stop-opacity="0.56"/>
+          <stop offset="100%" stop-color="#050a10" stop-opacity="0.08"/>
+        </linearGradient>
+        <!-- the ranges dissolve westward into mist instead of ending on a cut edge -->
+        <linearGradient id="westFade" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#000" stop-opacity="0"/>
+          <stop offset="26%" stop-color="#fff" stop-opacity="0.55"/>
+          <stop offset="52%" stop-color="#fff" stop-opacity="1"/>
+        </linearGradient>
+        <mask id="westMask"><rect x="0" y="0" width="1200" height="700" fill="url(#westFade)"/></mask>
+        <radialGradient id="moon">
+          <stop offset="46%" stop-color="#e9e2d0" stop-opacity="0.34"/>
+          <stop offset="62%" stop-color="#e9e2d0" stop-opacity="0.14"/>
+          <stop offset="100%" stop-color="#e9e2d0" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="soften" x="-30%" y="-200%" width="160%" height="500%">
+          <feGaussianBlur stdDeviation="14"/>
+        </filter>
+      </defs>
+
+      <circle cx="1032" cy="86" r="104" fill="url(#moon)" opacity="0.55"/>
+
+      <g filter="url(#brush)" mask="url(#westMask)">
+        <!-- far range: low, crowded, almost dissolved in mist -->
+        <path fill="url(#far)" d="M280 330 C 334 298 356 268 392 208 C 414 252 428 278 454 270 C 480 262 498 234 524 194 C 548 234 562 260 588 256 C 614 252 636 222 664 184 C 690 226 706 256 734 254 C 762 252 782 226 808 194 C 834 228 852 258 882 258 C 910 258 932 232 960 200 C 986 234 1006 260 1038 258 C 1066 256 1090 230 1118 202 C 1142 236 1166 260 1200 250 L1200 340 L280 340 Z"/>
+        <!-- mid range -->
+        <path fill="url(#mid)" d="M360 470 C 434 424 466 384 510 296 C 540 354 556 392 590 372 C 622 352 648 312 686 252 C 714 314 728 358 762 346 C 794 334 820 300 854 264 C 886 300 904 346 942 362 C 974 376 1004 342 1038 302 C 1070 344 1098 382 1142 368 C 1170 358 1188 366 1200 356 L1200 480 L360 480 Z"/>
+        <!-- near range: the massif, blue-green mineral -->
+        <path fill="url(#near)" d="M500 640 C 560 596 588 546 618 462 C 642 516 654 556 684 530 C 708 508 730 466 766 396 C 792 462 802 512 832 500 C 858 490 874 456 902 428 C 930 452 942 492 974 514 C 1002 532 1026 500 1056 462 C 1086 498 1110 536 1150 514 C 1174 502 1188 510 1200 520 L1200 660 L500 660 Z"/>
+      </g>
+
+      <!-- crest contours only: the brush line that describes the ridge, never a baseline -->
+      <g fill="none" stroke-linecap="round" filter="url(#brush)" mask="url(#westMask)">
+        <path stroke="#9fc6d4" stroke-opacity="0.20" stroke-width="1.2"
+              d="M280 330 C 334 298 356 268 392 208 C 414 252 428 278 454 270 C 480 262 498 234 524 194 C 548 234 562 260 588 256 C 614 252 636 222 664 184 C 690 226 706 256 734 254 C 762 252 782 226 808 194 C 834 228 852 258 882 258 C 910 258 932 232 960 200 C 986 234 1006 260 1038 258 C 1066 256 1090 230 1118 202 C 1142 236 1166 260 1200 250"/>
+        <path stroke="#8fc3d8" stroke-opacity="0.30" stroke-width="1.6"
+              d="M360 470 C 434 424 466 384 510 296 C 540 354 556 392 590 372 C 622 352 648 312 686 252 C 714 314 728 358 762 346 C 794 334 820 300 854 264 C 886 300 904 346 942 362 C 974 376 1004 342 1038 302 C 1070 344 1098 382 1142 368 C 1170 358 1188 366 1200 356"/>
+        <path stroke="#8ad6b6" stroke-opacity="0.38" stroke-width="2"
+              d="M500 640 C 560 596 588 546 618 462 C 642 516 654 556 684 530 C 708 508 730 466 766 396 C 792 462 802 512 832 500 C 858 490 874 456 902 428 C 930 452 942 492 974 514 C 1002 532 1026 500 1056 462 C 1086 498 1110 536 1150 514 C 1174 502 1188 510 1200 520"/>
+      </g>
+
+      <!-- 斧劈皴 axe-cut texture down the sunlit faces -->
+      <g stroke="#cfe6dd" stroke-opacity="0.13" stroke-width="1.3" stroke-linecap="round" fill="none">
+        <path d="M628 486 l-16 52 M642 498 l-12 46 M656 512 l-14 40"/>
+        <path d="M772 424 l-18 62 M788 438 l-14 56 M802 456 l-16 46"/>
+        <path d="M1058 486 l-14 50 M1072 500 l-11 42"/>
+      </g>
+
+      <!-- pines standing on the near crest -->
+      <g stroke="#dfe8e6" stroke-opacity="0.28" stroke-linecap="round" fill="none" stroke-width="1.9">
+        <path d="M900 428 v-36 M900 402 l-15 -12 M900 402 l15 -12 M900 416 l-11 -9 M900 416 l11 -9"/>
+        <path d="M924 440 v-26 M924 424 l-11 -9 M924 424 l11 -9"/>
+        <path d="M1150 512 v-30 M1150 490 l-13 -10 M1150 490 l13 -10"/>
+      </g>
+
+      <!-- mist collecting in the valleys between ranges -->
+      <g filter="url(#soften)">
+        <ellipse cx="830" cy="486" rx="430" ry="26" fill="#dbe8ee" opacity="0.10"/>
+        <ellipse cx="900" cy="352" rx="360" ry="18" fill="#dbe8ee" opacity="0.07"/>
+      </g>
+    </svg>
+  </div>
+  <div class="mist mist--a"></div>
+  <div class="mist mist--b"></div>
+  <div class="mist mist--c"></div>
+</div>
+
+<main class="console">
+
+  <!-- ============ header ============ -->
+  <header class="console-header rise" data-delay="1">
+    <button class="wordmark" type="button" aria-label="clarity home">clarity<i>.</i></button>
+    <nav class="console-nav" aria-label="Primary">
+      <button type="button" aria-current="page">Practice</button>
+      <button type="button">Library</button>
+      <button type="button">Words</button>
+      <button type="button">Insights</button>
+    </nav>
+    <div class="console-header__end">
+      <button class="icon-button" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      </button>
+      <button class="icon-button" type="button" aria-label="Settings">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1A1.6 1.6 0 0 0 9 19.4a1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.6 1.6 0 0 0 4.6 9a1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H9a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V9a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1Z"/></svg>
+      </button>
+      <button class="avatar" type="button" aria-label="Account">明</button>
+    </div>
+  </header>
+
+  <!-- ============ tile rail ============ -->
+  <section class="console-rail" aria-label="Halls">
+    <div class="rail-track" role="tablist" aria-label="Halls">
+      <button class="tile" style="--i:0" data-hall="home" type="button" role="tab" aria-pressed="false" aria-label="Today">
+        <span class="tile__layers" aria-hidden="true"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.8V20h14V9.8"/><path d="M9.5 20v-6h5v6"/></svg>
+      </button>
+      <button class="tile" style="--i:1" type="button" role="tab" aria-pressed="false" aria-label="Information and Ideas">
+        <span class="tile__layers" aria-hidden="true"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      </button>
+      <button class="tile" style="--i:2" type="button" role="tab" aria-pressed="true" aria-label="Craft and Structure">
+        <span class="tile__layers" aria-hidden="true"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5.5A2.5 2.5 0 0 1 5.5 3H11v17H5.5A2.5 2.5 0 0 0 3 22.5Z"/><path d="M21 5.5A2.5 2.5 0 0 0 18.5 3H13v17h5.5a2.5 2.5 0 0 1 2.5 2.5Z"/></svg>
+      </button>
+      <button class="tile" style="--i:3" type="button" role="tab" aria-pressed="false" aria-label="Expression of Ideas">
+        <span class="tile__layers" aria-hidden="true"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6" cy="5" r="2.5"/><circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="12" r="2.5"/><path d="M6 7.5v9M8.4 17.6 15.6 13M8.4 6.4 15.6 11"/></svg>
+      </button>
+      <button class="tile" style="--i:4" type="button" role="tab" aria-pressed="false" aria-label="Standard English Conventions">
+        <span class="tile__layers" aria-hidden="true"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 6V4.5h16V6"/><path d="M12 4.5V20"/><path d="M8.5 20h7"/></svg>
+      </button>
+      <button class="tile" style="--i:5" type="button" role="tab" aria-pressed="false" aria-label="Lessons">
+        <span class="tile__layers" aria-hidden="true"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 2.5 8.5 12 13l9.5-4.5Z"/><path d="M6.5 10.8V16c0 1.7 2.5 3 5.5 3s5.5-1.3 5.5-3v-5.2"/><path d="M21.5 8.5V14"/></svg>
+      </button>
+      <button class="tile" style="--i:6" type="button" role="tab" aria-pressed="false" aria-label="Practice exam">
+        <span class="tile__layers" aria-hidden="true"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="4" width="15" height="17" rx="2.5"/><path d="M9 4V2.8h6V4"/><path d="m9 12.5 2 2 4-4"/></svg>
+      </button>
+      <button class="tile" style="--i:7" type="button" role="tab" aria-pressed="false" aria-label="Due reviews">
+        <span class="tile__layers" aria-hidden="true"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 5.5v5h5"/><path d="M4.2 10.5A8 8 0 1 1 4 14.6"/></svg>
+      </button>
+    </div>
+    <p class="rail-label">Craft <span>章法</span></p>
+  </section>
+
+  <!-- ============ hero ============ -->
+  <section class="console-hero">
+    <div class="rise" data-delay="2">
+      <p class="hero-kicker">Craft · Noobie training</p>
+      <h1 class="hero-title">Craft and Structure</h1>
+      <p class="hero-body">Track purpose, structure, word choice, and connections between texts. Read the way a landscape is read — near ridge first, then the distance it was placed against.</p>
+      <div class="hero-actions">
+        <button class="console-button console-button--primary" type="button">Open this path</button>
+        <button class="console-button console-button--secondary" type="button">3 skills until checkpoint</button>
+      </div>
+    </div>
+    <div class="hero-seal">
+      <p class="vertical-verse">读山如读文</p>
+      <div class="seal" aria-hidden="true"><span>明</span><span>晰</span><span>學</span><span>堂</span></div>
+      <p class="seal-caption">Noobie · sealed</p>
+    </div>
+  </section>
+
+  <!-- ============ status strip ============ -->
+  <section class="status-row rise" data-delay="3" aria-label="Current progress">
+    <div class="mastery">
+      <span class="mastery__ring" style="--mastery: 36deg" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12.5 5 5L20 6.5"/></svg>
+      </span>
+      <strong>10%</strong>
+    </div>
+    <span class="status-divider" aria-hidden="true"></span>
+    <strong class="growth">+12%</strong>
+    <button class="status-chip" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 5.5v5h5"/><path d="M4.2 10.5A8 8 0 1 1 4 14.6"/></svg>
+      Review practice · 34 due
+    </button>
+    <button class="status-chip status-chip--gate" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V3.5"/><path d="M5 4.5h11l-2 3.5 2 3.5H5"/></svg>
+      Checkpoint progress
+    </button>
+  </section>
+
+  <!-- ============ widgets ============ -->
+  <section class="widget-grid rise" data-delay="4" aria-label="Overview">
+
+    <div class="widget-stack">
+      <article class="widget session-widget">
+        <h2>Session <em>今日</em></h2>
+        <div>
+          <strong>Focus session · choose your next set</strong>
+          <p>Your next focused activity is ready whenever you are.</p>
+        </div>
+        <div class="energy"><span>ENERGY</span><b>82%</b></div>
+        <div class="energy-bar"><i></i></div>
+      </article>
+
+      <article class="widget">
+        <h2>Path status <em>進度</em></h2>
+        <button class="row-button" type="button"><span>Information</span><b>1/3</b></button>
+        <button class="row-button" type="button"><span>Craft</span><b>0/3</b></button>
+        <button class="row-button" type="button"><span>Expression</span><b>0/2</b></button>
+      </article>
+    </div>
+
+    <div class="widget-stack">
+      <article class="widget">
+        <h2>Study guide <em>指引</em></h2>
+        <div class="guide-line">
+          <span class="guide-dot guide-dot--jade" aria-hidden="true"></span>
+          <p><strong>1 skill is secured</strong><small>Completed work stays safe as you advance.</small></p>
+        </div>
+        <div class="guide-line">
+          <span class="guide-dot guide-dot--gold" aria-hidden="true"></span>
+          <p><strong>9 skills remain</strong><small>Keep building toward the next mixed challenge.</small></p>
+        </div>
+      </article>
+
+      <article class="widget trophy-widget">
+        <h2>Trophies <em>印記</em></h2>
+        <p class="trophy-count"><b>0</b> <span>/ 4</span></p>
+        <div class="trophy-tags"><span>Platinum 0</span><span>Gold 0</span></div>
+        <small>Next: secure every skill in a path.</small>
+        <svg class="branch" viewBox="0 0 200 140" fill="none" aria-hidden="true">
+          <path d="M6 132C46 118 78 96 104 66c18-21 40-38 66-48" stroke="#e0d6c0" stroke-opacity="0.34" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M74 92c8-14 6-26-2-36M124 48c10-8 14-19 12-31" stroke="#e0d6c0" stroke-opacity="0.24" stroke-width="1.8" stroke-linecap="round"/>
+          <g fill="#c6402f" fill-opacity="0.72">
+            <circle cx="72" cy="54" r="5"/><circle cx="84" cy="46" r="3.6"/><circle cx="134" cy="16" r="4.4"/>
+            <circle cx="150" cy="26" r="3.2"/><circle cx="106" cy="66" r="3.8"/>
+          </g>
+        </svg>
+      </article>
+    </div>
+
+    <div class="widget-stack">
+      <article class="widget checkpoint-widget">
+        <h2>Next checkpoint <em>關口</em></h2>
+        <h3>Craft and Structure</h3>
+        <p>Complete every current-level skill to open the mixed challenge. Your secured progress is never reset.</p>
+        <button class="checkpoint-row" type="button"><i>2</i><span>Information — 2 skills to go</span></button>
+        <button class="checkpoint-row" type="button"><i>3</i><span>Craft — Not unlocked</span></button>
+        <button class="checkpoint-row" type="button"><i>2</i><span>Expression — 2 skills to go</span></button>
+        <button class="checkpoint-row" type="button"><i>2</i><span>Conventions — Not unlocked</span></button>
+      </article>
+
+      <article class="widget">
+        <h2>Mastery capacity <em>火候</em></h2>
+        <div class="capacity-line"><span>Secured</span><strong>1 / 10</strong></div>
+        <div class="capacity-bar"><i></i></div>
+        <p class="capacity-legend"><span><i></i> Secured</span><span><i></i> In progress</span></p>
+      </article>
+    </div>
+
+  </section>
+</main>
+
+<script>
+  // Tile rail behaves like the console: one hall selected, label follows.
+  const RAIL = [
+    ['Today', '今日'], ['Information', '訊息'], ['Craft', '章法'], ['Expression', '文氣'],
+    ['Conventions', '規矩'], ['Lessons', '講堂'], ['Practice exam', '大考'], ['Due reviews', '溫故']
+  ];
+  const tiles = [...document.querySelectorAll('.tile')];
+  const label = document.querySelector('.rail-label');
+  tiles.forEach((tile, i) => {
+    tile.addEventListener('click', () => {
+      tiles.forEach(t => t.setAttribute('aria-pressed', 'false'));
+      tile.setAttribute('aria-pressed', 'true');
+      label.innerHTML = RAIL[i][0] + ' <span>' + RAIL[i][1] + '</span>';
+    });
+  });
+
+  // Ridges shift a few pixels against the pointer — parallax depth, no scroll jank.
+  const ridges = document.querySelector('.ridges');
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (!still.matches && window.matchMedia('(hover: hover)').matches) {
+    let raf = 0;
+    window.addEventListener('pointermove', (e) => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        const x = (e.clientX / window.innerWidth - 0.5) * 16;
+        const y = (e.clientY / window.innerHeight - 0.5) * 10;
+        ridges.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      });
+    }, { passive: true });
+  }
+</script>
+</body>
+</html>

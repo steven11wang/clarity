@@ -12,10 +12,11 @@ change their email.
 3. Choose whether email confirmation is required. The app supports both:
    immediate sessions and confirmation-email flows.
 4. Open the Supabase SQL editor and run:
-   `supabase/migrations/202607260001_progress_storage.sql`.
+   - `supabase/migrations/202607260001_progress_storage.sql`
+   - `supabase/migrations/202608110001_word_bank_storage.sql`
 
-The migration creates the identity/profile, score report, normalized progress,
-assessment history, question-attempt, review-queue, and progression-snapshot
+The migrations create the identity/profile, score report, normalized progress,
+assessment history, question-attempt, review-queue, progression-snapshot, and word-bank
 tables. Row-level security restricts every query to `auth.uid()`.
 
 ## 2. Connect the app

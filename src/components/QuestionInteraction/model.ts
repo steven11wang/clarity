@@ -10,6 +10,26 @@ export type LoopPhase =
   | 'cause' // why did you miss it the first time?
   | 'done'
 
+// Why the question was missed in the first place, asked after the breakdown.
+export const CAUSES: { id: ErrorCause; label: string }[] = [
+  { id: 'misread-passage', label: 'Misread the passage' },
+  { id: 'misread-question', label: 'Misread the question' },
+  { id: 'trap', label: 'Fell for a trap answer' },
+  { id: 'knowledge-gap', label: 'Knowledge gap' },
+  { id: 'rushed', label: 'Rushed / ran out of time' },
+]
+
+// Selectable reasons a chosen answer was wrong (replaces free text).
+export const WRONG_REASONS = [
+  'It wasn’t supported by the text',
+  'It was too extreme or absolute',
+  'It was true but didn’t answer the question',
+  'It contradicted the text',
+  'It brought in outside or irrelevant information',
+  'It only partly fit',
+  'I misread the question or passage',
+]
+
 export type LoopState = {
   phase: LoopPhase
   reviewStage: number

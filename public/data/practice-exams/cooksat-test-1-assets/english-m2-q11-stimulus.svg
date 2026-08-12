@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="430" viewBox="0 0 680 430" role="img">
+<rect width="100%" height="100%" fill="white"/>
+<text x="16" y="24" text-anchor="start" font-family="Arial, sans-serif" font-size="12" font-weight="bold">Recreated visual</text>
+<text x="340.0" y="48" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold">Maximum Temperature Tolerance for Various Fish Species</text>
+<line x1="80" y1="360" x2="640" y2="360" stroke="#111" stroke-width="2"/><line x1="80" y1="75" x2="80" y2="360" stroke="#111" stroke-width="2"/>
+<line x1="80" y1="360.0" x2="640" y2="360.0" stroke="#d1d5db"/>
+<text x="71" y="364.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11" font-weight="normal">0</text>
+<line x1="80" y1="328.3333333333333" x2="640" y2="328.3333333333333" stroke="#d1d5db"/>
+<text x="71" y="332.3333333333333" text-anchor="end" font-family="Arial, sans-serif" font-size="11" font-weight="normal">4</text>
+<line x1="80" y1="296.6666666666667" x2="640" y2="296.6666666666667" stroke="#d1d5db"/>
+<text x="71" y="300.6666666666667" text-anchor="end" font-family="Arial, sans-serif" font-size="11" font-weight="normal">8</text>
+<line x1="80" y1="265.0" x2="640" y2="265.0" stroke="#d1d5db"/>
+<text x="71" y="269.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11" font-weight="normal">12</text>
+<line x1="80" y1="233.33333333333334" x2="640" y2="233.33333333333334" stroke="#d1d5db"/>
+<text x="71" y="237.33333333333334" text-anchor="end" font-family="Arial, sans-serif" font-size="11" font-weight="normal">16</text>
+<line x1="80" y1="201.66666666666666" x2="640" y2="201.66666666666666" stroke="#d1d5db"/>
+<text x="71" y="205.66666666666666" text-anchor="end" font-family="Arial, sans-serif" font-size="11" font-weight="normal">20</text>
+<line x1="80" y1="170.0" x2="640" y2="170.0" stroke="#d1d5db"/>
+<text x="71" y="174.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11" font-weight="normal">24</text>
+<line x1="80" y1="138.33333333333334" x2="640" y2="138.33333333333334" stroke="#d1d5db"/>
+<text x="71" y="142.33333333333334" text-anchor="end" font-family="Arial, sans-serif" font-size="11" font-weight="normal">28</text>
+<line x1="80" y1="106.66666666666669" x2="640" y2="106.66666666666669" stroke="#d1d5db"/>
+<text x="71" y="110.66666666666669" text-anchor="end" font-family="Arial, sans-serif" font-size="11" font-weight="normal">32</text>
+<line x1="80" y1="75.0" x2="640" y2="75.0" stroke="#d1d5db"/>
+<text x="71" y="79.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11" font-weight="normal">36</text>
+<rect x="117.33333333333334" y="106.66666666666669" width="111.99999999999999" height="253.33333333333331" fill="#4a4a4a" stroke="#111"/>
+<text x="173.33333333333334" y="380" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="normal">Pacific Bluefin Tuna</text>
+<text x="173.33333333333334" y="100.66666666666669" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="normal">32</text>
+<rect x="303.99999999999994" y="170.0" width="111.99999999999999" height="190.0" fill="#d3d3d3" stroke="#111"/>
+<text x="359.99999999999994" y="380" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="normal">Yellowfin Tuna</text>
+<text x="359.99999999999994" y="164.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="normal">24</text>
+<rect x="490.66666666666663" y="201.66666666666666" width="111.99999999999999" height="158.33333333333334" fill="#000000" stroke="#111"/>
+<text x="546.6666666666666" y="380" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="normal">Pacific Sardines</text>
+<text x="546.6666666666666" y="195.66666666666666" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="normal">20</text>
+</svg>

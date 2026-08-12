@@ -1,0 +1,2319 @@
+{
+  "id": "dsat-june-2026-exam-1",
+  "title": "Digital SAT June 2026 · Exam 1",
+  "section": "Section 1",
+  "subject": "Reading and Writing",
+  "answerKeySource": "derived",
+  "assetBase": "dsat-june-2026-exam-1-assets",
+  "modules": [
+    {
+      "id": "module-1",
+      "number": 1,
+      "subject": "Reading and Writing",
+      "label": "Module 1",
+      "durationSeconds": 1920,
+      "questions": [
+        {
+          "id": "module-1-q1",
+          "number": 1,
+          "passage": [
+            "In skilled trades like electrical work, experienced professionals generally instruct newcomers to the field, not just showing them how to complete tasks but also explaining the reasoning behind standard practices. ______ such as this ensures that valuable knowledge continues to be passed down."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Mentorship"
+            },
+            {
+              "letter": "B",
+              "text": "Innovation"
+            },
+            {
+              "letter": "C",
+              "text": "Craftsmanship"
+            },
+            {
+              "letter": "D",
+              "text": "Certification"
+            }
+          ],
+          "answer": "A",
+          "topic": "Craft and Structure",
+          "subtopic": "Words in Context",
+          "difficulty": "easy",
+          "explanation": {
+            "summary": "The first sentence describes experienced tradespeople instructing newcomers and explaining the reasoning behind standard practices. The blank names that arrangement, and the clause after it — knowledge continuing to be passed down — confirms it.",
+            "choices": {
+              "A": "Correct. Mentorship is experienced people teaching newcomers, which is exactly what the first sentence describes.",
+              "B": "Innovation is making something new. The passage is about handing down what already exists.",
+              "C": "Craftsmanship is skill at the work itself, not the relationship that transmits it.",
+              "D": "Certification is formal credentialing, which the text never mentions."
+            }
+          }
+        },
+        {
+          "id": "module-1-q2",
+          "number": 2,
+          "passage": [
+            "In the 1970s, British consumers initially ______ major fast-food chains from the United States. However, promotional tactics like free milkshakes and low prices gradually attracted patrons seeking quick meals. By the late 1980s, public sentiment had shifted as fast food transformed from a controversial novelty into a fixture of Great Britain’s dining landscape."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "reflected"
+            },
+            {
+              "letter": "B",
+              "text": "prepared"
+            },
+            {
+              "letter": "C",
+              "text": "discovered"
+            },
+            {
+              "letter": "D",
+              "text": "rejected"
+            }
+          ],
+          "answer": "D",
+          "topic": "Craft and Structure",
+          "subtopic": "Words in Context",
+          "difficulty": "easy",
+          "explanation": {
+            "summary": "\"However\" splits the sentence: promotional tactics \"gradually attracted\" patrons, and sentiment \"had shifted\" by the late 1980s. The blank has to be the negative starting position those two reverse.",
+            "choices": {
+              "A": "Reflected gives no attitude for the shift to move away from.",
+              "B": "Prepared does not describe how consumers received the chains.",
+              "C": "Discovered is neutral, so nothing is left for \"however\" to overturn.",
+              "D": "Correct. Initial rejection is what the gradual attraction and the shift in sentiment undo."
+            }
+          }
+        },
+        {
+          "id": "module-1-q3",
+          "number": 3,
+          "passage": [
+            "Despite the appearance of many more sophisticated tools in recent years, the ordinary pipe wrench remains ______ plumbers. Its combination of simplicity, durability, and easy adjustability has been impossible for toolmakers to match."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "excessive for"
+            },
+            {
+              "letter": "B",
+              "text": "indispensable to"
+            },
+            {
+              "letter": "C",
+              "text": "dependent on"
+            },
+            {
+              "letter": "D",
+              "text": "controversial among"
+            }
+          ],
+          "answer": "B",
+          "topic": "Craft and Structure",
+          "subtopic": "Words in Context",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "Despite more sophisticated tools, the pipe wrench \"remains ___ plumbers,\" and the reason given is a combination toolmakers cannot match. The blank has to say plumbers cannot do without it.",
+            "choices": {
+              "A": "Excessive would make the wrench unnecessary, which contradicts the reason given.",
+              "B": "Correct. Indispensable to plumbers is what unmatched simplicity, durability, and adjustability buys.",
+              "C": "\"Dependent on\" reverses the direction — the wrench would be depending on plumbers.",
+              "D": "Nothing suggests plumbers disagree about the tool."
+            }
+          }
+        },
+        {
+          "id": "module-1-q4",
+          "number": 4,
+          "passage": [
+            "Astronomers analyzing the Sun have discovered an important ______ between magnetically active and quiet regions. In active regions, bursts of ultraviolet light typically precede significant decreases in magnetic energy, whereas in quiet regions, there is a continuous correlation between ultraviolet light intensity and magnetic energy without significant energy drops."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "analogy"
+            },
+            {
+              "letter": "B",
+              "text": "trade-off"
+            },
+            {
+              "letter": "C",
+              "text": "interaction"
+            },
+            {
+              "letter": "D",
+              "text": "disparity"
+            }
+          ],
+          "answer": "D",
+          "topic": "Craft and Structure",
+          "subtopic": "Words in Context",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The second sentence sets active regions against quiet ones: bursts preceding energy drops in one, continuous correlation with no drops in the other. The blank names that difference.",
+            "choices": {
+              "A": "An analogy is a likeness. The \"whereas\" clause gives a contrast.",
+              "B": "A trade-off is one thing gained for another lost. Nothing is exchanged here.",
+              "C": "Interaction would mean the two regions act on each other. The text only compares them.",
+              "D": "Correct. Disparity names the difference the \"whereas\" clause spells out."
+            }
+          }
+        },
+        {
+          "id": "module-1-q5",
+          "number": 5,
+          "passage": [
+            "From Earth, some stars in the night sky appear to form shapes with other stars. These shapes are called constellations. They are often named after the shapes people think the stars form. Some people have thought that one set of stars looks like a hunter. This constellation is named Orion, after a mythical Greek hunter. People have thought that another set of stars looks like a bear. This constellation is named Ursa Major, which means “larger bear” in Latin."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice best describes the overall structure of the text?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "It identifies some scientific instruments and then explains how they are used."
+            },
+            {
+              "letter": "B",
+              "text": "It lists the names of some stars and then states how far away they are from Earth."
+            },
+            {
+              "letter": "C",
+              "text": "It explains what constellations are and then gives examples of how some were named."
+            },
+            {
+              "letter": "D",
+              "text": "It describes how stars are born and then explains how they eventually die."
+            }
+          ],
+          "answer": "C",
+          "topic": "Craft and Structure",
+          "subtopic": "Text Structure and Purpose",
+          "difficulty": "easy",
+          "explanation": {
+            "summary": "First half defines constellations and how they get their names; second half runs through Orion and Ursa Major as cases of exactly that.",
+            "choices": {
+              "A": "No scientific instruments appear.",
+              "B": "No distances are given.",
+              "C": "Correct. Definition first, then two examples of how the names were assigned.",
+              "D": "Stellar birth and death never come up."
+            }
+          }
+        },
+        {
+          "id": "module-1-q6",
+          "number": 6,
+          "passage": [
+            "Marketers and retailers typically employ nine-ending prices (e.g., 4.99 dollars) to suggest value. In general, shoppers appear to interpret these prices as intended, perceiving products with nine-ending prices as being offered at a discount or special deal. <u>However, research has uncovered that some consumers associate these prices with lower product quality and even as a sign that merchants are being misleading—by trying to trick consumers into thinking a 4.99 dollars product costs 4 dollars rather than 5 dollars, which is closer to the truth.</u>"
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice best describes the function of the underlined sentence in the text as a whole?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "It accounts for a contrast between how retailers intend nine-ending prices to be interpreted and how consumers typically interpret them."
+            },
+            {
+              "letter": "B",
+              "text": "It explains negative responses to nine-ending prices that have led some retailers and marketers to shift their pricing strategies."
+            },
+            {
+              "letter": "C",
+              "text": "It highlights unintended interpretations of nine-ending prices that suggest that using such prices may not be uniformly effective."
+            },
+            {
+              "letter": "D",
+              "text": "It identifies how consumers tend to respond to nine-ending prices and acknowledges exceptions to that tendency."
+            }
+          ],
+          "answer": "C",
+          "topic": "Craft and Structure",
+          "subtopic": "Text Structure and Purpose",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The text says shoppers generally read nine-ending prices the way retailers intend. The underlined sentence adds the exception — some read them as low quality, even as a trick.",
+            "choices": {
+              "A": "The text says intent and typical interpretation usually match, so that is not the contrast being accounted for.",
+              "B": "No retailer or marketer is said to have changed strategy.",
+              "C": "Correct. Unintended readings are evidence that the tactic does not work on everyone.",
+              "D": "The tendency was already stated before the underlined sentence; this sentence supplies only the exceptions."
+            }
+          }
+        },
+        {
+          "id": "module-1-q7",
+          "number": 7,
+          "passage": [
+            "Text 1",
+            "Attempts to automate classification of music into genres have not been very successful. It is also unclear whether categorizing music by genre is useful, since genre categories are ambiguous, subjective, and reductive. As Jin Ha Lee and Anh Thu Nguyen argue in their study of the South Korean band BTS, relationships between pieces of music may be best understood with concepts other than genre.",
+            "Text 2",
+            "Merengue is a genre of music originally from the Dominican Republic that shares some harmonic and rhythmic similarities with the axé genre. Automated genre classification systems typically struggle to draw distinctions in situations like this, but Yandre Costa and colleagues solved that problem by converting sound to images and having computers compare features of those images. Their approach could improve genre classification, which could have many benefits for users."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Based on the texts, how would the author of Text 1 most likely respond to the claim about the potential benefits of Costa and colleagues’ research in Text 2?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Some genres are more easily recognized by classification systems than others."
+            },
+            {
+              "letter": "B",
+              "text": "People do not necessarily enjoy every recording in a genre they claim to prefer."
+            },
+            {
+              "letter": "C",
+              "text": "Future research may provide substantial advancements in the field of automated genre classification."
+            },
+            {
+              "letter": "D",
+              "text": "Users may not actually find genre classifications particularly helpful."
+            }
+          ],
+          "answer": "D",
+          "topic": "Craft and Structure",
+          "subtopic": "Cross-Text Connections",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "Text 1 doubts genre categories are useful at all. Text 2 closes by saying better classification \"could have many benefits for users.\" That closing claim is what Text 1’s author would go after.",
+            "choices": {
+              "A": "Text 1 makes no claim about which genres are easier for systems to recognize.",
+              "B": "Enjoyment within a preferred genre is not Text 1’s argument.",
+              "C": "Text 1 doubts the project is worth doing, so predicting advances in it is not the response.",
+              "D": "Correct. Text 1 argues genre may not be the useful concept, which answers \"benefits for users\" directly."
+            }
+          }
+        },
+        {
+          "id": "module-1-q8",
+          "number": 8,
+          "passage": [
+            "The following text is adapted from Kenneth Grahame’s 1908 novel The Wind in the Willows. The Mole has been found by a friend after getting lost in the woods. It is beginning to snow.",
+            "The Mole saw the wood that had been dreadful to him in quite a changed aspect. Holes, hollows, pools, pitfalls, and other menaces to the wayfarer were vanishing fast, and a gleaming carpet was springing up everywhere, that looked too delicate to be trodden upon by rough feet."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice best states the main idea of the text?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "The Mole feels sad that his adventure in the woods is over."
+            },
+            {
+              "letter": "B",
+              "text": "As the landscape gets covered in snow, it no longer seems threatening to the Mole."
+            },
+            {
+              "letter": "C",
+              "text": "After being found by his friend, the Mole is ashamed about getting lost."
+            },
+            {
+              "letter": "D",
+              "text": "The Mole prefers warm and dry weather to cold and snowy weather."
+            }
+          ],
+          "answer": "B",
+          "topic": "Information and Ideas",
+          "subtopic": "Central Ideas and Details",
+          "difficulty": "easy",
+          "explanation": {
+            "summary": "The wood \"had been dreadful\" to the Mole. Now the holes, hollows, and pitfalls are \"vanishing fast\" under a gleaming carpet of snow, and he sees it \"in quite a changed aspect.\"",
+            "choices": {
+              "A": "No sadness about the adventure ending appears.",
+              "B": "Correct. Snow covers the menaces, and the wood stops looking threatening.",
+              "C": "Shame is never mentioned.",
+              "D": "The snowy scene is what he finds changed for the better, so no weather preference is at issue."
+            }
+          }
+        },
+        {
+          "id": "module-1-q9",
+          "number": 9,
+          "passage": [
+            "Plants that are pollinated by butterflies commonly develop flowers with deeply hidden nectar that can easily be accessed by these insects’ long, tubelike mouthparts, increasing the likelihood of successful pollination. Hammer orchids, however, use a different strategy. These orchids facilitate pollination by deceiving their sole pollinator: thynnid wasps. The flower’s structure mimics the appearance of thynnid wasps. When a wasp attempts to interact with what appears to be another wasp, it triggers a hinged part of the flower that flips the insect upside down, positioning it for optimal pollen transfer."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice best states the main idea of the text?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Hammer orchids have developed the ability to mimic the characteristics of thynnid wasps."
+            },
+            {
+              "letter": "B",
+              "text": "Unlike species pollinated by butterflies, hammer orchids use deception to improve their chances of being pollinated."
+            },
+            {
+              "letter": "C",
+              "text": "Hammer orchids have developed a much better strategy for attracting pollinators than have other flowering plants."
+            },
+            {
+              "letter": "D",
+              "text": "Attracting pollinators through deception is an effective strategy used by many types of flowering plants."
+            }
+          ],
+          "answer": "B",
+          "topic": "Information and Ideas",
+          "subtopic": "Central Ideas and Details",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "Butterfly-pollinated flowers are the common case; hammer orchids \"use a different strategy,\" deceiving their pollinator by mimicking it.",
+            "choices": {
+              "A": "True but partial — it drops the contrast the text is built on.",
+              "B": "Correct. The butterfly case on one side and orchid deception on the other is the structure of the whole passage.",
+              "C": "The text never rates the orchid strategy as better than anyone else’s.",
+              "D": "The text presents deception as this orchid’s different strategy, not as one many plants use."
+            }
+          }
+        },
+        {
+          "id": "module-1-q10",
+          "number": 10,
+          "passage": [
+            "Life Among the Piutes is an 1882 autobiographical narrative by Sarah Winnemucca Hopkins, a Northern Paiute author, educator, and activist. In the work, Winnemucca directly addresses the reader to explain certain customs, writing ______"
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which quotation from Life Among the Piutes most effectively illustrates the claim?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "“Nothing happened during the day, and after awhile mother told us not to say a word about why we left, for grandpa might get mad with us.”"
+            },
+            {
+              "letter": "B",
+              "text": "“We would all go in company to see if the flowers we were named for were yet in bloom, for almost all the girls are named for flowers.”"
+            },
+            {
+              "letter": "C",
+              "text": "“Now, my dear reader, there is no word so endearing as the word father, and that is why [my people] call all good people father or mother.”"
+            },
+            {
+              "letter": "D",
+              "text": "“But how can I describe the scene that followed? Some of you, dear readers, can imagine.”"
+            }
+          ],
+          "answer": "C",
+          "topic": "Information and Ideas",
+          "subtopic": "Command of Evidence",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The claim has two parts: Winnemucca addresses the reader directly, and she does it to explain a custom. The quotation has to do both.",
+            "choices": {
+              "A": "Recounts an event, with no reader addressed.",
+              "B": "Explains a naming custom but addresses no reader.",
+              "C": "Correct. \"Now, my dear reader\" is the direct address, and the line explains why her people call good people father or mother.",
+              "D": "Addresses readers but explains no custom."
+            }
+          }
+        },
+        {
+          "id": "module-1-q11",
+          "number": 11,
+          "passage": [
+            "The Age of Innocence is a 1920 novel by Edith Wharton set in New York City in the 1870s. In the novel, Newland Archer attends an opera. The narrator describes the New York society to which Archer belongs as preferring familiarity over novelty: ______"
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which quotation from The Age of Innocence best illustrates the claim?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "“Though there was already talk...of a new Opera House which should compete in costliness and splendour with those of the great European capitals, the world of fashion was still content to reassemble every winter in the shabby red and gold boxes of the sociable old Academy [of Music in New York].”"
+            },
+            {
+              "letter": "B",
+              "text": "“But, in the first place, New York was a metropolis, and perfectly aware that in metropolises it was ‘not the thing’ to arrive early at the opera.”"
+            },
+            {
+              "letter": "C",
+              "text": "“To come to the Opera in a [carriage for hire] was almost as honourable a way of arriving in one’s own carriage.”"
+            },
+            {
+              "letter": "D",
+              "text": "“M’ama...non m’ama... the prima donna sang, and ‘M’ama?’, with a final burst of love triumphant, as she pressed the dishevelled daisy to her lips.”"
+            }
+          ],
+          "answer": "A",
+          "topic": "Information and Ideas",
+          "subtopic": "Command of Evidence",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "The claim is that this society prefers familiarity over novelty. The quotation has to show the choice between the two being made in favour of the old.",
+            "choices": {
+              "A": "Correct. A splendid new opera house is on the table, and fashionable New York keeps reassembling in the shabby old Academy.",
+              "B": "About arrival times, not old against new.",
+              "C": "About carriages, not preference for the familiar.",
+              "D": "A line from the opera being performed."
+            }
+          }
+        },
+        {
+          "id": "module-1-q12",
+          "number": 12,
+          "passage": [
+            "A student is writing a research paper on the global rise of the home video game industry during the 1970s and 1980s. The student is surprised by differences in the number of units sold by some systems compared to those sold by others. Most remarkably, the ______"
+          ],
+          "figure": null,
+          "table": {
+            "caption": "Home Video Game Systems of the 1970s and 1980s",
+            "headers": [
+              "System",
+              "Manufacturer",
+              "System type",
+              "Approximate number of units sold worldwide"
+            ],
+            "rows": [
+              [
+                "ColecoVision",
+                "Coleco",
+                "console",
+                "2,000,000"
+              ],
+              [
+                "Intellivision",
+                "Mattel",
+                "console",
+                "3,000,000"
+              ],
+              [
+                "MSX",
+                "ASCII Corp.",
+                "computer",
+                "4,000,000"
+              ],
+              [
+                "Game & Watch",
+                "Nintendo",
+                "handheld",
+                "18,600,000"
+              ]
+            ]
+          },
+          "stem": "Which choice most effectively uses data from the table to complete the statement?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Game & Watch sold approximately 18,600,000 units, whereas the ColecoVision sold only approximately 2,000,000 units."
+            },
+            {
+              "letter": "B",
+              "text": "Game & Watch sold approximately 4,000,000 units, whereas the ColecoVision sold only approximately 3,000,000 units."
+            },
+            {
+              "letter": "C",
+              "text": "MSX sold approximately 4,000,000 units, whereas the Intellivision sold only approximately 3,000,000 units."
+            },
+            {
+              "letter": "D",
+              "text": "Game & Watch sold approximately 18,600,000 units, whereas the Intellivision sold only approximately 2,000,000 units."
+            }
+          ],
+          "answer": "A",
+          "topic": "Information and Ideas",
+          "subtopic": "Command of Evidence",
+          "difficulty": "easy",
+          "explanation": {
+            "summary": "The student is struck by how large the differences are, so the pair has to be the widest gap in the table and both figures have to match it.",
+            "choices": {
+              "A": "Correct. 18,600,000 against 2,000,000 is the biggest gap the table offers, and both numbers are right.",
+              "B": "Misstates both — Game & Watch sold 18,600,000 and ColecoVision 2,000,000.",
+              "C": "Accurate, but 4,000,000 against 3,000,000 is the smallest gap in the table.",
+              "D": "Misstates Intellivision, which sold 3,000,000, not 2,000,000."
+            }
+          }
+        },
+        {
+          "id": "module-1-q13",
+          "number": 13,
+          "passage": [
+            "Having found that emoji images of objects generally have a negative effect when used in social media marketing, Lura Forcum and team studied reactions to three versions of a café’s message about coffee: one with a coffee cup emoji after the text (supplement), one with the emoji standing in for the word “coffee” (substitute), and one with no emoji (control). Participants rated their openness to the content of the version of the message they saw, on a scale from 1 (not at all open) to 7 (very open). The team hypothesized that the general negative effect they’d previously observed would be reduced when an emoji replaces the word it represents."
+          ],
+          "figure": {
+            "alt": "Participants’ Openness to Marketing Message Content",
+            "src": "dsat-june-2026-exam-1-assets/module-1-question-13-figure.svg"
+          },
+          "table": null,
+          "stem": "Which choice best describes data from the graph that support the team’s hypothesis?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "The average rating for the control condition was higher than the average rating for the supplement condition."
+            },
+            {
+              "letter": "B",
+              "text": "The substitute condition and the control condition both received an average rating of about 4."
+            },
+            {
+              "letter": "C",
+              "text": "The highest average rating for any of the three conditions was well below the maximum rating of 7."
+            },
+            {
+              "letter": "D",
+              "text": "The average rating for the substitute condition was higher than the average rating for the supplement condition."
+            }
+          ],
+          "answer": "D",
+          "topic": "Information and Ideas",
+          "subtopic": "Command of Evidence",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The hypothesis is that the negative effect shrinks when the emoji replaces the word — the substitute condition should beat the supplement condition. The graph gives supplement 3.2, substitute 3.5, control 3.8.",
+            "choices": {
+              "A": "Control above supplement just restates the general negative effect and says nothing about substitution.",
+              "B": "The graph puts substitute at 3.5 and control at 3.8, and equal ratings would not support the hypothesis anyway.",
+              "C": "All three sitting below 7 has no bearing on the comparison the hypothesis makes.",
+              "D": "Correct. Substitute at 3.5 above supplement at 3.2 is the reduction predicted."
+            }
+          }
+        },
+        {
+          "id": "module-1-q14",
+          "number": 14,
+          "passage": [
+            "Louis-Ferdinand Céline’s 1932 novel Journey to the End of the Night is regularly described as autobiographical. This description has some merit—there are many parallels between the experiences of the novel's protagonist, Ferdinand Bardamu, and those of Céline—but it can also be misleading in its implication that Céline is concerned with fidelity to the truth. Journey to the End of the Night is a complex interweaving of interpretations, deliberate alterations, and pure invention; readers should therefore be wary of concluding that ______"
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice most logically completes the text?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Céline was conscious of drawing on any of his actual experiences when writing Journey to the End of the Night."
+            },
+            {
+              "letter": "B",
+              "text": "all events and characters depicted in Journey to the End of the Night have real-world analogues."
+            },
+            {
+              "letter": "C",
+              "text": "Journey to the End of the Night contains any material that could illuminate aspects of Céline’s life or perspective."
+            },
+            {
+              "letter": "D",
+              "text": "Céline intended Journey to the End of the Night to be understood as fiction."
+            }
+          ],
+          "answer": "B",
+          "topic": "Information and Ideas",
+          "subtopic": "Inferences",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "The text grants real parallels between Bardamu and Céline, then warns that the novel weaves in interpretations, deliberate alterations, and pure invention. The warning is against reading it as a factual record.",
+            "choices": {
+              "A": "The text affirms the parallels, so it is not warning readers off the idea that he drew on his life.",
+              "B": "Correct. Deliberate alteration and pure invention are exactly why not every event or character has a real counterpart.",
+              "C": "The text says the autobiographical description \"has some merit,\" so the book clearly illuminates something.",
+              "D": "Nothing warns against reading it as fiction. The warning runs the other way."
+            }
+          }
+        },
+        {
+          "id": "module-1-q15",
+          "number": 15,
+          "passage": [
+            "With an average summer temperature of 67.7 degrees Fahrenheit, Budapest is one European ______ many travelers recommend, especially from June to September."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "city, that"
+            },
+            {
+              "letter": "B",
+              "text": "city in which,"
+            },
+            {
+              "letter": "C",
+              "text": "city, which"
+            },
+            {
+              "letter": "D",
+              "text": "city"
+            }
+          ],
+          "answer": "D",
+          "topic": "Standard English Conventions",
+          "subtopic": "Boundaries",
+          "difficulty": "easy",
+          "explanation": {
+            "summary": "\"One European city many travelers recommend\" is a restrictive relative clause with the relative pronoun dropped — standard, and the clause is what identifies the city.",
+            "choices": {
+              "A": "\"That\" cannot follow a comma in a restrictive clause.",
+              "B": "\"In which\" leaves \"recommend\" without an object, and the comma is stray.",
+              "C": "The comma makes the clause nonrestrictive, but it is what specifies which city.",
+              "D": "Correct. No punctuation, relative pronoun omitted."
+            }
+          }
+        },
+        {
+          "id": "module-1-q16",
+          "number": 16,
+          "passage": [
+            "The Atlantic Ocean is home to many ________ mountains that rise from the ocean floor), including the Muir Seamount and the Bear Seamount."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "seamounts underwater"
+            },
+            {
+              "letter": "B",
+              "text": "seamounts. Underwater"
+            },
+            {
+              "letter": "C",
+              "text": "seamounts, (underwater"
+            },
+            {
+              "letter": "D",
+              "text": "seamounts (underwater"
+            }
+          ],
+          "answer": "D",
+          "topic": "Standard English Conventions",
+          "subtopic": "Boundaries",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The sentence already supplies the closing \"ocean floor),\" so the blank has to open the parenthesis around the definition of \"seamounts.\"",
+            "choices": {
+              "A": "Leaves the closing parenthesis with no partner.",
+              "B": "A full stop makes the first half a fragment and strands the rest.",
+              "C": "A comma before an opening parenthesis is not standard.",
+              "D": "Correct. \"many seamounts (underwater mountains that rise from the ocean floor), including ...\""
+            }
+          }
+        },
+        {
+          "id": "module-1-q17",
+          "number": 17,
+          "passage": [
+            "While being interviewed for the book Latina Authors and Their Muses, historical fiction author Eleanor Parker Sapia revealed her favorite book about the craft of ______ Julia Cameron’s The Artist’s Way."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "writing: which was"
+            },
+            {
+              "letter": "B",
+              "text": "writing;"
+            },
+            {
+              "letter": "C",
+              "text": "writing, it was"
+            },
+            {
+              "letter": "D",
+              "text": "writing:"
+            }
+          ],
+          "answer": "D",
+          "topic": "Standard English Conventions",
+          "subtopic": "Boundaries",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The title that follows answers \"her favorite book about the craft of writing,\" so a colon introduces it.",
+            "choices": {
+              "A": "A colon plus \"which was\" introduces the title twice.",
+              "B": "A semicolon needs an independent clause after it; a book title is not one.",
+              "C": "\"Writing, it was Julia Cameron’s ...\" splices two clauses with a comma.",
+              "D": "Correct. Colon, then the title it announces."
+            }
+          }
+        },
+        {
+          "id": "module-1-q18",
+          "number": 18,
+          "passage": [
+            "Carnegie Hall’s digital Timeline of African American Music reflects the contributions of many prominent scholars of Black history and music, including Paul Austerlitz, a professor at Gettysburg ______ and Stephanie Shonekan, a professor at the University of Missouri."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "College, Jeff Todd Titon a professor at Brown University,"
+            },
+            {
+              "letter": "B",
+              "text": "College; Jeff Todd Titon, a professor at Brown University;"
+            },
+            {
+              "letter": "C",
+              "text": "College, Jeff Todd Titon, a professor at Brown University;"
+            },
+            {
+              "letter": "D",
+              "text": "College; Jeff Todd Titon a professor at Brown University;"
+            }
+          ],
+          "answer": "B",
+          "topic": "Standard English Conventions",
+          "subtopic": "Boundaries",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "Three scholars are listed and each item already carries a comma of its own (\"Paul Austerlitz, a professor at Gettysburg College\"), so the items themselves take semicolons.",
+            "choices": {
+              "A": "No comma after \"Titon,\" and commas cannot separate items that already contain commas.",
+              "B": "Correct. Semicolons between the items, commas kept inside them.",
+              "C": "A comma for one break and a semicolon for the other divides the list inconsistently.",
+              "D": "Drops the comma that sets off Titon’s own appositive."
+            }
+          }
+        },
+        {
+          "id": "module-1-q19",
+          "number": 19,
+          "passage": [
+            "Marie Taglioni made ballet history in 1832 with her role in La Sylphide. For this performance, she ______ special tight-fitting satin slippers that allowed her to dance the entire ballet on the tips of her toes. It was the first time this technique (known as pointe work) had been featured throughout a full-length production."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "is wearing"
+            },
+            {
+              "letter": "B",
+              "text": "wears"
+            },
+            {
+              "letter": "C",
+              "text": "will wear"
+            },
+            {
+              "letter": "D",
+              "text": "wore"
+            }
+          ],
+          "answer": "D",
+          "topic": "Standard English Conventions",
+          "subtopic": "Form, Structure, and Sense",
+          "difficulty": "easy",
+          "explanation": {
+            "summary": "\"Made ballet history in 1832\" fixes the sentence in the past, and the sentence after it uses \"had been featured.\"",
+            "choices": {
+              "A": "Present progressive.",
+              "B": "Simple present.",
+              "C": "Future, for something that happened in 1832.",
+              "D": "Correct. \"Wore\" matches 1832 and the tense around it."
+            }
+          }
+        },
+        {
+          "id": "module-1-q20",
+          "number": 20,
+          "passage": [
+            "The Trans Bhutan Trail once served as a vital artery connecting fortresses, monasteries, and markets across the country of Bhutan. After a 60-year hiatus, the historic trail has been restored, a project that employed many of the ______ including homestay owner Sangay Choden, who asserts that the trail’s restoration has helped preserve her village’s culture and tradition."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "countries residents',"
+            },
+            {
+              "letter": "B",
+              "text": "country's resident's,"
+            },
+            {
+              "letter": "C",
+              "text": "countries' resident's,"
+            },
+            {
+              "letter": "D",
+              "text": "country's residents,"
+            }
+          ],
+          "answer": "D",
+          "topic": "Standard English Conventions",
+          "subtopic": "Form, Structure, and Sense",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "One country — Bhutan — so the possessive is singular; many residents, so that noun is a plain plural. A comma then opens the \"including ...\" phrase.",
+            "choices": {
+              "A": "Makes \"countries\" plural without an apostrophe and \"residents’\" possessive for no reason.",
+              "B": "\"Resident’s\" is singular possessive, but the project employed many residents.",
+              "C": "Both nouns wrong: one country, many residents.",
+              "D": "Correct. \"the country’s residents, including homestay owner Sangay Choden.\""
+            }
+          }
+        },
+        {
+          "id": "module-1-q21",
+          "number": 21,
+          "passage": [
+            "Initially introduced in 2016 and since optimized for faster object detection, ______ compared with traditional methods of detection."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "less computational power is required for the YOLO (You Only Look Once) algorithm to achieve high accuracy"
+            },
+            {
+              "letter": "B",
+              "text": "the YOLO (You Only Look Once) algorithm achieves high accuracy while requiring less computational power"
+            },
+            {
+              "letter": "C",
+              "text": "high accuracy while requiring less computational power is the YOLO (You Only Look Once) algorithm’s achievement"
+            },
+            {
+              "letter": "D",
+              "text": "high accuracy and lower computational power requirements are achieved by the YOLO (You Only Look Once) algorithm"
+            }
+          ],
+          "answer": "B",
+          "topic": "Standard English Conventions",
+          "subtopic": "Form, Structure, and Sense",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The opening modifier — \"Initially introduced in 2016 and since optimized for faster object detection\" — describes the algorithm, so the algorithm has to be the subject of the main clause.",
+            "choices": {
+              "A": "Puts \"less computational power\" in the position the modifier describes.",
+              "B": "Correct. The YOLO algorithm is what was introduced and optimized, and it heads the main clause.",
+              "C": "Makes \"high accuracy\" the thing introduced in 2016.",
+              "D": "Makes accuracy and power requirements the thing introduced in 2016."
+            }
+          }
+        },
+        {
+          "id": "module-1-q22",
+          "number": 22,
+          "passage": [
+            "According to Roxana Silbert, former artistic director of Hampstead Theatre, the past five decades have seen UK theater companies—once operated as artist cooperatives like the Royal Exchange (with its five founding artistic directors)—evolving toward increasingly corporate structures, with executives rather than creatives ______ decision-making power over programming."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "have been given"
+            },
+            {
+              "letter": "B",
+              "text": "are being given"
+            },
+            {
+              "letter": "C",
+              "text": "being given"
+            },
+            {
+              "letter": "D",
+              "text": "been given"
+            }
+          ],
+          "answer": "C",
+          "topic": "Standard English Conventions",
+          "subtopic": "Form, Structure, and Sense",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "\"With executives rather than creatives ___ decision-making power\" is a \"with\" phrase, which takes a participle rather than a finite verb.",
+            "choices": {
+              "A": "A finite verb inside a phrase that cannot hold one.",
+              "B": "Same problem.",
+              "C": "Correct. \"With executives ... being given decision-making power\" is the participial form the construction needs.",
+              "D": "\"Been given\" is a past participle with no auxiliary to support it."
+            }
+          }
+        },
+        {
+          "id": "module-1-q23",
+          "number": 23,
+          "passage": [
+            "Many poetry anthologies include only a single poem from each poet, but Heid E. Erdrich’s New Poets of Native Nations includes generous selections from each poet. ______ Erdrich includes multiple poems from Trevino L. Brings Plenty and Gwen Nell Westerman. This allows readers to engage with a wide range of each poet’s work."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical transition?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "In addition,"
+            },
+            {
+              "letter": "B",
+              "text": "However,"
+            },
+            {
+              "letter": "C",
+              "text": "Next,"
+            },
+            {
+              "letter": "D",
+              "text": "For example,"
+            }
+          ],
+          "answer": "D",
+          "topic": "Expression of Ideas",
+          "subtopic": "Transitions",
+          "difficulty": "easy",
+          "explanation": {
+            "summary": "The first sentence states the practice — generous selections from each poet. The second names two poets it happens with.",
+            "choices": {
+              "A": "\"In addition\" adds a separate point; this is the same point illustrated.",
+              "B": "\"However\" reverses direction where the sentence continues straight.",
+              "C": "\"Next\" implies a sequence, and there is none.",
+              "D": "Correct. Brings Plenty and Westerman are the example of the practice just described."
+            }
+          }
+        },
+        {
+          "id": "module-1-q24",
+          "number": 24,
+          "passage": [
+            "Under drought conditions, soybean plants produce smaller leaves, a common response to water scarcity that limits transpirational water loss and helps maintain osmotic balance. Sugarcane plants subjected to drought stress, ______ experience a marginal elongation of their leaves, as observed by Misra and colleagues in a recent study."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical transition?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "specifically,"
+            },
+            {
+              "letter": "B",
+              "text": "by contrast,"
+            },
+            {
+              "letter": "C",
+              "text": "for instance,"
+            },
+            {
+              "letter": "D",
+              "text": "moreover,"
+            }
+          ],
+          "answer": "B",
+          "topic": "Expression of Ideas",
+          "subtopic": "Transitions",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "Soybeans shrink their leaves under drought; sugarcane leaves elongate slightly. The two responses go opposite ways.",
+            "choices": {
+              "A": "\"Specifically\" narrows the same case, but this is a different plant behaving differently.",
+              "B": "Correct. Smaller leaves against marginal elongation is a contrast.",
+              "C": "\"For instance\" would make sugarcane an example of the soybean response.",
+              "D": "\"Moreover\" adds a similar point rather than an opposite one."
+            }
+          }
+        },
+        {
+          "id": "module-1-q25",
+          "number": 25,
+          "passage": [
+            "The widespread use of mathematical scoring systems in combat sports reflects a Western-influenced preference for quantifiable competitions. ______ the scoring system in traditional Muay Thai (Thai boxing) treats fights as unfolding narratives in which the significance of any given exchange is inextricable from the broader arc of the contest—the winner being determined not by a numerical tally of discrete actions but by an overall assessment of the fighters’ performances."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical transition?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "In marked contrast to this approach,"
+            },
+            {
+              "letter": "B",
+              "text": "Due in part to this cultural preference,"
+            },
+            {
+              "letter": "C",
+              "text": "Constructed with a similar intent,"
+            },
+            {
+              "letter": "D",
+              "text": "As another example of this methodology,"
+            }
+          ],
+          "answer": "A",
+          "topic": "Expression of Ideas",
+          "subtopic": "Transitions",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "The first sentence describes quantifiable, Western-influenced scoring. Muay Thai’s system is its opposite: narrative, judged as a whole rather than by numerical tally.",
+            "choices": {
+              "A": "Correct. The two systems are set against each other, which is what the transition has to say.",
+              "B": "Muay Thai’s system is not a product of the Western preference just described.",
+              "C": "\"Similar intent\" contradicts the rest of the sentence.",
+              "D": "It is the counter-case, not another example of the same methodology."
+            }
+          }
+        },
+        {
+          "id": "module-1-q26",
+          "number": 26,
+          "passage": [
+            "While researching a topic, a student has taken the following notes: - Dragonflies live near ponds and lakes. - They need water nearby to lay their eggs."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "The student wants to explain why dragonflies live where they do. Which choice best uses information from the notes to do this?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Dragonflies usually lay their eggs during the warmer months of the year."
+            },
+            {
+              "letter": "B",
+              "text": "Dragonflies have large eyes that enable them to spot and catch prey while flying."
+            },
+            {
+              "letter": "C",
+              "text": "Dragonflies live near ponds and lakes because they need water nearby to lay their eggs."
+            },
+            {
+              "letter": "D",
+              "text": "Dragonflies can hover over ponds and lakes when they are hunting for insects."
+            }
+          ],
+          "answer": "C",
+          "topic": "Expression of Ideas",
+          "subtopic": "Rhetorical Synthesis",
+          "difficulty": "easy",
+          "explanation": {
+            "summary": "The goal is to explain why dragonflies live where they do, so the sentence has to join the place to a reason.",
+            "choices": {
+              "A": "About when they lay eggs, not where they live.",
+              "B": "About eyesight and hunting.",
+              "C": "Correct. Ponds and lakes, because they need water nearby to lay eggs — location plus cause.",
+              "D": "Describes hovering while hunting, not a reason for living there."
+            }
+          }
+        },
+        {
+          "id": "module-1-q27",
+          "number": 27,
+          "passage": [
+            "While researching a topic, a student has taken the following notes: - Canteen Co-op is a democratically run convenience store based in Hong Kong. - 1914: Webb and Webb’s degeneration thesis argued that democratic workplaces will either fail or be forced to adopt hierarchical governance to remain profitable. - 2012: Diamantopoulos’s regeneration thesis argued that workplaces could regenerate (recover from degeneration by reintroducing democratic practices). - 2022: Unterrainer et al. analyzed data from 73 democratic workplaces to track structural changes over time. - Canteen Co-op was among the 52.7% of the studied workplaces that resisted degeneration. - 10.8% of the workplaces had regenerated, 27.0% showed partial signs of degeneration, and 9.5% had fully degenerated and never recovered."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "The student wants to use data to support Diamantopoulos’s thesis. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Signs of degeneration were seen in 27.0% of democratic workplaces studied, supporting Diamantopoulos's assertion that degeneration could be reversed."
+            },
+            {
+              "letter": "B",
+              "text": "An impressive 52.7% of democratic workplaces studied—including Canteen Co-op—resisted degeneration, lending credence to Diamantopoulos's regeneration thesis."
+            },
+            {
+              "letter": "C",
+              "text": "Though Webb and Webb's degeneration thesis insisted on the inevitability of such an outcome, only 9.5% of democratic workplaces studied had fully degenerated and never recovered."
+            },
+            {
+              "letter": "D",
+              "text": "Around 10.8% of democratic workplaces in the study successfully used democratic practices to recover from degeneration."
+            }
+          ],
+          "answer": "D",
+          "topic": "Expression of Ideas",
+          "subtopic": "Rhetorical Synthesis",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "Diamantopoulos’s thesis is regeneration — that a workplace can recover from degeneration by reintroducing democratic practices. Supporting data have to show recovery actually happening.",
+            "choices": {
+              "A": "The 27.0 percent is a degeneration figure, and it shows nothing being reversed.",
+              "B": "Resisting degeneration is not recovering from it; that answers Webb and Webb, not Diamantopoulos.",
+              "C": "Also aimed at Webb and Webb’s inevitability claim rather than at regeneration.",
+              "D": "Correct. The 10.8 percent that regenerated is the group that recovered, which is what the thesis predicts."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "module-2",
+      "number": 2,
+      "subject": "Reading and Writing",
+      "label": "Module 2",
+      "durationSeconds": 1920,
+      "questions": [
+        {
+          "id": "module-2-q1",
+          "number": 1,
+          "passage": [
+            "Zoochorous trees—those whose seeds are dispersed mainly by animals—are much more prevalent in the Mo Singto plot than in the Tyson Research Center, making species distribution in Mo Singto considerably more ______. Animal dispersers may congregate at varying distances from parent trees, may carry seeds for varying lengths of time, and may have idiosyncratic spatial trajectories."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "symmetrical"
+            },
+            {
+              "letter": "B",
+              "text": "iterative"
+            },
+            {
+              "letter": "C",
+              "text": "anachronistic"
+            },
+            {
+              "letter": "D",
+              "text": "unpredictable"
+            }
+          ],
+          "answer": "D",
+          "topic": "Craft and Structure",
+          "subtopic": "Words in Context",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The second sentence lists the ways animal dispersers vary — different distances from the parent tree, different carry times, idiosyncratic trajectories. The blank describes the distribution all that variation produces.",
+            "choices": {
+              "A": "Symmetrical describes an even shape; the sentence describes irregularity.",
+              "B": "Iterative means repeating. The dispersers are described as varying, not repeating.",
+              "C": "Anachronistic is about being out of its own time period, which is not the topic.",
+              "D": "Correct. Varying distances, times, and paths make where seeds land hard to predict."
+            }
+          }
+        },
+        {
+          "id": "module-2-q2",
+          "number": 2,
+          "passage": [
+            "Lauren Hoult, Trudi Edginton, and colleagues reviewed 51 studies about positive expressive writing (writing about positive experiences and emotions like cheerfulness) in an attempt to determine what therapeutic outcomes this kind of writing most reliably achieves. However, large ______ across the studies in the methodologies used and health effects assessed prevented a definitive universal conclusion."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "discrepancies"
+            },
+            {
+              "letter": "B",
+              "text": "vulnerabilities"
+            },
+            {
+              "letter": "C",
+              "text": "compensations"
+            },
+            {
+              "letter": "D",
+              "text": "endorsements"
+            }
+          ],
+          "answer": "A",
+          "topic": "Craft and Structure",
+          "subtopic": "Words in Context",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "\"However\" plus \"prevented a definitive universal conclusion\" tells you the 51 studies did not line up. The blank names the mismatch in methods and in the health effects assessed.",
+            "choices": {
+              "A": "Correct. Large discrepancies across studies are what stop a universal conclusion.",
+              "B": "Vulnerabilities would be weaknesses in the studies, not the mismatch between them.",
+              "C": "Compensations does not describe differences in methodology.",
+              "D": "Endorsements would be support, which would help a conclusion rather than prevent one."
+            }
+          }
+        },
+        {
+          "id": "module-2-q3",
+          "number": 3,
+          "passage": [
+            "Both overwatering and underwatering can significantly reduce agricultural yields and waste valuable resources. To avoid these problems, farmers’ management of agricultural irrigation systems must be ______. Following the careful consideration of crop requirements, soil conditions, and weather patterns, farmers need to make precise, minute adjustments to water allocations to ensure the best outcomes."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "perfunctory"
+            },
+            {
+              "letter": "B",
+              "text": "serendipitous"
+            },
+            {
+              "letter": "C",
+              "text": "resolute"
+            },
+            {
+              "letter": "D",
+              "text": "exacting"
+            }
+          ],
+          "answer": "D",
+          "topic": "Craft and Structure",
+          "subtopic": "Words in Context",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "The next sentence spells the blank out: careful consideration of crops, soil, and weather, then \"precise, minute adjustments to water allocations.\"",
+            "choices": {
+              "A": "Perfunctory is going through the motions — the opposite of what is demanded.",
+              "B": "Serendipitous is lucky accident; the passage calls for deliberate care.",
+              "C": "Resolute is determined, which is not the same as precise.",
+              "D": "Correct. Exacting means demanding precision, which is what \"precise, minute adjustments\" describes."
+            }
+          }
+        },
+        {
+          "id": "module-2-q4",
+          "number": 4,
+          "passage": [
+            "Microhistories tackle “big questions” about broad phenomena via narrow subjects. The questions they ask are often ______. Distinct strains of microhistory emerged at different times in France, Iceland, and elsewhere, for example, and while microhistories of the 1980s reflected the era’s interest in popular culture, the “material turn” in recent historiography sparked a wave of object-centered microhistories."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical and precise word or phrase?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "indicative of the practitioner’s ingenuity"
+            },
+            {
+              "letter": "B",
+              "text": "peripheral to the practitioner’s discipline"
+            },
+            {
+              "letter": "C",
+              "text": "controversial within the practitioner’s specialty"
+            },
+            {
+              "letter": "D",
+              "text": "contingent on the practitioner’s milieu"
+            }
+          ],
+          "answer": "D",
+          "topic": "Craft and Structure",
+          "subtopic": "Words in Context",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "Every example is about time and place: different strains in France and Iceland, the 1980s interest in popular culture, the recent material turn. The blank has to say the questions depend on the historian’s setting.",
+            "choices": {
+              "A": "Ingenuity credits the individual, but the examples vary by era and country.",
+              "B": "The questions are central to microhistory, not peripheral to it.",
+              "C": "No controversy is described.",
+              "D": "Correct. Milieu is the surrounding time and place, which is exactly what the examples vary."
+            }
+          }
+        },
+        {
+          "id": "module-2-q5",
+          "number": 5,
+          "passage": [
+            "Many models predict that as climates warm, North American tree populations will expand northward into newly suitable habitats. However, forest surveys show that many species, such as the chestnut oak (Quercus montana) and the Engelmann spruce (Picea engelmannii), are exhibiting migration lag—that is, they are failing to establish northern populations as predicted. Research suggests that this lag is linked to reduced diversity of essential fungal partners at the northern edges of the trees’ habitats, making it difficult for these trees to successfully expand northward."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice best describes the overall structure of the text?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "It presents a scientific prediction, describes evidence that contradicts that prediction, and then offers an explanation for the contradiction."
+            },
+            {
+              "letter": "B",
+              "text": "It introduces a scientific model, presents several predictions made using data generated by the model, and then provides further support for one prediction over the others."
+            },
+            {
+              "letter": "C",
+              "text": "It summarizes recent research findings, identifies a gap in current understanding, and then suggests future research to address that gap."
+            },
+            {
+              "letter": "D",
+              "text": "It describes an environmental problem, discusses several attempted solutions, and then proposes a new solution."
+            }
+          ],
+          "answer": "A",
+          "topic": "Craft and Structure",
+          "subtopic": "Text Structure and Purpose",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "Three moves: the prediction that trees will expand northward, surveys showing they are not, and the fungal-partner finding that explains the lag.",
+            "choices": {
+              "A": "Correct. Prediction, contradicting evidence, then an explanation for the contradiction.",
+              "B": "There are not several competing predictions being weighed against each other.",
+              "C": "The text supplies an explanation rather than identifying a gap and proposing future work.",
+              "D": "No solutions are attempted or proposed."
+            }
+          }
+        },
+        {
+          "id": "module-2-q6",
+          "number": 6,
+          "passage": [
+            "Dziga Vertov’s Man with a Movie Camera (1929) not only exhibits striking visual effects like multiple exposure, but it also has as a central idea that <u>the camera itself is a character in the film</u>. The camera’s presence is continually accentuated by showing the operator position it, for example, placing it on the outside of a train, where he then adjusts the camera to capture a view of train tracks as seen from the front of a locomotive, to which the film cuts immediately after."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice best describes the function of the underlined portion in the text as a whole?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "It introduces a conceit of the film that helps explain Vertov’s choices as described later in the text."
+            },
+            {
+              "letter": "B",
+              "text": "It introduces a concept attributed to Vertov, which the remainder of the text affirms is rightly attributed."
+            },
+            {
+              "letter": "C",
+              "text": "It presents a metaphor that the text indicates inspired Vertov to structure the film as he did."
+            },
+            {
+              "letter": "D",
+              "text": "It presents Vertov’s intended message for the film, which the remainder of the text uses as a basis to evaluate how successful the film was at conveying it."
+            }
+          ],
+          "answer": "A",
+          "topic": "Craft and Structure",
+          "subtopic": "Text Structure and Purpose",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "\"The camera itself is a character in the film\" is the film’s conceit, and everything after it is the evidence: the operator positioning the camera, placing it on a train, and the cut to what it sees.",
+            "choices": {
+              "A": "Correct. It names the conceit, and the train example that follows shows how Vertov works it out.",
+              "B": "The rest of the text illustrates the idea; it does not defend attributing it to Vertov.",
+              "C": "Nothing says the metaphor inspired the structure. It is stated as the film’s central idea.",
+              "D": "No evaluation of how successfully the film conveys anything appears."
+            }
+          }
+        },
+        {
+          "id": "module-2-q7",
+          "number": 7,
+          "passage": [
+            "Text 1",
+            "Studies contributing to the body of evidence that people generally enjoy socializing have routinely focused on interactions in ongoing relationships (from close confidants to neighbors), but psychologist Selin Salman-Engin and colleagues have demonstrated the benefit of making connections with strangers. Greater positive affect was reported by participants in their study who warmly thanked a shuttle driver than by those who didn’t speak to the driver.",
+            "Text 2",
+            "Social relations research commonly draws on a model that centers an individual within three concentric circles. The innermost circle holds one’s strongest ties (e.g., a treasured friend), the next holds close but less important ties (e.g., a teammate), and the outermost holds weak ties (those more distant but important enough to be counted as part of one’s social network)."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Based on the texts, what would Salman-Engin and colleagues (Text 1) most likely say about the discussion of the model in Text 2?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "It emphasizes distinctions among types of close connections that aren’t adequately represented in social relations research, since most studies categorize relationships as either close or casual."
+            },
+            {
+              "letter": "B",
+              "text": "It reflects an overemphasis on relationship longevity in researchers’ evaluations of the relative importance of various connections in an individual’s social network."
+            },
+            {
+              "letter": "C",
+              "text": "It underscores that most research on social interactions fails to capture a category of connection that has the capacity to contribute positively to individuals’ sense of well-being."
+            },
+            {
+              "letter": "D",
+              "text": "It explains researchers’ observations that individuals typically expect interactions with familiar people to be more positive than their interactions with unfamiliar people would be."
+            }
+          ],
+          "answer": "C",
+          "topic": "Craft and Structure",
+          "subtopic": "Cross-Text Connections",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "Salman-Engin’s finding is that talking to a stranger produced greater positive affect. Every circle in Text 2’s model holds someone already in the network — even weak ties are \"part of one’s social network.\" Strangers are outside it entirely.",
+            "choices": {
+              "A": "The gap is not about distinctions among close connections.",
+              "B": "Longevity is not what Text 1’s study challenges.",
+              "C": "Correct. The model leaves out the stranger interaction Text 1 showed to be beneficial.",
+              "D": "Text 2 makes no claim about what people expect from familiar versus unfamiliar company."
+            }
+          }
+        },
+        {
+          "id": "module-2-q8",
+          "number": 8,
+          "passage": [
+            "How bright is the night sky above your home compared to truly dark wilderness areas? This is the question investigated by citizen scientists participating in the Globe at Night project. Rather than seeing simply \"darkness,\" trained observers recognize that night skies exist on a spectrum of brightness. By counting visible stars within specific constellations or measuring sky glow with specialized meters, participants quantify what was once just a subjective experience. These data help researchers track light pollution trends and their effects on wildlife and human health."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "According to the text, what is one effect of the Globe at Night project for participants?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "It enables them to quantify what was previously a subjective experience."
+            },
+            {
+              "letter": "B",
+              "text": "It reveals to them that light pollution isn't limited to major metropolitan areas."
+            },
+            {
+              "letter": "C",
+              "text": "It allows them to prove that artificial light has no significant effect on wildlife behavior."
+            },
+            {
+              "letter": "D",
+              "text": "It helps them to acquire a greater appreciation of the beauty of night skies."
+            }
+          ],
+          "answer": "A",
+          "topic": "Information and Ideas",
+          "subtopic": "Central Ideas and Details",
+          "difficulty": "easy",
+          "explanation": {
+            "summary": "The question asks for an effect on participants, and the text names one: they \"quantify what was once just a subjective experience.\"",
+            "choices": {
+              "A": "Correct. That is the text’s own phrase for what taking part does for them.",
+              "B": "Where light pollution occurs is not what the text says participants learn.",
+              "C": "The text says the data help researchers track effects on wildlife, not that there are none.",
+              "D": "Appreciation of beauty is never mentioned."
+            }
+          }
+        },
+        {
+          "id": "module-2-q9",
+          "number": 9,
+          "passage": [
+            "Utilizing multiscale optical coherence tomography and other advanced imaging techniques, in 2018 a group of scholars conducted an in-depth analysis of Dutch painter Johannes Vermeer’s iconic work Girl with a Pearl Earring (ca. 1665). The investigation yielded fresh insights into the painting’s current condition and the techniques Vermeer employed in its creation, which were subsequently published in a series of articles. In one such article, John K. Delaney et al. expounded the way in which the group’s methodologies facilitated identification of the pigments Vermeer used in various sections of the painting."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice best states the main idea of the text?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Scholars have gleaned novel information about the creation and preservation state of the renowned Vermeer painting Girl with a Pearl Earring through analysis with sophisticated technology."
+            },
+            {
+              "letter": "B",
+              "text": "Scholars determined in 2018 that advances in imaging technology afforded an unprecedented opportunity to resolve intricate questions about Vermeer’s Girl with a Pearl Earring."
+            },
+            {
+              "letter": "C",
+              "text": "An investigation that uncovered previously undisclosed particulars about Vermeer’s masterpiece Girl with a Pearl Earring has demonstrated the superiority of multiscale optical coherence tomography to other advanced imaging techniques."
+            },
+            {
+              "letter": "D",
+              "text": "An analysis that was made possible by recent technological advancements prompted the publication of a series of articles with contrasting interpretations of the analysis’s revelations about Vermeer’s Girl with a Pearl Earring."
+            }
+          ],
+          "answer": "A",
+          "topic": "Information and Ideas",
+          "subtopic": "Central Ideas and Details",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The text: advanced imaging in 2018, fresh insight into both the painting’s current condition and the techniques Vermeer used, published in a series of articles.",
+            "choices": {
+              "A": "Correct. Novel information about creation and condition, obtained with sophisticated technology, is the whole text in a sentence.",
+              "B": "The text does not frame the work as resolving intricate questions, and the analysis itself is what 2018 dates.",
+              "C": "No comparison ranks one imaging technique above another.",
+              "D": "The articles are not described as offering contrasting interpretations."
+            }
+          }
+        },
+        {
+          "id": "module-2-q10",
+          "number": 10,
+          "passage": [
+            "Cane is a 1923 novel by Jean Toomer. In the novel, Toomer mentions a road in rural Georgia called Dixie Pike and describes it as having a deep connection to a faraway place, writing, ______"
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which quotation from Cane most effectively illustrates the claim?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "“The Dixie Pike has grown from a goat path in Africa.”"
+            },
+            {
+              "letter": "B",
+              "text": "“One evening I walked up the [Dixie] Pike on purpose, and stopped to say hello [to Fern].”"
+            },
+            {
+              "letter": "C",
+              "text": "“From down the railroad track, the chug-chug of a gas engine announces that the repair gang is coming home.”"
+            },
+            {
+              "letter": "D",
+              "text": "“and when the wind is from the South, soil of my homeland falls like a fertile shower upon the lean streets of [Washington, DC].”"
+            }
+          ],
+          "answer": "A",
+          "topic": "Information and Ideas",
+          "subtopic": "Command of Evidence",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The claim is that Toomer gives the road a deep connection to a faraway place, so the quotation has to tie Dixie Pike to somewhere distant.",
+            "choices": {
+              "A": "Correct. A Georgia road grown from a goat path in Africa is exactly that connection.",
+              "B": "A walk up the Pike, with no distant place in view.",
+              "C": "A railroad and a repair gang, nothing about the road’s origin.",
+              "D": "About soil from a homeland reaching Washington, not about Dixie Pike."
+            }
+          }
+        },
+        {
+          "id": "module-2-q11",
+          "number": 11,
+          "passage": [
+            "The Exeter Book (ca. 960-990 CE) is the sole manuscript source for the entire corpus of Old English riddles. The precise number of riddles is a matter of debate. Identification of consecutive riddles’ boundaries based on content is difficult, given their purposely enigmatic nature, the challenges modern readers face in interpreting the archaic language of Old English, and damage to the manuscript. Moreover, the manuscript lacks any paratextual apparatus—titles, commentary, lists of solutions—to delimit riddles, and the appearance of a distinctive mark to signal the ends of some riddles may be an unreliable clue. For instance, some scholars claim that the use of this mark at the end of the single manuscript line containing the text conventionally known as Riddle 68 may be a scribal error."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Given that the texts conventionally known as Riddle 68 and Riddle 69 appear consecutively in the manuscript, which evidence, if true, would most directly support the claim about Riddle 68 presented in the text?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Circumstantial evidence, including the fact that most of Riddles 63-72, which appear consecutively in the manuscript, repeat solutions from riddles scattered throughout earlier pages of the manuscript, suggests that Riddles 68 and 69 may have originated from a single source whose author was influenced by those earlier riddles."
+            },
+            {
+              "letter": "B",
+              "text": "Although Riddle 68 opens with a phrase in Old English meaning “I saw” that likewise appears at the beginning of a large number of the Exeter Book riddles, neither it nor Riddle 69 concludes with any phrases that directly invite the audience to solve the riddle, which nearly half of the Exeter Book riddles do."
+            },
+            {
+              "letter": "C",
+              "text": "Although Riddle 69 appears to be solvable when read on its own or in conjunction with Riddle 68, with “iceberg” or “icicle” having been presented as likely solutions, Riddle 68, whose imagery and sonic patterns are consistent with those of Riddle 69, has been deemed unsolvable given its overly generic clues, unless read in conjunction with Riddle 69."
+            },
+            {
+              "letter": "D",
+              "text": "Many of the Exeter Book riddles employ the rhetorical device of prosopopoeia, a form of personification in which a nonhuman entity, usually the solution to a riddle, is represented as speaking, but neither Riddle 68 nor Riddle 69 uses this device."
+            }
+          ],
+          "answer": "C",
+          "topic": "Information and Ideas",
+          "subtopic": "Command of Evidence",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "The claim is that the end-mark after Riddle 68 may be a scribal error — that 68 and 69 may really be one riddle. Support has to show the two belong together.",
+            "choices": {
+              "A": "A shared source and influence from earlier riddles do not argue that these two are a single riddle.",
+              "B": "Neither one inviting the audience to solve it says nothing about the boundary between them.",
+              "C": "Correct. Riddle 68 is unsolvable alone, matches 69 in imagery and sound, and becomes solvable read with it — so the mark separating them looks like a mistake.",
+              "D": "Neither using prosopopoeia is a shared trait, not evidence about the mark between them."
+            }
+          }
+        },
+        {
+          "id": "module-2-q12",
+          "number": 12,
+          "passage": [
+            "> Graphic redrawn as SVG — the source page builds this chart from CSS `<div>` bars, so there was no image to capture. Values and labels are taken verbatim from the page markup.",
+            "Rural electric cooperatives (RECs), such as the Lea County Electric Cooperative based in Lovington, New Mexico, provide power to areas underserved by traditional utilities and can promote economic activity across related local industries. A 2023 nationwide industry report estimated the value RECs add to local economies. The report identified three types of impact: value added within the electric transmission and distribution industry (direct impact), value added to other industries within the same supply chain (indirect impact), and value added through local spending by employees working for RECs or in related industries (induced impact). Data from both 2019 and 2022 show that ______"
+          ],
+          "figure": {
+            "alt": "Estimated Value Added to Local Economies by Rural Electric Cooperatives, 2019 and 2022",
+            "src": "dsat-june-2026-exam-1-assets/module-2-question-12-figure-recreated.svg"
+          },
+          "table": null,
+          "stem": "Which choice most effectively uses data from the graph to complete the statement?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "the direct and induced economic impacts of RECs are likely to grow at similar rates while indirect impacts are likely to remain stable."
+            },
+            {
+              "letter": "B",
+              "text": "induced economic impacts from RECs are less predictable than either direct or indirect impacts are."
+            },
+            {
+              "letter": "C",
+              "text": "the value of the direct economic impacts of RECs is more comparable to the value of induced impacts than to that of indirect impacts."
+            },
+            {
+              "letter": "D",
+              "text": "induced impacts on economic activity from RECs are less substantial than either direct or indirect impacts are."
+            }
+          ],
+          "answer": "D",
+          "topic": "Information and Ideas",
+          "subtopic": "Command of Evidence",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "In both years the induced bar trails the other two badly: 18.4 against 42.1 and 36.8 in 2019, and 22.6 against 51.7 and 45.3 in 2022.",
+            "choices": {
+              "A": "The graph gives two years of values, not growth rates or predictions.",
+              "B": "Two data points per category cannot show predictability.",
+              "C": "Direct is closer to indirect than to induced in both years — the reverse of this claim.",
+              "D": "Correct. Induced is the smallest of the three impacts in 2019 and again in 2022."
+            }
+          }
+        },
+        {
+          "id": "module-2-q13",
+          "number": 13,
+          "passage": [
+            "Average Ancestry Proportions in Regions of Southern Britain during the Pre-Roman Iron Age",
+            "Research has shown that in 3000 BCE, people in what is now Great Britain derived an average of 80 percent of their genetic ancestry from early European farmers (EEF) and the remaining 20 percent from western European hunter-gatherers (WHG). When the genetic influence of another group, the Yamnaya, rose substantially in Britain around 2450 BCE, the average proportion of EEF ancestry in southern Britain (present-day England and Wales) decreased, dropping to only 31 percent by 2100 BCE. Studying genetic data from the pre-Roman Iron Age (750-43 BCE) across regions of Britain, a researcher claims that a wave of people with relatively high proportions of EEF ancestry likely migrated into southern Britain between 2100 BCE and the start of the pre-Roman Iron Age."
+          ],
+          "figure": null,
+          "table": {
+            "caption": null,
+            "headers": [
+              "Region",
+              "WHG (percent)",
+              "EEF (percent)",
+              "Yamnaya (percent)"
+            ],
+            "rows": [
+              [
+                "Midlands",
+                "12.6",
+                "36.0",
+                "51.4"
+              ],
+              [
+                "South Wales",
+                "14.2",
+                "38.6",
+                "47.2"
+              ],
+              [
+                "Southeast England",
+                "13.9",
+                "38.3",
+                "47.8"
+              ]
+            ]
+          },
+          "stem": "Which choice best describes data from the table that support the researcher's conclusion?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "The average proportion of WHG ancestry in the given regions remained below 15 percent throughout the pre-Roman Iron Age."
+            },
+            {
+              "letter": "B",
+              "text": "There was relatively little variation in the average proportions of Yamnaya ancestry across the given regions during the pre-Roman Iron Age."
+            },
+            {
+              "letter": "C",
+              "text": "During the pre-Roman Iron Age, people in the given regions typically had a lower average proportion of ancestry from EEF than from the Yamnaya."
+            },
+            {
+              "letter": "D",
+              "text": "The lowest average proportion of EEF ancestry during the pre-Roman Iron Age for the given regions was 36.0."
+            }
+          ],
+          "answer": "D",
+          "topic": "Information and Ideas",
+          "subtopic": "Command of Evidence",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "EEF ancestry had fallen to 31 percent by 2100 BCE. The claim is that a high-EEF wave arrived after that. Iron Age figures above 31 percent are what would show it.",
+            "choices": {
+              "A": "WHG is not the ancestry the claim is about.",
+              "B": "Consistency in Yamnaya proportions says nothing about EEF rising.",
+              "C": "EEF sitting below Yamnaya says nothing about the change since 2100 BCE.",
+              "D": "Correct. Even the lowest Iron Age EEF figure, 36.0, is above the 31 percent of 2100 BCE, so EEF ancestry rose in between."
+            }
+          }
+        },
+        {
+          "id": "module-2-q14",
+          "number": 14,
+          "passage": [
+            "Having demonstrated that the power conversion efficiency of new perovskite photovoltaic cells is nearly indistinguishable from that of cells recycled multiple times, Xun Xiao and colleagues evaluated the levelized cost of electricity (LCOE)—a measure of cost per produced electricity unit that incorporates materials acquisition costs as well as operating costs—for power plants utilizing each type of cell.<u> With a modeled 15-year cell lifetime, the LCOE of plants using new cells was 4.99 cents per kilowatt hour, whereas that of plants using recycled cells three times was 4.05 cents per kilowatt hour. Moreover, the LCOE differential grew from 18.8% to 31.3% when the modeled cell lifetime was reduced by two-thirds.</u>"
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Based on the text, which choice, if true, best accounts for the observation presented in the underlined sentence?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Although less expensive than producing new cells, recycling cells does incur costs, and thus reducing cell lifetimes entails greater cumulative costs."
+            },
+            {
+              "letter": "B",
+              "text": "As the modeled cell lifetime decreases, plant operating costs increase, and thus the LCOE for plants using new cells diverges from that of plants using recycled cells."
+            },
+            {
+              "letter": "C",
+              "text": "Securing new cell materials is more expensive than recycling cell materials, and thus more frequent cell replacement entails greater disparity in cumulative costs."
+            },
+            {
+              "letter": "D",
+              "text": "Cells can be recycled multiple times without a significant decrease in power conversion efficiency, and thus recycling cells more frequently does not change the LCOE for plants using recycled cells."
+            }
+          ],
+          "answer": "C",
+          "topic": "Information and Ideas",
+          "subtopic": "Inferences",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "The differential widens as the modelled lifetime shrinks. Shorter lifetimes mean more replacements, and each replacement costs more with new cells than with recycled ones, so the gap compounds.",
+            "choices": {
+              "A": "Recycling does cost something, but that would narrow the gap rather than widen it.",
+              "B": "Operating costs rising would hit both kinds of plant alike.",
+              "C": "Correct. New material costs more than recycled material, so more frequent replacement widens the cost disparity.",
+              "D": "Stable efficiency explains why recycling is viable, not why the differential grows."
+            }
+          }
+        },
+        {
+          "id": "module-2-q15",
+          "number": 15,
+          "passage": [
+            "Curator Patricia Ononiwu Kaishian assembled the 2025 exhibition Outcasts: Mary Banning’s World of Mushrooms at the New York State Museum in Albany with a twofold ______ the contributions of Banning, a pioneering 19th-century mycologist, and drawing attention to the museum's historically significant mycology collection."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "purpose: recognizing"
+            },
+            {
+              "letter": "B",
+              "text": "purpose; recognizing"
+            },
+            {
+              "letter": "C",
+              "text": "purpose: recognizing,"
+            },
+            {
+              "letter": "D",
+              "text": "purpose, recognizing;"
+            }
+          ],
+          "answer": "A",
+          "topic": "Standard English Conventions",
+          "subtopic": "Boundaries",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "A \"twofold purpose\" is announced and then spelled out — recognizing Banning and drawing attention to the collection. A colon introduces the spelling-out.",
+            "choices": {
+              "A": "Correct. Colon, then the two things the purpose consists of.",
+              "B": "A semicolon needs an independent clause after it, and \"recognizing ... and drawing ...\" is not one.",
+              "C": "The extra comma after \"recognizing\" cuts the participle from its object.",
+              "D": "A comma cannot introduce the pair, and the semicolon strands the second half."
+            }
+          }
+        },
+        {
+          "id": "module-2-q16",
+          "number": 16,
+          "passage": [
+            "Noise from human activity poses significant challenges to animal ______ ambient noise from automobile traffic, for example, may mask environmental signals that animals depend on for their survival."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "populations and"
+            },
+            {
+              "letter": "B",
+              "text": "populations,"
+            },
+            {
+              "letter": "C",
+              "text": "populations"
+            },
+            {
+              "letter": "D",
+              "text": "populations:"
+            }
+          ],
+          "answer": "D",
+          "topic": "Standard English Conventions",
+          "subtopic": "Boundaries",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The second half is a full clause explaining the first — how noise poses a challenge — so a colon joins them.",
+            "choices": {
+              "A": "\"And\" would need a comma before it and would flatten the explanation into a second fact.",
+              "B": "A comma between two independent clauses is a splice.",
+              "C": "No punctuation runs the two clauses together.",
+              "D": "Correct. Colon, with the traffic-noise clause explaining the challenge."
+            }
+          }
+        },
+        {
+          "id": "module-2-q17",
+          "number": 17,
+          "passage": [
+            "The editors of Home Ground: A Guide to the American Landscape turned to Pamela Frierson, an essayist, to craft the entry for “pahoehoe,” a term referring to a form of lava with a smooth or ropy surface. For “arroyo,” however, the editors chose the nonfiction ______ author of Adios to the Brushlands."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "writer, Arturo Longoria,"
+            },
+            {
+              "letter": "B",
+              "text": "writer Arturo Longoria,"
+            },
+            {
+              "letter": "C",
+              "text": "writer Arturo Longoria"
+            },
+            {
+              "letter": "D",
+              "text": "writer, Arturo Longoria"
+            }
+          ],
+          "answer": "B",
+          "topic": "Standard English Conventions",
+          "subtopic": "Boundaries",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "\"Arturo Longoria\" specifies which nonfiction writer, so no comma before it; \"author of Adios to the Brushlands\" is an appositive, so a comma after it.",
+            "choices": {
+              "A": "The comma before the name treats an essential name as an aside.",
+              "B": "Correct. Restrictive name, then a comma opening the appositive.",
+              "C": "With no comma, the appositive fuses to the name.",
+              "D": "The commas are placed the wrong way round."
+            }
+          }
+        },
+        {
+          "id": "module-2-q18",
+          "number": 18,
+          "passage": [
+            "While calling the frogfish (family Antennariidae) a “walking fish” might suggest a creature that has fully transitioned to terrestrial life, the frogfish’s unique locomotion represents a specialized adaptation for movement along the ocean ______ the frogfish’s modified pectoral fins function similarly to legs, allowing this unusual marine predator to “walk” across the seafloor in the tropical and subtropical waters it inhabits."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "floor and"
+            },
+            {
+              "letter": "B",
+              "text": "floor,"
+            },
+            {
+              "letter": "C",
+              "text": "floor"
+            },
+            {
+              "letter": "D",
+              "text": "floor:"
+            }
+          ],
+          "answer": "D",
+          "topic": "Standard English Conventions",
+          "subtopic": "Boundaries",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The second half is a complete clause explaining the specialized adaptation just named, so a colon links them.",
+            "choices": {
+              "A": "\"And\" would need a comma and would lose the explanatory relationship.",
+              "B": "A comma between two independent clauses is a splice.",
+              "C": "No punctuation runs them together.",
+              "D": "Correct. Colon, with the pectoral-fin clause explaining the adaptation."
+            }
+          }
+        },
+        {
+          "id": "module-2-q19",
+          "number": 19,
+          "passage": [
+            "The scientific team using the Dark Energy Spectroscopic Instrument (DESI) to conduct a cosmological survey, which has generated the largest 3D map of our universe to date, plans to observe roughly 50 million celestial objects. Mounted on a telescope in Arizona, ______"
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "the distribution of matter throughout our universe is tracked by researchers using this remarkable instrument that can measure 5,000 galaxies simultaneously."
+            },
+            {
+              "letter": "B",
+              "text": "researchers track how matter is distributed throughout our universe with this remarkable instrument that can measure 5,000 galaxies simultaneously."
+            },
+            {
+              "letter": "C",
+              "text": "5,000 galaxies can be measured simultaneously by this remarkable instrument, tracking how matter is distributed throughout our universe."
+            },
+            {
+              "letter": "D",
+              "text": "this remarkable instrument can measure 5,000 galaxies simultaneously, tracking how matter is distributed throughout our universe."
+            }
+          ],
+          "answer": "D",
+          "topic": "Standard English Conventions",
+          "subtopic": "Form, Structure, and Sense",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "\"Mounted on a telescope in Arizona\" describes the instrument, so the instrument has to be the subject of the clause that follows.",
+            "choices": {
+              "A": "Makes \"the distribution of matter\" the thing mounted on the telescope.",
+              "B": "Makes the researchers the thing mounted on the telescope.",
+              "C": "Makes 5,000 galaxies the thing mounted on the telescope.",
+              "D": "Correct. \"This remarkable instrument\" is what is mounted, and it leads the main clause."
+            }
+          }
+        },
+        {
+          "id": "module-2-q20",
+          "number": 20,
+          "passage": [
+            "A 1934 analysis by renowned US track-and-field coach Brutus Hamilton ______ that limitations in human physiology precluded a mile time under 4:01.6 was belied by Roger Bannister's sub-four-minute mile in 1954—not to mention the fact that over 2,000 runners have since repeated Bannister's feat."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "asserts"
+            },
+            {
+              "letter": "B",
+              "text": "asserting"
+            },
+            {
+              "letter": "C",
+              "text": "had asserted"
+            },
+            {
+              "letter": "D",
+              "text": "asserted"
+            }
+          ],
+          "answer": "B",
+          "topic": "Standard English Conventions",
+          "subtopic": "Form, Structure, and Sense",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "The sentence’s main verb is \"was belied.\" The blank sits inside the subject — \"A 1934 analysis ... that limitations ... precluded a mile time under 4:01.6\" — so it has to be a participle, not a second finite verb.",
+            "choices": {
+              "A": "Gives the sentence two finite verbs.",
+              "B": "Correct. \"Asserting\" turns the clause into a modifier of \"analysis,\" which \"was belied\" then governs.",
+              "C": "Another finite verb.",
+              "D": "Another finite verb."
+            }
+          }
+        },
+        {
+          "id": "module-2-q21",
+          "number": 21,
+          "passage": [
+            "According to historical accounts, medieval recreation—including chess, backgammon, and other board games enjoyed across royal courts and noble households—______ primarily focused on strategic gameplay that mirrored societal structures. Chess, with its hierarchical pieces representing different social classes, was particularly popular during this period."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "was"
+            },
+            {
+              "letter": "B",
+              "text": "being"
+            },
+            {
+              "letter": "C",
+              "text": "are"
+            },
+            {
+              "letter": "D",
+              "text": "were"
+            }
+          ],
+          "answer": "A",
+          "topic": "Standard English Conventions",
+          "subtopic": "Form, Structure, and Sense",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The subject is the singular noun \"recreation.\" Everything between the dashes is a supplementary phrase, not part of the subject, so the verb has to be singular and finite.",
+            "choices": {
+              "A": "Correct. Singular \"was\" agrees with the singular subject \"recreation.\"",
+              "B": "\"Being\" is non-finite, leaving the sentence without a main verb.",
+              "C": "Plural, and present tense, which clashes with the past-tense account.",
+              "D": "Plural. It agrees with \"games\" inside the dashes, not with the actual subject \"recreation.\""
+            }
+          }
+        },
+        {
+          "id": "module-2-q22",
+          "number": 22,
+          "passage": [
+            "In Danger Mouse’s Grey Album, each of the instrumental samples—isolated from the Beatles’ White Album and then reconstructed into entirely new arrangements—______ raw material used in the instrumental collage that backs unaltered vocal tracks from Jay-Z’s Black Album, resulting in a remarkable integration of two disparate musical genres."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "have become"
+            },
+            {
+              "letter": "B",
+              "text": "become"
+            },
+            {
+              "letter": "C",
+              "text": "becoming"
+            },
+            {
+              "letter": "D",
+              "text": "has become"
+            }
+          ],
+          "answer": "D",
+          "topic": "Standard English Conventions",
+          "subtopic": "Form, Structure, and Sense",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "Same construction as the Seward item: \"encourages\" is already the verb of the relative clause, so the blank takes a participle.",
+            "choices": {
+              "A": "A finite verb, giving the clause two.",
+              "B": "Same problem.",
+              "C": "Same problem.",
+              "D": "Correct. \"Whose work highlighting ... encourages a broader rethinking.\""
+            }
+          }
+        },
+        {
+          "id": "module-2-q23",
+          "number": 23,
+          "passage": [
+            "A citizen of the Blackfeet Nation, Francis Guardipee was born on his tribe’s reservation in Montana. After studying anthropology at the University of Washington, he returned home, where in 1916 he founded the first all-Native troop of the Boy Scouts. ______ Guardipee was one of the first Native people to become a park ranger at Montana’s Glacier National Park in 1932."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical transition?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "In addition,"
+            },
+            {
+              "letter": "B",
+              "text": "Specifically,"
+            },
+            {
+              "letter": "C",
+              "text": "Earlier,"
+            },
+            {
+              "letter": "D",
+              "text": "Later,"
+            }
+          ],
+          "answer": "D",
+          "topic": "Expression of Ideas",
+          "subtopic": "Transitions",
+          "difficulty": "easy",
+          "explanation": {
+            "summary": "The dates do the work: the Boy Scout troop in 1916, the park ranger post in 1932.",
+            "choices": {
+              "A": "\"In addition\" ignores the dates the sentence supplies.",
+              "B": "\"Specifically\" would make the ranger post a detail of the troop.",
+              "C": "\"Earlier\" reverses 1916 and 1932.",
+              "D": "Correct. 1932 comes after 1916."
+            }
+          }
+        },
+        {
+          "id": "module-2-q24",
+          "number": 24,
+          "passage": [
+            "Quantum entanglement, in which two particles seem to influence each other instantly even when separated by vast distances, appears to contradict classical physics, which holds that nothing can travel faster than light and that causality is unidirectional—causes precede effects. ______ physicist Emily Adlam has argued that retrocausality—though also seemingly at odds with classical ideas—may help account for quantum entanglement without violating classical physics by allowing future and past states to be correlated within a fixed space-time."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical transition?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Paradoxically,"
+            },
+            {
+              "letter": "B",
+              "text": "Essentially,"
+            },
+            {
+              "letter": "C",
+              "text": "Predictably,"
+            },
+            {
+              "letter": "D",
+              "text": "Consequently,"
+            }
+          ],
+          "answer": "A",
+          "topic": "Expression of Ideas",
+          "subtopic": "Transitions",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "Retrocausality is itself \"seemingly at odds with classical ideas,\" and Adlam uses it to keep entanglement from violating classical physics. A contradiction pressed into service against a contradiction.",
+            "choices": {
+              "A": "Correct. \"Paradoxically\" names the oddity the sentence’s own aside points at.",
+              "B": "\"Essentially\" would restate the previous sentence; this adds a new argument.",
+              "C": "Nothing about this follows predictably from what came before.",
+              "D": "No causal chain runs from the apparent contradiction to Adlam’s argument."
+            }
+          }
+        },
+        {
+          "id": "module-2-q25",
+          "number": 25,
+          "passage": [
+            "David Smith’s steel sculpture Three Ovals Soar is displayed at Storm King Art Center, an outdoor sculpture park in New York. ______ it endures rain, snow, heat, and humidity. Smith’s sculpture is particularly well suited to withstand these elements, though, because it is made of corrosion-resistant steel."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "Which choice completes the text with the most logical transition?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "However,"
+            },
+            {
+              "letter": "B",
+              "text": "Nevertheless,"
+            },
+            {
+              "letter": "C",
+              "text": "In addition,"
+            },
+            {
+              "letter": "D",
+              "text": "There,"
+            }
+          ],
+          "answer": "D",
+          "topic": "Expression of Ideas",
+          "subtopic": "Transitions",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "The sculpture stands in an outdoor park, and the blank has to attach the weather to that place. The actual contrast arrives in the next sentence, with \"though.\"",
+            "choices": {
+              "A": "\"However\" reverses direction where the sentence continues.",
+              "B": "\"Nevertheless\" does the same, and duplicates the \"though\" that comes later.",
+              "C": "\"In addition\" adds an unrelated fact.",
+              "D": "Correct. \"There\" points back at Storm King, where the weather happens."
+            }
+          }
+        },
+        {
+          "id": "module-2-q26",
+          "number": 26,
+          "passage": [
+            "While researching a topic, a student has taken the following notes: - The false killer whale is a mammal species. - It was believed to be extinct until a living false killer whale was identified in Denmark in 1861. - The Banggai crow is a bird species. - It was believed to be extinct until a living Banggai crow was identified in Indonesia in 2007. - They are considered Lazarus species. - “Lazarus species” is a term for living species of organisms that were once believed to be extinct."
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "The student wants to specify when the false killer whale was identified. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "Identified in Indonesia, a living Banggai crow was found in 2007."
+            },
+            {
+              "letter": "B",
+              "text": "Previously believed to be extinct, a living false killer whale was identified in Denmark."
+            },
+            {
+              "letter": "C",
+              "text": "An example of a Lazarus species was found in 2007."
+            },
+            {
+              "letter": "D",
+              "text": "A living false killer whale, once believed to be extinct, was identified in 1861."
+            }
+          ],
+          "answer": "D",
+          "topic": "Expression of Ideas",
+          "subtopic": "Rhetorical Synthesis",
+          "difficulty": "medium",
+          "explanation": {
+            "summary": "Diamantopoulos’s thesis is regeneration — recovery from degeneration by reintroducing democratic practices — so the data have to show recovery.",
+            "choices": {
+              "A": "The 27.0 percent is a degeneration figure and shows nothing being reversed.",
+              "B": "Resisting degeneration is not recovering from it.",
+              "C": "Aimed at Webb and Webb’s inevitability claim rather than at regeneration.",
+              "D": "Correct. The 10.8 percent that recovered is regeneration itself."
+            }
+          }
+        },
+        {
+          "id": "module-2-q27",
+          "number": 27,
+          "passage": [
+            "While researching a topic, a student has taken the following notes: - Swimming was celebrated in ancient Rome but fell out of favor throughout Europe’s Dark Ages. - English theologian Everard Digby wrote the first modern swimming manual, De Arte Natandi, in 1587. - Digby’s manual described and illustrated a variety of aquatic stunts that he had developed (e.g., “ringing the bells,” “the leap of the goat”). - Historian Vicki Valosik claims, “In providing instructions for these aquatic ‘refinements,’ Digby helped to revive swimming—a once revered skill that had all but died out during Europe’s Dark Ages—and elevate it from a crude, mechanical function of the hands and feet to an artful science.”"
+          ],
+          "figure": null,
+          "table": null,
+          "stem": "The student wants to cite a historian to explain why Digby wrote De Arte Natandi. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+          "choices": [
+            {
+              "letter": "A",
+              "text": "As Valosik claims, with De Arte Natandi, Digby developed the first modern swimming manual in order to illustrate why “a once revered skill...had all but died out during Europe’s Dark Ages.”"
+            },
+            {
+              "letter": "B",
+              "text": "Valosik claims that, by writing De Arte Natandi, Digby “helped to revive swimming...and elevate it from a crude, mechanical function...to an artful science.”"
+            },
+            {
+              "letter": "C",
+              "text": "According to Valosik, Digby wrote De Arte Natandi to describe and illustrate “once revered” aquatic stunts from ancient Rome, such as “ringing the bells” and “the leap of the goat.”"
+            },
+            {
+              "letter": "D",
+              "text": "In De Arte Natandi, Digby wrote that he “hoped to...elevate [swimming] from a crude, mechanical function of the hands and feet” by “providing instructions for...aquatic ‘refinements.’”"
+            }
+          ],
+          "answer": "B",
+          "topic": "Expression of Ideas",
+          "subtopic": "Rhetorical Synthesis",
+          "difficulty": "hard",
+          "explanation": {
+            "summary": "The goal is to cite a historian on why Digby wrote the manual. Valosik is the historian in the notes, and her sentence gives the purpose: reviving swimming and lifting it into an artful science.",
+            "choices": {
+              "A": "Misreads Valosik. Digby was not documenting why the skill died out.",
+              "B": "Correct. Valosik is named and quoted, and the quotation states what writing the manual was for.",
+              "C": "The stunts were Digby’s own, not ancient Rome’s, and \"once revered\" describes swimming, not the stunts.",
+              "D": "Quotes Digby himself rather than a historian, and stitches Valosik’s words into his mouth."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

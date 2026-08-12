@@ -1,1 +1,58 @@
-<svg viewBox="0 0 600 520" style="border: 2px solid var(--graph-border); background-color: var(--graph-bg); width: 100%; height: auto; max-width: 600px;"><text x="300" y="24" text-anchor="middle" font-size="14" font-weight="600" font-family="serif" style="fill: var(--graph-text);">Model-Predicted Engagement Rating for S1, by Teaching Method</text><g class="axis-lines"><line x1="80" y1="60" x2="80" y2="390" stroke="var(--graph-axis)" stroke-width="2"></line><line x1="80" y1="390" x2="540" y2="390" stroke="var(--graph-axis)" stroke-width="2"></line></g><g class="grid-lines"><line x1="80" y1="390" x2="540" y2="390" stroke="var(--graph-grid)" stroke-width="0.5"></line><line x1="80" y1="307.5" x2="540" y2="307.5" stroke="var(--graph-grid)" stroke-width="0.5"></line><line x1="80" y1="225" x2="540" y2="225" stroke="var(--graph-grid)" stroke-width="0.5"></line><line x1="80" y1="142.5" x2="540" y2="142.5" stroke="var(--graph-grid)" stroke-width="0.5"></line><line x1="80" y1="60" x2="540" y2="60" stroke="var(--graph-grid)" stroke-width="0.5"></line></g><g><line x1="75" y1="390" x2="80" y2="390" stroke-width="2" style="stroke: var(--graph-axis);"></line><text x="70" y="395" font-size="12" font-family="serif" text-anchor="end" style="fill: var(--graph-text);">1</text></g><g><line x1="75" y1="307.5" x2="80" y2="307.5" stroke-width="2" style="stroke: var(--graph-axis);"></line><text x="70" y="312.5" font-size="12" font-family="serif" text-anchor="end" style="fill: var(--graph-text);">2</text></g><g><line x1="75" y1="225" x2="80" y2="225" stroke-width="2" style="stroke: var(--graph-axis);"></line><text x="70" y="230" font-size="12" font-family="serif" text-anchor="end" style="fill: var(--graph-text);">3</text></g><g><line x1="75" y1="142.5" x2="80" y2="142.5" stroke-width="2" style="stroke: var(--graph-axis);"></line><text x="70" y="147.5" font-size="12" font-family="serif" text-anchor="end" style="fill: var(--graph-text);">4</text></g><g><line x1="75" y1="60" x2="80" y2="60" stroke-width="2" style="stroke: var(--graph-axis);"></line><text x="70" y="65" font-size="12" font-family="serif" text-anchor="end" style="fill: var(--graph-text);">5</text></g><rect x="137.5" y="258" width="92" height="132" fill="var(--graph-grouped-1)" stroke-width="1" style="stroke: var(--graph-axis);"></rect><rect x="367.5" y="126" width="92" height="264" fill="var(--graph-grouped-1)" stroke-width="1" style="stroke: var(--graph-axis);"></rect><text x="195" y="410" font-size="12" font-family="serif" text-anchor="middle" style="fill: var(--graph-text);">Lecture-Based</text><text x="425" y="410" font-size="12" font-family="serif" text-anchor="middle" style="fill: var(--graph-text);">Project-Based</text><text x="300" y="435" font-size="14" font-family="serif" text-anchor="middle" style="fill: var(--graph-text);">Teaching Method</text><text x="20" y="225" font-size="14" font-family="serif" text-anchor="middle" transform="rotate(-90, 20, 225)" style="fill: var(--graph-text);">Model-Predicted Engagement Rating</text><g><rect x="225" y="475" width="150" height="35" stroke-width="1" style="fill: var(--graph-bg); stroke: var(--graph-axis);"></rect><g><rect x="240" y="485" width="15" height="15" fill="var(--graph-grouped-1)" stroke-width="1" style="stroke: var(--graph-axis);"></rect><text x="260" y="498" font-size="11" font-family="serif" style="fill: var(--graph-text);">S1</text></g></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 520" style="border: 2px solid var(--graph-border); background-color: var(--graph-bg); width: 100%; height: auto; max-width: 600px;">
+  <!-- Title -->
+  <text x="300" y="24" text-anchor="middle" font-size="14" font-weight="600" font-family="Georgia, 'Times New Roman', serif" style="fill: var(--graph-text);">Model-Predicted Engagement Rating for S1, by Teaching Method</text>
+
+  <!-- Axes -->
+  <g class="axis-lines">
+    <line x1="80" y1="60" x2="80" y2="390" stroke="var(--graph-axis)" stroke-width="2"></line>
+    <line x1="80" y1="390" x2="540" y2="390" stroke="var(--graph-axis)" stroke-width="2"></line>
+  </g>
+
+  <!-- Grid lines -->
+  <g class="grid-lines" stroke="var(--graph-grid)" stroke-width="0.5">
+    <line x1="80" y1="390" x2="540" y2="390"></line>
+    <line x1="80" y1="307.5" x2="540" y2="307.5"></line>
+    <line x1="80" y1="225" x2="540" y2="225"></line>
+    <line x1="80" y1="142.5" x2="540" y2="142.5"></line>
+    <line x1="80" y1="60" x2="540" y2="60"></line>
+  </g>
+
+  <!-- Y-Axis Ticks & Labels -->
+  <g font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="var(--graph-text)" text-anchor="end">
+    <line x1="75" y1="390" x2="80" y2="390" stroke="var(--graph-axis)" stroke-width="2"></line>
+    <text x="70" y="395">1</text>
+
+    <line x1="75" y1="307.5" x2="80" y2="307.5" stroke="var(--graph-axis)" stroke-width="2"></line>
+    <text x="70" y="312.5">2</text>
+
+    <line x1="75" y1="225" x2="80" y2="225" stroke="var(--graph-axis)" stroke-width="2"></line>
+    <text x="70" y="230">3</text>
+
+    <line x1="75" y1="142.5" x2="80" y2="142.5" stroke="var(--graph-axis)" stroke-width="2"></line>
+    <text x="70" y="147.5">4</text>
+
+    <line x1="75" y1="60" x2="80" y2="60" stroke="var(--graph-axis)" stroke-width="2"></line>
+    <text x="70" y="65">5</text>
+  </g>
+
+  <!-- Bars -->
+  <!-- Lecture-Based (2.6 rating) -->
+  <rect x="137.5" y="258" width="92" height="132" fill="var(--graph-grouped-1, #7d93c9)" stroke="var(--graph-axis)" stroke-width="1"></rect>
+  <!-- Project-Based (4.2 rating) -->
+  <rect x="367.5" y="126" width="92" height="264" fill="var(--graph-grouped-1, #7d93c9)" stroke="var(--graph-axis)" stroke-width="1"></rect>
+
+  <!-- Category Labels -->
+  <text x="183.5" y="410" font-size="12" font-family="Georgia, 'Times New Roman', serif" text-anchor="middle" style="fill: var(--graph-text);">Lecture-Based</text>
+  <text x="413.5" y="410" font-size="12" font-family="Georgia, 'Times New Roman', serif" text-anchor="middle" style="fill: var(--graph-text);">Project-Based</text>
+
+  <!-- Axis Titles -->
+  <text x="300" y="435" font-size="14" font-weight="600" font-family="Georgia, 'Times New Roman', serif" text-anchor="middle" style="fill: var(--graph-text);">Teaching Method</text>
+  <text x="20" y="225" font-size="14" font-weight="600" font-family="Georgia, 'Times New Roman', serif" text-anchor="middle" transform="rotate(-90, 20, 225)" style="fill: var(--graph-text);">Model-Predicted Engagement Rating</text>
+
+  <!-- Legend Box -->
+  <g class="legend">
+    <rect x="225" y="475" width="150" height="35" stroke-width="1" style="fill: var(--graph-bg); stroke: var(--graph-axis);"></rect>
+    <rect x="240" y="485" width="15" height="15" fill="var(--graph-grouped-1, #7d93c9)" stroke-width="1" style="stroke: var(--graph-axis);"></rect>
+    <text x="265" y="497" font-size="11" font-family="Georgia, 'Times New Roman', serif" style="fill: var(--graph-text);">S1</text>
+  </g>
+</svg>

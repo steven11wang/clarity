@@ -3,6 +3,7 @@ export type PrimaryConsoleView =
   | 'exam'
   | 'lessons'
   | 'reviews'
+  | 'words'
   | 'library'
   | 'insights'
 
@@ -11,6 +12,7 @@ const PRIMARY_VIEW_ORDER: PrimaryConsoleView[] = [
   'exam',
   'lessons',
   'reviews',
+  'words',
   'library',
   'insights',
 ]

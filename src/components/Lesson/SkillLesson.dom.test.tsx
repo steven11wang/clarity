@@ -216,6 +216,7 @@ describe('skill lesson shell', () => {
   })
 
   it('puts skill tips in numbered cards and the general tips behind a disclosure', async () => {
+    await renderLesson('Command of Evidence')
     await openTab('Tips')
     const tips = all('.lesson-tip')
     assert.ok(tips.length >= 1, 'no tip cards')
@@ -241,6 +242,7 @@ describe('skill lesson shell', () => {
   })
 
   it('finishes from the Practice tab, with no way back into the lesson', async () => {
+    await renderLesson('Command of Evidence')
     await openTab('Practice')
     assert.ok(text().includes('Practice: Command of Evidence'))
     assert.ok(!text().includes('Re-read the lesson'))

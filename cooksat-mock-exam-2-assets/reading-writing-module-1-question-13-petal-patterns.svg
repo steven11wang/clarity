@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 560" style="border: 2px solid var(--graph-border); background-color: var(--graph-bg); width: 100%; height: auto; max-width: 600px;">
+  <!-- Title -->
+  <text x="300" y="24" text-anchor="middle" font-size="14" font-weight="600" font-family="Georgia, 'Times New Roman', serif" style="fill: var(--graph-text);">Petal Patterns in Snapdragon Varieties</text>
+
+  <!-- Axes -->
+  <g class="axis-lines">
+    <line x1="80" y1="50" x2="80" y2="440" stroke="var(--graph-axis)" stroke-width="2"></line>
+    <line x1="80" y1="440" x2="540" y2="440" stroke="var(--graph-axis)" stroke-width="2"></line>
+  </g>
+
+  <!-- Grid lines -->
+  <g class="grid-lines" stroke="var(--graph-grid)" stroke-width="0.5">
+    <line x1="80" y1="440" x2="540" y2="440"></line>
+    <line x1="80" y1="410" x2="540" y2="410"></line>
+    <line x1="80" y1="380" x2="540" y2="380"></line>
+    <line x1="80" y1="350" x2="540" y2="350"></line>
+    <line x1="80" y1="320" x2="540" y2="320"></line>
+    <line x1="80" y1="290" x2="540" y2="290"></line>
+    <line x1="80" y1="260" x2="540" y2="260"></line>
+    <line x1="80" y1="230" x2="540" y2="230"></line>
+    <line x1="80" y1="200" x2="540" y2="200"></line>
+    <line x1="80" y1="170" x2="540" y2="170"></line>
+    <line x1="80" y1="140" x2="540" y2="140"></line>
+    <line x1="80" y1="110" x2="540" y2="110"></line>
+    <line x1="80" y1="80" x2="540" y2="80"></line>
+    <line x1="80" y1="50" x2="540" y2="50"></line>
+  </g>
+
+  <!-- Y-Axis Ticks & Labels -->
+  <g font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="var(--graph-text)" text-anchor="end">
+    <line x1="74" y1="440" x2="80" y2="440" stroke="var(--graph-axis)" stroke-width="1.5"></line>
+    <text x="70" y="444">0</text>
+
+    <line x1="74" y1="410" x2="80" y2="410" stroke="var(--graph-axis)" stroke-width="1.5"></line>
+    <text x="70" y="414">50</text>
+
+    <line x1="74" y1="380" x2="80" y2="380" stroke="var(--graph-axis)" stroke-width="1.5"></line>
+    <text x="70" y="384">100</text>
+
+    <line x1="74" y1="350" x2="80" y2="350" stroke="var(--graph-axis)" stroke-width="1.5"></line>
+    <text x="70" y="354">150</text>
+
+    <line x1="74" y1="320" x2="80" y2="320" stroke="var(--graph-axis)" stroke-width="1.5"></line>
+    <text x="70" y="324">200</text>
+
+    <line x1="74" y1="290" x2="80" y2="290" stroke="var(--graph-axis)" stroke-width="1.5"></line>
+    <text x="70" y="294">250</text>
+
+    <line x1="74" y1="260" x2="80" y2="260" stroke="var(--graph-axis)" stroke-width="1.5"></line>
+    <text x="70" y="264">300</text>
+
+    <line x1="74" y1="230" x2="80" y2="230" stroke="var(--graph-axis)" stroke-width="1.5"></line>
+    <text x="70" y="234">350</text>
+
+    <line x1="74" y1="200" x2="80" y2="200" stroke="var(--graph-axis)" stroke-width="1.5"></line>
+    <text x="70" y="204">400</text>
+
+    <line x1="74" y1="170" x2="80" y2="170" stroke="var(--graph-axis)" stroke-width="1.5"></line>
+    <text x="70" y="174">450</text>
+
+    <line x1="74" y1="140" x2="80" y2="140" stroke="var(--graph-axis)" stroke-width="1.5"></line>
+    <text x="70" y="144">500</text>
+
+    <line x1="74" y1="110" x2="80" y2="110" stroke="var(--graph-axis)" stroke-width="1.5"></line>
+    <text x="70" y="114">550</text>
+
+    <line x1="74" y1="80" x2="80" y2="80" stroke="var(--graph-axis)" stroke-width="1.5"></line>
+    <text x="70" y="84">600</text>
+
+    <line x1="74" y1="50" x2="80" y2="50" stroke="var(--graph-axis)" stroke-width="1.5"></line>
+    <text x="70" y="54">650</text>
+  </g>
+
+  <!-- Bars Group 1: Striped Petals -->
+  <!-- Cascade (150) -->
+  <rect x="145" y="350" width="34" height="90" fill="var(--graph-grouped-1, #7d93c9)" stroke="var(--graph-axis)" stroke-width="1"></rect>
+  <!-- Sunset (112) -->
+  <rect x="183" y="373" width="34" height="67" fill="var(--graph-grouped-2, #526694)" stroke="var(--graph-axis)" stroke-width="1"></rect>
+  <!-- Alpine (650) -->
+  <rect x="221" y="50" width="34" height="390" fill="var(--graph-grouped-3, #d0d7de)" stroke="var(--graph-axis)" stroke-width="1"></rect>
+
+  <!-- Bars Group 2: Solid Petals -->
+  <!-- Cascade (60) -->
+  <rect x="365" y="404" width="34" height="36" fill="var(--graph-grouped-1, #7d93c9)" stroke="var(--graph-axis)" stroke-width="1"></rect>
+  <!-- Sunset (50) -->
+  <rect x="403" y="410" width="34" height="30" fill="var(--graph-grouped-2, #526694)" stroke="var(--graph-axis)" stroke-width="1"></rect>
+  <!-- Alpine (200) -->
+  <rect x="441" y="320" width="34" height="120" fill="var(--graph-grouped-3, #d0d7de)" stroke="var(--graph-axis)" stroke-width="1"></rect>
+
+  <!-- Category Labels -->
+  <text x="200" y="462" font-size="12" font-family="Georgia, 'Times New Roman', serif" text-anchor="middle" fill="var(--graph-text)">striped petals</text>
+  <text x="420" y="462" font-size="12" font-family="Georgia, 'Times New Roman', serif" text-anchor="middle" fill="var(--graph-text)">solid petals</text>
+
+  <!-- Axis Titles -->
+  <text x="310" y="485" font-size="13" font-weight="600" font-family="Georgia, 'Times New Roman', serif" text-anchor="middle" fill="var(--graph-text)">Petal pattern type</text>
+  <text x="22" y="245" font-size="13" font-weight="600" font-family="Georgia, 'Times New Roman', serif" text-anchor="middle" transform="rotate(-90, 22, 245)" fill="var(--graph-text)">Number of pairs</text>
+
+  <!-- Legend Box -->
+  <g class="legend">
+    <rect x="60" y="505" width="480" height="38" fill="var(--graph-bg)" stroke="var(--graph-axis)" stroke-width="1"></rect>
+    <!-- Cascade Variety Swatch & Label -->
+    <rect x="75" y="517" width="16" height="14" fill="var(--graph-grouped-1, #7d93c9)" stroke="var(--graph-axis)" stroke-width="1"></rect>
+    <text x="96" y="529" font-size="11" font-family="Georgia, 'Times New Roman', serif" fill="var(--graph-text)">Cascade variety</text>
+
+    <!-- Sunset Variety Swatch & Label -->
+    <rect x="225" y="517" width="16" height="14" fill="var(--graph-grouped-2, #526694)" stroke="var(--graph-axis)" stroke-width="1"></rect>
+    <text x="246" y="529" font-size="11" font-family="Georgia, 'Times New Roman', serif" fill="var(--graph-text)">Sunset variety</text>
+
+    <!-- Alpine Variety Swatch & Label -->
+    <rect x="385" y="517" width="16" height="14" fill="var(--graph-grouped-3, #d0d7de)" stroke="var(--graph-axis)" stroke-width="1"></rect>
+    <text x="406" y="529" font-size="11" font-family="Georgia, 'Times New Roman', serif" fill="var(--graph-text)">Alpine variety</text>
+  </g>
+</svg>

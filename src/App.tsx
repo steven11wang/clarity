@@ -9,6 +9,7 @@ import { Dashboard } from './components/Dashboard/Dashboard.tsx'
 import { PracticeExamPanel } from './components/Exam/PracticeExamPanel.tsx'
 import { Library } from './components/Library/Library.tsx'
 import { MistakeVault } from './components/Review/MistakeVault.tsx'
+import { WordBank } from './components/WordBank/WordBank.tsx'
 import { AnswerPass } from './components/QuestionInteraction/AnswerPass.tsx'
 import { QuestionInteraction } from './components/QuestionInteraction/QuestionInteraction.tsx'
 import { firstPassAttempt } from './components/QuestionInteraction/model.ts'
@@ -21,6 +22,7 @@ import { buildStream, type StreamItem } from './review/stream.ts'
 import {
   advanceClock,
   clearAll,
+  getActiveView,
   getProgression,
   getReview,
   getReviews,
@@ -29,6 +31,7 @@ import {
   recordAttempt,
   saveProgression,
   saveReview,
+  setActiveView,
   setDemoMode,
   setTimeLimit,
   setTimedMode,
@@ -46,12 +49,39 @@ type View =
   | 'exam'
   | 'insights'
   | 'reviews'
+  | 'words'
+
+const VALID_VIEWS: View[] = [
+  'adaptive',
+  'lessons',
+  'browse',
+  'practice',
+  'exam',
+  'insights',
+  'reviews',
+  'words',
+]
+
+function isView(value: unknown): value is View {
+  return typeof value === 'string' && VALID_VIEWS.includes(value as View)
+}
+
 type SessionPhase = 'answer' | 'review-intro' | 'review' | 'summary'
 
 function App() {
   const [questions, setQuestions] = useState<Question[]>([])
   const [loadState, setLoadState] = useState<LoadState>('loading')
-  const [view, setView] = useState<View>('adaptive')
+  const [viewState, setViewState] = useState<View>(() => {
+    const saved = getActiveView<View>()
+    return isView(saved) ? saved : 'adaptive'
+  })
+
+  function setView(nextView: View) {
+    setActiveView(nextView)
+    setViewState(nextView)
+  }
+
+  const view = viewState
   const [progression, setProgression] = useState<ProgressionState | null>(null)
 
   const [stream, setStream] = useState<StreamItem[]>([])
@@ -326,17 +356,24 @@ function App() {
           ? 'exam'
           : view === 'reviews'
             ? 'reviews'
-            : view === 'browse'
-              ? 'library'
-              : view === 'insights'
-                ? 'insights'
-                : 'practice'
+            : view === 'words'
+              ? 'words'
+              : view === 'browse'
+                ? 'library'
+                : view === 'insights'
+                  ? 'insights'
+                  : 'practice'
 
     return (
       <>
         <AdaptiveExperience
           primaryView={primaryView}
-          examPanel={<PracticeExamPanel onBack={() => setView('adaptive')} />}
+          examPanel={(
+            <PracticeExamPanel
+              onBack={() => setView('adaptive')}
+              onOpenWords={() => setView('words')}
+            />
+          )}
           libraryPanel={(
             <Library
               questions={questions}
@@ -349,6 +386,7 @@ function App() {
               onOpenDashboard={() => setView('adaptive')}
             />
           )}
+          wordsPanel={<WordBank onBack={() => setView('adaptive')} />}
           reviewsPanel={(
             <MistakeVault
               questions={questions}
@@ -372,6 +410,7 @@ function App() {
           onOpenExam={() => setView('exam')}
           onOpenLessons={() => setView('lessons')}
           onOpenReviews={() => setView('reviews')}
+          onOpenWords={() => setView('words')}
           onOpenLibrary={() => setView('browse')}
           onOpenInsights={() => setView('insights')}
           onRecordAnswers={recordAdaptiveAnswers}

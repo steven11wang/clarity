@@ -25,3 +25,8 @@ public/data/validation-report.json
 .claude/
 .wrangler/
 .DS_Store
+
+# Local learner attempt exports and recovery files can contain private data.
+clarity_attempt_data_backup.json
+recovered_exam_record.json
+saved_attempt_data.json

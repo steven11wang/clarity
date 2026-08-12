@@ -10,6 +10,8 @@
 import { copyFile, mkdir, readFile, readdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 
+import { EXPLANATIONS } from './practice-exam-2-explanations.mjs'
+
 const ROOT = path.resolve(import.meta.dirname, '..')
 const SOURCE_MD = path.join(ROOT, 'cooksat-mock-exam-2-reading-writing.md')
 const SOURCE_ASSETS = path.join(ROOT, 'cooksat-mock-exam-2-assets')
@@ -18,7 +20,7 @@ const OUT_ASSET_DIR = path.join(OUT_DIR, 'cooksat-mock-exam-2-assets')
 const OUT_FILE = path.join(OUT_DIR, 'cooksat-mock-exam-2.json')
 
 const EXAM_ID = 'cooksat-mock-exam-2'
-const EXAM_TITLE = 'CookSAT Mock Exam 2'
+const EXAM_TITLE = 'CookSAT Practice Test 2'
 const SECTION_LABEL = 'Section 1'
 // Digital SAT Reading and Writing: 32 minutes per module.
 const MODULE_SECONDS = 32 * 60
@@ -42,6 +44,64 @@ const ANSWER_KEY = {
   },
 }
 
+// Per-question difficulty, one letter per question in exam order:
+// E)asy, M)edium, H)ard. Supplied by hand rather than read from the
+// `> Difficulty:` lines in the markdown - those carry CookSAT's own four-level
+// labels, and this index is the one the report is meant to show.
+const DIFFICULTY_INDEX = {
+  'module-1': 'EEEEEEMEHEEEEHMEEMMEEHEMEEM',
+  'module-2': 'EMMEMMMMHMHMHMEHMMEHMEMMEEE',
+}
+const DIFFICULTY_NAME = { E: 'easy', M: 'medium', H: 'hard', X: 'extreme' }
+
+// Skill taxonomy per question, so the report can break a score down by domain.
+const CRAFT = 'Craft and Structure'
+const INFO = 'Information and Ideas'
+const CONVENTIONS = 'Standard English Conventions'
+const EXPRESSION = 'Expression of Ideas'
+
+const SUBTOPIC = {
+  'module-1': {
+    1: 'Words in Context', 2: 'Words in Context', 3: 'Words in Context',
+    4: 'Words in Context', 5: 'Text Structure and Purpose',
+    6: 'Text Structure and Purpose', 7: 'Cross-Text Connections',
+    8: 'Central Ideas and Details', 9: 'Inferences', 10: 'Inferences',
+    11: 'Command of Evidence', 12: 'Command of Evidence',
+    13: 'Command of Evidence', 14: 'Command of Evidence', 15: 'Inferences',
+    16: 'Form, Structure, and Sense', 17: 'Form, Structure, and Sense',
+    18: 'Form, Structure, and Sense', 19: 'Boundaries', 20: 'Boundaries',
+    21: 'Transitions', 22: 'Transitions', 23: 'Rhetorical Synthesis',
+    24: 'Rhetorical Synthesis', 25: 'Rhetorical Synthesis',
+    26: 'Rhetorical Synthesis', 27: 'Rhetorical Synthesis',
+  },
+  'module-2': {
+    1: 'Words in Context', 2: 'Words in Context', 3: 'Words in Context',
+    4: 'Words in Context', 5: 'Text Structure and Purpose',
+    6: 'Text Structure and Purpose', 7: 'Central Ideas and Details',
+    8: 'Command of Evidence', 9: 'Command of Evidence',
+    10: 'Command of Evidence', 11: 'Inferences', 12: 'Inferences',
+    13: 'Inferences', 14: 'Inferences', 15: 'Form, Structure, and Sense',
+    16: 'Boundaries', 17: 'Boundaries', 18: 'Form, Structure, and Sense',
+    19: 'Boundaries', 20: 'Form, Structure, and Sense',
+    21: 'Form, Structure, and Sense', 22: 'Transitions', 23: 'Transitions',
+    24: 'Transitions', 25: 'Rhetorical Synthesis', 26: 'Rhetorical Synthesis',
+    27: 'Rhetorical Synthesis',
+  },
+}
+
+const TOPIC_OF = {
+  'Words in Context': CRAFT,
+  'Text Structure and Purpose': CRAFT,
+  'Cross-Text Connections': CRAFT,
+  'Central Ideas and Details': INFO,
+  'Command of Evidence': INFO,
+  Inferences: INFO,
+  Boundaries: CONVENTIONS,
+  'Form, Structure, and Sense': CONVENTIONS,
+  Transitions: EXPRESSION,
+  'Rhetorical Synthesis': EXPRESSION,
+}
+
 function splitBlocks(text) {
   return text
     .split(/\n\s*\n/)
@@ -59,6 +119,20 @@ function parseImage(block) {
   const match = block.match(/^!\[([^\]]*)\]\(([^)]+)\)$/)
   if (!match) return null
   return { alt: match[1], src: match[2] }
+}
+
+// The review pass shows one line per choice - why the key works, why each
+// distractor fails - so the explanation bank is keyed the same way as the
+// answer key and validated below against the choices actually parsed.
+function explanationOf(moduleId, number) {
+  const entry = EXPLANATIONS[moduleId]?.[number]
+  if (!entry) return null
+  return { summary: entry.summary, choices: { ...entry.choices } }
+}
+
+function difficultyOf(moduleId, number) {
+  const letter = DIFFICULTY_INDEX[moduleId]?.[number - 1]
+  return DIFFICULTY_NAME[letter] ?? null
 }
 
 function parseQuestion(raw, moduleId) {
@@ -81,6 +155,9 @@ function parseQuestion(raw, moduleId) {
       figure = image
       continue
     }
+    // The markdown annotates each question with a `> Difficulty: **...**` line.
+    // It is metadata, not passage prose, so it never reaches the body.
+    if (/^>\s*Difficulty:/i.test(block)) continue
     body.push(block)
   }
 
@@ -99,6 +176,10 @@ function parseQuestion(raw, moduleId) {
     stem: stem.replace(/\s*\n\s*/g, ' ').trim(),
     choices,
     answer: ANSWER_KEY[moduleId]?.[number] ?? null,
+    topic: TOPIC_OF[SUBTOPIC[moduleId]?.[number]] ?? null,
+    subtopic: SUBTOPIC[moduleId]?.[number] ?? null,
+    difficulty: difficultyOf(moduleId, number),
+    explanation: explanationOf(moduleId, number),
   }
 }
 
@@ -153,8 +234,25 @@ const missing = modules.flatMap((module) =>
     .map((question) => question.id),
 )
 
+// An explanation that skips a choice would leave a blank panel in the review
+// pass, so a gap here fails the build rather than shipping silently.
+const unexplained = modules.flatMap((module) =>
+  module.questions
+    .filter(
+      (question) =>
+        !question.explanation ||
+        !question.explanation.summary ||
+        question.choices.some((choice) => !question.explanation.choices[choice.letter]),
+    )
+    .map((question) => question.id),
+)
+
 console.log(
   `wrote ${path.relative(ROOT, OUT_FILE)} - ${modules.length} modules, ` +
     `${modules.reduce((sum, module) => sum + module.questions.length, 0)} questions`,
 )
 if (missing.length) console.warn(`incomplete questions: ${missing.join(', ')}`)
+if (unexplained.length) {
+  console.error(`missing explanations: ${unexplained.join(', ')}`)
+  process.exitCode = 1
+}

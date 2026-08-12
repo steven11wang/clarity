@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="660" viewBox="0 0 600 660" font-family="Arial, sans-serif">
+<style>
+.grid-line { stroke: #ccc; stroke-width: 1; }
+.axis-line { stroke: black; stroke-width: 2; }
+.bar-hummingbird { fill: #666; }
+.bar-butterfly { fill: #bbb; }
+.bar-housefly { fill: black; }
+</style>
+
+<text x="300" y="50" font-size="24" text-anchor="middle">Maximum Charge Measured</text>
+<text x="300" y="80" font-size="24" text-anchor="middle">for Various Pollinators</text>
+
+<!-- Y-axis (Charge in Picocoulombs) -->
+<line x1="100" y1="100" x2="100" y2="500" class="axis-line"></line>
+<text x="50" y="300" font-size="16" transform="rotate(-90 50 300)" text-anchor="middle">Picocoulombs (pC)</text>
+
+<!-- Y-axis labels and grid lines -->
+<g>
+<line x1="100" y1="500" x2="500" y2="500" class="grid-line"></line>
+<text x="90" y="505" font-size="14" text-anchor="end">0</text>
+<line x1="100" y1="460" x2="500" y2="460" class="grid-line"></line>
+<text x="90" y="465" font-size="14" text-anchor="end">100</text>
+<line x1="100" y1="420" x2="500" y2="420" class="grid-line"></line>
+<text x="90" y="425" font-size="14" text-anchor="end">200</text>
+<line x1="100" y1="380" x2="500" y2="380" class="grid-line"></line>
+<text x="90" y="385" font-size="14" text-anchor="end">300</text>
+<line x1="100" y1="340" x2="500" y2="340" class="grid-line"></line>
+<text x="90" y="345" font-size="14" text-anchor="end">400</text>
+<line x1="100" y1="300" x2="500" y2="300" class="grid-line"></line>
+<text x="90" y="305" font-size="14" text-anchor="end">500</text>
+<line x1="100" y1="260" x2="500" y2="260" class="grid-line"></line>
+<text x="90" y="265" font-size="14" text-anchor="end">600</text>
+<line x1="100" y1="220" x2="500" y2="220" class="grid-line"></line>
+<text x="90" y="225" font-size="14" text-anchor="end">700</text>
+<line x1="100" y1="180" x2="500" y2="180" class="grid-line"></line>
+<text x="90" y="185" font-size="14" text-anchor="end">800</text>
+<line x1="100" y1="140" x2="500" y2="140" class="grid-line"></line>
+<text x="90" y="145" font-size="14" text-anchor="end">900</text>
+</g>
+
+<!-- X-axis (Charge) -->
+<line x1="100" y1="500" x2="500" y2="500" class="axis-line"></line>
+<text x="300" y="530" font-size="16" text-anchor="middle">Charge</text>
+
+<!-- Bars -->
+<!-- Anna's hummingbirds: 800 pC -->
+<rect x="250" y="180" width="80" height="320" class="bar-hummingbird"></rect>
+<!-- European peacock butterflies: 300 pC -->
+<rect x="350" y="380" width="80" height="120" class="bar-butterfly"></rect>
+<!-- Houseflies: 80 pC -->
+<rect x="450" y="468" width="80" height="32" class="bar-housefly"></rect>
+
+<!-- Legend -->
+<rect x="100" y="550" width="20" height="20" class="bar-hummingbird"></rect>
+<text x="130" y="565" font-size="16">Anna's hummingbirds</text>
+
+<rect x="100" y="580" width="20" height="20" class="bar-butterfly"></rect>
+<text x="130" y="595" font-size="16">European peacock butterflies</text>
+
+<rect x="100" y="610" width="20" height="20" class="bar-housefly"></rect>
+<text x="130" y="625" font-size="16">houseflies</text>
+</svg>

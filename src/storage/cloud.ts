@@ -3,11 +3,13 @@ import type { User } from '@supabase/supabase-js'
 import type { ProgressionState } from '../progression/model.ts'
 import type { Level, SatDomain } from '../progression/config.ts'
 import type { Attempt, ReviewItem } from '../types.ts'
+import type { WordBankEntry } from '../dictionary/wordBank.ts'
 import { supabase } from '../lib/supabase.ts'
 import {
   getAttempts,
   getProgression,
   getReviews,
+  getWordBankEntries,
   replaceCloudState,
   type CloudState,
 } from './index.ts'
@@ -23,7 +25,7 @@ function throwIfError(error: { message: string } | null) {
 export async function restoreOrSeedCloudState(user: User): Promise<'restored' | 'seeded'> {
   if (!supabase) return 'seeded'
 
-  const [snapshotResult, attemptsResult, reviewsResult] = await Promise.all([
+  const [snapshotResult, attemptsResult, reviewsResult, wordBankResult] = await Promise.all([
     supabase
       .from('progression_snapshots')
       .select('state')
@@ -38,16 +40,27 @@ export async function restoreOrSeedCloudState(user: User): Promise<'restored' | 
       .from('review_queue')
       .select('question_id,payload')
       .eq('user_id', user.id),
+    supabase
+      .from('word_bank')
+      .select('word_id,payload')
+      .eq('user_id', user.id),
   ])
 
   throwIfError(snapshotResult.error)
   throwIfError(attemptsResult.error)
   throwIfError(reviewsResult.error)
+  if (
+    wordBankResult.error &&
+    !wordBankResult.error.message.includes('relation "public.word_bank" does not exist')
+  ) {
+    throwIfError(wordBankResult.error)
+  }
 
   const hasCloudData =
     Boolean(snapshotResult.data) ||
     Boolean(attemptsResult.data?.length) ||
-    Boolean(reviewsResult.data?.length)
+    Boolean(reviewsResult.data?.length) ||
+    Boolean(wordBankResult.data?.length)
 
   if (!hasCloudData) {
     await syncCloudState(user)
@@ -60,6 +73,12 @@ export async function restoreOrSeedCloudState(user: User): Promise<'restored' | 
       row.payload as unknown as ReviewItem,
     ]),
   )
+  const wordBank = Object.fromEntries(
+    (wordBankResult.data ?? []).map((row) => [
+      row.word_id,
+      row.payload as unknown as WordBankEntry,
+    ]),
+  )
   const state: CloudState = {
     progression:
       (snapshotResult.data?.state as unknown as ProgressionState | undefined) ?? null,
@@ -67,6 +86,7 @@ export async function restoreOrSeedCloudState(user: User): Promise<'restored' | 
       (row) => row.payload as unknown as Attempt,
     ),
     reviews,
+    wordBank,
   }
   replaceCloudState(state)
   return 'restored'
@@ -87,11 +107,13 @@ async function performCloudSync(user: User): Promise<void> {
   const progression = getProgression()
   const attempts = getAttempts()
   const reviews = Object.values(getReviews())
+  const wordBank = getWordBankEntries()
 
   await Promise.all([
     syncProgression(user.id, progression),
     syncAttempts(user.id, attempts),
     syncReviews(user.id, reviews),
+    syncWordBank(user.id, wordBank),
   ])
 }
 
@@ -270,5 +292,30 @@ async function syncReviews(userId: string, reviews: ReviewItem[]) {
       updated_at: new Date().toISOString(),
     })),
   )
+  throwIfError(write.error)
+}
+
+async function syncWordBank(userId: string, entries: WordBankEntry[]) {
+  if (!supabase) return
+  const deletion = await supabase.from('word_bank').delete().eq('user_id', userId)
+  if (
+    deletion.error &&
+    deletion.error.message.includes('relation "public.word_bank" does not exist')
+  ) {
+    return
+  }
+  throwIfError(deletion.error)
+  if (entries.length === 0) return
+
+  const rows = entries.map((entry) => ({
+    user_id: userId,
+    word_id: entry.id,
+    word: entry.word,
+    due_at: iso(entry.dueAt)!,
+    stage: entry.stage,
+    payload: entry,
+    updated_at: new Date().toISOString(),
+  }))
+  const write = await supabase.from('word_bank').insert(rows)
   throwIfError(write.error)
 }

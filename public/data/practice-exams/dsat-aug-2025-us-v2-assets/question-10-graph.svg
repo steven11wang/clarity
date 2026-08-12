@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="540" viewBox="0 0 600 540">
+<!-- Title -->
+<text x="300" y="40" font-family="serif" font-size="20" text-anchor="middle">Prices of Nuts Sold by Growers</text>
+<text x="300" y="65" font-family="serif" font-size="20" text-anchor="middle">in the United States,</text>
+<text x="300" y="90" font-family="serif" font-size="20" text-anchor="middle">2016/17 to 2019/20 Seasons</text>
+
+<!-- Y-axis Label -->
+<text x="40" y="300" font-family="serif" font-size="16" text-anchor="middle" transform="rotate(-90, 40, 300)">Price per pound (dollars)</text>
+
+<!-- Y-axis and grid lines -->
+<line x1="100" y1="120" x2="100" y2="450" stroke="black" stroke-width="1"></line>
+<line x1="100" y1="450" x2="550" y2="450" stroke="black" stroke-width="1"></line>
+
+<!-- Y-axis ticks and labels -->
+<text x="85" y="455" font-family="serif" font-size="12" text-anchor="end">0</text>
+<line x1="100" y1="450" x2="95" y2="450" stroke="black" stroke-width="1"></line>
+
+<text x="85" y="380" font-family="serif" font-size="12" text-anchor="end">1</text>
+<line x1="100" y1="380" x2="550" y2="380" stroke="#ccc" stroke-width="1"></line>
+<line x1="100" y1="380" x2="95" y2="380" stroke="black" stroke-width="1"></line>
+
+<text x="85" y="310" font-family="serif" font-size="12" text-anchor="end">2</text>
+<line x1="100" y1="310" x2="550" y2="310" stroke="#ccc" stroke-width="1"></line>
+<line x1="100" y1="310" x2="95" y2="310" stroke="black" stroke-width="1"></line>
+
+<text x="85" y="240" font-family="serif" font-size="12" text-anchor="end">3</text>
+<line x1="100" y1="240" x2="550" y2="240" stroke="#ccc" stroke-width="1"></line>
+<line x1="100" y1="240" x2="95" y2="240" stroke="black" stroke-width="1"></line>
+
+<!-- Season Label -->
+<text x="325" y="475" font-family="serif" font-size="16" text-anchor="middle">Season</text>
+
+<!-- Data for 2016/17 -->
+<text x="150" y="465" font-family="serif" font-size="12" text-anchor="end" transform="rotate(-45, 150, 465)">2016/17</text>
+<rect x="130" y="356.5" width="20" height="93.5" fill="#808080"></rect> <!-- Hazelnuts $1.35 -->
+<rect x="150" y="259.7" width="20" height="190.3" fill="#cccccc"></rect> <!-- Almonds $2.39 -->
+<rect x="170" y="386.9" width="20" height="63.1" fill="black"></rect> <!-- Walnuts $0.93 -->
+
+<!-- Data for 2017/18 -->
+<text x="260" y="465" font-family="serif" font-size="12" text-anchor="end" transform="rotate(-45, 260, 465)">2017/18</text>
+<rect x="240" y="369.5" width="20" height="80.5" fill="#808080"></rect> <!-- Hazelnuts $1.15 -->
+<rect x="260" y="242.9" width="20" height="207.1" fill="#cccccc"></rect> <!-- Almonds $2.53 -->
+<rect x="280" y="362.5" width="20" height="87.5" fill="black"></rect> <!-- Walnuts $1.25 -->
+
+<!-- Data for 2018/19 -->
+<text x="370" y="465" font-family="serif" font-size="12" text-anchor="end" transform="rotate(-45, 370, 465)">2018/19</text>
+<rect x="350" y="393" width="20" height="57" fill="#808080"></rect> <!-- Hazelnuts $0.90 -->
+<rect x="370" y="250" width="20" height="200" fill="#cccccc"></rect> <!-- Almonds $2.50 -->
+<rect x="390" y="399.4" width="20" height="50.6" fill="black"></rect> <!-- Walnuts $0.68 -->
+
+<!-- Data for 2019/20 -->
+<text x="480" y="465" font-family="serif" font-size="12" text-anchor="end" transform="rotate(-45, 480, 465)">2019/20</text>
+<rect x="460" y="385.6" width="20" height="64.4" fill="#808080"></rect> <!-- Hazelnuts $0.96 -->
+<rect x="480" y="255" width="20" height="195" fill="#cccccc"></rect> <!-- Almonds $2.45 -->
+<rect x="500" y="386.5" width="20" height="63.5" fill="black"></rect> <!-- Walnuts $0.95 -->
+
+<!-- Legend -->
+<rect x="180" y="500" width="20" height="15" fill="#808080"></rect>
+<text x="205" y="512" font-family="serif" font-size="14">hazelnuts</text>
+
+<rect x="300" y="500" width="20" height="15" fill="#cccccc"></rect>
+<text x="325" y="512" font-family="serif" font-size="14">almonds</text>
+
+<rect x="420" y="500" width="20" height="15" fill="black"></rect>
+<text x="445" y="512" font-family="serif" font-size="14">walnuts</text>
+</svg>

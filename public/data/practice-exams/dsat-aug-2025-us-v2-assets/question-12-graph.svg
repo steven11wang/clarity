@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="590" viewBox="0 0 600 590">
+<!-- Title -->
+<text x="300" y="40" font-family="serif" font-size="20" text-anchor="middle">Fish Population in a Taiwanese</text>
+<text x="300" y="65" font-family="serif" font-size="20" text-anchor="middle">Tide Pool, January 2001 to</text>
+<text x="300" y="90" font-family="serif" font-size="20" text-anchor="middle">October 2001</text>
+
+<!-- Y-axis Label -->
+<text x="40" y="300" font-family="serif" font-size="16" text-anchor="middle" transform="rotate(-90, 40, 300)">Number of individual</text>
+<text x="40" y="315" font-family="serif" font-size="16" text-anchor="middle" transform="rotate(-90, 40, 315)">fish observed</text>
+
+<!-- X-axis Label -->
+<text x="325" y="475" font-family="serif" font-size="16" text-anchor="middle">Month</text>
+
+<!-- Grid and Axes -->
+<line x1="100" y1="120" x2="100" y2="450" stroke="black" stroke-width="1"></line>
+<line x1="100" y1="450" x2="550" y2="450" stroke="black" stroke-width="1"></line>
+
+<!-- Y-axis ticks and labels -->
+<text x="85" y="455" font-family="serif" font-size="12" text-anchor="end">0</text>
+<line x1="100" y1="450" x2="95" y2="450" stroke="black" stroke-width="1"></line>
+
+<text x="85" y="420" font-family="serif" font-size="12" text-anchor="end">5</text>
+<line x1="100" y1="420" x2="550" y2="420" stroke="#ccc" stroke-width="1"></line>
+<line x1="100" y1="420" x2="95" y2="420" stroke="black" stroke-width="1"></line>
+
+<text x="85" y="390" font-family="serif" font-size="12" text-anchor="end">10</text>
+<line x1="100" y1="390" x2="550" y2="390" stroke="#ccc" stroke-width="1"></line>
+<line x1="100" y1="390" x2="95" y2="390" stroke="black" stroke-width="1"></line>
+
+<text x="85" y="360" font-family="serif" font-size="12" text-anchor="end">15</text>
+<line x1="100" y1="360" x2="550" y2="360" stroke="#ccc" stroke-width="1"></line>
+<line x1="100" y1="360" x2="95" y2="360" stroke="black" stroke-width="1"></line>
+
+<text x="85" y="330" font-family="serif" font-size="12" text-anchor="end">20</text>
+<line x1="100" y1="330" x2="550" y2="330" stroke="#ccc" stroke-width="1"></line>
+<line x1="100" y1="330" x2="95" y2="330" stroke="black" stroke-width="1"></line>
+
+<text x="85" y="300" font-family="serif" font-size="12" text-anchor="end">25</text>
+<line x1="100" y1="300" x2="550" y2="300" stroke="#ccc" stroke-width="1"></line>
+<line x1="100" y1="300" x2="95" y2="300" stroke="black" stroke-width="1"></line>
+
+<text x="85" y="270" font-family="serif" font-size="12" text-anchor="end">30</text>
+<line x1="100" y1="270" x2="550" y2="270" stroke="#ccc" stroke-width="1"></line>
+<line x1="100" y1="270" x2="95" y2="270" stroke="black" stroke-width="1"></line>
+
+<text x="85" y="240" font-family="serif" font-size="12" text-anchor="end">35</text>
+<line x1="100" y1="240" x2="550" y2="240" stroke="#ccc" stroke-width="1"></line>
+<line x1="100" y1="240" x2="95" y2="240" stroke="black" stroke-width="1"></line>
+
+<text x="85" y="210" font-family="serif" font-size="12" text-anchor="end">40</text>
+<line x1="100" y1="210" x2="550" y2="210" stroke="#ccc" stroke-width="1"></line>
+<line x1="100" y1="210" x2="95" y2="210" stroke="black" stroke-width="1"></line>
+
+<text x="85" y="180" font-family="serif" font-size="12" text-anchor="end">45</text>
+<line x1="100" y1="180" x2="550" y2="180" stroke="#ccc" stroke-width="1"></line>
+<line x1="100" y1="180" x2="95" y2="180" stroke="black" stroke-width="1"></line>
+
+<text x="85" y="150" font-family="serif" font-size="12" text-anchor="end">50</text>
+<line x1="100" y1="150" x2="550" y2="150" stroke="#ccc" stroke-width="1"></line>
+<line x1="100" y1="150" x2="95" y2="150" stroke="black" stroke-width="1"></line>
+
+<text x="85" y="120" font-family="serif" font-size="12" text-anchor="end">55</text>
+<line x1="100" y1="120" x2="550" y2="120" stroke="#ccc" stroke-width="1"></line>
+<line x1="100" y1="120" x2="95" y2="120" stroke="black" stroke-width="1"></line>
+
+<text x="85" y="105" font-family="serif" font-size="12" text-anchor="end">60</text>
+<line x1="100" y1="105" x2="550" y2="105" stroke="#ccc" stroke-width="1"></line>
+<line x1="100" y1="105" x2="95" y2="105" stroke="black" stroke-width="1"></line>
+
+<text x="85" y="90" font-family="serif" font-size="12" text-anchor="end">65</text>
+<line x1="100" y1="90" x2="550" y2="90" stroke="#ccc" stroke-width="1"></line>
+<line x1="100" y1="90" x2="95" y2="90" stroke="black" stroke-width="1"></line>
+
+<!-- X-axis ticks and labels (rotated) -->
+<text x="175" y="465" font-family="serif" font-size="12" text-anchor="end" transform="rotate(-45, 175, 465)">January 2001</text>
+<line x1="175" y1="450" x2="175" y2="455" stroke="black" stroke-width="1"></line>
+
+<text x="290" y="465" font-family="serif" font-size="12" text-anchor="end" transform="rotate(-45, 290, 465)">April 2001</text>
+<line x1="290" y1="450" x2="290" y2="455" stroke="black" stroke-width="1"></line>
+
+<text x="405" y="465" font-family="serif" font-size="12" text-anchor="end" transform="rotate(-45, 405, 465)">July 2001</text>
+<line x1="405" y1="450" x2="405" y2="455" stroke="black" stroke-width="1"></line>
+
+<text x="520" y="465" font-family="serif" font-size="12" text-anchor="end" transform="rotate(-45, 520, 465)">October 2001</text>
+<line x1="520" y1="450" x2="520" y2="455" stroke="black" stroke-width="1"></line>
+
+<!-- Data Lines and Points -->
+<!-- Combtooth Blenny (black line, filled triangle) -->
+<polyline points="175,93 290,439 405,439 520,447" fill="none" stroke="black" stroke-width="2"></polyline>
+<polygon points="175,93 170,103 180,103" fill="black" stroke="black" stroke-width="1"></polygon>
+<polygon points="290,439 285,449 295,449" fill="black" stroke="black" stroke-width="1"></polygon>
+<polygon points="405,439 400,449 410,449" fill="black" stroke="black" stroke-width="1"></polygon>
+<polygon points="520,447 515,457 525,457" fill="black" stroke="black" stroke-width="1"></polygon>
+
+<!-- Three-lined Rainbowfish (dashed line, filled square) -->
+<polyline points="175,450 290,450 405,450 520,435" fill="none" stroke="black" stroke-dasharray="5,5" stroke-width="2"></polyline>
+<rect x="172.5" y="447.5" width="5" height="5" fill="black" stroke="black" stroke-width="1"></rect>
+<rect x="287.5" y="447.5" width="5" height="5" fill="black" stroke="black" stroke-width="1"></rect>
+<rect x="402.5" y="447.5" width="5" height="5" fill="black" stroke="black" stroke-width="1"></rect>
+<rect x="517.5" y="432.5" width="5" height="5" fill="black" stroke="black" stroke-width="1"></rect>
+
+<!-- Barred Flagtail (dotted line, open circle) -->
+<polyline points="175,366 290,393 405,405 520,369" fill="none" stroke="black" stroke-dasharray="1,3" stroke-width="2"></polyline>
+<circle cx="175" cy="366" r="3" fill="white" stroke="black" stroke-width="1"></circle>
+<circle cx="290" cy="393" r="3" fill="white" stroke="black" stroke-width="1"></circle>
+<circle cx="405" cy="405" r="3" fill="white" stroke="black" stroke-width="1"></circle>
+<circle cx="520" cy="369" r="3" fill="white" stroke="black" stroke-width="1"></circle>
+
+<!-- Legend -->
+<g transform="translate(150, 500)">
+<polyline points="0,5 20,5" stroke="black" stroke-width="2"></polyline>
+<polygon points="10,5 5,15 15,15" fill="black" stroke="black" stroke-width="1"></polygon>
+<text x="30" y="10" font-family="serif" font-size="14">combtooth blenny</text>
+</g>
+
+<g transform="translate(150, 530)">
+<polyline points="0,5 20,5" stroke="black" stroke-dasharray="5,5" stroke-width="2"></polyline>
+<rect x="7.5" y="2.5" width="5" height="5" fill="black" stroke="black" stroke-width="1"></rect>
+<text x="30" y="10" font-family="serif" font-size="14">three-lined rainbowfish</text>
+</g>
+
+<g transform="translate(150, 560)">
+<polyline points="0,5 20,5" stroke="black" stroke-dasharray="1,3" stroke-width="2"></polyline>
+<circle cx="10" cy="5" r="3" fill="white" stroke="black" stroke-width="1"></circle>
+<text x="30" y="10" font-family="serif" font-size="14">barred flagtail</text>
+</g>
+</svg>

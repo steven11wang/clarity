@@ -6,6 +6,8 @@
 
 ### Question 1
 
+> Difficulty: **Easy**
+
 In woodworking class, her favorite period of the day, she scratches her initials with nails into the sides of wooden boxes and frames. She burns delicate patterns into cutting boards, and stamps her maker's mark in dark ink below the grain of wooden signs.
 
 
@@ -20,6 +22,8 @@ As used in the text, what does the word "stamps" most nearly mean?
 - **D.** eliminates
 
 ### Question 2
+
+> Difficulty: **Medium**
 
 The curved ironwork and flowing organic forms of the Hôtel Tassel in Brussels, Belgium, are enduring symbols of the Art Nouveau contribution to Belgian architecture. Elements of this style have been reproduced throughout the city—the design of the Old England Building in Brussels, for example, is considered to ______ the style of Victor Horta's innovations.
 
@@ -36,6 +40,8 @@ Which choice completes the text with the most logical and precise word or phrase
 
 ### Question 3
 
+> Difficulty: **Easy**
+
 In an aquarium, ______ the growth of unwanted algae such as hair algae can be difficult because algae usually grow rapidly and quickly cover surfaces, making it hard to eliminate them entirely.
 
 
@@ -50,6 +56,8 @@ Which choice completes the text with the most logical and precise word or phrase
 - **D.** recording
 
 ### Question 4
+
+> Difficulty: **Medium**
 
 Certain features are almost always included in the designs of Gothic cathedrals, like the flying buttress (or external support structure), which is considered to be a ______ of Gothic cathedral architecture. Even cathedrals that exhibit elements of multiple architectural styles, such as Notre-Dame de Paris, which incorporates elements from the French Gothic, English Gothic, and Rayonnant styles, will also include several of these standard features.
 
@@ -66,7 +74,9 @@ Which choice completes the text with the most logical and precise word or phrase
 
 ### Question 5
 
-Dr. Lisa Tanaka and colleagues have explored how synaptic pruning—a process that occurs when neural connections are selectively eliminated during brain development in functionally distinct regions—can result from molecular signals shared across brain regions. Meanwhile, Dr. Kenji Nakamura and colleagues have investigated how pruning occurs through different molecular mechanisms, but the relative prevalence of pruning through shared and different cellular processes is still poorly understood. This motivated neuroscientists Emily Yamamoto and David L. Thompson to evaluate both types of pruning mechanisms in a single study for their 2015 paper.
+> Difficulty: **Medium**
+
+Dr. Lisa Tanaka and colleagues have explored how synaptic pruning—<u>a process that occurs when neural connections are selectively eliminated during brain development in functionally distinct regions</u>—can result from molecular signals shared across brain regions. Meanwhile, Dr. Kenji Nakamura and colleagues have investigated how pruning occurs through different molecular mechanisms, but the relative prevalence of pruning through shared and different cellular processes is still poorly understood. This motivated neuroscientists Emily Yamamoto and David L. Thompson to evaluate both types of pruning mechanisms in a single study for their 2015 paper.
 
 
 Which choice best states the function of the underlined portion in the text as a whole?
@@ -80,6 +90,8 @@ Which choice best states the function of the underlined portion in the text as a
 - **D.** It introduces a method of scientific analysis that is discussed in greater detail later in the text.
 
 ### Question 6
+
+> Difficulty: **Medium**
 
 In Nahuatl, an Indigenous language from the central Mexico region of what is now Mexico, calli means "house," whereas calmecac means "school" (literally "row of houses"). This phenomenon, in which a suffix from a root word is attached to another word that is related to the root word, sometimes creating new meanings, is called absolutive marking. In this case, the element "-li" in calli appears in modified form as "-c" in calmecac. There are many examples of this type of absolutive marking in Nahuatl.
 
@@ -95,6 +107,8 @@ Which choice best describes the overall structure of the text?
 - **D.** It explains the phenomenon of absolutive marking, discusses why absolutive marking has been controversial among scholars, and then argues that an analysis of Nahuatl could help resolve that controversy.
 
 ### Question 7
+
+> Difficulty: **Hard**
 
 Text 1
 
@@ -117,6 +131,8 @@ Which choice best describes a difference between the approach of Text 1 and the 
 
 ### Question 8
 
+> Difficulty: **Medium**
+
 Our violin instructor, Katherine Morgan, brought her younger sister, Sophia, to my lesson one day. By now I was seventeen and had mastered everything Katherine had to teach me, so I welcomed a new presence. Sophia was an aspiring composer, and she had heard from her sister that I was none other than the daughter of James Cole, and I was a musical prodigy. Sophia was hoping not only to meet me but to have the chance to meet the renowned pianist himself at our home.
 
 
@@ -131,6 +147,8 @@ Based on the text, why does Sophia accompany her sister to the narrator's house 
 - **D.** Sophia anticipates having the opportunity to be introduced to both the narrator and her father.
 
 ### Question 9
+
+> Difficulty: **Extreme**
 
 Motivated to perform with as much spontaneity as possible, Diego Vargas, an influential figure among the saxophonists known as the Harlem Jazz Collective, pioneered "stream improvisation," which in part involved playing extended unbroken phrases without pausing for breath. That many of Vargas's disciples, including Carlos Mendoza, emulated the technique accounts in part for the syncopated spontaneity that is now synonymous with the group's shared aesthetic. But not all Collective members fully embraced this approach: for instance, though Rafael Castillo was also productive, his performances featured more structured melodic development.
 
@@ -147,6 +165,8 @@ What does the text most strongly suggest about performances by Mendoza?
 
 ### Question 10
 
+> Difficulty: **Medium**
+
 Copenhagen has high cycling rates, but other cities cannot increase their bicycle commuting simply by replicating a single feature of Copenhagen—e.g., its extensive cycling infrastructure—that is associated with cycling adoption. As urbanist Marcus Oyelaran argues, many factors influence people's decision-making about whether to bike: some studies have shown the importance of city topography, others have shown the importance of weather patterns, and so on, and it is clear that none of these factors in isolation fully explains cycling habits in a given city.
 
 
@@ -162,7 +182,9 @@ Based on the text, the author would most likely agree with which statement about
 
 ### Question 11
 
-![Module 1 Question 11 table](cooksat-mock-exam-2-assets/reading-writing-module-1-question-11-table.jpg)
+> Difficulty: **Medium**
+
+![Module 1 Question 11 table](cooksat-mock-exam-2-assets/reading-writing-module-1-question-11-table.svg)
 
 Region
 
@@ -229,6 +251,8 @@ Which choice best describes data from the table that support Hassan and colleagu
 
 ### Question 12
 
+> Difficulty: **Medium**
+
 Poems by the Way is an 1891 collection of poetry by William Morris. In one of Morris's poems, the speaker criticizes philosophers who debate abstract ideals in distant academies while ignoring concrete hardships in their own communities, saying, ______
 
 
@@ -244,7 +268,9 @@ Which quotation from Poems by the Way most effectively illustrates the claim?
 
 ### Question 13
 
-![Module 1 Question 13 petal-pattern graph](cooksat-mock-exam-2-assets/reading-writing-module-1-question-13-petal-patterns.jpg)
+> Difficulty: **Easy**
+
+![Module 1 Question 13 petal-pattern graph](cooksat-mock-exam-2-assets/reading-writing-module-1-question-13-petal-patterns.svg)
 
 Petal Patterns in Snapdragon Varieties
 
@@ -305,6 +331,8 @@ Which choice most effectively uses data from the graph to complete the example?
 
 ### Question 14
 
+> Difficulty: **Extreme**
+
 Smallmouth bass (Micropterus dolomieu) are native to the Great Lakes, where cold water temperatures have historically limited potential invasive species. As the freshwater climate has warmed in recent decades, however, round goby (Neogobius melanostomus) populations have established themselves in the Great Lakes. It has been suggested that warming-induced advances in the timing of spring temperature increases can benefit invasives more than native species; to evaluate this possibility, biologists Sofia Andersson and Lars Bergman tracked M. dolomieu and N. melanostomus, along with other native and invasive species, over several years, concluding that invasives are advantaged by earlier spring warming in the Great Lakes.
 
 
@@ -319,6 +347,8 @@ Which finding, if true, would most directly support Andersson and Bergman's conc
 - **D.** Although M. dolomieu and N. melanostomus both tended to begin spawning earlier in spring in years with early temperature increases, the advancement was much greater for N. melanostomus than for M. dolomieu.
 
 ### Question 15
+
+> Difficulty: **Extreme**
 
 Deschutes County, Oregon, has one of the oldest populations in the United States: demographic data from 2020 showed that 67% of its residents were over age 65. Researchers studying elderly populations in counties like Deschutes often struggle to recruit and retain participants. Claire Murphy and colleagues tested whether a method called peer referral recruitment could improve recruitment and retention. Working in two counties with aging populations, the researchers identified a small number of elderly individuals who had the characteristics desired for a proposed health study and asked them to recruit additional participants from their peer networks. Murphy and colleagues found that participants recruited via peer referral showed a much higher retention rate than did people recruited by healthcare providers, suggesting that ______
 
@@ -335,6 +365,8 @@ Which choice most logically completes the text?
 
 ### Question 16
 
+> Difficulty: **Easy**
+
 Red Cube (1968) is one of several dozen remaining works by Isamu Noguchi. Currently, his sculpture ______ at the Museum of Modern Art in New York, where visitors can observe the Japanese American artist's work on display.
 
 
@@ -349,6 +381,8 @@ Which choice completes the text so that it conforms to the conventions of Standa
 - **D.** was standing
 
 ### Question 17
+
+> Difficulty: **Easy**
 
 The plant root system contains a variety of specialized tissues, each playing an important role in the root's healthy development. The root cap, which is positioned at the root apex, ______ responsibility for protecting the delicate meristematic cells.
 
@@ -365,6 +399,8 @@ Which choice completes the text so that it conforms to the conventions of Standa
 
 ### Question 18
 
+> Difficulty: **Hard**
+
 California resident Julia Morgan, one of the first licensed women architects in the United States and designer of more than seven hundred buildings during her career, ______ her independent architectural practice in 1904.
 
 
@@ -379,6 +415,8 @@ Which choice completes the text so that it conforms to the conventions of Standa
 - **D.** to begin
 
 ### Question 19
+
+> Difficulty: **Extreme**
 
 The bristlecone pine (Pinus longaeva) known as WPN-114, located in the western United States, was one of the oldest known trees in the world, at 4,850 years old. With nearly five millennia of atmospheric data in its tree ______ single tree like this, claims dendroclimatologist Edmund Schulman, can reveal the planet's climatic past.
 
@@ -395,6 +433,8 @@ Which choice completes the text so that it conforms to the conventions of Standa
 
 ### Question 20
 
+> Difficulty: **Medium**
+
 After finding information about Maria Mitchell, who worked at Lowell Observatory in Arizona, the student discovered research profiles of two other astronomers who worked at the ______ Percival Lawrence Lowell of Massachusetts and Clyde William Tombaugh of New Mexico.
 
 
@@ -409,6 +449,8 @@ Which choice completes the text so that it conforms to the conventions of Standa
 - **D.** observatory
 
 ### Question 21
+
+> Difficulty: **Medium**
 
 Layla Hassan employed the pseudonym "Zhuangzi"—the name of an ancient Chinese philosopher—in literary criticism essays she wrote in 1872, a choice that accomplished far more than simply concealing her authorship. ______ it wasn't an arbitrary pen name but rather a complex rhetorical strategy through which Hassan aligned her aesthetic views with the venerated Daoist principles of the classical era, thereby bolstering the authority of her writing.
 
@@ -425,6 +467,8 @@ Which choice completes the text with the most logical transition?
 
 ### Question 22
 
+> Difficulty: **Extreme**
+
 In Rachel Carson's The Edge of the Sea—where, early on, the author observes a single sea anemone's waving tentacles but later recoils when witnessing the brutal efficiency of tide pool predators consuming smaller organisms—Carson grapples with the profound contradictions of the natural world. ______ nature's captivating beauty and merciless cruelty prove fundamentally intertwined for Carson, like "two tides of the same ocean."
 
 
@@ -439,6 +483,8 @@ Which choice completes the text with the most logical transition?
 - **D.** Moreover,
 
 ### Question 23
+
+> Difficulty: **Easy**
 
 While researching a topic, a student has taken the following notes:
 
@@ -462,6 +508,8 @@ The student wants to emphasize a similarity between the Monarch butterfly and th
 - **D.** The Pygmy Blue butterfly and the Monarch butterfly can both be found in the San Bernardino Mountains.
 
 ### Question 24
+
+> Difficulty: **Hard**
 
 While researching a topic, a student has taken the following notes:
 
@@ -490,6 +538,8 @@ The student wants to emphasize milk's pH level. Which choice most effectively us
 
 ### Question 25
 
+> Difficulty: **Easy**
+
 While researching a topic, a student has taken the following notes:
 
 • Florence Price was a pioneering composer.
@@ -512,6 +562,8 @@ The student wants to identify the title of Florence Price's first published symp
 - **D.** Florence Price's first published symphony was called "Symphony in E Minor."
 
 ### Question 26
+
+> Difficulty: **Medium**
 
 While researching a topic, a student has taken the following notes:
 
@@ -537,6 +589,8 @@ The student wants to emphasize a similarity between the two stances. Which choic
 - **D.** In Shotokan karate, there are a number of stances, including zenkutsu-dachi stance.
 
 ### Question 27
+
+> Difficulty: **Extreme**
 
 While researching a topic, a student has taken the following notes:
 
@@ -565,6 +619,8 @@ The student wants to connect the photomontage to the history of photomontage in 
 
 ### Question 1
 
+> Difficulty: **Medium**
+
 Liam Murphy, who was an Antarctic explorer, undoubtedly accomplished much, but to gain a lasting place in our historical memory, there is little that can ______ being the first to do something. For example, people will always remember that Connor Walsh was the first person to cross the Antarctic plateau solo on foot.
 
 
@@ -579,6 +635,8 @@ Which choice completes the text with the most logical and precise word or phrase
 - **D.** overreach by
 
 ### Question 2
+
+> Difficulty: **Extreme**
 
 Despite stated claims of global applicability, much major research on climate modeling performed in the early 2000s suffered from a myopic focus on temperate regions of the Northern Hemisphere, partly due to sparse monitoring networks. Researchers would later ______ this shortcoming after gaining new access to meteorological data located in tropical regions, such as the Amazon Basin, and polar regions, such as northern Scandinavia.
 
@@ -595,6 +653,8 @@ Which choice completes the text with the most logical and precise word or phrase
 
 ### Question 3
 
+> Difficulty: **Extreme**
+
 In the early 2020s, the price of rare Pokemon trading cards rose dramatically, which had the counterintuitive effect of ______ demand: buyers who hadn't previously wanted to purchase old cards flooded the market, believing prices would continue to rise and the cards could be flipped for profit later.
 
 
@@ -609,6 +669,8 @@ Which choice completes the text with the most logical and precise word or phrase
 - **D.** exploiting
 
 ### Question 4
+
+> Difficulty: **Medium**
 
 The fact that publications by Stanford University marine biologist Dr. Karim Nazari, who studies coral reef ecosystems, are so frequently referenced in other scientists' research ______ the importance of his work for his peers—other marine biologists clearly find his studies valuable for their own investigations.
 
@@ -625,7 +687,9 @@ Which choice completes the text with the most logical and precise word or phrase
 
 ### Question 5
 
-Shedding light on the hydraulic engineering of plants, research by Yuki Tanaka et al. indicates that certain bamboo species (including Bambusa multiplex and species from the genus Phyllostachys) can achieve a pressurized state through hydraulic regulation. Effects of this pressure management were not limited to the plants' stems and root-like rhizomes: pressure increases were observed in the water immediately surrounding the bamboo. Though slight, the increases inspired a pressure regulation device; using approximately 500 grams of bamboo segments, the team's prototype increased the water pressure in a closed system by 3 atmospheres in thirty minutes.
+> Difficulty: **Extreme**
+
+Shedding light on the hydraulic engineering of plants, research by Yuki Tanaka et al. indicates that certain bamboo species (including Bambusa multiplex and species from the genus Phyllostachys) can achieve a pressurized state through hydraulic regulation. Effects of this pressure management were not limited to the plants' stems and root-like rhizomes: <u>pressure increases were observed in the water immediately surrounding the bamboo</u>. Though slight, the increases inspired a pressure regulation device; using approximately 500 grams of bamboo segments, the team's prototype increased the water pressure in a closed system by 3 atmospheres in thirty minutes.
 
 
 Which choice best describes the function of the underlined portion in the text as a whole?
@@ -639,6 +703,8 @@ Which choice best describes the function of the underlined portion in the text a
 - **D.** It identifies an unexpected observation that motivated the study of hydraulic regulation in plants that is discussed earlier in the text.
 
 ### Question 6
+
+> Difficulty: **Extreme**
 
 In Indonesia, use of untreated water sources (e.g., traditional wells, surface water) as a share of total household water supply fell by approximately two-thirds between 1995 and 2018; such shifts are often explained by appeal to the health transition hypothesis, a model holding that water purification adoption is mediated mainly by household income (specifically, modern purification methods displace untreated sources as incomes rise). Dr. Claire Sullivan's study of water practices in Kenya shows this model to be reductive, however: household water sourcing was heterogeneous, flexible, and influenced by several factors, including the reliability of the municipal water infrastructure.
 
@@ -655,6 +721,8 @@ Which choice best describes the function of the information about Indonesia in t
 
 ### Question 7
 
+> Difficulty: **Extreme**
+
 In a study by Maya Foster, Jordan Reid, and colleagues, residents of Ankara, Turkey, and Oslo, Norway, were surveyed about public libraries in their cities. Of the 645 respondents from Ankara, 71.2% indicated that they use the city's libraries, and of the 872 respondents from Oslo, 38.4% indicated using city libraries. Given that the percentage of Ankara respondents who reported living within a 15-minute walk of a library was much lower than that reported by Oslo respondents, greater proximity alone can't explain the difference in library use.
 
 
@@ -669,6 +737,8 @@ The text makes which point about the difference between the proportions of Ankar
 - **D.** It was calculated using sources that predate the survey.
 
 ### Question 8
+
+> Difficulty: **Hard**
 
 The fish species Danio rerio (zebrafish) shares some territory in Lake Superior tributaries with Pimephales promelas (fathead minnow), which releases an alarm pheromone when it detects predators. Biologist Aiden Patel and colleagues collected water samples containing P. promelas alarm pheromone and introduced them into areas inhabited by wild D. rerio. Finding that the fish often showed rapid swimming or hiding behavior upon exposure to the samples, they concluded that D. rerio associates P. promelas alarm pheromone with danger.
 
@@ -685,6 +755,8 @@ Which finding, if true, would most directly support Patel and colleagues' conclu
 
 ### Question 9
 
+> Difficulty: **Extreme**
+
 Samsung's introduction of the Galaxy Watch in 2013 is a quintessential instance of brand extension: the company leveraged its brand recognition as a smartphone manufacturer to enter a product category where it had not previously competed. An outstanding question is whether perceived technology compatibility predicts consumers' likelihood of purchasing brand extensions. To answer this question, Jordan Hayes et al. identified 28 extended-brand pairs (e.g., the same brand of smartphone and fitness tracker) in 48 weeks of purchases by approximately 55,000 households and, for each pair, calculated the change in probability of a brand in one category being purchased if the same brand was purchased in the other category.
 
 
@@ -699,6 +771,8 @@ Based on the text, which potential study design would be most likely to produce 
 - **D.** Have a representative sample of the households rate the compatibility of the technology categories in each extended brand pair, then determine how, if at all, those ratings correlate with the change in probability that the team calculated for each pair.
 
 ### Question 10
+
+> Difficulty: **Extreme**
 
 
 ![Model-Predicted Engagement Rating for S1, by Teaching Method](cooksat-mock-exam-2-assets/reading-writing-module-2-question-10.svg)
@@ -740,6 +814,8 @@ Which choice most effectively uses data from the graph to complete the example?
 
 ### Question 11
 
+> Difficulty: **Extreme**
+
 In 1908, in collaboration with Ojibwe cultural interpreter Grace Mwangi, white anthropologist Erik Lindqvist compiled a collection of traditional oral narratives shared by Ojibwe elders. Based on their thematic content, Lindqvist organized them into various categories: origin narratives, teaching stories, and so on. Observing that some narratives include extensive details about seasonal changes and natural cycles, Lindqvist designated those as a category he termed "ceremonial narratives." While Mwangi and Lindqvist's collaboration proved valuable as an act of cultural documentation, it is important to recognize that Ojibwe people are not known to have applied such categorical distinctions to their narratives before Lindqvist's work. There is, therefore, ______
 
 
@@ -754,6 +830,8 @@ Which choice most logically completes the text?
 - **D.** no evidence for Lindqvist's conclusion that the Ojibwe elders who recounted the narratives believed that the seasonal details included in some narratives were accurate descriptions of natural cycles.
 
 ### Question 12
+
+> Difficulty: **Hard**
 
 Many studies have found a negative association between water temperature and dissolved oxygen levels in mountain lakes in Europe. But Sandra Sullivan and Marcus O'Brien did not find this correlation in a study conducted in New Zealand, leading some scientists to hypothesize that the association is particular to Europe. However, several other studies conducted outside Europe, such as one by James Kariuki and colleagues in Kenya, showed similar results to the European studies, while few have produced results similar to those of Sullivan and O'Brien's study, suggesting that ______
 
@@ -770,6 +848,8 @@ Which choice most logically completes the text?
 
 ### Question 13
 
+> Difficulty: **Extreme**
+
 Nina Brooks et al. tracked pH-driven changes in the abundance of Echinostoma sp. (a complex life cycle parasite, or CLP, that requires two host species throughout its life cycle), Glochidium larvae (a directly transmitted parasite, which requires only one host species), and 67 other parasite taxa found on twelve snail species. CLPs are transmitted when an infected host contacts an individual of another species, typically shielding CLPs from the external water column, whereas directly transmitted parasites are exposed to external conditions during transmission. However, Brooks et al. found that two-host CLP abundance decreased as lake pH levels decreased, whereas directly transmitted parasite abundance was largely stable, suggesting that ______
 
 
@@ -784,6 +864,8 @@ Which choice most logically completes the text?
 - **D.** any advantages that the transmission strategy used by two-host CLPs may have conferred did not completely offset the negative effects of other pH-driven factors on CLP abundance.
 
 ### Question 14
+
+> Difficulty: **Extreme**
 
 Prolonged exposure to artificial light pollution (illumination from human sources like streetlights or building lighting) can affect nocturnal animals, as Maya Foster and colleagues found in a 2018 study of luna moths. Researchers conducted a meta-analysis of studies of how such light exposure affects animals and found that, for every study, relevant traits or behaviors of the animals were observably different between the exposed group and the otherwise similar but unexposed group. Although, on average, studies of insects showed larger differences than studies of mammals did, for every class of animals examined, there were individual studies showing differences well above the average for insects. Therefore, the results of the meta-analysis suggest that ______
 
@@ -800,6 +882,8 @@ Which choice most logically completes the text?
 
 ### Question 15
 
+> Difficulty: **Easy**
+
 Although the scientific text On the Origin of Species was published in 1859, ______ groundbreaking insights still influence biologists today.
 
 
@@ -814,6 +898,8 @@ Which choice completes the text so that it conforms to the conventions of Standa
 - **D.** it's
 
 ### Question 16
+
+> Difficulty: **Extreme**
 
 Most songbirds migrate north in spring because of increasing daylight hours and warming temperatures. The migration at Lake Erie in Ohio is a more unusual ______ abundant food sources and mild winter conditions prompt some birds to depart several weeks earlier than expected.
 
@@ -830,6 +916,8 @@ Which choice completes the text so that it conforms to the conventions of Standa
 
 ### Question 17
 
+> Difficulty: **Hard**
+
 The painting "The Old Guitarist," which was completed in 1904, exemplifies three signature elements of Pablo Picasso's Blue Period ______ nearly monochromatic blue palette; elongated, gaunt figures conveying physical frailty; and a melancholic focus on themes of poverty and human suffering in Barcelona's marginalized communities.
 
 
@@ -844,6 +932,8 @@ Which choice completes the text so that it conforms to the conventions of Standa
 - **D.** style: somber,
 
 ### Question 18
+
+> Difficulty: **Extreme**
 
 Traditional memory consolidation theory assumes that memories become permanently stable after initial formation, but Lars Bergman of Stanford University makes no such assumption; cognitive psychologists such as Bergman, whose research focuses on memory retrieval, ______ that memory formation can in fact be highly malleable.
 
@@ -860,6 +950,8 @@ Which choice completes the text so that it conforms to the conventions of Standa
 
 ### Question 19
 
+> Difficulty: **Easy**
+
 While the Amur leopard (Panthera pardus orientalis) can be found in areas like the Jilin Province in China and the southern regions of North Korea, more than 90 percent of this critically endangered big cat species is found in Primorsky Krai, Russia. There, conservation ______ is on the front lines of efforts to bring these leopards back from near extinction.
 
 
@@ -874,6 +966,8 @@ Which choice completes the text so that it conforms to the conventions of Standa
 - **D.** scientist, Dr. Elena Vladimirovna Yudina,
 
 ### Question 20
+
+> Difficulty: **Extreme**
 
 The medieval playwright known as the Wakefield Master's The Second Shepherds' Play, a mystery play about the Nativity, is an extant work: it can still be read. By contrast, lost works like the Wakefield Master's miracle play about Saint Thomas, The Martyrdom of Saint Thomas—no copy of which exists—______ known to medievalists only through references in extant church records.
 
@@ -890,6 +984,8 @@ Which choice completes the text so that it conforms to the conventions of Standa
 
 ### Question 21
 
+> Difficulty: **Hard**
+
 In their attempt to analyze single-walled carbon nanotube structures, Dr. Helena Kowalczyk and colleagues used a field emission electron microscope to direct an electron beam at samples mounted on copper grids. An electromagnetic coil ______ the beam on the center of the 50-nanometer-diameter nanotubes ensured a convergence angle (a measure of beam focusing precision) of 15 milliradians.
 
 
@@ -904,6 +1000,8 @@ Which choice completes the text so that it conforms to the conventions of Standa
 - **D.** focus
 
 ### Question 22
+
+> Difficulty: **Easy**
 
 Dr. Natalie Reyes is a marine biologist who works on the Challenger Deep submersible program. Thanks in part to Reyes's contributions, the submersible is now capable of reaching the floor of the Mariana Trench, almost 36,000 feet below the ocean's surface. ______ the submersible's predecessor, a conventional research submarine, can only descend to about 1,000 feet below the surface.
 
@@ -920,6 +1018,8 @@ Which choice completes the text with the most logical transition?
 
 ### Question 23
 
+> Difficulty: **Extreme**
+
 Lossless compression methods like ZIP and PNG, techniques used by data archivists to store digital files efficiently, typically require storage systems to manage file sizes measuring in the kilobytes. ______ these techniques are more efficient than uncompressed storage formats, which require larger and more costly storage systems to accommodate file sizes measuring in the megabytes.
 
 
@@ -935,6 +1035,8 @@ Which choice completes the text with the most logical transition?
 
 ### Question 24
 
+> Difficulty: **Hard**
+
 The spectacular meteor shower of August 12, 1479 CE, was extensively documented in Chinese astronomical records. Another notable meteor event occurred on November 17, 1833 CE, but unlike the 1479 CE event, the 1833 CE meteors were sporadic. ______ the meteors appeared randomly from various points in the sky, rather than radiating from a single constellation.
 
 
@@ -949,6 +1051,8 @@ Which choice completes the text with the most logical transition?
 - **D.** Nonetheless,
 
 ### Question 25
+
+> Difficulty: **Easy**
 
 While researching a topic, a student has taken the following notes:
 
@@ -975,6 +1079,8 @@ The student wants to indicate the size of the Big Cypress National Preserve. Whi
 
 ### Question 26
 
+> Difficulty: **Easy**
+
 While researching a topic, a student has taken the following notes:
 
 • Urban Margins is a 2016 photographic work by Canadian artist Ethan Walsh.
@@ -997,6 +1103,8 @@ The student wants to emphasize a difference between the two photographic works. 
 - **D.** Urban Margins, like Constructed Dreams No. 3, is a photographic work.
 
 ### Question 27
+
+> Difficulty: **Medium**
 
 While researching a topic, a student has taken the following notes:
 

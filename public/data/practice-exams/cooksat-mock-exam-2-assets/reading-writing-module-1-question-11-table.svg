@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 180" style="border: 2px solid var(--graph-border); background-color: var(--graph-bg); width: 100%; height: auto; max-width: 540px;">
+  <!-- Table Grid Lines -->
+  <g class="table-grid">
+    <!-- Horizontal Lines -->
+    <line x1="0" y1="45" x2="540" y2="45" stroke="var(--graph-axis)" stroke-width="1.5" />
+    <line x1="0" y1="90" x2="540" y2="90" stroke="var(--graph-axis)" stroke-width="1.5" />
+    <line x1="0" y1="135" x2="540" y2="135" stroke="var(--graph-axis)" stroke-width="1.5" />
+
+    <!-- Vertical Lines -->
+    <line x1="180" y1="0" x2="180" y2="180" stroke="var(--graph-axis)" stroke-width="1.5" />
+    <line x1="300" y1="0" x2="300" y2="180" stroke="var(--graph-axis)" stroke-width="1.5" />
+    <line x1="420" y1="0" x2="420" y2="180" stroke="var(--graph-axis)" stroke-width="1.5" />
+  </g>
+
+  <!-- Table Text -->
+  <g font-family="Georgia, 'Times New Roman', serif" font-size="16" font-weight="700" fill="var(--graph-text)" text-anchor="middle">
+    <!-- Header Row -->
+    <text x="90" y="29">Region</text>
+    <text x="240" y="29">Species</text>
+    <text x="360" y="29">Parasites</text>
+    <text x="480" y="29">Predators</text>
+
+    <!-- Row 1: California -->
+    <text x="90" y="74">California</text>
+    <text x="240" y="74">22</text>
+    <text x="360" y="74">315</text>
+    <text x="480" y="74">145</text>
+
+    <!-- Row 2: Florida -->
+    <text x="90" y="119">Florida</text>
+    <text x="240" y="119">1</text>
+    <text x="360" y="119">21</text>
+    <text x="480" y="119">17</text>
+
+    <!-- Row 3: Massachusetts -->
+    <text x="90" y="164">Massachusetts</text>
+    <text x="240" y="164">13</text>
+    <text x="360" y="164">54</text>
+    <text x="480" y="164">91</text>
+  </g>
+</svg>

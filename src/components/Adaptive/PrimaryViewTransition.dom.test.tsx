@@ -41,6 +41,7 @@ const panels = {
   exam: createElement('p', null, 'Exam panel'),
   lessons: createElement('p', null, 'Lessons panel'),
   reviews: createElement('p', null, 'Reviews panel'),
+  words: createElement('p', null, 'Words panel'),
   library: createElement('p', null, 'Library panel'),
   insights: createElement('p', null, 'Insights panel'),
 }
@@ -140,6 +141,7 @@ describe('persistent console shell', () => {
           examPanel: createElement('p', null, 'Embedded exam'),
           lessonsPanel: createElement('p', null, 'Embedded lessons'),
           reviewsPanel: createElement('p', null, 'Embedded reviews'),
+          wordsPanel: createElement('p', null, 'Embedded words'),
           libraryPanel: createElement('p', null, 'Embedded library'),
           insightsPanel: createElement('p', null, 'Embedded insights'),
           cards,
@@ -149,6 +151,7 @@ describe('persistent console shell', () => {
           onOpenExam: () => {},
           onOpenLessons: () => {},
           onOpenReviews: () => {},
+          onOpenWords: () => {},
           onOpenLibrary: () => {},
           onOpenInsights: () => {},
         }))
@@ -194,7 +197,7 @@ describe('persistent console shell', () => {
       [...shellContainer.querySelectorAll('.console-nav button')].map(
         (button) => button.textContent,
       ),
-      ['Practice', 'Reviews', 'Library', 'Insights'],
+      ['Practice', 'Library', 'Words', 'Insights'],
     )
 
     await act(async () => {
@@ -225,6 +228,7 @@ describe('persistent console shell', () => {
         examPanel: createElement('p'),
         lessonsPanel: createElement('p'),
         reviewsPanel: createElement('p'),
+        wordsPanel: createElement('p'),
         libraryPanel: createElement('p'),
         insightsPanel: createElement('p'),
         cards,
@@ -234,6 +238,7 @@ describe('persistent console shell', () => {
         onOpenExam: () => {},
         onOpenLessons: () => {},
         onOpenReviews: () => {},
+        onOpenWords: () => {},
         onOpenLibrary: () => {},
         onOpenInsights: () => {},
       }))
@@ -254,9 +259,13 @@ describe('persistent console shell', () => {
   })
 
   it('sends the due-reviews hero into the mistake vault, not the library', async () => {
+    let reviewsOpened = 0
+    let libraryOpened = 0
+
     const heroContainer = dom.window.document.createElement('div')
-    dom.window.document.body.append(heroContainer)
+    dom.window.document.body.appendChild(heroContainer)
     const heroRoot = createRoot(heroContainer)
+
     const cards = [{
       domain: 'Information and Ideas' as const,
       characterStage: 'Noobie' as const,
@@ -268,25 +277,25 @@ describe('persistent console shell', () => {
       chosen: true,
       finished: false,
     }]
-    let reviewsOpened = 0
-    let libraryOpened = 0
 
     await act(async () => {
       heroRoot.render(createElement(ProgressDashboard, {
         activeView: 'practice',
+        dueCount: 3,
         examPanel: createElement('p'),
         lessonsPanel: createElement('p'),
         reviewsPanel: createElement('p', null, 'Embedded vault'),
+        wordsPanel: createElement('p', null, 'Embedded words'),
         libraryPanel: createElement('p'),
         insightsPanel: createElement('p'),
         cards,
-        dueCount: 3,
         onSelectDomain: () => {},
         onUpdateScore: () => {},
         onOpenPractice: () => {},
         onOpenExam: () => {},
         onOpenLessons: () => {},
         onOpenReviews: () => { reviewsOpened += 1 },
+        onOpenWords: () => {},
         onOpenLibrary: () => { libraryOpened += 1 },
         onOpenInsights: () => {},
       }))
@@ -309,11 +318,11 @@ describe('persistent console shell', () => {
     assert.equal(reviewsOpened, 1)
     assert.equal(libraryOpened, 0)
 
-    // The nav tab carries the due count and lands on the vault panel.
-    const reviewsTab = [...heroContainer.querySelectorAll('.console-nav button')].find(
-      (button) => button.textContent?.startsWith('Reviews'),
+    const reviewBtn = [...heroContainer.querySelectorAll('button')].find(
+      (button) => button.textContent?.includes('Review practice'),
     ) as HTMLButtonElement
-    assert.equal(reviewsTab.textContent, 'Reviews (3)')
+    assert.ok(reviewBtn)
+    assert.ok(reviewBtn.textContent?.includes('3 due'))
 
     await act(async () => {
       heroRoot.unmount()

@@ -1,9 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 import type { FirstPass, Question } from '../../types.ts'
+import { LookupText } from '../../dictionary/LookupText.tsx'
+import { useWordLookup } from '../../dictionary/useWordLookup.ts'
 import { orderedChoices } from '../../review/ordering.ts'
+import { WordLookupPopover } from '../Exam/WordLookupPopover.tsx'
 import { Passage } from '../Passage/Passage.tsx'
-import { AbcToggle, ChoiceMarker } from './ChoiceStrikeout.tsx'
+import { AbcToggle, ChoiceMarker, DictionaryToggle } from './ChoiceStrikeout.tsx'
 import { toggleChoiceStrikeout } from './model.ts'
 
 function formatClock(seconds: number): string {
@@ -25,13 +28,19 @@ export function AnswerPass({ question, isReview, timedMode, timeLimitSec, onAnsw
   const [choice, setChoice] = useState<string | null>(null)
   const [struckChoices, setStruckChoices] = useState<string[]>([])
   const [abcMode, setAbcMode] = useState(false)
+  const [dictionary, setDictionary] = useState(false)
   const [timedOut, setTimedOut] = useState(false)
 
+  const wordLookup = useWordLookup()
   const startRef = useRef(Date.now())
   const firedRef = useRef(false)
   const [remaining, setRemaining] = useState(timeLimitSec)
 
   const choiceSlots = useMemo(() => orderedChoices(question, isReview), [question, isReview])
+
+  useEffect(() => {
+    wordLookup.close()
+  }, [question.id])
 
   function commit() {
     if (!choice || firedRef.current) return
@@ -87,7 +96,13 @@ export function AnswerPass({ question, isReview, timedMode, timeLimitSec, onAnsw
   if (timedOut) {
     return (
       <>
-        <Passage question={question} />
+        <Passage
+          question={question}
+          dictionary={dictionary}
+          onLookup={(req) =>
+            wordLookup.open({ ...req, source: { examId: question.test || 'practice', questionId: question.id } })
+          }
+        />
         <section className="question-panel">
           <div className="step done">
             <p className="done-headline">⏱ Time&rsquo;s up - moved on.</p>
@@ -96,13 +111,25 @@ export function AnswerPass({ question, isReview, timedMode, timeLimitSec, onAnsw
             </ul>
           </div>
         </section>
+        <WordLookupPopover
+          state={wordLookup.state}
+          onClose={wordLookup.close}
+          onToggleSave={wordLookup.toggleSave}
+          onRetry={wordLookup.retry}
+        />
       </>
     )
   }
 
   return (
     <>
-      <Passage question={question} />
+      <Passage
+        question={question}
+        dictionary={dictionary}
+        onLookup={(req) =>
+          wordLookup.open({ ...req, source: { examId: question.test || 'practice', questionId: question.id } })
+        }
+      />
       <section className="question-panel">
         {timedMode && (
           <div className={`timer ${remaining <= 15 ? 'timer--urgent' : ''}`} role="timer" aria-label="Time remaining">
@@ -114,8 +141,19 @@ export function AnswerPass({ question, isReview, timedMode, timeLimitSec, onAnsw
         )}
 
         <div className="question-heading">
-          <h1 className="question-prompt">{question.prompt}</h1>
-          <AbcToggle active={abcMode} onToggle={() => setAbcMode((active) => !active)} />
+          <h1 className="question-prompt">
+            <LookupText
+              text={question.prompt}
+              dictionary={dictionary}
+              onLookup={(req) =>
+                wordLookup.open({ ...req, source: { examId: question.test || 'practice', questionId: question.id } })
+              }
+            />
+          </h1>
+          <div className="question-tools">
+            <DictionaryToggle active={dictionary} onToggle={() => setDictionary((d) => !d)} />
+            <AbcToggle active={abcMode} onToggle={() => setAbcMode((active) => !active)} />
+          </div>
         </div>
 
         <div className="choice-list" role="radiogroup" aria-label="Answer choices">
@@ -131,7 +169,15 @@ export function AnswerPass({ question, isReview, timedMode, timeLimitSec, onAnsw
                   className="choice-select"
                   onClick={() => setChoice(slot.sourceLetter)}
                 >
-                  <span className="choice-text">{slot.text}</span>
+                  <span className="choice-text">
+                    <LookupText
+                      text={slot.text}
+                      dictionary={dictionary}
+                      onLookup={(req) =>
+                        wordLookup.open({ ...req, source: { examId: question.test || 'practice', questionId: question.id } })
+                      }
+                    />
+                  </span>
                 </button>
                 {abcMode && (
                   <ChoiceMarker
@@ -151,6 +197,13 @@ export function AnswerPass({ question, isReview, timedMode, timeLimitSec, onAnsw
           </button>
         </div>
       </section>
+
+      <WordLookupPopover
+        state={wordLookup.state}
+        onClose={wordLookup.close}
+        onToggleSave={wordLookup.toggleSave}
+        onRetry={wordLookup.retry}
+      />
     </>
   )
 }

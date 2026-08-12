@@ -15,6 +15,10 @@ import {
   type SkillLesson as SkillLessonContent,
   type SkillLessonSummary,
 } from '../../content/skillLessons.ts'
+import { LookupText } from '../../dictionary/LookupText.tsx'
+import { useWordLookup } from '../../dictionary/useWordLookup.ts'
+import { WordLookupPopover } from '../Exam/WordLookupPopover.tsx'
+import { DictionaryToggle } from '../QuestionInteraction/ChoiceStrikeout.tsx'
 import './lesson.css'
 
 const CHOICE_LETTERS = ['A', 'B', 'C', 'D'] as const
@@ -383,8 +387,11 @@ function WorkedExample({
   const [chosen, setChosen] = useState<ChoiceLetter | null>(null)
   const [struck, setStruck] = useState<ChoiceLetter[]>([])
   const [revealed, setRevealed] = useState(false)
+  const [dictionary, setDictionary] = useState(false)
   const correct = chosen === example.answer
   const gate = workedExampleGate(skill, oneMove)
+
+  const wordLookup = useWordLookup()
 
   function toggleStrike(letter: ChoiceLetter) {
     setStruck((current) =>
@@ -401,20 +408,47 @@ function WorkedExample({
         {example.figure && <Figure description={example.figure} />}
         {example.table && <DataTable rows={example.table} />}
         {example.passage.map((paragraph, index) => (
-          <p key={index}>{paragraph}</p>
+          <p key={index}>
+            <LookupText
+              text={paragraph}
+              dictionary={dictionary}
+              onLookup={(req) =>
+                wordLookup.open({ ...req, source: { examId: 'lesson', questionId: skill } })
+              }
+            />
+          </p>
         ))}
         {example.notes && example.notes.length > 0 && (
           <ul className="lesson-list">
             {example.notes.map((note) => (
-              <li key={note}>{note}</li>
+              <li key={note}>
+                <LookupText
+                  text={note}
+                  dictionary={dictionary}
+                  onLookup={(req) =>
+                    wordLookup.open({ ...req, source: { examId: 'lesson', questionId: skill } })
+                  }
+                />
+              </li>
             ))}
           </ul>
         )}
       </section>
 
       <section className="lesson-worked__question">
-        <p className="lesson-section__label">Question</p>
-        <p className="lesson-example__prompt">{example.prompt}</p>
+        <div className="question-heading">
+          <p className="lesson-section__label">Question</p>
+          <DictionaryToggle active={dictionary} onToggle={() => setDictionary((on) => !on)} />
+        </div>
+        <p className="lesson-example__prompt">
+          <LookupText
+            text={example.prompt}
+            dictionary={dictionary}
+            onLookup={(req) =>
+              wordLookup.open({ ...req, source: { examId: 'lesson', questionId: skill } })
+            }
+          />
+        </p>
 
         {(showChoicesImmediately || !gateOpen) && (
           <div className="lesson-gate">
@@ -483,7 +517,15 @@ function WorkedExample({
                   <span className="lesson-choice__letter" aria-hidden="true">
                     {letter}
                   </span>
-                  <span>{text}</span>
+                  <span>
+                    <LookupText
+                      text={text}
+                      dictionary={dictionary}
+                      onLookup={(req) =>
+                        wordLookup.open({ ...req, source: { examId: 'lesson', questionId: skill } })
+                      }
+                    />
+                  </span>
                 </button>
                 <button
                   className={`lesson-strike ${isStruck ? 'is-on' : ''}`}
@@ -558,6 +600,12 @@ function WorkedExample({
             </div>
           ))}
       </section>
+      <WordLookupPopover
+        state={wordLookup.state}
+        onClose={wordLookup.close}
+        onToggleSave={wordLookup.toggleSave}
+        onRetry={wordLookup.retry}
+      />
     </div>
   )
 }

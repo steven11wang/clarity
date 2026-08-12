@@ -6,16 +6,26 @@ import type { QuestionTaxonomy } from '../progression/questions.ts'
 import type { Attempt } from '../types.ts'
 import {
   clearAdaptiveDraft,
+  deleteExamRecord,
+  getActiveView,
   getAdaptiveDraft,
   getAttempts,
+  getExamRecord,
+  getExamRecords,
   getProgression,
   getReviews,
+  getWordBankEntries,
   recordAttempt,
   replaceCloudState,
   saveAdaptiveDraft,
+  saveExamRecord,
   saveProgression,
+  saveWord,
+  setActiveView,
   storage,
+  type PracticeExamRecord,
 } from './index.ts'
+import type { WordBankEntry } from '../dictionary/wordBank.ts'
 
 class MemoryStorage implements Storage {
   #values = new Map<string, string>()
@@ -180,6 +190,20 @@ describe('storage', () => {
     storage.set('settings', { demoMode: true })
     storage.set('attempts:old', { ...attempt, questionId: 'old' })
     const remoteAttempt = { ...attempt, questionId: 'remote', timestamp: 42 }
+    const remoteWord: WordBankEntry = {
+      id: 'ephemeral',
+      word: 'ephemeral',
+      partOfSpeech: 'adjective',
+      definition: 'lasting for a very short time',
+      sentence: 'The ephemeral beauty of morning mist',
+      source: null,
+      savedAt: 100,
+      stage: 0,
+      dueAt: 200,
+      clears: 0,
+      lapses: 0,
+      lastReviewedAt: null,
+    }
 
     replaceCloudState({
       progression: null,
@@ -195,10 +219,70 @@ describe('storage', () => {
           lastReviewedAt: null,
         },
       },
+      wordBank: {
+        ephemeral: remoteWord,
+      },
     })
 
     assert.deepEqual(getAttempts(), [remoteAttempt])
     assert.deepEqual(getReviews().remote?.questionId, 'remote')
+    assert.deepEqual(getWordBankEntries(), [remoteWord])
     assert.deepEqual(storage.get('settings'), { demoMode: true })
   })
+
+  it('stores, lists, finds, and deletes practice exam records in order', () => {
+    const record1: PracticeExamRecord = {
+      id: 'exam_record_100_mock',
+      examId: 'mock',
+      examTitle: 'Mock Exam 1',
+      finishedAt: 100,
+      result: {
+        answers: { q1: 'A' },
+        flagged: [],
+        finishedAt: 100,
+        timeLeft: {},
+        overtime: {},
+        questionSeconds: {},
+        untimed: false,
+        timingLabel: 'Official pace',
+      },
+    }
+    const record2: PracticeExamRecord = {
+      id: 'exam_record_200_mock',
+      examId: 'mock',
+      examTitle: 'Mock Exam 1',
+      finishedAt: 200,
+      result: {
+        answers: { q1: 'B' },
+        flagged: [],
+        finishedAt: 200,
+        timeLeft: {},
+        overtime: {},
+        questionSeconds: {},
+        untimed: true,
+        timingLabel: 'Untimed',
+      },
+    }
+
+    saveExamRecord(record1)
+    saveExamRecord(record2)
+
+    const list = getExamRecords()
+    assert.equal(list.length, 2)
+    assert.equal(list[0].finishedAt, 200) // Newest first
+    assert.equal(list[1].finishedAt, 100)
+
+    assert.deepEqual(getExamRecord('exam_record_100_mock'), record1)
+
+    deleteExamRecord('exam_record_100_mock')
+    assert.equal(getExamRecords().length, 1)
+    assert.equal(getExamRecord('exam_record_100_mock'), null)
+  })
+
+  it('persists and retrieves the active tab view', () => {
+    assert.equal(getActiveView(), null)
+    setActiveView('exam')
+    assert.equal(getActiveView(), 'exam')
+  })
 })
+

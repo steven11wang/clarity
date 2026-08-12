@@ -1,11 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 
-import type { Attempt, ErrorCause, FirstPass, Question } from '../../types.ts'
+import type { Attempt, FirstPass, Question } from '../../types.ts'
+import { LookupText, type TextLookupRequest } from '../../dictionary/LookupText.tsx'
+import { useWordLookup } from '../../dictionary/useWordLookup.ts'
 import { findReferencedSentences } from '../../review/evidence.ts'
 import { orderedChoices, type ChoiceSlot } from '../../review/ordering.ts'
+import { WordLookupPopover } from '../Exam/WordLookupPopover.tsx'
 import { Passage } from '../Passage/Passage.tsx'
-import { AbcToggle, ChoiceMarker } from './ChoiceStrikeout.tsx'
+import { AbcToggle, ChoiceMarker, DictionaryToggle } from './ChoiceStrikeout.tsx'
 import {
+  CAUSES,
+  WRONG_REASONS,
   initReview,
   setCause,
   setContrast,
@@ -14,25 +19,6 @@ import {
   toAttempt,
   answerChoiceStatus,
 } from './model.ts'
-
-const CAUSES: { id: ErrorCause; label: string }[] = [
-  { id: 'misread-passage', label: 'Misread the passage' },
-  { id: 'misread-question', label: 'Misread the question' },
-  { id: 'trap', label: 'Fell for a trap answer' },
-  { id: 'knowledge-gap', label: 'Knowledge gap' },
-  { id: 'rushed', label: 'Rushed / ran out of time' },
-]
-
-// Selectable reasons a chosen answer was wrong (replaces free text).
-const WRONG_REASONS = [
-  'It wasn’t supported by the text',
-  'It was too extreme or absolute',
-  'It was true but didn’t answer the question',
-  'It contradicted the text',
-  'It brought in outside or irrelevant information',
-  'It only partly fit',
-  'I misread the question or passage',
-]
 
 type Props = {
   question: Question
@@ -56,11 +42,15 @@ export function QuestionInteraction({
   const [reason, setReason] = useState('')
   const [struckChoices, setStruckChoices] = useState<string[]>([])
   const [abcMode, setAbcMode] = useState(false)
+  const [dictionary, setDictionary] = useState(false)
   const [showReasoning, setShowReasoning] = useState(false)
+
+  const wordLookup = useWordLookup()
 
   useEffect(() => {
     setStruckChoices([])
     setAbcMode(false)
+    wordLookup.close()
   }, [question.id])
 
   const choiceSlots = useMemo(() => orderedChoices(question, isReview), [question, isReview])
@@ -82,12 +72,30 @@ export function QuestionInteraction({
 
   return (
     <>
-      <Passage question={question} referenced={showReferenced ? referenced : []} />
+      <Passage
+        question={question}
+        referenced={showReferenced ? referenced : []}
+        dictionary={dictionary}
+        onLookup={(req) =>
+          wordLookup.open({ ...req, source: { examId: question.test || 'practice', questionId: question.id } })
+        }
+      />
 
       <section className="question-panel">
         <div className="question-heading">
-          <h1 className="question-prompt">{question.prompt}</h1>
-          <AbcToggle active={abcMode} onToggle={() => setAbcMode((active) => !active)} />
+          <h1 className="question-prompt">
+            <LookupText
+              text={question.prompt}
+              dictionary={dictionary}
+              onLookup={(req) =>
+                wordLookup.open({ ...req, source: { examId: question.test || 'practice', questionId: question.id } })
+              }
+            />
+          </h1>
+          <div className="question-tools">
+            <DictionaryToggle active={dictionary} onToggle={() => setDictionary((d) => !d)} />
+            <AbcToggle active={abcMode} onToggle={() => setAbcMode((active) => !active)} />
+          </div>
         </div>
 
         {/* Redo: re-attempt the missed question, answer-until-correct. */}
@@ -124,7 +132,15 @@ export function QuestionInteraction({
                       }
                       onClick={() => setState((s) => submitRedo(s, slot.sourceLetter))}
                     >
-                      <span className="choice-text">{slot.text}</span>
+                      <span className="choice-text">
+                        <LookupText
+                          text={slot.text}
+                          dictionary={dictionary}
+                          onLookup={(req) =>
+                            wordLookup.open({ ...req, source: { examId: question.test || 'practice', questionId: question.id } })
+                          }
+                        />
+                      </span>
                       {isFirstPick ? (
                         <span className="choice-tag choice-tag--chose">You chose this</span>
                       ) : clickedWrong ? (
@@ -159,6 +175,10 @@ export function QuestionInteraction({
               choiceSlots={choiceSlots}
               firstChoice={firstPass.chosen}
               struckChoices={state.pass1StruckChoices}
+              dictionary={dictionary}
+              onLookup={(req) =>
+                wordLookup.open({ ...req, source: { examId: question.test || 'practice', questionId: question.id } })
+              }
             />
             <div className="reasoning-head">
               <p className="panel-label">The reasoning</p>
@@ -205,6 +225,13 @@ export function QuestionInteraction({
 
         {state.phase === 'done' && <DoneStep state={state} onNext={onNext} />}
       </section>
+
+      <WordLookupPopover
+        state={wordLookup.state}
+        onClose={wordLookup.close}
+        onToggleSave={wordLookup.toggleSave}
+        onRetry={wordLookup.retry}
+      />
     </>
   )
 }
@@ -214,11 +241,15 @@ function AnswerChoiceComparison({
   choiceSlots,
   firstChoice,
   struckChoices,
+  dictionary = false,
+  onLookup,
 }: {
   question: Question
   choiceSlots: ChoiceSlot[]
   firstChoice: string
   struckChoices: string[]
+  dictionary?: boolean
+  onLookup?: (request: TextLookupRequest) => void
 }) {
   return (
     <div className="answer-comparison" aria-label="Answer choice comparison">
@@ -233,7 +264,7 @@ function AnswerChoiceComparison({
           >
             <span className="choice-letter">{slot.displayLetter}</span>
             <span>
-              {slot.text}
+              <LookupText text={slot.text} dictionary={dictionary} onLookup={onLookup} />
               {wasStruck && <em className="answer-comparison__struck-note">You struck this out</em>}
             </span>
             {isCorrect && <strong>Correct answer</strong>}

@@ -69,10 +69,89 @@ button { font: inherit; }
 .question-heading { align-items: flex-start; display: flex; gap: 1rem; justify-content: space-between; }
 .question-heading .question-prompt, .question-heading > h2 { flex: 1; }
 
+.question-tools { align-items: center; display: flex; gap: .5rem; flex-shrink: 0; }
+
 .abc-toggle { align-items: center; background: transparent; border: 2px solid rgba(255,255,255,0.72); border-radius: var(--r-sm); color: rgba(255,255,255,0.88); cursor: pointer; display: inline-flex; flex: 0 0 3rem; font-size: .82rem; font-weight: 850; height: 3rem; justify-content: center; letter-spacing: -.12em; padding: 0; position: relative; }
 .abc-toggle:hover, .abc-toggle:focus-visible, .abc-toggle--active { border-color: #8cb4ff; color: #ffffff; }
 .abc-toggle:focus-visible { outline: 2px solid #8cb4ff; outline-offset: 3px; }
 .abc-toggle__slash { background: currentColor; height: 2px; left: .35rem; position: absolute; right: .35rem; top: 50%; transform: rotate(-48deg); }
+
+.dictionary-toggle { align-items: center; background: transparent; border: 2px solid rgba(255,255,255,0.72); border-radius: var(--r-sm); color: rgba(255,255,255,0.88); cursor: pointer; display: inline-flex; font-size: .8rem; font-weight: 750; gap: .35rem; height: 3rem; justify-content: center; padding: 0 .75rem; transition: border-color .15s, color .15s, background-color .15s; }
+.dictionary-toggle:hover, .dictionary-toggle:focus-visible, .dictionary-toggle--active { background: rgba(64, 120, 255, 0.2); border-color: #8cb4ff; color: #ffffff; }
+.dictionary-toggle:focus-visible { outline: 2px solid #8cb4ff; outline-offset: 3px; }
+
+.exam-word {
+  background: none;
+  border: 0;
+  border-bottom: 1px dotted rgba(140, 180, 255, 0.5);
+  border-radius: 3px;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  letter-spacing: inherit;
+  padding: 0;
+  text-align: inherit;
+}
+.exam-word:hover,
+.exam-word:focus-visible {
+  background: rgba(64, 120, 255, 0.22);
+  border-bottom-color: #8cb4ff;
+  outline: none;
+}
+
+/* --- Dictionary Popover Fallbacks ---------------------------------------- */
+.exam-lookup {
+  background: var(--exam-surface, #141b2d);
+  border: 1px solid var(--exam-border, rgba(255, 255, 255, 0.18));
+  border-radius: 10px;
+  box-shadow: var(--exam-shadow, 0 14px 40px rgba(0, 0, 0, 0.75));
+  color: var(--exam-ink, #ffffff);
+  font-family: inherit;
+  padding: 0.85rem 0.95rem 0.9rem;
+  position: fixed;
+  z-index: 9999;
+}
+.exam-lookup__word {
+  color: var(--exam-ink, #ffffff);
+}
+.exam-lookup__pos {
+  color: var(--exam-muted, rgba(255, 255, 255, 0.65));
+}
+.exam-lookup__close {
+  color: var(--exam-muted, rgba(255, 255, 255, 0.65));
+}
+.exam-lookup__close:hover {
+  background: var(--exam-hover, rgba(255, 255, 255, 0.1));
+  color: var(--exam-ink, #ffffff);
+}
+.exam-lookup__definition {
+  color: var(--exam-ink, rgba(255, 255, 255, 0.95));
+}
+.exam-lookup__status {
+  color: var(--exam-muted, rgba(255, 255, 255, 0.75));
+}
+.exam-lookup__alternates {
+  border-top-color: var(--exam-line, rgba(255, 255, 255, 0.15));
+}
+.exam-lookup__alternates em {
+  color: var(--exam-muted, rgba(255, 255, 255, 0.65));
+}
+.exam-lookup__save {
+  background: var(--exam-blue, #3f6fe0);
+  border-color: var(--exam-blue, #3f6fe0);
+  color: #ffffff;
+}
+.exam-lookup__save:hover {
+  background: var(--exam-blue-dark, #2b5bc7);
+}
+.exam-lookup__save--on {
+  background: transparent;
+  border-color: var(--exam-correct, #46d18b);
+  color: var(--exam-correct, #46d18b);
+}
+.exam-lookup__link {
+  color: var(--exam-blue, #8cb4ff);
+}
 
 /* --- Choices ------------------------------------------------------------- */
 .choice-list { display: grid; gap: .65rem; }

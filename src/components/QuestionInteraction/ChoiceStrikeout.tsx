@@ -1,6 +1,24 @@
+import { BookA } from 'lucide-react'
+
 type AbcToggleProps = {
   active: boolean
   onToggle: () => void
+}
+
+export function DictionaryToggle({ active, onToggle }: { active: boolean; onToggle: () => void }) {
+  return (
+    <button
+      type="button"
+      className={`dictionary-toggle ${active ? 'dictionary-toggle--active' : ''}`}
+      aria-label={active ? 'Turn off dictionary' : 'Turn on dictionary'}
+      aria-pressed={active}
+      title="Click any word in the passage, question, or choices to see what it means"
+      onClick={onToggle}
+    >
+      <BookA size={16} strokeWidth={1.6} aria-hidden="true" />
+      <span>Dictionary</span>
+    </button>
+  )
 }
 
 export function AbcToggle({ active, onToggle }: AbcToggleProps) {

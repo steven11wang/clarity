@@ -69,6 +69,7 @@ type AdaptiveExperienceProps = {
   primaryView: PrimaryConsoleView
   examPanel: ReactNode
   reviewsPanel: ReactNode
+  wordsPanel: ReactNode
   libraryPanel: ReactNode
   insightsPanel: ReactNode
   dueCount: number
@@ -79,6 +80,7 @@ type AdaptiveExperienceProps = {
   onOpenExam: () => void
   onOpenLessons: () => void
   onOpenReviews: () => void
+  onOpenWords: () => void
   onOpenLibrary: () => void
   onOpenInsights: () => void
   onRecordAnswers: (
@@ -146,6 +148,7 @@ export function AdaptiveExperience({
   primaryView,
   examPanel,
   reviewsPanel,
+  wordsPanel,
   libraryPanel,
   insightsPanel,
   dueCount,
@@ -156,6 +159,7 @@ export function AdaptiveExperience({
   onOpenExam,
   onOpenLessons,
   onOpenReviews,
+  onOpenWords,
   onOpenLibrary,
   onOpenInsights,
   onRecordAnswers,
@@ -1054,6 +1058,7 @@ export function AdaptiveExperience({
       examPanel={examPanel}
       lessonsPanel={lessonsPanel}
       reviewsPanel={reviewsPanel}
+      wordsPanel={wordsPanel}
       libraryPanel={libraryPanel}
       insightsPanel={insightsPanel}
       cards={cards}
@@ -1064,6 +1069,7 @@ export function AdaptiveExperience({
       onOpenExam={() => openPrimaryView(onOpenExam)}
       onOpenLessons={() => openPrimaryView(onOpenLessons)}
       onOpenReviews={() => openPrimaryView(onOpenReviews)}
+      onOpenWords={() => openPrimaryView(onOpenWords)}
       onOpenLibrary={() => openPrimaryView(onOpenLibrary)}
       onOpenInsights={() => openPrimaryView(onOpenInsights)}
     />

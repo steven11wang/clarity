@@ -1,5 +1,7 @@
 import { assetPath } from '../../lib/assetPath.ts'
+import { renderFormattedText } from '../../lib/formatText.tsx'
 import type { Question, TableData } from '../../types.ts'
+import { LookupText, type TextLookupRequest } from '../../dictionary/LookupText.tsx'
 import { segmentSentences } from './sentence.ts'
 import './passage.css'
 
@@ -12,6 +14,8 @@ type PassageProps = {
   // Sentences the official reasoning quotes - shown as reinforcement only after
   // the student has committed their own evidence.
   referenced?: number[]
+  dictionary?: boolean
+  onLookup?: (request: TextLookupRequest) => void
 }
 
 function DataTable({ headers, rows }: TableData) {
@@ -64,6 +68,8 @@ export function Passage({
   selected = [],
   onToggle,
   referenced = [],
+  dictionary = false,
+  onLookup,
 }: PassageProps) {
   const sentences = segmentSentences(question.passage)
   const selectedSet = new Set(selected)
@@ -75,7 +81,7 @@ export function Passage({
       {blocks.map((block, blockIndex) => (
         <div key={blockIndex}>
           {block.label && <h3 className="passage__label">{block.label}</h3>}
-          <p className={`passage__text ${selectable ? 'passage__text--selectable' : ''}`}>
+          <p className={`passage__text ${selectable ? 'passage__text--selectable' : ''} ${dictionary ? 'passage__text--dictionary' : ''}`}>
             {block.sentences.map(({ index, text }, position) => {
               const classes = [
                 'passage__sentence',
@@ -96,7 +102,7 @@ export function Passage({
                       aria-pressed={selectedSet.has(index)}
                       onClick={() => onToggle?.(index)}
                     >
-                      {text}
+                      <LookupText text={text} dictionary={dictionary} onLookup={onLookup} />
                     </button>
                   </span>
                 )
@@ -104,7 +110,8 @@ export function Passage({
 
               return (
                 <span className={classes} key={`${index}-${text}`}>
-                  {lead}{text}
+                  {lead}
+                  <LookupText text={text} dictionary={dictionary} onLookup={onLookup} />
                 </span>
               )
             })}

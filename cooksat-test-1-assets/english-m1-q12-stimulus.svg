@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="138" viewBox="0 0 620 138" role="img">
+<rect width="100%" height="100%" fill="white"/>
+<text x="12" y="22" text-anchor="start" font-family="Arial, sans-serif" font-size="12" font-weight="bold">Recreated table</text>
+<rect x="0" y="36" width="208" height="34" fill="#f1f5f9" stroke="#111"/>
+<text x="104.0" y="58" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold">\n\nElodea canadensis</text>
+<rect x="208" y="36" width="112" height="34" fill="#f1f5f9" stroke="#111"/>
+<text x="264.0" y="58" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold">green</text>
+<rect x="320" y="36" width="100" height="34" fill="#f1f5f9" stroke="#111"/>
+<text x="370.0" y="58" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold">42.50</text>
+<rect x="420" y="36" width="100" height="34" fill="#f1f5f9" stroke="#111"/>
+<text x="470.0" y="58" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold">14.23</text>
+<rect x="520" y="36" width="100" height="34" fill="#f1f5f9" stroke="#111"/>
+<text x="570.0" y="58" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold">3</text>
+<rect x="0" y="70" width="208" height="34" fill="white" stroke="#111"/>
+<text x="104.0" y="92" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="normal">\n\nPotamogeton crispus</text>
+<rect x="208" y="70" width="112" height="34" fill="white" stroke="#111"/>
+<text x="264.0" y="92" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="normal">green</text>
+<rect x="320" y="70" width="100" height="34" fill="white" stroke="#111"/>
+<text x="370.0" y="92" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="normal">23.15</text>
+<rect x="420" y="70" width="100" height="34" fill="white" stroke="#111"/>
+<text x="470.0" y="92" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="normal">0.78</text>
+<rect x="520" y="70" width="100" height="34" fill="white" stroke="#111"/>
+<text x="570.0" y="92" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="normal">3</text>
+<rect x="0" y="104" width="208" height="34" fill="white" stroke="#111"/>
+<text x="104.0" y="126" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="normal">\n\nRiccia fluitans</text>
+<rect x="208" y="104" width="112" height="34" fill="white" stroke="#111"/>
+<text x="264.0" y="126" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="normal">pale yellow</text>
+<rect x="320" y="104" width="100" height="34" fill="white" stroke="#111"/>
+<text x="370.0" y="126" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="normal">0.03</text>
+<rect x="420" y="104" width="100" height="34" fill="white" stroke="#111"/>
+<text x="470.0" y="126" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="normal">0.02</text>
+<rect x="520" y="104" width="100" height="34" fill="white" stroke="#111"/>
+<text x="570.0" y="126" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="normal">4</text>
+</svg>
