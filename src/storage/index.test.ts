@@ -7,6 +7,7 @@ import type { Attempt } from '../types.ts'
 import {
   clearAdaptiveDraft,
   deleteExamRecord,
+  exportAllData,
   getActiveView,
   getAdaptiveDraft,
   getAttempts,
@@ -15,6 +16,7 @@ import {
   getProgression,
   getReviews,
   getWordBankEntries,
+  importAllData,
   recordAttempt,
   replaceCloudState,
   saveAdaptiveDraft,
@@ -283,6 +285,59 @@ describe('storage', () => {
     assert.equal(getActiveView(), null)
     setActiveView('exam')
     assert.equal(getActiveView(), 'exam')
+  })
+
+  it('exports and imports complete application state cleanly', () => {
+    saveWord({
+      id: 'ephemeral',
+      word: 'ephemeral',
+      partOfSpeech: 'adjective',
+      definition: 'short-lived',
+      sentence: 'test sentence',
+      source: null,
+      savedAt: 100,
+      stage: 0,
+      dueAt: 200,
+      clears: 0,
+      lapses: 0,
+      lastReviewedAt: null,
+    })
+    recordAttempt(attempt)
+
+    const record: PracticeExamRecord = {
+      id: 'exam_record_500_test',
+      examId: 'test-exam',
+      examTitle: 'Test Exam',
+      finishedAt: 500,
+      result: {
+        answers: { q1: 'A' },
+        flagged: [],
+        finishedAt: 500,
+        timeLeft: {},
+        overtime: {},
+        questionSeconds: {},
+        untimed: true,
+        timingLabel: 'Untimed',
+      },
+    }
+    saveExamRecord(record)
+
+    const backup = exportAllData()
+    assert.equal(backup.version, 1)
+    assert.equal(backup.attempts.length, 1)
+    assert.equal(backup.examRecords.length, 1)
+    assert.equal(backup.wordBank.ephemeral.word, 'ephemeral')
+
+    // Wipe storage
+    localStorage.clear()
+
+    // Restore from backup
+    importAllData(backup)
+
+    assert.equal(getAttempts().length, 1)
+    assert.equal(getWordBankEntries().length, 1)
+    assert.equal(getExamRecords().length, 1)
+    assert.equal(getExamRecord('exam_record_500_test')?.examTitle, 'Test Exam')
   })
 })
 

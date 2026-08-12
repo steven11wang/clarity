@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
-import { ChevronRight, Contrast, KeyRound, Settings, TrendingUp, UserRound } from 'lucide-react'
+import { ChevronRight, Contrast, Download, KeyRound, Settings, TrendingUp, Upload, UserRound } from 'lucide-react'
 
 import { useAuthProfile } from '../../auth/AuthContext.tsx'
 import { AVATARS } from '../../auth/profileShortcuts.ts'
+import { exportAllData, importAllData } from '../../storage/index.ts'
 import './settings.css'
 
 type SettingsPopoverProps = {
@@ -29,6 +30,8 @@ export function SettingsPopover({ onScoreUpdate }: SettingsPopoverProps) {
   const [confirmPin, setConfirmPin] = useState('')
   const [pinError, setPinError] = useState<string | null>(null)
   const [savingPin, setSavingPin] = useState(false)
+  const [dataMessage, setDataMessage] = useState<string | null>(null)
+  const [dataError, setDataError] = useState<string | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const panelId = 'clarity-settings-popover'
   const accountLabel = isLocal ? `${displayName} · local profile` : email ?? displayName
@@ -84,6 +87,38 @@ export function SettingsPopover({ onScoreUpdate }: SettingsPopoverProps) {
       setPinError(error instanceof Error ? error.message : 'Clarity couldn’t save that PIN.')
     } finally {
       setSavingPin(false)
+    }
+  }
+
+  function handleExportData() {
+    setDataError(null)
+    try {
+      const backup = exportAllData()
+      const json = JSON.stringify(backup, null, 2)
+      const blob = new Blob([json], { type: 'application/json' })
+      const url = URL.createObjectURL(blob)
+      const dateStr = new Date().toISOString().slice(0, 10)
+      const anchor = document.createElement('a')
+      anchor.href = url
+      anchor.download = `clarity-backup-${dateStr}.json`
+      anchor.click()
+      URL.revokeObjectURL(url)
+      setDataMessage('Backup downloaded successfully!')
+    } catch (error) {
+      setDataError(error instanceof Error ? error.message : 'Export failed.')
+    }
+  }
+
+  async function handleImportData(file: File) {
+    setDataError(null)
+    setDataMessage(null)
+    try {
+      const text = await file.text()
+      const parsed: unknown = JSON.parse(text)
+      importAllData(parsed)
+      setDataMessage('Data imported successfully! Your progress is restored.')
+    } catch (error) {
+      setDataError(error instanceof Error ? error.message : 'Invalid backup file.')
     }
   }
 
@@ -200,6 +235,41 @@ export function SettingsPopover({ onScoreUpdate }: SettingsPopoverProps) {
               </span>
               <span className="settings-popover__chevron" aria-hidden="true"><ChevronRight size={15} strokeWidth={1.5} absoluteStrokeWidth /></span>
             </button>
+
+            <button
+              className="settings-popover__row settings-popover__row--button"
+              type="button"
+              onClick={handleExportData}
+            >
+              <span className="settings-popover__icon" aria-hidden="true"><Download size={17} strokeWidth={1.5} absoluteStrokeWidth /></span>
+              <span>
+                <strong>Export Backup</strong>
+                <small>Save progress to .json file</small>
+              </span>
+              <span className="settings-popover__chevron" aria-hidden="true"><ChevronRight size={15} strokeWidth={1.5} absoluteStrokeWidth /></span>
+            </button>
+
+            <label className="settings-popover__row settings-popover__row--button settings-popover__row--upload">
+              <span className="settings-popover__icon" aria-hidden="true"><Upload size={17} strokeWidth={1.5} absoluteStrokeWidth /></span>
+              <span>
+                <strong>Import Backup</strong>
+                <small>Restore progress from .json file</small>
+              </span>
+              <input
+                type="file"
+                accept=".json"
+                aria-label="Import Backup JSON File"
+                style={{ display: 'none' }}
+                onChange={(e) => {
+                  const file = e.target.files?.[0]
+                  if (file) void handleImportData(file)
+                }}
+              />
+              <span className="settings-popover__chevron" aria-hidden="true"><ChevronRight size={15} strokeWidth={1.5} absoluteStrokeWidth /></span>
+            </label>
+
+            {dataMessage && <p className="settings-pin-form__success" role="status" style={{ color: '#3ad07a', fontSize: '0.72rem', padding: '0.2rem 0.7rem', margin: 0 }}>{dataMessage}</p>}
+            {dataError && <p className="settings-pin-form__error" role="alert" style={{ fontSize: '0.72rem', padding: '0.2rem 0.7rem', margin: 0 }}>{dataError}</p>}
 
             <div className="settings-popover__row">
               <span className="settings-popover__icon" aria-hidden="true"><Contrast size={17} strokeWidth={1.5} absoluteStrokeWidth /></span>

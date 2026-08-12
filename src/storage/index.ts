@@ -570,9 +570,19 @@ export function replaceCloudState(state: CloudState): void {
     if (preservedDictionary) {
       localStorage.setItem(namespacedKey('dictionary-cache'), preservedDictionary)
     }
-    preservedExamRecords.forEach(({ key, value }) => {
-      localStorage.setItem(key, value)
-    })
+    if (state.examRecords === undefined) {
+      preservedExamRecords.forEach(({ key, value }) => {
+        localStorage.setItem(key, value)
+      })
+    } else {
+      storage.set(SEEDED_KEY, true)
+      state.examRecords.forEach((record) => {
+        localStorage.setItem(
+          namespacedKey(`exam-records:${record.finishedAt}:${record.examId}`),
+          JSON.stringify(record),
+        )
+      })
+    }
     if (state.progression) {
       localStorage.setItem(namespacedKey(PROGRESSION_KEY), JSON.stringify(state.progression))
     }
@@ -583,17 +593,80 @@ export function replaceCloudState(state: CloudState): void {
         JSON.stringify(attempt),
       )
     })
-    if (state.examRecords) {
-      state.examRecords.forEach((record) => {
-        localStorage.setItem(
-          namespacedKey(`exam-records:${record.finishedAt}:${record.examId}`),
-          JSON.stringify(record),
-        )
-      })
-    }
   } finally {
     suppressChangeEvents = false
   }
+  notifyStorageChange('*')
+}
+
+export type ClarityDataBackup = {
+  version: 1
+  exportedAt: number
+  progression: ProgressionState | null
+  attempts: Attempt[]
+  examRecords: PracticeExamRecord[]
+  reviews: Record<string, ReviewItem>
+  wordBank: Record<string, WordBankEntry>
+  lessonsSeen: Record<string, number>
+}
+
+export function exportAllData(): ClarityDataBackup {
+  return {
+    version: 1,
+    exportedAt: Date.now(),
+    progression: getProgression(),
+    attempts: getAttempts(),
+    examRecords: getExamRecords(),
+    reviews: getReviews(),
+    wordBank: getWordBank(),
+    lessonsSeen: getLessonsSeen(),
+  }
+}
+
+export function importAllData(data: unknown): void {
+  if (!data || typeof data !== 'object') {
+    throw new Error('Invalid backup file format.')
+  }
+
+  const raw = data as Record<string, unknown>
+
+  // Smart detection: Single PracticeExamRecord
+  if (typeof raw.examId === 'string' && typeof raw.finishedAt === 'number' && raw.result) {
+    saveExamRecord(raw as unknown as PracticeExamRecord)
+    notifyStorageChange('*')
+    return
+  }
+
+  // Standard ClarityDataBackup
+  const progression = (raw.progression as ProgressionState) ?? null
+  const attempts = Array.isArray(raw.attempts) ? (raw.attempts as Attempt[]) : []
+  const examRecords = Array.isArray(raw.examRecords)
+    ? (raw.examRecords as PracticeExamRecord[])
+    : undefined
+  const reviews =
+    typeof raw.reviews === 'object' && raw.reviews !== null
+      ? (raw.reviews as Record<string, ReviewItem>)
+      : {}
+  const wordBank =
+    typeof raw.wordBank === 'object' && raw.wordBank !== null
+      ? (raw.wordBank as Record<string, WordBankEntry>)
+      : {}
+
+  replaceCloudState({
+    progression,
+    attempts,
+    reviews,
+    examRecords,
+    wordBank,
+  })
+
+  if (raw.lessonsSeen && typeof raw.lessonsSeen === 'object') {
+    localStorage.setItem(
+      namespacedKey(LESSONS_SEEN_KEY),
+      JSON.stringify(raw.lessonsSeen),
+    )
+  }
+  notifyStorageChange('*')
 }
 
 export function subscribeStorageChanges(listener: () => void): () => void {
