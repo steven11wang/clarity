@@ -1,6 +1,7 @@
 import { useEffect, useId, useMemo, useRef, useState, type FormEvent } from 'react'
 
 import { LookupText } from '../../dictionary/LookupText.tsx'
+import { resolveChoiceContext } from '../../dictionary/context.ts'
 import { useWordLookup } from '../../dictionary/useWordLookup.ts'
 import { orderedChoices, type ChoiceLetter } from '../../review/ordering.ts'
 import { toggleChoiceStrikeout } from '../QuestionInteraction/model.ts'
@@ -220,7 +221,17 @@ export function BatchQuiz({
                                   text={choice.text}
                                   dictionary={dictionary}
                                   onLookup={(req) =>
-                                    wordLookup.open({ ...req, source: { examId: assessmentId, questionId: question.id } })
+                                    wordLookup.open({
+                                      ...req,
+                                      sentence: resolveChoiceContext({
+                                        choiceText: choice.text,
+                                        word: req.word,
+                                        requestSentence: req.sentence,
+                                        passage: question.passage,
+                                        prompt: question.prompt,
+                                      }),
+                                      source: { examId: assessmentId, questionId: question.id },
+                                    })
                                   }
                                 />
                               </span>

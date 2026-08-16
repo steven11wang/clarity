@@ -1,0 +1,279 @@
+/* Daily return — briefing sheet, word stage, closing card.
+   Uses the console tokens only; this feature introduces no new palette. */
+
+.daily-scrim {
+  align-items: center;
+  background: rgba(3, 6, 14, 0.72);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: 1.25rem;
+  position: fixed;
+  z-index: 60;
+  animation: daily-fade 0.22s var(--ease-out, ease-out) both;
+}
+
+.daily-sheet {
+  background: var(--glass-surface-strong, rgba(8, 12, 24, 0.86));
+  -webkit-backdrop-filter: var(--glass-blur, blur(26px));
+  backdrop-filter: var(--glass-blur, blur(26px));
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.13));
+  border-radius: var(--r-xl, 22px);
+  box-shadow: var(--shadow-2, 0 28px 64px -20px rgba(2, 6, 18, 0.9));
+  max-height: calc(100dvh - 2.5rem);
+  max-width: 34rem;
+  overflow-y: auto;
+  padding: 1.75rem;
+  width: 100%;
+  animation: daily-rise 0.28s var(--ease-spring, cubic-bezier(0.18, 0.94, 0.28, 1.04)) both;
+}
+
+.daily-sheet__date {
+  color: var(--cobalt-light, #9cc0ff);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  margin: 0 0 0.75rem;
+}
+
+.daily-sheet h1 {
+  font-size: clamp(1.5rem, 4.5vw, 1.9rem);
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  margin: 0 0 0.6rem;
+}
+
+.daily-sheet__lede {
+  color: var(--console-text-mute, rgba(240, 245, 255, 0.72));
+  font-size: 0.88rem;
+  line-height: 1.55;
+  margin: 0 0 1.35rem;
+  max-width: 30rem;
+}
+
+/* --- Ledger: one tick per item, grouped by how long it was away ---------- */
+
+.daily-ledger {
+  border-top: 1px solid var(--line-1, rgba(255, 255, 255, 0.07));
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+}
+
+.daily-ledger__row {
+  align-items: center;
+  border-bottom: 1px solid var(--line-1, rgba(255, 255, 255, 0.07));
+  display: grid;
+  gap: 0.35rem 0.9rem;
+  grid-template-columns: 7.5rem 1fr auto;
+  padding: 0.7rem 0;
+}
+
+.daily-ledger__when {
+  color: var(--console-text, #f3f6fc);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.daily-ledger__ticks {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.daily-tick {
+  border-radius: 2px;
+  display: block;
+  height: 16px;
+  width: 6px;
+}
+
+.daily-tick--question {
+  background: var(--cobalt, #2f62d9);
+  box-shadow: 0 0 0 1px rgba(156, 192, 255, 0.28) inset;
+}
+
+.daily-tick--word {
+  background: transparent;
+  box-shadow: 0 0 0 1px var(--console-amber, #edc25c) inset;
+}
+
+.daily-ledger__more {
+  color: var(--console-text-dim, rgba(240, 245, 255, 0.55));
+  font-size: 0.68rem;
+  font-style: normal;
+  letter-spacing: 0.02em;
+}
+
+.daily-ledger__count {
+  color: var(--console-text-dim, rgba(240, 245, 255, 0.55));
+  font-size: 0.72rem;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.daily-sheet__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.daily-sheet__actions .console-button {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.4rem;
+  min-height: 44px;
+}
+
+.daily-sheet__streak {
+  color: var(--console-text-dim, rgba(240, 245, 255, 0.55));
+  font-size: 0.76rem;
+  margin: 1.1rem 0 0;
+}
+
+/* --- Full-screen stages -------------------------------------------------- */
+
+.daily-stage {
+  margin: 0 auto;
+  max-width: 940px;
+  padding: 1.5rem 1.25rem 5rem;
+}
+
+/* Sits with the flashcard, which centres itself inside the stage. */
+.daily-stage__step {
+  color: var(--cobalt-light, #9cc0ff);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  margin: 0 0 0.5rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.daily-done {
+  background: var(--glass-surface, rgba(14, 21, 38, 0.62));
+  -webkit-backdrop-filter: var(--glass-blur, blur(26px));
+  backdrop-filter: var(--glass-blur, blur(26px));
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.13));
+  border-radius: var(--r-lg, 16px);
+  margin-top: 3rem;
+  padding: 2rem;
+}
+
+.daily-done h1 {
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  margin: 0 0 0.7rem;
+}
+
+.daily-done__lede {
+  color: var(--console-text-mute, rgba(240, 245, 255, 0.72));
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 0 0 0.9rem;
+  max-width: 34rem;
+}
+
+.daily-done__streak {
+  color: var(--console-amber, #edc25c);
+  font-size: 0.8rem;
+  margin: 0 0 1.5rem;
+}
+
+/* --- Re-entry pill ------------------------------------------------------- */
+
+.daily-pill {
+  align-items: center;
+  background: var(--glass-surface-strong, rgba(8, 12, 24, 0.86));
+  -webkit-backdrop-filter: var(--glass-blur, blur(26px));
+  backdrop-filter: var(--glass-blur, blur(26px));
+  border: 1px solid var(--line-2, rgba(255, 255, 255, 0.13));
+  border-radius: var(--r-pill, 999px);
+  bottom: 3.75rem;
+  box-shadow: var(--shadow-1, 0 10px 26px -10px rgba(2, 5, 13, 0.7));
+  color: var(--console-text, #f3f6fc);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 0.78rem;
+  font-weight: 500;
+  gap: 0.45rem;
+  left: 1rem;
+  min-height: 40px;
+  padding: 0 0.9rem;
+  position: fixed;
+  transition: border-color 0.16s var(--ease-out, ease-out), transform 0.12s var(--ease-out, ease-out);
+  z-index: 30;
+}
+
+.daily-pill:hover {
+  border-color: var(--cobalt-light, #9cc0ff);
+  transform: translateY(-1px);
+}
+
+.daily-pill__count {
+  background: var(--cobalt, #2f62d9);
+  border-radius: var(--r-pill, 999px);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.1rem 0.45rem;
+}
+
+/* --- Quality floor ------------------------------------------------------- */
+
+.daily-scrim :focus-visible,
+.daily-stage :focus-visible,
+.daily-pill:focus-visible {
+  outline: 2px solid var(--cobalt-light, #9cc0ff);
+  outline-offset: 2px;
+}
+
+@keyframes daily-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes daily-rise {
+  from { opacity: 0; transform: translateY(14px) scale(0.985); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .daily-scrim,
+  .daily-sheet {
+    animation: none;
+  }
+  .daily-pill {
+    transition: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .daily-scrim {
+    align-items: flex-end;
+    padding: 0;
+  }
+  .daily-sheet {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    max-height: 92dvh;
+    padding: 1.35rem 1.1rem 1.6rem;
+  }
+  .daily-ledger__row {
+    grid-template-columns: 1fr auto;
+  }
+  .daily-ledger__ticks {
+    grid-column: 1 / -1;
+    order: 3;
+  }
+  .daily-sheet__actions .console-button {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}

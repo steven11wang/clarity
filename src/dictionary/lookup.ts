@@ -24,6 +24,10 @@ export type WordSense = {
   partOfSpeech: string
   definition: string
   example: string | null
+  /** Near-synonyms for this part of speech, commonest first. Only the live
+   *  fallback carries these today - baked Merriam-Webster entries don't, since
+   *  that needs a separate Thesaurus key nothing here has yet. */
+  synonyms?: string[]
 }
 
 export type LookupResult =
@@ -169,16 +173,17 @@ function scoreSense(
   })
 
   // Dictionary order tracks how common a sense is, but it is a weaker signal
-  // than the sentence itself: a small, decaying nudge that context can outvote.
-  score += Math.max(0, 3 - index)
+  // than the sentence itself: context can outvote it when keywords match.
+  score += Math.max(0, 6 - index * 2)
   if (preferredPos && sense.partOfSpeech === preferredPos) score += 5
   if (DEPRECATED_LABEL.test(sense.definition)) score -= 12
   // "(in combination) …", "Of, or pertaining to, the Apocrypha." — usage labels
   // and cross-references to a proper noun teach a learner nothing on their own.
   if (/^\(/.test(sense.definition)) score -= 3
   if (/^of,? or pertaining to\b/i.test(sense.definition)) score -= 5
-  // Short and plain beats long and technical for a popup read mid-passage.
-  if (sense.definition.length <= 90) score += 2
+  // Short and plain beats long and technical for a popup read mid-passage,
+  // but ultra-short entries (<35 chars) are often archaic fragments.
+  if (sense.definition.length >= 35 && sense.definition.length <= 140) score += 1
   else if (sense.definition.length > 200) score -= 2
 
   return score
@@ -234,8 +239,28 @@ type ApiEntry = {
   word?: unknown
   meanings?: Array<{
     partOfSpeech?: unknown
-    definitions?: Array<{ definition?: unknown; example?: unknown }>
+    synonyms?: unknown
+    definitions?: Array<{ definition?: unknown; example?: unknown; synonyms?: unknown }>
   }>
+}
+
+// Matches the length of MW's own "Synonyms of ___" panel closely enough.
+const MAX_SYNONYMS = 8
+
+/** Cleaned, deduped, capped - same list whichever sense of this part of speech asks for it. */
+function readSynonyms(raw: unknown): string[] {
+  if (!Array.isArray(raw)) return []
+  const seen = new Set<string>()
+  const out: string[] = []
+  for (const item of raw) {
+    if (typeof item !== 'string') continue
+    const word = item.trim()
+    if (!word || seen.has(word.toLowerCase())) continue
+    seen.add(word.toLowerCase())
+    out.push(word)
+    if (out.length >= MAX_SYNONYMS) break
+  }
+  return out
 }
 
 export function parseEntries(payload: unknown): WordSense[] {
@@ -246,6 +271,9 @@ export function parseEntries(payload: unknown): WordSense[] {
     for (const meaning of entry?.meanings ?? []) {
       const partOfSpeech =
         typeof meaning?.partOfSpeech === 'string' ? meaning.partOfSpeech : 'word'
+      // One thesaurus-style list per part of speech, same as MW's own panel -
+      // not a different list per individual sense of that part of speech.
+      const synonyms = readSynonyms(meaning?.synonyms)
       for (const definition of meaning?.definitions ?? []) {
         if (typeof definition?.definition !== 'string') continue
         const text = definition.definition.trim()
@@ -254,6 +282,7 @@ export function parseEntries(payload: unknown): WordSense[] {
           partOfSpeech,
           definition: plainDefinition(text),
           example: typeof definition.example === 'string' ? definition.example : null,
+          ...(synonyms.length > 0 ? { synonyms } : {}),
         })
       }
     }
@@ -266,10 +295,12 @@ export function parseEntries(payload: unknown): WordSense[] {
 // One download covers every word in the passages. Senses arrive as tuples
 // ([partOfSpeech, definition, example?]) to keep the file small, and a null
 // entry records a word Merriam-Webster does not carry - worth remembering, so
-// the fallback is not asked about it either.
+// the fallback is not asked about it either. `y` is thesaurus synonyms, one
+// list per part of speech - a separate MW product bakeable independently of
+// `s`, so an entry can have one without the other.
 
 type PackedSense = [string, string, string?]
-type PackedEntry = { s?: PackedSense[]; f?: number; r?: string } | null
+type PackedEntry = { s?: PackedSense[]; f?: number; r?: string; y?: Record<string, string[]> } | null
 
 export type BakedDictionary = {
   version?: number
@@ -290,13 +321,19 @@ export function parseBaked(payload: unknown): Map<string, LookupResult> {
       index.set(word, { status: 'missing', word })
       continue
     }
+    const synonymsByPos = entry?.y
     const senses = packed
       .filter((sense) => Array.isArray(sense) && typeof sense[1] === 'string')
-      .map((sense) => ({
-        partOfSpeech: typeof sense[0] === 'string' ? sense[0] : 'word',
-        definition: sense[1],
-        example: typeof sense[2] === 'string' ? sense[2] : null,
-      }))
+      .map((sense) => {
+        const partOfSpeech = typeof sense[0] === 'string' ? sense[0] : 'word'
+        const synonyms = synonymsByPos?.[partOfSpeech]
+        return {
+          partOfSpeech,
+          definition: sense[1],
+          example: typeof sense[2] === 'string' ? sense[2] : null,
+          ...(synonyms && synonyms.length > 0 ? { synonyms } : {}),
+        }
+      })
     index.set(word, senses.length > 0 ? { status: 'found', word, senses } : { status: 'missing', word })
   }
   return index

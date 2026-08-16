@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Check } from 'lucide-react'
 
 import { LookupText } from '../../dictionary/LookupText.tsx'
+import { resolveChoiceContext } from '../../dictionary/context.ts'
 import { useWordLookup } from '../../dictionary/useWordLookup.ts'
 import { ExamPassage } from './ExamPassage.tsx'
 import { ExamExplanation } from './ExamExplanation.tsx'
@@ -212,7 +213,17 @@ export function ExamFix({
                         text={choice.text}
                         dictionary={dictionary}
                         onLookup={(req) =>
-                          wordLookup.open({ ...req, source: { examId: module.id, questionId: question.id } })
+                          wordLookup.open({
+                            ...req,
+                            sentence: resolveChoiceContext({
+                              choiceText: choice.text,
+                              word: req.word,
+                              requestSentence: req.sentence,
+                              passage: question.passage,
+                              prompt: question.stem,
+                            }),
+                            source: { examId: module.id, questionId: question.id },
+                          })
                         }
                       />
                     </span>

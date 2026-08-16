@@ -1,0 +1,9 @@
+{
+  "duration": 6,
+  "maxStaticSec": 0.85,
+  "assertions": [
+    { "kind": "appearsBy", "selector": "#ink-base", "bySec": 0.05 },
+    { "kind": "staysInFrame", "selector": "#scene" },
+    { "kind": "keepsMoving", "withinSelector": "#scene" }
+  ]
+}

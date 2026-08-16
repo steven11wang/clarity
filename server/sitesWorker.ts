@@ -10,6 +10,17 @@ type WorkerEnvironment = {
 
 const MAX_REQUEST_BYTES = 10 * 1024 * 1024 + 1
 
+/** The static pages own the public URLs; the React app lives under /app.
+ *  Keep this table in sync with FRONT_DOOR in vite.config.ts, which performs
+ *  the same mapping for the dev server. */
+const PAGE_ROUTES: Record<string, string> = {
+  '/': '/landing.html',
+  '/plans': '/plans.html',
+  '/plans/': '/plans.html',
+  '/app': '/index.html',
+  '/app/': '/index.html',
+}
+
 async function parseScore(
   request: Request,
   environment: WorkerEnvironment,
@@ -50,6 +61,13 @@ export default {
     const url = new URL(request.url)
     if (url.pathname === '/api/parse-score') {
       return parseScore(request, environment)
+    }
+
+    const page = PAGE_ROUTES[url.pathname]
+    if (page) {
+      return environment.ASSETS.fetch(
+        new Request(new URL(page, request.url), request),
+      )
     }
 
     const response = await environment.ASSETS.fetch(request)

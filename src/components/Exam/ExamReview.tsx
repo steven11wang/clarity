@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 
 import { LookupText } from '../../dictionary/LookupText.tsx'
+import { resolveChoiceContext } from '../../dictionary/context.ts'
 import { useWordLookup } from '../../dictionary/useWordLookup.ts'
 import { ExamPassage } from './ExamPassage.tsx'
 import { ExamExplanation } from './ExamExplanation.tsx'
@@ -382,7 +383,17 @@ export function ExamReview({
                           text={choice.text}
                           dictionary={dictionary}
                           onLookup={(req) =>
-                            wordLookup.open({ ...req, source: { examId: open.module.id, questionId: open.question.id } })
+                            wordLookup.open({
+                              ...req,
+                              sentence: resolveChoiceContext({
+                                choiceText: choice.text,
+                                word: req.word,
+                                requestSentence: req.sentence,
+                                passage: open.question.passage,
+                                prompt: open.question.stem,
+                              }),
+                              source: { examId: open.module.id, questionId: open.question.id },
+                            })
                           }
                         />
                       </span>

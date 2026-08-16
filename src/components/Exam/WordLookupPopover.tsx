@@ -21,11 +21,17 @@ export function WordLookupPopover({
 }: WordLookupPopoverProps) {
   const cardRef = useRef<HTMLDivElement>(null)
   const [expanded, setExpanded] = useState(false)
+  const [showMainExample, setShowMainExample] = useState(false)
+  const [showAltExamples, setShowAltExamples] = useState<Record<number, boolean>>({})
   const [position, setPosition] = useState<CSSProperties | null>(null)
   const anchorKey =
     state.phase === 'idle' ? '' : `${state.word}:${state.anchor.x}:${state.anchor.top}`
 
-  useEffect(() => setExpanded(false), [anchorKey])
+  useEffect(() => {
+    setExpanded(false)
+    setShowMainExample(false)
+    setShowAltExamples({})
+  }, [anchorKey])
 
   // Anchored to the word, flipped above it when the bottom of the window is
   // closer than the card is tall, and always clamped inside the viewport.
@@ -52,7 +58,7 @@ export function WordLookupPopover({
       top,
       width: CARD_WIDTH,
     })
-  }, [state, expanded])
+  }, [state, expanded, showMainExample, showAltExamples])
 
   useEffect(() => {
     if (state.phase === 'idle') return
@@ -125,13 +131,45 @@ export function WordLookupPopover({
 
       {state.phase === 'ready' ? (
         <>
-          <p className="exam-lookup__definition">{state.sense.definition}</p>
+          <p className="exam-lookup__definition">
+            <span className="exam-lookup__sense-number">1</span> {state.sense.definition}
+          </p>
+
+          {showMainExample && state.sense.example ? (
+            <p className="exam-lookup__example">“{state.sense.example}”</p>
+          ) : null}
+
+          {state.sense.synonyms && state.sense.synonyms.length > 0 ? (
+            <p className="exam-lookup__synonyms">
+              <span className="exam-lookup__synonyms-label">Synonyms of {state.word}</span>
+              {state.sense.synonyms.join(', ')}
+            </p>
+          ) : null}
 
           {expanded && state.alternates.length > 0 ? (
             <ul className="exam-lookup__alternates">
-              {state.alternates.map((sense) => (
-                <li key={`${sense.partOfSpeech}-${sense.definition}`}>
-                  <em>{sense.partOfSpeech}</em> {sense.definition}
+              {state.alternates.map((sense, index) => (
+                <li key={`${sense.partOfSpeech}-${sense.definition}-${index}`}>
+                  <div className="exam-lookup__alt-head">
+                    <span>
+                      <span className="exam-lookup__sense-number">{index + 2}</span>{' '}
+                      <em>{sense.partOfSpeech}</em> {sense.definition}
+                    </span>
+                    {sense.example ? (
+                      <button
+                        className="exam-lookup__link exam-lookup__link--ex"
+                        type="button"
+                        onClick={() =>
+                          setShowAltExamples((prev) => ({ ...prev, [index]: !prev[index] }))
+                        }
+                      >
+                        {showAltExamples[index] ? 'Hide ex' : 'Example'}
+                      </button>
+                    ) : null}
+                  </div>
+                  {showAltExamples[index] && sense.example ? (
+                    <p className="exam-lookup__example">“{sense.example}”</p>
+                  ) : null}
                 </li>
               ))}
             </ul>
@@ -147,16 +185,28 @@ export function WordLookupPopover({
               {saved ? <BookmarkCheck size={15} strokeWidth={1.8} /> : <BookmarkPlus size={15} strokeWidth={1.8} />}
               {saved ? 'Saved to Word Bank' : 'Save to Word Bank'}
             </button>
-            {state.alternates.length > 0 ? (
-              <button
-                className="exam-lookup__link"
-                type="button"
-                aria-expanded={expanded}
-                onClick={() => setExpanded((open) => !open)}
-              >
-                {expanded ? 'Fewer senses' : `${state.alternates.length} more`}
-              </button>
-            ) : null}
+
+            <div className="exam-lookup__right-actions">
+              {state.sense.example ? (
+                <button
+                  className="exam-lookup__link"
+                  type="button"
+                  onClick={() => setShowMainExample((show) => !show)}
+                >
+                  {showMainExample ? 'Hide example' : 'Example'}
+                </button>
+              ) : null}
+              {state.alternates.length > 0 ? (
+                <button
+                  className="exam-lookup__link"
+                  type="button"
+                  aria-expanded={expanded}
+                  onClick={() => setExpanded((open) => !open)}
+                >
+                  {expanded ? 'Fewer senses' : `${state.alternates.length} more`}
+                </button>
+              ) : null}
+            </div>
           </div>
         </>
       ) : null}

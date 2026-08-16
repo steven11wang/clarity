@@ -631,6 +631,30 @@
   line-height: 1.5;
   margin: 0.45rem 0 0;
 }
+.exam-lookup__sense-number {
+  color: var(--exam-muted);
+  font-weight: 600;
+}
+.exam-lookup__example {
+  color: var(--exam-muted);
+  font-size: 0.86rem;
+  font-style: italic;
+  line-height: 1.4;
+  margin: 0.35rem 0 0;
+}
+.exam-lookup__synonyms {
+  font-size: 0.86rem;
+  line-height: 1.45;
+  margin: 0.5rem 0 0;
+}
+.exam-lookup__synonyms-label {
+  color: var(--exam-muted);
+  display: block;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin: 0 0 0.15rem;
+}
 .exam-lookup__status {
   color: var(--exam-muted);
   font-size: 0.9rem;
@@ -649,12 +673,28 @@
   padding: 0.55rem 0 0;
 }
 .exam-lookup__alternates em { color: var(--exam-muted); font-style: italic; }
+.exam-lookup__alt-head {
+  align-items: baseline;
+  display: flex;
+  gap: 0.4rem;
+  justify-content: space-between;
+}
+.exam-lookup__link--ex {
+  font-size: 0.76rem;
+  margin-left: 0.3rem;
+  white-space: nowrap;
+}
 .exam-lookup__actions {
   align-items: center;
   display: flex;
   gap: 0.6rem;
   justify-content: space-between;
   margin-top: 0.7rem;
+}
+.exam-lookup__right-actions {
+  align-items: center;
+  display: flex;
+  gap: 0.65rem;
 }
 .exam-lookup__save {
   align-items: center;

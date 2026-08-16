@@ -45,12 +45,12 @@
           "subtopic": "Words in Context",
           "difficulty": "easy",
           "explanation": {
-            "summary": "The first sentence describes experienced tradespeople instructing newcomers and explaining the reasoning behind standard practices. The blank names that arrangement, and the clause after it — knowledge continuing to be passed down — confirms it.",
+            "summary": "The passage describes a scenario where experienced professionals in skilled trades instruct newcomers, emphasizing not just task completion but also the reasoning behind practices. The blank requires a term that encapsulates this educational relationship. The phrase 'ensures that valuable knowledge continues to be passed down' indicates a process of teaching and learning, which aligns with 'mentorship.' This term captures the essence of experienced individuals guiding and educating newcomers, as described in the first sentence.",
             "choices": {
-              "A": "Correct. Mentorship is experienced people teaching newcomers, which is exactly what the first sentence describes.",
-              "B": "Innovation is making something new. The passage is about handing down what already exists.",
-              "C": "Craftsmanship is skill at the work itself, not the relationship that transmits it.",
-              "D": "Certification is formal credentialing, which the text never mentions."
+              "A": "Correct. 'Mentorship' refers to the process of experienced individuals guiding and teaching newcomers, which matches the description of professionals instructing and explaining practices.",
+              "B": "Innovation implies creating new methods or ideas, which contradicts the passage's focus on passing down existing knowledge.",
+              "C": "Craftsmanship refers to skill in a trade, but the passage is about the transmission of knowledge, not the skill itself.",
+              "D": "Certification involves formal credentials, which is not mentioned or implied in the context of teaching and learning in the passage."
             }
           }
         },
@@ -86,12 +86,12 @@
           "subtopic": "Words in Context",
           "difficulty": "easy",
           "explanation": {
-            "summary": "\"However\" splits the sentence: promotional tactics \"gradually attracted\" patrons, and sentiment \"had shifted\" by the late 1980s. The blank has to be the negative starting position those two reverse.",
+            "summary": "The passage describes a change in British consumers' attitudes toward major fast-food chains from the United States. Initially, consumers were not receptive, as indicated by the use of 'however,' which introduces a contrast with the later attraction due to 'promotional tactics.' The phrase 'sentiment had shifted' further implies a negative starting point that was reversed. Therefore, the blank should be filled with a word that suggests an initial negative reaction, which is 'rejected.'",
             "choices": {
-              "A": "Reflected gives no attitude for the shift to move away from.",
-              "B": "Prepared does not describe how consumers received the chains.",
-              "C": "Discovered is neutral, so nothing is left for \"however\" to overturn.",
-              "D": "Correct. Initial rejection is what the gradual attraction and the shift in sentiment undo."
+              "A": "Reflected implies that consumers mirrored or showed something about the fast-food chains, but it doesn't suggest any initial negative attitude that could be reversed.",
+              "B": "Prepared suggests readiness or anticipation, which doesn't fit the context of an initial negative reception that changes over time.",
+              "C": "Discovered is neutral and doesn't imply any initial resistance or negativity that the 'however' and 'shifted' indicate was overcome.",
+              "D": "Correct. Rejected fits because it suggests an initial negative reaction that contrasts with the later attraction and acceptance of fast-food chains."
             }
           }
         },
@@ -127,12 +127,12 @@
           "subtopic": "Words in Context",
           "difficulty": "medium",
           "explanation": {
-            "summary": "Despite more sophisticated tools, the pipe wrench \"remains ___ plumbers,\" and the reason given is a combination toolmakers cannot match. The blank has to say plumbers cannot do without it.",
+            "summary": "The passage discusses how, despite the development of more sophisticated tools, the pipe wrench remains crucial for plumbers. The phrase 'its combination of simplicity, durability, and easy adjustability has been impossible for toolmakers to match' indicates that the pipe wrench is highly valued and essential. Therefore, the word in the blank must convey that plumbers cannot do without the pipe wrench, making 'indispensable to' the most logical choice.",
             "choices": {
-              "A": "Excessive would make the wrench unnecessary, which contradicts the reason given.",
-              "B": "Correct. Indispensable to plumbers is what unmatched simplicity, durability, and adjustability buys.",
-              "C": "\"Dependent on\" reverses the direction — the wrench would be depending on plumbers.",
-              "D": "Nothing suggests plumbers disagree about the tool."
+              "A": "The word 'excessive' would imply that the pipe wrench is more than what plumbers need, contradicting the passage's emphasis on its unmatched qualities.",
+              "B": "Correct. 'Indispensable to' fits because the passage highlights the pipe wrench's unmatched qualities, suggesting it is essential for plumbers.",
+              "C": "'Dependent on' suggests that the wrench relies on plumbers, reversing the intended relationship where plumbers rely on the wrench.",
+              "D": "The word 'controversial' implies disagreement among plumbers about the tool, which is not supported by the passage's positive description of its qualities."
             }
           }
         },
@@ -168,12 +168,12 @@
           "subtopic": "Words in Context",
           "difficulty": "medium",
           "explanation": {
-            "summary": "The second sentence sets active regions against quiet ones: bursts preceding energy drops in one, continuous correlation with no drops in the other. The blank names that difference.",
+            "summary": "The passage describes a contrast between magnetically active and quiet regions of the Sun. In active regions, bursts of ultraviolet light are followed by significant decreases in magnetic energy, while in quiet regions, there is a continuous correlation without energy drops. The word 'whereas' introduces this contrast, indicating that the blank should highlight the difference between these two types of regions. Therefore, the correct word to complete the sentence is 'disparity,' as it captures the difference in behavior between the active and quiet regions.",
             "choices": {
-              "A": "An analogy is a likeness. The \"whereas\" clause gives a contrast.",
-              "B": "A trade-off is one thing gained for another lost. Nothing is exchanged here.",
-              "C": "Interaction would mean the two regions act on each other. The text only compares them.",
-              "D": "Correct. Disparity names the difference the \"whereas\" clause spells out."
+              "A": "An analogy suggests a similarity or comparison, but the passage emphasizes a contrast, not a likeness, between the two regions.",
+              "B": "A trade-off implies an exchange or balance between two factors, but the passage does not describe any exchange between the active and quiet regions.",
+              "C": "Interaction implies mutual influence or action between the regions, but the passage only compares the regions without suggesting they affect each other.",
+              "D": "Correct. Disparity accurately describes the difference highlighted by the 'whereas' clause, contrasting the behaviors of active and quiet regions."
             }
           }
         },
@@ -209,12 +209,12 @@
           "subtopic": "Text Structure and Purpose",
           "difficulty": "easy",
           "explanation": {
-            "summary": "First half defines constellations and how they get their names; second half runs through Orion and Ursa Major as cases of exactly that.",
+            "summary": "The passage begins by defining constellations as shapes formed by stars in the night sky and mentions that they are often named after the shapes people perceive. It then provides examples of two constellations, Orion and Ursa Major, explaining the origins of their names based on the shapes they are thought to represent. The structure is explanatory: it first explains the concept of constellations and then illustrates this with specific examples, which aligns with the correct answer.",
             "choices": {
-              "A": "No scientific instruments appear.",
-              "B": "No distances are given.",
-              "C": "Correct. Definition first, then two examples of how the names were assigned.",
-              "D": "Stellar birth and death never come up."
+              "A": "The passage does not mention any scientific instruments or their uses, so this choice does not fit the text.",
+              "B": "The passage does not list the names of stars or provide any information about their distances from Earth, making this choice incorrect.",
+              "C": "Correct. The passage explains what constellations are and provides examples of how they were named, specifically mentioning Orion and Ursa Major.",
+              "D": "The passage does not discuss the birth or death of stars, so this choice does not match the content of the text."
             }
           }
         },
@@ -250,12 +250,12 @@
           "subtopic": "Text Structure and Purpose",
           "difficulty": "medium",
           "explanation": {
-            "summary": "The text says shoppers generally read nine-ending prices the way retailers intend. The underlined sentence adds the exception — some read them as low quality, even as a trick.",
+            "summary": "The passage discusses how nine-ending prices (e.g., $4.99) are used by marketers to suggest value, and that shoppers generally perceive them as intended. However, the underlined sentence introduces an exception: some consumers view these prices as indicative of lower quality or as misleading. This contrast highlights that while nine-ending prices are generally effective, they may not work uniformly for all consumers, as some interpret them negatively.",
             "choices": {
-              "A": "The text says intent and typical interpretation usually match, so that is not the contrast being accounted for.",
-              "B": "No retailer or marketer is said to have changed strategy.",
-              "C": "Correct. Unintended readings are evidence that the tactic does not work on everyone.",
-              "D": "The tendency was already stated before the underlined sentence; this sentence supplies only the exceptions."
+              "A": "The passage states that consumers generally interpret nine-ending prices as intended, so there is no contrast between intent and typical interpretation being accounted for here.",
+              "B": "The passage does not mention any changes in pricing strategies by retailers or marketers due to negative responses to nine-ending prices.",
+              "C": "Correct. The underlined sentence highlights unintended interpretations of nine-ending prices, suggesting that this pricing strategy may not be effective for all consumers.",
+              "D": "The passage initially states how consumers generally respond to nine-ending prices; the underlined sentence provides exceptions, not the initial tendency."
             }
           }
         },
@@ -294,12 +294,12 @@
           "subtopic": "Cross-Text Connections",
           "difficulty": "medium",
           "explanation": {
-            "summary": "Text 1 doubts genre categories are useful at all. Text 2 closes by saying better classification \"could have many benefits for users.\" That closing claim is what Text 1’s author would go after.",
+            "summary": "Text 1 argues that categorizing music by genre is not very useful, describing genre categories as 'ambiguous, subjective, and reductive.' This suggests skepticism about the value of genre classification. In contrast, Text 2 claims that improved genre classification 'could have many benefits for users.' Given Text 1's stance, the author would likely question whether users truly find genre classifications helpful, as Text 1 suggests that relationships between music pieces might be better understood through other concepts.",
             "choices": {
-              "A": "Text 1 makes no claim about which genres are easier for systems to recognize.",
-              "B": "Enjoyment within a preferred genre is not Text 1’s argument.",
-              "C": "Text 1 doubts the project is worth doing, so predicting advances in it is not the response.",
-              "D": "Correct. Text 1 argues genre may not be the useful concept, which answers \"benefits for users\" directly."
+              "A": "Text 1 does not discuss the ease with which classification systems recognize different genres, so this choice is not relevant to the author's likely response.",
+              "B": "Text 1 does not address whether people enjoy all recordings in a genre they prefer, so this choice does not align with the text's argument.",
+              "C": "Text 1 expresses doubt about the usefulness of genre classification, implying skepticism about the value of advancements in this field.",
+              "D": "Correct. Text 1 questions the usefulness of genre classification, suggesting that users may not find it particularly helpful, directly addressing the claim in Text 2."
             }
           }
         },
@@ -336,12 +336,12 @@
           "subtopic": "Central Ideas and Details",
           "difficulty": "easy",
           "explanation": {
-            "summary": "The wood \"had been dreadful\" to the Mole. Now the holes, hollows, and pitfalls are \"vanishing fast\" under a gleaming carpet of snow, and he sees it \"in quite a changed aspect.\"",
+            "summary": "The passage describes how the Mole's perception of the wood changes as snow begins to fall. Initially, the wood was 'dreadful' due to its 'holes, hollows, pools, pitfalls,' and other dangers. However, as these features are 'vanishing fast' under a 'gleaming carpet' of snow, the Mole sees the wood 'in quite a changed aspect,' indicating that the snow makes the landscape appear less threatening. This transformation in the Mole's perception is the main idea of the text.",
             "choices": {
-              "A": "No sadness about the adventure ending appears.",
-              "B": "Correct. Snow covers the menaces, and the wood stops looking threatening.",
-              "C": "Shame is never mentioned.",
-              "D": "The snowy scene is what he finds changed for the better, so no weather preference is at issue."
+              "A": "The passage does not mention any sadness from the Mole about the adventure ending. Instead, it focuses on how the snow changes his view of the wood.",
+              "B": "Correct. The snow covers the 'holes, hollows, pools, pitfalls,' making the wood seem less threatening and changing the Mole's perception.",
+              "C": "There is no indication of shame in the passage. The text focuses on the change in the landscape, not on the Mole's feelings about getting lost.",
+              "D": "The passage does not discuss the Mole's weather preferences. It highlights the positive change in the Mole's perception of the snowy landscape."
             }
           }
         },
@@ -377,12 +377,12 @@
           "subtopic": "Central Ideas and Details",
           "difficulty": "medium",
           "explanation": {
-            "summary": "Butterfly-pollinated flowers are the common case; hammer orchids \"use a different strategy,\" deceiving their pollinator by mimicking it.",
+            "summary": "The passage contrasts two pollination strategies: one used by plants pollinated by butterflies and another used by hammer orchids. Butterfly-pollinated plants have flowers with nectar accessible to butterflies' long mouthparts, while hammer orchids use deception by mimicking thynnid wasps to attract them for pollination. The phrase 'use a different strategy' highlights this contrast, emphasizing that hammer orchids rely on deception rather than accessibility to improve pollination chances.",
             "choices": {
-              "A": "True but partial — it drops the contrast the text is built on.",
-              "B": "Correct. The butterfly case on one side and orchid deception on the other is the structure of the whole passage.",
-              "C": "The text never rates the orchid strategy as better than anyone else’s.",
-              "D": "The text presents deception as this orchid’s different strategy, not as one many plants use."
+              "A": "While it's true that hammer orchids mimic thynnid wasps, this choice misses the passage's main contrast between the strategies of butterfly-pollinated plants and hammer orchids.",
+              "B": "Correct. This choice captures the passage's main idea by contrasting the butterfly-pollinated plants' strategy with the deceptive strategy of hammer orchids.",
+              "C": "The passage does not claim that the hammer orchid's strategy is superior to others, only that it is different.",
+              "D": "The passage does not suggest that deception is a common strategy among many plants, but rather a unique strategy of hammer orchids."
             }
           }
         },
@@ -418,12 +418,12 @@
           "subtopic": "Command of Evidence",
           "difficulty": "medium",
           "explanation": {
-            "summary": "The claim has two parts: Winnemucca addresses the reader directly, and she does it to explain a custom. The quotation has to do both.",
+            "summary": "The question asks for a quotation that shows Sarah Winnemucca Hopkins directly addressing the reader to explain a custom. The correct choice must include both a direct address to the reader and an explanation of a cultural practice. The phrase 'Now, my dear reader' in the passage indicates a direct address, and the explanation that follows about calling good people 'father or mother' illustrates a cultural custom. This combination of direct address and explanation of a custom is what the question requires.",
             "choices": {
-              "A": "Recounts an event, with no reader addressed.",
-              "B": "Explains a naming custom but addresses no reader.",
-              "C": "Correct. \"Now, my dear reader\" is the direct address, and the line explains why her people call good people father or mother.",
-              "D": "Addresses readers but explains no custom."
+              "A": "This choice recounts an event where the speaker's mother advises silence about their departure, but it neither addresses the reader nor explains a custom.",
+              "B": "This choice describes a naming custom involving flowers, which explains a custom, but it lacks a direct address to the reader.",
+              "C": "Correct. The phrase 'Now, my dear reader' directly addresses the reader, and the explanation about calling good people 'father or mother' illustrates a cultural custom.",
+              "D": "This choice addresses the reader with 'dear readers,' but it does not explain any custom, only expressing difficulty in describing a scene."
             }
           }
         },
@@ -459,12 +459,12 @@
           "subtopic": "Command of Evidence",
           "difficulty": "hard",
           "explanation": {
-            "summary": "The claim is that this society prefers familiarity over novelty. The quotation has to show the choice between the two being made in favour of the old.",
+            "summary": "The passage claims that New York society in the novel prefers familiarity over novelty. The correct quotation must illustrate a choice or preference for something old or familiar instead of something new. The phrase 'the world of fashion was still content to reassemble every winter in the shabby red and gold boxes of the sociable old Academy' in choice A shows this preference clearly, as it contrasts the existing opera house with the potential for a new, more splendid one. This demonstrates the society's comfort with the familiar setting despite the possibility of a novel alternative.",
             "choices": {
-              "A": "Correct. A splendid new opera house is on the table, and fashionable New York keeps reassembling in the shabby old Academy.",
-              "B": "About arrival times, not old against new.",
-              "C": "About carriages, not preference for the familiar.",
-              "D": "A line from the opera being performed."
+              "A": "Correct. The mention of a new opera house being considered but the society continuing to gather at the old Academy highlights their preference for the familiar over the novel.",
+              "B": "This choice discusses the timing of arrivals at the opera, which does not relate to a preference for old versus new.",
+              "C": "This choice focuses on the mode of transportation to the opera, not on the society's preference for familiarity.",
+              "D": "This choice quotes a line from the opera itself, which does not address the society's preference for familiarity over novelty."
             }
           }
         },
@@ -534,12 +534,12 @@
           "subtopic": "Command of Evidence",
           "difficulty": "easy",
           "explanation": {
-            "summary": "The student is struck by how large the differences are, so the pair has to be the widest gap in the table and both figures have to match it.",
+            "summary": "The passage highlights the student's surprise at the significant differences in the number of units sold by various video game systems. The phrase 'most remarkably' suggests that the completion of the statement should reflect the largest disparity in sales figures from the table. The correct answer should therefore show the widest gap in units sold between two systems. According to the table, the Game & Watch sold approximately 18,600,000 units, while the ColecoVision sold only about 2,000,000 units, which is the largest difference available in the data provided.",
             "choices": {
-              "A": "Correct. 18,600,000 against 2,000,000 is the biggest gap the table offers, and both numbers are right.",
-              "B": "Misstates both — Game & Watch sold 18,600,000 and ColecoVision 2,000,000.",
-              "C": "Accurate, but 4,000,000 against 3,000,000 is the smallest gap in the table.",
-              "D": "Misstates Intellivision, which sold 3,000,000, not 2,000,000."
+              "A": "Correct. The Game & Watch sold 18,600,000 units, and the ColecoVision sold 2,000,000 units, representing the largest gap in the table.",
+              "B": "This choice misstates both figures: Game & Watch sold 18,600,000 units, not 4,000,000, and ColecoVision sold 2,000,000 units, not 3,000,000.",
+              "C": "While the figures are accurate, the difference between 4,000,000 and 3,000,000 units is the smallest gap in the table, not the largest.",
+              "D": "This choice misstates the Intellivision's sales, which were 3,000,000 units, not 2,000,000, making the gap smaller than stated."
             }
           }
         },
@@ -578,12 +578,12 @@
           "subtopic": "Command of Evidence",
           "difficulty": "medium",
           "explanation": {
-            "summary": "The hypothesis is that the negative effect shrinks when the emoji replaces the word — the substitute condition should beat the supplement condition. The graph gives supplement 3.2, substitute 3.5, control 3.8.",
+            "summary": "The hypothesis suggests that using an emoji as a substitute for a word (substitute condition) will lessen the negative effect compared to when an emoji is used as a supplement (supplement condition). The graph shows that the average rating for the substitute condition is 3.5, while the supplement condition is 3.2. This supports the hypothesis because the substitute condition has a higher rating, indicating a reduced negative effect when the emoji substitutes for the word.",
             "choices": {
-              "A": "Control above supplement just restates the general negative effect and says nothing about substitution.",
-              "B": "The graph puts substitute at 3.5 and control at 3.8, and equal ratings would not support the hypothesis anyway.",
-              "C": "All three sitting below 7 has no bearing on the comparison the hypothesis makes.",
-              "D": "Correct. Substitute at 3.5 above supplement at 3.2 is the reduction predicted."
+              "A": "The fact that the control condition has a higher rating than the supplement condition only highlights the general negative effect of emojis and does not address the hypothesis about substitution.",
+              "B": "The graph shows different ratings for the substitute (3.5) and control (3.8) conditions. Additionally, equal ratings would not support the hypothesis about substitution reducing the negative effect.",
+              "C": "The fact that all ratings are below 7 does not relate to the hypothesis, which is about comparing the substitute and supplement conditions, not the absolute values of the ratings.",
+              "D": "Correct. The graph shows the substitute condition at 3.5, higher than the supplement condition at 3.2, supporting the hypothesis that substitution reduces the negative effect."
             }
           }
         },
@@ -619,12 +619,12 @@
           "subtopic": "Inferences",
           "difficulty": "hard",
           "explanation": {
-            "summary": "The text grants real parallels between Bardamu and Céline, then warns that the novel weaves in interpretations, deliberate alterations, and pure invention. The warning is against reading it as a factual record.",
+            "summary": "The passage acknowledges that while there are parallels between Céline's life and his novel, Journey to the End of the Night, the novel is not strictly autobiographical. It warns readers that the novel includes 'interpretations, deliberate alterations, and pure invention,' suggesting that it should not be taken as a factual account. This implies that not all events and characters in the novel have real-world counterparts, making choice B the most logical completion of the text.",
             "choices": {
-              "A": "The text affirms the parallels, so it is not warning readers off the idea that he drew on his life.",
-              "B": "Correct. Deliberate alteration and pure invention are exactly why not every event or character has a real counterpart.",
-              "C": "The text says the autobiographical description \"has some merit,\" so the book clearly illuminates something.",
-              "D": "Nothing warns against reading it as fiction. The warning runs the other way."
+              "A": "The passage acknowledges parallels between Céline's life and the novel, so it does not suggest that Céline was unaware of drawing on his experiences.",
+              "B": "Correct. The mention of 'deliberate alterations and pure invention' indicates that not all events and characters in the novel have real-world analogues.",
+              "C": "The passage states that the autobiographical description 'has some merit,' implying that the novel does illuminate aspects of Céline’s life or perspective.",
+              "D": "The passage does not warn against understanding the novel as fiction; rather, it cautions against viewing it as a factual record."
             }
           }
         },
@@ -660,12 +660,12 @@
           "subtopic": "Boundaries",
           "difficulty": "easy",
           "explanation": {
-            "summary": "\"One European city many travelers recommend\" is a restrictive relative clause with the relative pronoun dropped — standard, and the clause is what identifies the city.",
+            "summary": "The phrase 'one European city many travelers recommend' is a restrictive clause that specifies which city is being discussed. In English, restrictive clauses do not use commas and can omit the relative pronoun 'that.' The sentence structure indicates that the clause is essential to the meaning, as it identifies Budapest as a city recommended by travelers. Therefore, the correct completion is simply 'city' without additional punctuation or words, maintaining the restrictive nature of the clause.",
             "choices": {
-              "A": "\"That\" cannot follow a comma in a restrictive clause.",
-              "B": "\"In which\" leaves \"recommend\" without an object, and the comma is stray.",
-              "C": "The comma makes the clause nonrestrictive, but it is what specifies which city.",
-              "D": "Correct. No punctuation, relative pronoun omitted."
+              "A": "\"That\" cannot follow a comma in a restrictive clause, as restrictive clauses do not use commas.",
+              "B": "\"In which\" would leave the verb \"recommend\" without a direct object, and the comma is unnecessary for a restrictive clause.",
+              "C": "The comma before \"which\" makes the clause nonrestrictive, but the clause is essential to specify the city being recommended.",
+              "D": "Correct. The sentence uses a restrictive clause without a comma or relative pronoun, which is standard when the clause is essential to the meaning."
             }
           }
         },
@@ -701,12 +701,12 @@
           "subtopic": "Boundaries",
           "difficulty": "medium",
           "explanation": {
-            "summary": "The sentence already supplies the closing \"ocean floor),\" so the blank has to open the parenthesis around the definition of \"seamounts.\"",
+            "summary": "The sentence describes seamounts as 'underwater mountains that rise from the ocean floor' by using parentheses to provide this definition. The phrase 'ocean floor),' already includes the closing parenthesis, so the blank must open the parenthesis. The correct choice must seamlessly integrate the definition into the sentence without disrupting the grammatical structure. Thus, the correct choice is the one that opens the parenthesis immediately after 'seamounts' without additional punctuation that would disrupt the sentence flow.",
             "choices": {
-              "A": "Leaves the closing parenthesis with no partner.",
-              "B": "A full stop makes the first half a fragment and strands the rest.",
-              "C": "A comma before an opening parenthesis is not standard.",
-              "D": "Correct. \"many seamounts (underwater mountains that rise from the ocean floor), including ...\""
+              "A": "This choice leaves the closing parenthesis without an opening partner, resulting in a grammatical error.",
+              "B": "A full stop after 'seamounts' makes the first part of the sentence a fragment and leaves the definition stranded, disrupting the sentence structure.",
+              "C": "A comma before an opening parenthesis is not standard English punctuation and disrupts the sentence flow.",
+              "D": "Correct. This choice opens the parenthesis immediately after 'seamounts,' allowing the definition to be smoothly integrated into the sentence."
             }
           }
         },
@@ -742,12 +742,12 @@
           "subtopic": "Boundaries",
           "difficulty": "medium",
           "explanation": {
-            "summary": "The title that follows answers \"her favorite book about the craft of writing,\" so a colon introduces it.",
+            "summary": "The sentence structure requires a punctuation mark that introduces the title 'Julia Cameron’s The Artist’s Way' as the answer to the phrase 'her favorite book about the craft of writing.' A colon is used to introduce a list, quote, explanation, or a title that follows a complete sentence. Here, the phrase before the blank is a complete sentence that is followed by the title of the book, making a colon the appropriate choice. This structure clearly indicates that the title is the specific book being referred to, aligning with the conventions of Standard English.",
             "choices": {
-              "A": "A colon plus \"which was\" introduces the title twice.",
-              "B": "A semicolon needs an independent clause after it; a book title is not one.",
-              "C": "\"Writing, it was Julia Cameron’s ...\" splices two clauses with a comma.",
-              "D": "Correct. Colon, then the title it announces."
+              "A": "Using 'which was' after a colon is redundant because it unnecessarily repeats the introduction of the book title, making the sentence awkward and incorrect.",
+              "B": "A semicolon is used to link two independent clauses, but 'Julia Cameron’s The Artist’s Way' is not an independent clause, so this punctuation is incorrect here.",
+              "C": "The comma creates a comma splice by incorrectly joining two independent clauses without a conjunction, disrupting the sentence's grammatical structure.",
+              "D": "Correct. The colon appropriately introduces the book title as the answer to 'her favorite book about the craft of writing,' conforming to Standard English conventions."
             }
           }
         },
@@ -783,12 +783,12 @@
           "subtopic": "Boundaries",
           "difficulty": "hard",
           "explanation": {
-            "summary": "Three scholars are listed and each item already carries a comma of its own (\"Paul Austerlitz, a professor at Gettysburg College\"), so the items themselves take semicolons.",
+            "summary": "The sentence lists three scholars, each with an appositive phrase that includes a comma, such as 'Paul Austerlitz, a professor at Gettysburg College.' When listing items that contain internal commas, semicolons are used to separate the items to avoid confusion. Thus, semicolons should be placed between each scholar's name and their appositive phrase to maintain clarity and conform to Standard English conventions.",
             "choices": {
-              "A": "No comma after \"Titon,\" and commas cannot separate items that already contain commas.",
-              "B": "Correct. Semicolons between the items, commas kept inside them.",
-              "C": "A comma for one break and a semicolon for the other divides the list inconsistently.",
-              "D": "Drops the comma that sets off Titon’s own appositive."
+              "A": "A comma after 'Titon' is missing, and using commas to separate items that already contain commas can lead to confusion.",
+              "B": "Correct. Semicolons separate the items, while commas are used within the appositive phrases, maintaining clarity.",
+              "C": "Using a comma for one break and a semicolon for the other results in inconsistent punctuation, which is incorrect for this list.",
+              "D": "The comma after 'Titon' is missing, which disrupts the appositive structure and clarity of the list."
             }
           }
         },
@@ -824,12 +824,12 @@
           "subtopic": "Form, Structure, and Sense",
           "difficulty": "easy",
           "explanation": {
-            "summary": "\"Made ballet history in 1832\" fixes the sentence in the past, and the sentence after it uses \"had been featured.\"",
+            "summary": "The phrase 'made ballet history in 1832' establishes that the events described are in the past. The sentence following the blank also uses the past perfect tense 'had been featured,' reinforcing that the entire passage is discussing past events. Therefore, the verb in the blank should also be in the past tense to maintain consistency with the rest of the passage. 'Wore' is the past tense of 'wear,' which correctly aligns with the historical context of Marie Taglioni's performance in 1832.",
             "choices": {
-              "A": "Present progressive.",
-              "B": "Simple present.",
-              "C": "Future, for something that happened in 1832.",
-              "D": "Correct. \"Wore\" matches 1832 and the tense around it."
+              "A": "'Is wearing' is present progressive, which implies an ongoing action in the present, conflicting with the past context of 1832.",
+              "B": "'Wears' is simple present tense, suggesting a habitual action, which doesn't fit the historical context of a specific event in 1832.",
+              "C": "'Will wear' is future tense, which is incorrect for describing an event that occurred in 1832.",
+              "D": "Correct. 'Wore' is past tense, matching the historical context of the 1832 event and the surrounding past tense verbs."
             }
           }
         },
@@ -865,12 +865,12 @@
           "subtopic": "Form, Structure, and Sense",
           "difficulty": "medium",
           "explanation": {
-            "summary": "One country — Bhutan — so the possessive is singular; many residents, so that noun is a plain plural. A comma then opens the \"including ...\" phrase.",
+            "summary": "The passage discusses the restoration of the Trans Bhutan Trail and mentions that the project employed many people from Bhutan. The phrase 'a project that employed many of the' requires a possessive form of 'country' to indicate that these residents belong to Bhutan. Since 'country' is singular and 'residents' is plural, the correct possessive form is 'country's residents.' This choice correctly reflects that the project involved multiple residents from one country, Bhutan, and is followed by a comma to introduce the specific example of Sangay Choden.",
             "choices": {
-              "A": "Makes \"countries\" plural without an apostrophe and \"residents’\" possessive for no reason.",
-              "B": "\"Resident’s\" is singular possessive, but the project employed many residents.",
-              "C": "Both nouns wrong: one country, many residents.",
-              "D": "Correct. \"the country’s residents, including homestay owner Sangay Choden.\""
+              "A": "This choice incorrectly uses 'countries' as a plural noun without an apostrophe, suggesting multiple countries, which contradicts the passage's focus on Bhutan. It also makes 'residents’' possessive unnecessarily.",
+              "B": "This choice uses 'resident’s' as a singular possessive, which is incorrect because the passage refers to many residents, not just one.",
+              "C": "This choice incorrectly uses 'countries’' as a plural possessive, implying multiple countries, and 'resident’s' as a singular possessive, both of which contradict the passage's context.",
+              "D": "Correct. This choice uses 'country’s residents,' which correctly indicates that the residents belong to the single country of Bhutan, aligning with the passage's context."
             }
           }
         },
@@ -906,12 +906,12 @@
           "subtopic": "Form, Structure, and Sense",
           "difficulty": "medium",
           "explanation": {
-            "summary": "The opening modifier — \"Initially introduced in 2016 and since optimized for faster object detection\" — describes the algorithm, so the algorithm has to be the subject of the main clause.",
+            "summary": "The sentence begins with a modifier, 'Initially introduced in 2016 and since optimized for faster object detection,' which describes the YOLO algorithm. Therefore, the subject of the main clause must be the algorithm itself. The correct answer must logically follow this structure by having the YOLO algorithm as the subject. The phrase 'compared with traditional methods of detection' indicates a comparison, so the sentence should clearly state what is being compared, focusing on the algorithm's accuracy and computational efficiency.",
             "choices": {
-              "A": "Puts \"less computational power\" in the position the modifier describes.",
-              "B": "Correct. The YOLO algorithm is what was introduced and optimized, and it heads the main clause.",
-              "C": "Makes \"high accuracy\" the thing introduced in 2016.",
-              "D": "Makes accuracy and power requirements the thing introduced in 2016."
+              "A": "This choice incorrectly places 'less computational power' as the subject described by the modifier, which does not make sense because computational power was not introduced in 2016.",
+              "B": "Correct. This choice makes the YOLO algorithm the subject of the main clause, which aligns with the modifier and correctly describes its high accuracy and efficiency.",
+              "C": "This choice incorrectly suggests that 'high accuracy' was introduced in 2016, which does not match the intended meaning of the sentence.",
+              "D": "This choice incorrectly implies that 'high accuracy and lower computational power requirements' were introduced in 2016, which does not logically follow from the modifier."
             }
           }
         },
@@ -947,12 +947,12 @@
           "subtopic": "Form, Structure, and Sense",
           "difficulty": "hard",
           "explanation": {
-            "summary": "\"With executives rather than creatives ___ decision-making power\" is a \"with\" phrase, which takes a participle rather than a finite verb.",
+            "summary": "The phrase 'with executives rather than creatives' introduces a non-finite clause that describes who holds decision-making power. In such clauses, a participle form is required rather than a finite verb. The correct phrase should be 'with executives rather than creatives being given decision-making power,' using the participle 'being given' to indicate the ongoing process of executives gaining power. This structure aligns with the rest of the sentence, which describes a trend over time in theater companies' evolution toward corporate structures.",
             "choices": {
-              "A": "A finite verb inside a phrase that cannot hold one.",
-              "B": "Same problem.",
-              "C": "Correct. \"With executives ... being given decision-making power\" is the participial form the construction needs.",
-              "D": "\"Been given\" is a past participle with no auxiliary to support it."
+              "A": "This choice uses 'have been given,' a finite verb form, which is incorrect in the non-finite clause introduced by 'with.'",
+              "B": "This choice uses 'are being given,' another finite verb form, which does not fit the non-finite clause structure required here.",
+              "C": "Correct. 'Being given' is the appropriate participle form for the non-finite clause, indicating the ongoing shift in decision-making power.",
+              "D": "'Been given' is a past participle that lacks an auxiliary verb, making it unsuitable for the non-finite clause structure."
             }
           }
         },
@@ -988,12 +988,12 @@
           "subtopic": "Transitions",
           "difficulty": "easy",
           "explanation": {
-            "summary": "The first sentence states the practice — generous selections from each poet. The second names two poets it happens with.",
+            "summary": "The passage discusses how Heid E. Erdrich’s anthology differs from others by including 'generous selections from each poet,' rather than just one poem per poet. The sentence after the blank provides specific examples of this practice by mentioning 'multiple poems from Trevino L. Brings Plenty and Gwen Nell Westerman.' This indicates that the second sentence is illustrating the general statement made in the first sentence, requiring a transition that introduces examples.",
             "choices": {
-              "A": "\"In addition\" adds a separate point; this is the same point illustrated.",
-              "B": "\"However\" reverses direction where the sentence continues straight.",
-              "C": "\"Next\" implies a sequence, and there is none.",
-              "D": "Correct. Brings Plenty and Westerman are the example of the practice just described."
+              "A": "\"In addition\" suggests adding a new, separate point, but the sentence provides specific examples of the same point about including multiple poems.",
+              "B": "\"However\" implies a contrast or contradiction, which doesn't fit because the second sentence supports the first by giving examples.",
+              "C": "\"Next\" implies a sequence or order, which is not relevant here as the sentence is not part of a series of steps or events.",
+              "D": "Correct. \"For example\" appropriately introduces Brings Plenty and Westerman as specific instances of the anthology's practice of including multiple poems from each poet."
             }
           }
         },
@@ -1029,12 +1029,12 @@
           "subtopic": "Transitions",
           "difficulty": "medium",
           "explanation": {
-            "summary": "Soybeans shrink their leaves under drought; sugarcane leaves elongate slightly. The two responses go opposite ways.",
+            "summary": "The passage describes how soybean plants and sugarcane plants respond differently to drought conditions. Soybean plants produce smaller leaves to limit water loss, while sugarcane plants experience a marginal elongation of their leaves. The phrase 'smaller leaves' for soybeans and 'marginal elongation' for sugarcane indicate contrasting responses, making 'by contrast' the most logical transition. This highlights the difference between the two plants' adaptations to drought stress.",
             "choices": {
-              "A": "\"Specifically\" narrows the same case, but this is a different plant behaving differently.",
-              "B": "Correct. Smaller leaves against marginal elongation is a contrast.",
-              "C": "\"For instance\" would make sugarcane an example of the soybean response.",
-              "D": "\"Moreover\" adds a similar point rather than an opposite one."
+              "A": "'Specifically' would suggest that the sugarcane response is a detailed part of the soybean response, which is incorrect because the two plants react differently.",
+              "B": "Correct. 'By contrast' highlights the opposing responses: soybeans reduce leaf size, while sugarcane leaves elongate slightly.",
+              "C": "'For instance' implies sugarcane is an example of the soybean response, which is inaccurate as they exhibit different behaviors.",
+              "D": "'Moreover' suggests a continuation or addition of similar information, but the passage describes contrasting plant responses."
             }
           }
         },
@@ -1070,12 +1070,12 @@
           "subtopic": "Transitions",
           "difficulty": "hard",
           "explanation": {
-            "summary": "The first sentence describes quantifiable, Western-influenced scoring. Muay Thai’s system is its opposite: narrative, judged as a whole rather than by numerical tally.",
+            "summary": "The passage contrasts two scoring systems: a Western-influenced system that relies on quantifiable scores and the traditional Muay Thai system, which evaluates fights as narratives. The phrase 'the scoring system in traditional Muay Thai' introduces a concept that is fundamentally different from the Western approach. Therefore, the transition must highlight this contrast. The correct transition, 'In marked contrast to this approach,' clearly signals the shift from a numerical to a narrative evaluation method.",
             "choices": {
-              "A": "Correct. The two systems are set against each other, which is what the transition has to say.",
-              "B": "Muay Thai’s system is not a product of the Western preference just described.",
-              "C": "\"Similar intent\" contradicts the rest of the sentence.",
-              "D": "It is the counter-case, not another example of the same methodology."
+              "A": "Correct. 'In marked contrast to this approach' effectively highlights the difference between the Western scoring system and the narrative-based Muay Thai system.",
+              "B": "Muay Thai’s system is not influenced by the Western preference for quantifiable scoring, so 'Due in part to this cultural preference' is inaccurate.",
+              "C": "'Constructed with a similar intent' incorrectly suggests that the Muay Thai system shares the same goals as the Western system, which it does not.",
+              "D": "'As another example of this methodology' wrongly implies that Muay Thai uses the same quantifiable scoring method, contradicting the passage's description."
             }
           }
         },
@@ -1111,12 +1111,12 @@
           "subtopic": "Rhetorical Synthesis",
           "difficulty": "easy",
           "explanation": {
-            "summary": "The goal is to explain why dragonflies live where they do, so the sentence has to join the place to a reason.",
+            "summary": "The student's goal is to explain why dragonflies live near ponds and lakes. The notes indicate that dragonflies need water nearby to lay their eggs. Therefore, the explanation should connect the location (ponds and lakes) with the necessity of water for egg-laying. The correct choice will clearly link the habitat of dragonflies to this reproductive requirement, as indicated by the notes.",
             "choices": {
-              "A": "About when they lay eggs, not where they live.",
-              "B": "About eyesight and hunting.",
-              "C": "Correct. Ponds and lakes, because they need water nearby to lay eggs — location plus cause.",
-              "D": "Describes hovering while hunting, not a reason for living there."
+              "A": "This choice discusses the timing of egg-laying, which is unrelated to the location where dragonflies live. It doesn't connect the habitat to the need for water.",
+              "B": "This choice focuses on dragonflies' vision and hunting abilities, which doesn't address the reason for their specific habitat near water.",
+              "C": "Correct. This choice directly connects the location of dragonflies (near ponds and lakes) with the reason they need to live there (to have water nearby for laying eggs), aligning with the notes.",
+              "D": "This choice describes dragonflies' hunting behavior, specifically hovering over water, but it doesn't explain why they choose to live near ponds and lakes."
             }
           }
         },
@@ -1152,12 +1152,12 @@
           "subtopic": "Rhetorical Synthesis",
           "difficulty": "medium",
           "explanation": {
-            "summary": "Diamantopoulos’s thesis is regeneration — that a workplace can recover from degeneration by reintroducing democratic practices. Supporting data have to show recovery actually happening.",
+            "summary": "Diamantopoulos's regeneration thesis argues that workplaces can recover from degeneration by reintroducing democratic practices. To support this thesis, the student needs data showing actual recovery from degeneration. The note that '10.8% of the workplaces had regenerated' directly supports this idea, as it indicates that these workplaces successfully used democratic practices to recover, aligning with Diamantopoulos's argument. The other data points either describe resistance to degeneration or focus on degeneration without recovery, which do not support the thesis of regeneration.",
             "choices": {
-              "A": "The 27.0 percent is a degeneration figure, and it shows nothing being reversed.",
-              "B": "Resisting degeneration is not recovering from it; that answers Webb and Webb, not Diamantopoulos.",
-              "C": "Also aimed at Webb and Webb’s inevitability claim rather than at regeneration.",
-              "D": "Correct. The 10.8 percent that regenerated is the group that recovered, which is what the thesis predicts."
+              "A": "The 27.0% figure represents workplaces showing partial signs of degeneration, which does not indicate recovery or reversal, thus failing to support Diamantopoulos's thesis.",
+              "B": "While 52.7% of workplaces, including Canteen Co-op, resisted degeneration, this data supports the idea of resistance rather than recovery, aligning more with Webb and Webb's thesis than with Diamantopoulos's.",
+              "C": "This choice highlights that only 9.5% of workplaces fully degenerated, challenging Webb and Webb's inevitability claim but not showing any recovery, which is essential for supporting Diamantopoulos's thesis.",
+              "D": "Correct. The 10.8% of workplaces that regenerated directly supports Diamantopoulos's thesis, as it shows recovery through the reintroduction of democratic practices."
             }
           }
         }
@@ -1202,12 +1202,12 @@
           "subtopic": "Words in Context",
           "difficulty": "medium",
           "explanation": {
-            "summary": "The second sentence lists the ways animal dispersers vary — different distances from the parent tree, different carry times, idiosyncratic trajectories. The blank describes the distribution all that variation produces.",
+            "summary": "The passage describes how zoochorous trees in the Mo Singto plot have seeds dispersed by animals, leading to a distribution that is 'considerably more' something than at the Tyson Research Center. The second sentence highlights variability: animals congregate at 'varying distances,' carry seeds for 'varying lengths of time,' and follow 'idiosyncratic spatial trajectories.' This variability implies that the resulting distribution is not regular or predictable, which aligns with the word 'unpredictable.'",
             "choices": {
-              "A": "Symmetrical describes an even shape; the sentence describes irregularity.",
-              "B": "Iterative means repeating. The dispersers are described as varying, not repeating.",
-              "C": "Anachronistic is about being out of its own time period, which is not the topic.",
-              "D": "Correct. Varying distances, times, and paths make where seeds land hard to predict."
+              "A": "Symmetrical suggests an even and regular pattern, which contradicts the described variability in seed dispersal.",
+              "B": "Iterative implies repetition, but the passage emphasizes variation, not repetition, in seed dispersal patterns.",
+              "C": "Anachronistic refers to something being out of its time period, which is irrelevant to the discussion of seed distribution.",
+              "D": "Correct. The varying distances, times, and paths of seed dispersal make the distribution 'unpredictable,' matching the passage's description of variability."
             }
           }
         },
@@ -1243,12 +1243,12 @@
           "subtopic": "Words in Context",
           "difficulty": "medium",
           "explanation": {
-            "summary": "\"However\" plus \"prevented a definitive universal conclusion\" tells you the 51 studies did not line up. The blank names the mismatch in methods and in the health effects assessed.",
+            "summary": "The word 'However' signals a contrast between the researchers' attempt to determine outcomes and the inability to reach a 'definitive universal conclusion.' The phrase 'large ______ across the studies in the methodologies used and health effects assessed' indicates a mismatch or inconsistency is the issue. The word 'discrepancies' fits this context, as it refers to differences or inconsistencies, which would prevent a clear conclusion. The other choices do not logically fit the context of methodological differences and assessment variations preventing a conclusion.",
             "choices": {
-              "A": "Correct. Large discrepancies across studies are what stop a universal conclusion.",
-              "B": "Vulnerabilities would be weaknesses in the studies, not the mismatch between them.",
-              "C": "Compensations does not describe differences in methodology.",
-              "D": "Endorsements would be support, which would help a conclusion rather than prevent one."
+              "A": "Correct. 'Discrepancies' refers to inconsistencies or differences, which aligns with the context of varied methodologies and health effects preventing a definitive conclusion.",
+              "B": "Vulnerabilities would imply weaknesses or susceptibilities in the studies, not differences in methodologies or assessments.",
+              "C": "Compensations suggests making up for something, which does not describe the methodological differences that prevent a conclusion.",
+              "D": "Endorsements would imply support or approval, which would not prevent a conclusion but rather support one."
             }
           }
         },
@@ -1284,12 +1284,12 @@
           "subtopic": "Words in Context",
           "difficulty": "hard",
           "explanation": {
-            "summary": "The next sentence spells the blank out: careful consideration of crops, soil, and weather, then \"precise, minute adjustments to water allocations.\"",
+            "summary": "The passage emphasizes the need for precision in managing agricultural irrigation systems to avoid the problems of overwatering and underwatering. The phrase 'following the careful consideration of crop requirements, soil conditions, and weather patterns' indicates that the management must be meticulous and attentive to detail. The subsequent mention of 'precise, minute adjustments to water allocations' further supports the need for a highly precise and demanding approach. Therefore, the word 'exacting' best completes the sentence, as it means requiring careful attention and precision, aligning with the passage's emphasis on precision and detail.",
             "choices": {
-              "A": "Perfunctory is going through the motions — the opposite of what is demanded.",
-              "B": "Serendipitous is lucky accident; the passage calls for deliberate care.",
-              "C": "Resolute is determined, which is not the same as precise.",
-              "D": "Correct. Exacting means demanding precision, which is what \"precise, minute adjustments\" describes."
+              "A": "Perfunctory implies a lack of attention to detail and merely going through the motions, which contradicts the passage's emphasis on precision and careful management.",
+              "B": "Serendipitous suggests outcomes based on chance or luck, which does not align with the deliberate and precise adjustments described in the passage.",
+              "C": "Resolute means determined or unwavering, which does not capture the need for precision and detailed adjustments in irrigation management.",
+              "D": "Correct. Exacting means requiring careful attention and precision, which matches the passage's focus on 'precise, minute adjustments' and careful consideration."
             }
           }
         },
@@ -1325,12 +1325,12 @@
           "subtopic": "Words in Context",
           "difficulty": "hard",
           "explanation": {
-            "summary": "Every example is about time and place: different strains in France and Iceland, the 1980s interest in popular culture, the recent material turn. The blank has to say the questions depend on the historian’s setting.",
+            "summary": "The passage discusses how microhistories address broad phenomena by focusing on narrow subjects, with examples highlighting variations based on time and place. It mentions distinct strains emerging in different countries and eras, such as France, Iceland, and the 1980s, as well as the recent 'material turn.' These examples suggest that the questions microhistories ask are influenced by the historian's environment, or 'milieu.' Therefore, the correct choice must indicate that the questions depend on the historian's setting, aligning with the idea that they are 'contingent on the practitioner’s milieu.'",
             "choices": {
-              "A": "Ingenuity credits the individual, but the examples vary by era and country.",
-              "B": "The questions are central to microhistory, not peripheral to it.",
-              "C": "No controversy is described.",
-              "D": "Correct. Milieu is the surrounding time and place, which is exactly what the examples vary."
+              "A": "Ingenuity suggests a focus on the individual's creativity, but the passage emphasizes variations based on broader contexts like era and location, not individual traits.",
+              "B": "Peripheral implies that the questions are irrelevant or secondary, which contradicts the passage's focus on how these questions are central to microhistory's development across different contexts.",
+              "C": "Controversial suggests disagreement or debate, but the passage does not describe any controversy; it simply notes variations in focus based on different times and places.",
+              "D": "Correct. 'Contingent on the practitioner’s milieu' accurately reflects how the passage describes the questions as influenced by the historian's environment, such as the era or country."
             }
           }
         },
@@ -1366,12 +1366,12 @@
           "subtopic": "Text Structure and Purpose",
           "difficulty": "medium",
           "explanation": {
-            "summary": "Three moves: the prediction that trees will expand northward, surveys showing they are not, and the fungal-partner finding that explains the lag.",
+            "summary": "The passage begins by discussing a scientific prediction that North American tree populations will expand northward as climates warm. It then presents evidence that contradicts this prediction, noting that species like the chestnut oak and Engelmann spruce are not establishing northern populations as expected. Finally, the passage provides an explanation for this contradiction, suggesting that a reduced diversity of essential fungal partners at the northern edges of the trees’ habitats is responsible for the migration lag. The structure follows a clear pattern: prediction, contradiction, and explanation.",
             "choices": {
-              "A": "Correct. Prediction, contradicting evidence, then an explanation for the contradiction.",
-              "B": "There are not several competing predictions being weighed against each other.",
-              "C": "The text supplies an explanation rather than identifying a gap and proposing future work.",
-              "D": "No solutions are attempted or proposed."
+              "A": "Correct. The passage first presents a prediction about tree migration, then provides evidence that contradicts this prediction, and finally explains the contradiction by mentioning the lack of fungal partners.",
+              "B": "The passage does not present several predictions or weigh them against each other. It focuses on one prediction and its contradiction.",
+              "C": "The passage does not identify a gap in understanding or suggest future research. Instead, it provides an explanation for the observed phenomenon.",
+              "D": "The passage does not discuss attempted solutions or propose a new solution. It explains why the predicted migration is not occurring."
             }
           }
         },
@@ -1407,12 +1407,12 @@
           "subtopic": "Text Structure and Purpose",
           "difficulty": "hard",
           "explanation": {
-            "summary": "\"The camera itself is a character in the film\" is the film’s conceit, and everything after it is the evidence: the operator positioning the camera, placing it on a train, and the cut to what it sees.",
+            "summary": "The underlined phrase 'the camera itself is a character in the film' introduces the central conceit of Dziga Vertov’s Man with a Movie Camera. This idea is crucial for understanding the film's structure, as the subsequent description of the camera operator positioning the camera on a train illustrates how Vertov emphasizes the camera's presence. The passage uses this example to show how the camera's role as a character is visually represented, making it clear that the underlined portion sets up the explanation of Vertov's cinematic choices.",
             "choices": {
-              "A": "Correct. It names the conceit, and the train example that follows shows how Vertov works it out.",
-              "B": "The rest of the text illustrates the idea; it does not defend attributing it to Vertov.",
-              "C": "Nothing says the metaphor inspired the structure. It is stated as the film’s central idea.",
-              "D": "No evaluation of how successfully the film conveys anything appears."
+              "A": "Correct. The underlined portion introduces the central conceit of the film, which is then illustrated by the example of the camera being positioned on a train.",
+              "B": "The passage does not focus on attributing the concept to Vertov or affirming its attribution; it simply explains the idea and provides an example.",
+              "C": "The text does not suggest that the metaphor inspired the film's structure; it presents it as the central idea of the film.",
+              "D": "The passage does not evaluate the film's success in conveying its message; it describes how the film visually represents the camera as a character."
             }
           }
         },
@@ -1451,12 +1451,12 @@
           "subtopic": "Cross-Text Connections",
           "difficulty": "hard",
           "explanation": {
-            "summary": "Salman-Engin’s finding is that talking to a stranger produced greater positive affect. Every circle in Text 2’s model holds someone already in the network — even weak ties are \"part of one’s social network.\" Strangers are outside it entirely.",
+            "summary": "Salman-Engin and colleagues in Text 1 found that interacting with strangers, such as thanking a shuttle driver, can increase positive affect. Text 2 describes a model of social relations that includes only those already within one's social network, from strong to weak ties. This model omits interactions with strangers, which Text 1 shows can also enhance well-being. Therefore, the researchers in Text 1 would likely argue that the model in Text 2 fails to account for the positive impact of connections outside the established social network.",
             "choices": {
-              "A": "The gap is not about distinctions among close connections.",
-              "B": "Longevity is not what Text 1’s study challenges.",
-              "C": "Correct. The model leaves out the stranger interaction Text 1 showed to be beneficial.",
-              "D": "Text 2 makes no claim about what people expect from familiar versus unfamiliar company."
+              "A": "Text 1 does not focus on distinctions among types of close connections, but rather on the value of interactions with strangers, which are not part of the existing network.",
+              "B": "Text 1 does not challenge the importance of relationship longevity; it highlights the benefits of interactions with strangers, which are outside the scope of the model in Text 2.",
+              "C": "Correct. Text 1's findings suggest that the model in Text 2 overlooks interactions with strangers, which can positively affect well-being, a category not captured by the model.",
+              "D": "Text 2 does not discuss expectations of interactions with familiar versus unfamiliar people, so this choice does not align with the content of either text."
             }
           }
         },
@@ -1492,12 +1492,12 @@
           "subtopic": "Central Ideas and Details",
           "difficulty": "easy",
           "explanation": {
-            "summary": "The question asks for an effect on participants, and the text names one: they \"quantify what was once just a subjective experience.\"",
+            "summary": "The passage describes the Globe at Night project, where participants quantify the brightness of night skies, transforming what was once a 'subjective experience' into measurable data. This directly answers the question about the effect on participants, as they learn to measure and understand night sky brightness scientifically. The text emphasizes this transformation from subjective to objective, which is the key effect on participants.",
             "choices": {
-              "A": "Correct. That is the text’s own phrase for what taking part does for them.",
-              "B": "Where light pollution occurs is not what the text says participants learn.",
-              "C": "The text says the data help researchers track effects on wildlife, not that there are none.",
-              "D": "Appreciation of beauty is never mentioned."
+              "A": "Correct. The passage states that participants 'quantify what was once just a subjective experience,' indicating they learn to measure night sky brightness objectively.",
+              "B": "The passage does not mention that participants learn about the geographic spread of light pollution. It focuses on quantifying brightness, not the locations affected.",
+              "C": "The text mentions tracking effects on wildlife, but it does not suggest that participants prove artificial light has no significant effects. This contradicts the passage's implication of ongoing research.",
+              "D": "The passage does not discuss participants gaining an appreciation of the beauty of night skies. It focuses on scientific measurement, not aesthetic appreciation."
             }
           }
         },
@@ -1533,12 +1533,12 @@
           "subtopic": "Central Ideas and Details",
           "difficulty": "medium",
           "explanation": {
-            "summary": "The text: advanced imaging in 2018, fresh insight into both the painting’s current condition and the techniques Vermeer used, published in a series of articles.",
+            "summary": "The passage describes how scholars used advanced imaging techniques in 2018 to analyze Vermeer’s painting Girl with a Pearl Earring. This analysis provided new insights into both the painting's current condition and the techniques Vermeer used, which were published in a series of articles. The main idea is that sophisticated technology allowed scholars to gain novel information about the painting's creation and preservation state.",
             "choices": {
-              "A": "Correct. Novel information about creation and condition, obtained with sophisticated technology, is the whole text in a sentence.",
-              "B": "The text does not frame the work as resolving intricate questions, and the analysis itself is what 2018 dates.",
-              "C": "No comparison ranks one imaging technique above another.",
-              "D": "The articles are not described as offering contrasting interpretations."
+              "A": "Correct. This choice accurately summarizes the passage by stating that scholars obtained new information about the painting's creation and condition using sophisticated technology.",
+              "B": "The passage does not emphasize resolving intricate questions, nor does it suggest that 2018 was significant solely due to technological advances. The focus is on the insights gained, not the timing or opportunity.",
+              "C": "The passage does not compare multiscale optical coherence tomography to other techniques or claim its superiority. It simply mentions the use of advanced imaging techniques.",
+              "D": "The passage does not mention contrasting interpretations in the articles. It only states that the findings were published, without suggesting any disagreement or differing views."
             }
           }
         },
@@ -1574,12 +1574,12 @@
           "subtopic": "Command of Evidence",
           "difficulty": "medium",
           "explanation": {
-            "summary": "The claim is that Toomer gives the road a deep connection to a faraway place, so the quotation has to tie Dixie Pike to somewhere distant.",
+            "summary": "The claim is that Toomer describes Dixie Pike as having a 'deep connection to a faraway place.' The correct quotation must illustrate this connection by linking Dixie Pike to a distant location. The phrase 'grown from a goat path in Africa' in choice A directly connects the Georgia road to Africa, fulfilling the requirement for a deep, faraway connection. This suggests a historical or metaphorical link between the two places, effectively illustrating the claim. Other options fail to establish such a connection between Dixie Pike and a distant location.",
             "choices": {
-              "A": "Correct. A Georgia road grown from a goat path in Africa is exactly that connection.",
-              "B": "A walk up the Pike, with no distant place in view.",
-              "C": "A railroad and a repair gang, nothing about the road’s origin.",
-              "D": "About soil from a homeland reaching Washington, not about Dixie Pike."
+              "A": "Correct. The phrase 'grown from a goat path in Africa' establishes a direct connection between Dixie Pike and a distant place, Africa, illustrating the claim of a deep connection.",
+              "B": "This describes a local action ('walked up the [Dixie] Pike') without any reference to a faraway place, failing to illustrate the claim.",
+              "C": "This mentions a local event involving a 'railroad track' and 'repair gang,' with no connection to a distant place, thus not supporting the claim.",
+              "D": "This describes soil reaching Washington, DC, but it does not relate to Dixie Pike, so it does not illustrate the road's connection to a faraway place."
             }
           }
         },
@@ -1615,12 +1615,12 @@
           "subtopic": "Command of Evidence",
           "difficulty": "hard",
           "explanation": {
-            "summary": "The claim is that the end-mark after Riddle 68 may be a scribal error — that 68 and 69 may really be one riddle. Support has to show the two belong together.",
+            "summary": "The passage suggests that the mark at the end of Riddle 68 might be a scribal error, implying that Riddle 68 and Riddle 69 could actually be parts of a single riddle. The evidence needed should show that these two riddles are interconnected. Choice C supports this by stating that Riddle 68 is unsolvable on its own but becomes solvable when read with Riddle 69, indicating that they might be intended as a single riddle. This aligns with the claim about the potential scribal error in the passage.",
             "choices": {
-              "A": "A shared source and influence from earlier riddles do not argue that these two are a single riddle.",
-              "B": "Neither one inviting the audience to solve it says nothing about the boundary between them.",
-              "C": "Correct. Riddle 68 is unsolvable alone, matches 69 in imagery and sound, and becomes solvable read with it — so the mark separating them looks like a mistake.",
-              "D": "Neither using prosopopoeia is a shared trait, not evidence about the mark between them."
+              "A": "A shared source and influence from earlier riddles do not specifically address whether Riddles 68 and 69 are a single riddle, so it doesn't support the claim about the scribal error.",
+              "B": "The fact that neither riddle invites the audience to solve it does not provide evidence about whether the two riddles are meant to be one, so it doesn't support the claim about the boundary between them.",
+              "C": "Correct. Riddle 68 is unsolvable alone but becomes solvable with Riddle 69, suggesting they are meant to be read together, supporting the idea that the mark separating them might be a mistake.",
+              "D": "The absence of prosopopoeia in both riddles is a shared characteristic but does not provide evidence about the mark between them or suggest they are a single riddle."
             }
           }
         },
@@ -1660,12 +1660,12 @@
           "subtopic": "Command of Evidence",
           "difficulty": "medium",
           "explanation": {
-            "summary": "In both years the induced bar trails the other two badly: 18.4 against 42.1 and 36.8 in 2019, and 22.6 against 51.7 and 45.3 in 2022.",
+            "summary": "The graph shows that in both 2019 and 2022, the induced impacts from RECs are significantly smaller than the direct and indirect impacts. In 2019, the induced impact is 18.4, while the direct and indirect impacts are 42.1 and 36.8, respectively. Similarly, in 2022, the induced impact is 22.6, compared to 51.7 for direct and 45.3 for indirect impacts. This consistent pattern across both years indicates that induced impacts are less substantial than the other two types of impacts, supporting choice D.",
             "choices": {
-              "A": "The graph gives two years of values, not growth rates or predictions.",
-              "B": "Two data points per category cannot show predictability.",
-              "C": "Direct is closer to indirect than to induced in both years — the reverse of this claim.",
-              "D": "Correct. Induced is the smallest of the three impacts in 2019 and again in 2022."
+              "A": "The graph provides specific values for two years, not growth rates or future predictions, so it cannot support a statement about growth rates.",
+              "B": "With only two data points per category, the graph does not provide enough information to assess the predictability of induced impacts compared to direct or indirect impacts.",
+              "C": "The direct impacts are closer in value to indirect impacts than to induced impacts in both years, contradicting this choice's claim.",
+              "D": "Correct. The graph shows that induced impacts are the smallest of the three types of economic impacts in both 2019 and 2022."
             }
           }
         },
@@ -1730,12 +1730,12 @@
           "subtopic": "Command of Evidence",
           "difficulty": "hard",
           "explanation": {
-            "summary": "EEF ancestry had fallen to 31 percent by 2100 BCE. The claim is that a high-EEF wave arrived after that. Iron Age figures above 31 percent are what would show it.",
+            "summary": "The passage discusses a decrease in early European farmers (EEF) ancestry to 31 percent by 2100 BCE and a subsequent claim that a wave of people with high EEF ancestry migrated into southern Britain before the pre-Roman Iron Age. To support this claim, data showing an increase in EEF ancestry after 2100 BCE is needed. The table indicates that the lowest average proportion of EEF ancestry during the pre-Roman Iron Age was 36.0 percent, which is higher than the 31 percent recorded in 2100 BCE. This suggests an increase in EEF ancestry, supporting the researcher's conclusion of a migration wave with high EEF ancestry into the region.",
             "choices": {
-              "A": "WHG is not the ancestry the claim is about.",
-              "B": "Consistency in Yamnaya proportions says nothing about EEF rising.",
-              "C": "EEF sitting below Yamnaya says nothing about the change since 2100 BCE.",
-              "D": "Correct. Even the lowest Iron Age EEF figure, 36.0, is above the 31 percent of 2100 BCE, so EEF ancestry rose in between."
+              "A": "The WHG ancestry remaining below 15 percent does not relate to the claim about EEF ancestry changes.",
+              "B": "Consistency in Yamnaya ancestry proportions does not address the increase in EEF ancestry needed to support the claim.",
+              "C": "The fact that EEF ancestry was lower than Yamnaya during the Iron Age does not provide evidence of an increase from 31 percent since 2100 BCE.",
+              "D": "Correct. The lowest EEF ancestry proportion during the Iron Age being 36.0 percent, higher than 31 percent in 2100 BCE, indicates an increase, supporting the claim of a migration wave with high EEF ancestry."
             }
           }
         },
@@ -1771,12 +1771,12 @@
           "subtopic": "Inferences",
           "difficulty": "hard",
           "explanation": {
-            "summary": "The differential widens as the modelled lifetime shrinks. Shorter lifetimes mean more replacements, and each replacement costs more with new cells than with recycled ones, so the gap compounds.",
+            "summary": "The underlined sentence shows that the LCOE differential between new and recycled cells increases when the cell lifetime is reduced. This suggests that more frequent cell replacement impacts the costs differently for new and recycled cells. Since securing new cell materials is more expensive than recycling, the increased frequency of replacement amplifies the cost disparity, explaining why the LCOE differential grows from 18.8% to 31.3% as the modeled lifetime decreases.",
             "choices": {
-              "A": "Recycling does cost something, but that would narrow the gap rather than widen it.",
-              "B": "Operating costs rising would hit both kinds of plant alike.",
-              "C": "Correct. New material costs more than recycled material, so more frequent replacement widens the cost disparity.",
-              "D": "Stable efficiency explains why recycling is viable, not why the differential grows."
+              "A": "Recycling does incur costs, but if these costs were significant, they would likely reduce the cost advantage of recycling, narrowing rather than widening the LCOE gap.",
+              "B": "Increased operating costs would affect both new and recycled cells similarly, so this would not account for the widening LCOE differential.",
+              "C": "Correct. Since securing new materials is more expensive, more frequent replacements due to shorter lifetimes increase the cost disparity, widening the LCOE differential.",
+              "D": "Stable efficiency in recycling explains why recycling remains viable but does not address why the cost differential between new and recycled cells increases with shorter lifetimes."
             }
           }
         },
@@ -1812,12 +1812,12 @@
           "subtopic": "Boundaries",
           "difficulty": "medium",
           "explanation": {
-            "summary": "A \"twofold purpose\" is announced and then spelled out — recognizing Banning and drawing attention to the collection. A colon introduces the spelling-out.",
+            "summary": "The phrase 'twofold purpose' indicates that the sentence will list two objectives. A colon is used to introduce a list or explanation, so it fits well here to introduce the two parts of the purpose: 'recognizing the contributions of Banning' and 'drawing attention to the museum's historically significant mycology collection.' The colon after 'purpose' signals that what follows will elaborate on the 'twofold purpose.'",
             "choices": {
-              "A": "Correct. Colon, then the two things the purpose consists of.",
-              "B": "A semicolon needs an independent clause after it, and \"recognizing ... and drawing ...\" is not one.",
-              "C": "The extra comma after \"recognizing\" cuts the participle from its object.",
-              "D": "A comma cannot introduce the pair, and the semicolon strands the second half."
+              "A": "Correct. A colon is appropriate here to introduce the explanation of the 'twofold purpose,' which includes 'recognizing' and 'drawing attention.'",
+              "B": "A semicolon is incorrect because it requires an independent clause after it, but 'recognizing ... and drawing ...' is not an independent clause.",
+              "C": "The extra comma after 'recognizing' incorrectly separates the participle from its object, disrupting the sentence structure.",
+              "D": "A comma cannot introduce the list, and the semicolon after 'recognizing' incorrectly separates the two parts of the purpose."
             }
           }
         },
@@ -1853,12 +1853,12 @@
           "subtopic": "Boundaries",
           "difficulty": "medium",
           "explanation": {
-            "summary": "The second half is a full clause explaining the first — how noise poses a challenge — so a colon joins them.",
+            "summary": "The sentence structure requires a punctuation mark that allows the second clause to explain or elaborate on the first. The phrase 'ambient noise from automobile traffic, for example, may mask environmental signals' provides a specific example of the challenges mentioned in the first part of the sentence. A colon is used to introduce an explanation or example, making it the appropriate choice here. The colon effectively links the general statement about noise challenges to the specific example of traffic noise masking signals.",
             "choices": {
-              "A": "\"And\" would need a comma before it and would flatten the explanation into a second fact.",
-              "B": "A comma between two independent clauses is a splice.",
-              "C": "No punctuation runs the two clauses together.",
-              "D": "Correct. Colon, with the traffic-noise clause explaining the challenge."
+              "A": "'And' introduces a new idea rather than explaining the previous one, and it would require a comma before it to be grammatically correct.",
+              "B": "A comma between two independent clauses creates a comma splice, which is grammatically incorrect.",
+              "C": "Without any punctuation, the sentence incorrectly runs two independent clauses together, making it a run-on sentence.",
+              "D": "Correct. The colon is used to introduce the specific example of traffic noise, explaining the challenge mentioned in the first clause."
             }
           }
         },
@@ -1894,12 +1894,12 @@
           "subtopic": "Boundaries",
           "difficulty": "hard",
           "explanation": {
-            "summary": "\"Arturo Longoria\" specifies which nonfiction writer, so no comma before it; \"author of Adios to the Brushlands\" is an appositive, so a comma after it.",
+            "summary": "The sentence structure requires a restrictive appositive to specify which nonfiction writer is being referred to. 'Arturo Longoria' is essential information, identifying the specific writer, so it should not be set off by a comma. However, 'author of Adios to the Brushlands' is an appositive phrase providing additional, non-essential information about Arturo Longoria, and should be preceded by a comma. Therefore, the correct punctuation is no comma before 'Arturo Longoria' and a comma after it to introduce the appositive phrase.",
             "choices": {
-              "A": "The comma before the name treats an essential name as an aside.",
-              "B": "Correct. Restrictive name, then a comma opening the appositive.",
-              "C": "With no comma, the appositive fuses to the name.",
-              "D": "The commas are placed the wrong way round."
+              "A": "The comma before 'Arturo Longoria' incorrectly suggests that his name is non-essential, which is not the case as it specifies the writer.",
+              "B": "Correct. 'Writer Arturo Longoria' correctly identifies the person without a comma, and the comma after 'Longoria' introduces the non-essential appositive phrase.",
+              "C": "Without a comma after 'Arturo Longoria,' the appositive phrase 'author of Adios to the Brushlands' is improperly fused to the name.",
+              "D": "The comma before 'Arturo Longoria' incorrectly treats the name as non-essential, and no comma after it fails to introduce the appositive phrase."
             }
           }
         },
@@ -1935,12 +1935,12 @@
           "subtopic": "Boundaries",
           "difficulty": "medium",
           "explanation": {
-            "summary": "The second half is a complete clause explaining the specialized adaptation just named, so a colon links them.",
+            "summary": "The sentence describes the frogfish's unique locomotion as a specialized adaptation. The phrase after the blank, 'the frogfish’s modified pectoral fins function similarly to legs,' provides an explanation of this adaptation. A colon is used to introduce an explanation or elaboration, making it the appropriate punctuation here. The colon effectively links the general statement about the frogfish's adaptation to the specific explanation of how its fins function like legs.",
             "choices": {
-              "A": "\"And\" would need a comma and would lose the explanatory relationship.",
-              "B": "A comma between two independent clauses is a splice.",
-              "C": "No punctuation runs them together.",
-              "D": "Correct. Colon, with the pectoral-fin clause explaining the adaptation."
+              "A": "\"And\" suggests a continuation or addition, not an explanation, and would require a comma before it to join two independent clauses.",
+              "B": "A comma here would create a comma splice, incorrectly joining two independent clauses without a conjunction.",
+              "C": "Without any punctuation, the sentence runs together awkwardly, failing to clearly indicate the explanatory relationship.",
+              "D": "Correct. The colon introduces the explanation of how the frogfish's fins function, clarifying the specialized adaptation."
             }
           }
         },
@@ -1976,12 +1976,12 @@
           "subtopic": "Form, Structure, and Sense",
           "difficulty": "medium",
           "explanation": {
-            "summary": "\"Mounted on a telescope in Arizona\" describes the instrument, so the instrument has to be the subject of the clause that follows.",
+            "summary": "The phrase 'Mounted on a telescope in Arizona' describes the Dark Energy Spectroscopic Instrument (DESI), so the sentence that follows must have the instrument as its subject. The sentence should logically continue by describing what the instrument does, which is measuring galaxies and tracking matter distribution. The correct completion must maintain this logical and grammatical structure, ensuring the subject of the sentence is the instrument itself. This leads to the correct choice, which appropriately follows the introductory phrase and describes the instrument's capabilities.",
             "choices": {
-              "A": "Makes \"the distribution of matter\" the thing mounted on the telescope.",
-              "B": "Makes the researchers the thing mounted on the telescope.",
-              "C": "Makes 5,000 galaxies the thing mounted on the telescope.",
-              "D": "Correct. \"This remarkable instrument\" is what is mounted, and it leads the main clause."
+              "A": "This choice incorrectly makes 'the distribution of matter' the subject, suggesting it is mounted on the telescope, which is illogical.",
+              "B": "This choice incorrectly makes 'researchers' the subject, implying they are mounted on the telescope, which is not the intended meaning.",
+              "C": "This choice incorrectly makes '5,000 galaxies' the subject, suggesting they are mounted on the telescope, which is nonsensical.",
+              "D": "Correct. 'This remarkable instrument' is the subject, logically following the introductory phrase and describing the instrument's function."
             }
           }
         },
@@ -2017,12 +2017,12 @@
           "subtopic": "Form, Structure, and Sense",
           "difficulty": "hard",
           "explanation": {
-            "summary": "The sentence’s main verb is \"was belied.\" The blank sits inside the subject — \"A 1934 analysis ... that limitations ... precluded a mile time under 4:01.6\" — so it has to be a participle, not a second finite verb.",
+            "summary": "The sentence's main verb is 'was belied,' indicating that the main clause is 'A 1934 analysis ... was belied by Roger Bannister's sub-four-minute mile.' The blank is part of the subject, 'A 1934 analysis by renowned US track-and-field coach Brutus Hamilton ______ that limitations in human physiology precluded a mile time under 4:01.6.' To fit grammatically, the blank must be filled with a participle that modifies 'analysis,' making 'asserting' the correct choice. This structure allows the main verb 'was belied' to govern the sentence, with the participle 'asserting' describing the nature of the analysis.",
             "choices": {
-              "A": "Gives the sentence two finite verbs.",
-              "B": "Correct. \"Asserting\" turns the clause into a modifier of \"analysis,\" which \"was belied\" then governs.",
-              "C": "Another finite verb.",
-              "D": "Another finite verb."
+              "A": "Using 'asserts' would incorrectly introduce a second finite verb, disrupting the sentence structure and leaving 'was belied' without a clear subject.",
+              "B": "Correct. 'Asserting' is a participle that modifies 'analysis,' fitting the sentence structure by allowing 'was belied' to serve as the main verb.",
+              "C": "'Had asserted' introduces another finite verb, creating a compound verb structure that conflicts with the sentence's intended meaning and structure.",
+              "D": "'Asserted' functions as a finite verb, which would incorrectly suggest a separate action rather than modifying 'analysis.'"
             }
           }
         },
@@ -2058,12 +2058,12 @@
           "subtopic": "Form, Structure, and Sense",
           "difficulty": "medium",
           "explanation": {
-            "summary": "The subject is the singular noun \"recreation.\" Everything between the dashes is a supplementary phrase, not part of the subject, so the verb has to be singular and finite.",
+            "summary": "The subject of the sentence is the singular noun 'recreation,' which requires a singular verb to maintain subject-verb agreement. The phrase between the dashes ('including chess, backgammon, and other board games enjoyed across royal courts and noble households') is supplementary and does not affect the number of the subject. Therefore, the verb must be singular and in the past tense to match the historical context of 'medieval recreation.' The correct answer is 'was,' which is singular and past tense, aligning with the singular subject 'recreation' and the historical accounts mentioned.",
             "choices": {
-              "A": "Correct. Singular \"was\" agrees with the singular subject \"recreation.\"",
-              "B": "\"Being\" is non-finite, leaving the sentence without a main verb.",
-              "C": "Plural, and present tense, which clashes with the past-tense account.",
-              "D": "Plural. It agrees with \"games\" inside the dashes, not with the actual subject \"recreation.\""
+              "A": "Correct. 'Was' is singular and past tense, matching the singular subject 'recreation' and the historical context.",
+              "B": "'Being' is non-finite and does not serve as the main verb, leaving the sentence incomplete.",
+              "C": "'Are' is plural and present tense, which does not match the singular subject 'recreation' or the past tense context.",
+              "D": "'Were' is plural, agreeing incorrectly with 'games' instead of the singular subject 'recreation.'"
             }
           }
         },
@@ -2099,12 +2099,12 @@
           "subtopic": "Form, Structure, and Sense",
           "difficulty": "medium",
           "explanation": {
-            "summary": "Same construction as the Seward item: \"encourages\" is already the verb of the relative clause, so the blank takes a participle.",
+            "summary": "The sentence describes how instrumental samples from the Beatles' White Album are used in Danger Mouse’s Grey Album. The phrase 'each of the instrumental samples' is singular, so the verb must also be singular to match. The sentence structure requires a verb that completes the action of the samples being used as raw material. The correct answer is 'has become,' which is singular and fits the sentence's requirement for a verb that indicates the samples' transformation into raw material for the instrumental collage.",
             "choices": {
-              "A": "A finite verb, giving the clause two.",
-              "B": "Same problem.",
-              "C": "Same problem.",
-              "D": "Correct. \"Whose work highlighting ... encourages a broader rethinking.\""
+              "A": "This choice uses 'have become,' which is plural and does not match the singular subject 'each of the instrumental samples.'",
+              "B": "This choice uses 'become,' a plural verb form, which does not agree with the singular subject 'each of the instrumental samples.'",
+              "C": "This choice uses 'becoming,' which is a participle and does not fit the sentence structure that requires a finite verb.",
+              "D": "Correct. 'Has become' is singular and agrees with the singular subject 'each of the instrumental samples,' fitting the sentence structure."
             }
           }
         },
@@ -2140,12 +2140,12 @@
           "subtopic": "Transitions",
           "difficulty": "easy",
           "explanation": {
-            "summary": "The dates do the work: the Boy Scout troop in 1916, the park ranger post in 1932.",
+            "summary": "The passage discusses two significant achievements of Francis Guardipee, with specific years provided for each: founding the first all-Native troop of the Boy Scouts in 1916 and becoming a park ranger in 1932. The transition word must logically connect these events in chronological order. The word 'Later' effectively indicates that the park ranger position occurred after the Boy Scout troop founding, aligning with the timeline presented in the passage.",
             "choices": {
-              "A": "\"In addition\" ignores the dates the sentence supplies.",
-              "B": "\"Specifically\" would make the ranger post a detail of the troop.",
-              "C": "\"Earlier\" reverses 1916 and 1932.",
-              "D": "Correct. 1932 comes after 1916."
+              "A": "'In addition' suggests adding another fact without indicating a time sequence, which fails to reflect the chronological order of events from 1916 to 1932.",
+              "B": "'Specifically' implies that the park ranger role is a detail or example of the Boy Scout troop, which is illogical since they are separate achievements.",
+              "C": "'Earlier' incorrectly suggests that the park ranger role in 1932 happened before the Boy Scout troop founding in 1916, reversing the actual order.",
+              "D": "Correct. 'Later' accurately conveys that the park ranger position in 1932 occurred after the Boy Scout troop founding in 1916, maintaining the chronological sequence."
             }
           }
         },
@@ -2181,12 +2181,12 @@
           "subtopic": "Transitions",
           "difficulty": "hard",
           "explanation": {
-            "summary": "Retrocausality is itself \"seemingly at odds with classical ideas,\" and Adlam uses it to keep entanglement from violating classical physics. A contradiction pressed into service against a contradiction.",
+            "summary": "The passage describes quantum entanglement as a phenomenon that 'appears to contradict classical physics' due to its seemingly instantaneous influence over distances. The next sentence introduces physicist Emily Adlam's argument about retrocausality, which is also 'seemingly at odds with classical ideas.' The logical transition here is 'Paradoxically,' because it highlights the unexpected nature of using one contradiction (retrocausality) to address another (quantum entanglement) without violating classical physics. This transition effectively captures the irony and complexity of the situation described.",
             "choices": {
-              "A": "Correct. \"Paradoxically\" names the oddity the sentence’s own aside points at.",
-              "B": "\"Essentially\" would restate the previous sentence; this adds a new argument.",
-              "C": "Nothing about this follows predictably from what came before.",
-              "D": "No causal chain runs from the apparent contradiction to Adlam’s argument."
+              "A": "Correct. 'Paradoxically' highlights the irony of using retrocausality, itself contradictory to classical ideas, to explain quantum entanglement, another contradiction.",
+              "B": "'Essentially' would imply a summary or restatement, but the sentence introduces a new, unexpected argument rather than summarizing.",
+              "C": "'Predictably' suggests an expected outcome, which contradicts the surprising nature of using retrocausality to address quantum entanglement.",
+              "D": "'Consequently' implies a direct causal relationship, but the passage does not establish a cause-and-effect link between the contradiction and Adlam's argument."
             }
           }
         },
@@ -2222,12 +2222,12 @@
           "subtopic": "Transitions",
           "difficulty": "medium",
           "explanation": {
-            "summary": "The sculpture stands in an outdoor park, and the blank has to attach the weather to that place. The actual contrast arrives in the next sentence, with \"though.\"",
+            "summary": "The passage describes the location of David Smith’s sculpture at Storm King Art Center and the weather conditions it faces. The transition must logically connect the sculpture's location with the environmental conditions it endures. The sentence following the blank introduces a contrast with 'though,' indicating that the sculpture is well-suited to withstand the weather. Therefore, the transition should not introduce a contrast or additional unrelated information but should instead point to the location where the weather occurs.",
             "choices": {
-              "A": "\"However\" reverses direction where the sentence continues.",
-              "B": "\"Nevertheless\" does the same, and duplicates the \"though\" that comes later.",
-              "C": "\"In addition\" adds an unrelated fact.",
-              "D": "Correct. \"There\" points back at Storm King, where the weather happens."
+              "A": "\"However\" suggests a contrast, which is not appropriate here because the sentence is not introducing a conflicting idea; the contrast is introduced later with 'though.'",
+              "B": "\"Nevertheless\" also implies a contrast, which is redundant because the contrast is already provided by 'though' in the next sentence.",
+              "C": "\"In addition\" suggests adding new information, but the sentence is not adding a separate fact; it is describing conditions at the location.",
+              "D": "Correct. \"There\" effectively points back to Storm King Art Center, indicating the location where the sculpture endures the weather conditions."
             }
           }
         },
@@ -2263,12 +2263,12 @@
           "subtopic": "Rhetorical Synthesis",
           "difficulty": "medium",
           "explanation": {
-            "summary": "Diamantopoulos’s thesis is regeneration — recovery from degeneration by reintroducing democratic practices — so the data have to show recovery.",
+            "summary": "The student wants to specify when the false killer whale was identified. The notes indicate that the false killer whale was believed extinct until a living one was identified in Denmark in 1861. The correct choice should include this specific information about the false killer whale and the year 1861. The phrase 'once believed to be extinct' aligns with the note that it was thought extinct until its identification.",
             "choices": {
-              "A": "The 27.0 percent is a degeneration figure and shows nothing being reversed.",
-              "B": "Resisting degeneration is not recovering from it.",
-              "C": "Aimed at Webb and Webb’s inevitability claim rather than at regeneration.",
-              "D": "Correct. The 10.8 percent that recovered is regeneration itself."
+              "A": "This choice incorrectly focuses on the Banggai crow, mentioning Indonesia and the year 2007, which are irrelevant to the false killer whale.",
+              "B": "This choice mentions the false killer whale and that it was believed extinct, but it omits the crucial detail of the year 1861, failing to specify when it was identified.",
+              "C": "This choice vaguely refers to a 'Lazarus species' found in 2007, which does not specifically address the false killer whale or the correct year of identification, 1861.",
+              "D": "Correct. This choice accurately states that a living false killer whale, once believed to be extinct, was identified in 1861, directly using the relevant information from the notes."
             }
           }
         },
@@ -2304,12 +2304,12 @@
           "subtopic": "Rhetorical Synthesis",
           "difficulty": "hard",
           "explanation": {
-            "summary": "The goal is to cite a historian on why Digby wrote the manual. Valosik is the historian in the notes, and her sentence gives the purpose: reviving swimming and lifting it into an artful science.",
+            "summary": "The student wants to cite a historian to explain why Digby wrote De Arte Natandi. The notes indicate that historian Vicki Valosik claims Digby wrote the manual to 'help revive swimming...and elevate it from a crude, mechanical function...to an artful science.' This statement directly addresses the purpose behind Digby's work, making it the most relevant information for the student's goal. The phrase 'helped to revive swimming' and 'elevate it' clearly outlines Digby's intentions, aligning with the student's need to explain the rationale for writing the manual.",
             "choices": {
-              "A": "Misreads Valosik. Digby was not documenting why the skill died out.",
-              "B": "Correct. Valosik is named and quoted, and the quotation states what writing the manual was for.",
-              "C": "The stunts were Digby’s own, not ancient Rome’s, and \"once revered\" describes swimming, not the stunts.",
-              "D": "Quotes Digby himself rather than a historian, and stitches Valosik’s words into his mouth."
+              "A": "Valosik's claim is misrepresented here. The choice incorrectly suggests that Digby's purpose was to illustrate why swimming died out, which is not supported by Valosik's statement.",
+              "B": "Correct. This choice accurately quotes Valosik, stating that Digby's manual aimed to 'revive swimming' and transform it into 'an artful science,' directly addressing the student's goal.",
+              "C": "This choice incorrectly attributes the stunts to ancient Rome and misinterprets 'once revered' as describing the stunts rather than swimming itself.",
+              "D": "This choice incorrectly attributes the purpose to Digby himself rather than citing Valosik, and it inaccurately combines Valosik's words with Digby's supposed intentions."
             }
           }
         }

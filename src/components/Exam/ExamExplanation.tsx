@@ -1,4 +1,5 @@
 import { LookupText, type TextLookupRequest } from '../../dictionary/LookupText.tsx'
+import { resolveChoiceContext } from '../../dictionary/context.ts'
 import type { ExamQuestion } from './examData.ts'
 
 /**
@@ -66,7 +67,22 @@ export function ExamExplanation({
               <span className="exam-explain__letter">{choice.letter}</span>
               <div>
                 <p className="exam-explain__choice">
-                  <LookupText text={choice.text} dictionary={dictionary} onLookup={onLookup} />
+                  <LookupText
+                    text={choice.text}
+                    dictionary={dictionary}
+                    onLookup={(req) =>
+                      onLookup?.({
+                        ...req,
+                        sentence: resolveChoiceContext({
+                          choiceText: choice.text,
+                          word: req.word,
+                          requestSentence: req.sentence,
+                          passage: question.passage,
+                          prompt: question.stem,
+                        }),
+                      })
+                    }
+                  />
                 </p>
                 <p className="exam-explain__why">
                   <LookupText text={text} dictionary={dictionary} onLookup={onLookup} />

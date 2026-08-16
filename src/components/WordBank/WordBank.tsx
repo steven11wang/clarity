@@ -2,8 +2,6 @@ import { useEffect, useMemo, useState } from 'react'
 import { ArrowLeft, Check, Clock, Dot, Trash2 } from 'lucide-react'
 
 import {
-  applyRecall,
-  clozeSentence,
   dueWords,
   sortWords,
   wordCounts,
@@ -15,13 +13,18 @@ import {
 import { formatDueIn } from '../../review/vault.ts'
 import { STAGE_LABELS } from '../../review/schedule.ts'
 import {
-  getSettings,
   getWordBankEntries,
   now,
   removeWord,
-  saveWord,
   subscribeStorageChanges,
 } from '../../storage/index.ts'
+import {
+  WordDrill,
+  isDrillFinished,
+  recordDrillAnswer,
+  startWordDrill,
+  type Drill,
+} from './WordDrill.tsx'
 import './wordBank.css'
 
 type WordBankProps = {
@@ -36,13 +39,6 @@ const FILTERS: Array<{ key: Filter; label: string }> = [
   { key: 'retired', label: 'Retired' },
   { key: 'all', label: 'Everything' },
 ]
-
-type Drill = {
-  queue: WordBankEntry[]
-  index: number
-  revealed: boolean
-  knew: number
-}
 
 export function WordBank({ onBack }: WordBankProps) {
   // The bank is read straight from storage: it is written from inside the exam
@@ -72,28 +68,45 @@ export function WordBank({ onBack }: WordBankProps) {
     filter === 'all' ? entries : entries.filter((entry) => wordStatus(entry, snapshot.at) === filter)
 
   function startDrill(queue: WordBankEntry[]) {
-    if (queue.length === 0) return
-    setDrill({ queue, index: 0, revealed: false, knew: 0 })
+    const next = startWordDrill(queue)
+    if (next) setDrill(next)
   }
 
   function answerCard(knewIt: boolean) {
     setDrill((current) => {
       if (!current) return current
-      const entry = current.queue[current.index]
-      saveWord(applyRecall(entry, knewIt, getSettings().demoMode, now()))
+      const next = recordDrillAnswer(current, knewIt)
       setVersion((value) => value + 1)
-      return {
-        ...current,
-        index: current.index + 1,
-        revealed: false,
-        knew: current.knew + (knewIt ? 1 : 0),
-      }
+      return next
     })
   }
 
   function forget(entry: WordBankEntry) {
     removeWord(entry.id)
     setVersion((value) => value + 1)
+  }
+
+  if (drill && isDrillFinished(drill)) {
+    return (
+      <section className="wordbank wordbank--drill" aria-label="Word drill complete">
+        <div className="wordbank__card wordbank__card--done">
+          <p className="wordbank__eyebrow">DRILL COMPLETE</p>
+          <h1>
+            {drill.knew} of {drill.queue.length} recalled.
+          </h1>
+          <p className="wordbank__lede">
+            The ones you knew move a rung up the ladder. The rest come back tomorrow.
+          </p>
+          <button
+            className="console-button console-button--primary"
+            type="button"
+            onClick={() => setDrill(null)}
+          >
+            Back to the word bank
+          </button>
+        </div>
+      </section>
+    )
   }
 
   if (drill) {
@@ -210,91 +223,6 @@ export function WordBank({ onBack }: WordBankProps) {
           })}
         </ol>
       )}
-    </section>
-  )
-}
-
-function WordDrill({
-  drill,
-  onReveal,
-  onAnswer,
-  onExit,
-}: {
-  drill: Drill
-  onReveal: () => void
-  onAnswer: (knewIt: boolean) => void
-  onExit: () => void
-}) {
-  const finished = drill.index >= drill.queue.length
-
-  if (finished) {
-    return (
-      <section className="wordbank wordbank--drill" aria-label="Word drill complete">
-        <div className="wordbank__card wordbank__card--done">
-          <p className="wordbank__eyebrow">DRILL COMPLETE</p>
-          <h1>
-            {drill.knew} of {drill.queue.length} recalled.
-          </h1>
-          <p className="wordbank__lede">
-            The ones you knew move a rung up the ladder. The rest come back tomorrow.
-          </p>
-          <button className="console-button console-button--primary" type="button" onClick={onExit}>
-            Back to the word bank
-          </button>
-        </div>
-      </section>
-    )
-  }
-
-  const entry = drill.queue[drill.index]
-
-  return (
-    <section className="wordbank wordbank--drill" aria-label="Word flashcards">
-      <button className="wordbank__back" type="button" onClick={onExit}>
-        <ArrowLeft aria-hidden="true" />
-        Leave the drill
-      </button>
-      <p className="wordbank__progress">
-        Card {drill.index + 1} of {drill.queue.length}
-      </p>
-
-      <div className="wordbank__card">
-        {/* The sentence the word was met in, with the word cut out: recall runs
-            from context, the way the test will ask for it. */}
-        <q className="wordbank__cloze">{clozeSentence(entry)}</q>
-
-        {drill.revealed ? (
-          <>
-            <strong className="wordbank__prompt">{entry.word}</strong>
-            <p className="wordbank__answer">
-              <em>{entry.partOfSpeech}</em> {entry.definition}
-            </p>
-            <div className="wordbank__verdict">
-              <button
-                className="console-button console-button--secondary"
-                type="button"
-                onClick={() => onAnswer(false)}
-              >
-                Didn’t know it
-              </button>
-              <button
-                className="console-button console-button--primary"
-                type="button"
-                onClick={() => onAnswer(true)}
-              >
-                Knew it
-              </button>
-            </div>
-          </>
-        ) : (
-          <>
-            <p className="wordbank__ask">Which word goes here, and what does it mean?</p>
-            <button className="console-button console-button--primary" type="button" onClick={onReveal}>
-              Show the word
-            </button>
-          </>
-        )}
-      </div>
     </section>
   )
 }

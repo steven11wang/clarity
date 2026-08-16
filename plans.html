@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Plans · Clarity 清</title>
+<meta name="description" content="Two plans for Clarity, both opening with a 3 day free trial: Pro at $79 a month, Pro Max at $668 a month with Ivy League student tutoring. The full question bank, timed practice exams and the return loop that brings your misses back." />
+<meta name="theme-color" content="#F2EEE3" />
+<meta property="og:title" content="Plans · Clarity 清" />
+<meta property="og:description" content="Pro at $79 a month, Pro Max at $668 a month. Three days free on either one." />
+<!-- DEPLOY STEP: absolute URLs, patched at deploy -->
+<meta property="og:image" content="https://satclarity.com/og.png" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://satclarity.com/plans" />
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23B3382B'/%3E%3Cg fill='none' stroke='%23F7F1E6' stroke-width='2.6'%3E%3Crect x='6' y='6' width='20' height='20'/%3E%3Crect x='13' y='13' width='6' height='6'/%3E%3C/g%3E%3C/svg%3E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Instrument+Sans:wght@400;500&family=JetBrains+Mono:wght@500&family=Noto+Serif+SC:wght@300&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================================
+   Clarity · plans
+   Same paper, same ink, same one accent as the landing page. A price list is a
+   reading task, so this page is set as a ruled sheet: three columns, hairlines
+   instead of boxes, and no card ever lifts off the paper.
+   ========================================================================== */
+
+:root{
+  --paper:       #F2EEE3;
+  --paper-lift:  #F7F4EC;
+  --paper-deep:  #E7E0D0;
+
+  --ink:     #14110C;
+  --ink-80:  rgba(20,17,12,.80);
+  --ink-58:  rgba(20,17,12,.58);
+  --ink-38:  rgba(20,17,12,.38);
+  --ink-18:  rgba(20,17,12,.18);
+  --ink-10:  rgba(20,17,12,.10);
+
+  /* 青铜 - the fusion note, shared with the landing page */
+  --patina:      #3F7D72;
+  --patina-soft: rgba(63,125,114,.22);
+  --bronze:      #9A7B3F;
+  --bronze-soft: rgba(154,123,63,.20);
+  --thread: #4A6B8A;
+
+  --cinnabar: #B3382B;
+
+  --ease: cubic-bezier(.16,1,.3,1);
+  --gutter: clamp(20px, 4.4vw, 78px);
+  --max: 1560px;
+  --radius: 0px;
+}
+
+*{box-sizing:border-box}
+html{ -webkit-text-size-adjust:100%; scroll-behavior:smooth }
+
+body{
+  margin:0; min-width:320px; overflow-x:hidden;
+  background:var(--paper); color:var(--ink);
+  font-family:'Instrument Sans',system-ui,-apple-system,sans-serif;
+  font-size:16px; line-height:1.62; font-weight:400;
+  -webkit-font-smoothing:antialiased;
+}
+body::after{
+  content:''; position:fixed; inset:0; z-index:80; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.075; mix-blend-mode:multiply;
+}
+
+a{color:inherit; text-decoration:none}
+img{display:block; max-width:100%}
+:focus-visible{outline:2px solid var(--cinnabar); outline-offset:4px}
+
+.wrap{max-width:var(--max); margin-inline:auto; padding-inline:var(--gutter)}
+
+.skip{
+  position:absolute; left:-9999px; top:0; z-index:200;
+  background:var(--ink); color:var(--paper-lift); padding:12px 18px;
+  font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.2em;
+}
+.skip:focus{left:0}
+
+.mono{
+  font-family:'JetBrains Mono',ui-monospace,monospace;
+  font-size:11px; font-weight:500; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--ink-58);
+}
+.zh{ font-family:'Noto Serif SC',serif; font-weight:300 }
+.lede{
+  font-size:clamp(16px,1.15vw,18.5px); line-height:1.6;
+  color:var(--ink-80); max-width:44ch; margin:0;
+}
+.seal{display:inline-block; width:1.55em; height:1.55em; vertical-align:-.28em}
+
+/* ---- masthead: identical to the landing page, one line, 64px -------------- */
+.masthead{
+  position:sticky; top:0; z-index:60;
+  height:64px; display:flex; align-items:center;
+  background:linear-gradient(180deg,var(--paper) 62%,rgba(242,238,227,0));
+}
+.masthead .wrap{
+  display:grid; grid-template-columns:1fr auto 1fr; align-items:center; width:100%;
+}
+.masthead-left{
+  display:flex; align-items:center; gap:clamp(18px,2.4vw,38px); justify-self:start;
+}
+.masthead-left a,
+.masthead-right .masthead-link{
+  position:relative;
+  font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--ink-58);
+  transition:color .25s var(--ease);
+}
+.masthead-left a::after,
+.masthead-right .masthead-link::after{
+  content:''; position:absolute; left:0; right:0; bottom:-6px; height:1px;
+  background:var(--bronze); transform:scaleX(0); transform-origin:left;
+  transition:transform .4s var(--ease);
+}
+.masthead-left a:hover,
+.masthead-right .masthead-link:hover,
+.masthead-right .masthead-link[aria-current]{
+  color:var(--ink);
+}
+.masthead-left a:hover::after,
+.masthead-right .masthead-link:hover::after,
+.masthead-right .masthead-link[aria-current]::after{
+  transform:scaleX(1);
+}
+.masthead .brandmark{
+  justify-self:center;
+  display:flex; align-items:center; gap:10px;
+  font-family:'JetBrains Mono',monospace; font-size:12px;
+  letter-spacing:.26em; text-transform:uppercase; font-weight:500;
+}
+.brandmark .seal{width:15px; height:15px}
+.masthead-right{
+  display:flex; align-items:center; gap:clamp(16px,2.2vw,32px); justify-self:end;
+}
+.masthead .cta{
+  padding:9px clamp(16px,1.5vw,22px);
+  border:1px solid var(--ink);
+  font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500;
+  letter-spacing:.22em; text-transform:uppercase; white-space:nowrap;
+  transition:background .3s var(--ease), color .3s var(--ease);
+}
+.masthead .cta:hover{background:var(--ink); color:var(--paper-lift)}
+@media (max-width:640px){
+  .masthead .wrap{display:flex; justify-content:space-between}
+  .masthead-left{display:none}
+  .masthead .brandmark{justify-self:auto}
+  .masthead-right .masthead-link{display:none}
+  .masthead-right{margin-left:auto}
+}
+
+/* ---- header band: the same painting, held back to a whisper --------------- */
+.head{
+  position:relative; isolation:isolate;
+  padding:clamp(48px,9vh,110px) 0 clamp(44px,8vh,96px);
+  border-bottom:1px solid var(--ink-18);
+  overflow:hidden;
+}
+.head-art{
+  position:absolute; inset:0 0 0 auto; z-index:0; width:min(52%,780px); margin:0;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 62%);
+          mask-image:linear-gradient(90deg,transparent 0,#000 62%);
+}
+.head-art img{width:100%; height:100%; object-fit:cover; object-position:center bottom; opacity:.5}
+.head .wrap{position:relative; z-index:2}
+.head-eyebrow{display:flex; align-items:center; gap:14px; margin:0 0 clamp(18px,3vh,30px)}
+.head-eyebrow::after{content:''; height:1px; width:clamp(40px,7vw,92px); background:var(--ink-18)}
+.head h1{
+  font-family:'Cormorant Garamond',Georgia,serif; font-weight:300;
+  text-transform:uppercase; line-height:.9; letter-spacing:.004em;
+  font-size:clamp(48px,8vw,124px); margin:0 0 clamp(20px,3vh,30px);
+}
+.head .zh{
+  margin:16px 0 0; font-family:'Noto Serif SC',serif; font-weight:300;
+  font-size:clamp(14px,1.05vw,16px); letter-spacing:.22em; color:var(--ink-58);
+}
+@media (max-width:820px){ .head-art{width:78%; opacity:.7} }
+
+/* ---- the three plans: a ruled sheet, not three floating cards ------------- */
+.plans{padding-block:clamp(10px,2vh,24px) clamp(60px,10vh,120px)}
+.plan-grid{
+  display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+  max-width:1120px; margin-inline:auto;
+}
+/* the trial is the offer, so it is stated once, loudly, above the sheet */
+.trial{
+  display:flex; align-items:center; justify-content:center; gap:14px;
+  padding:14px 20px; margin:0 auto clamp(24px,4vh,44px);
+  max-width:1120px;
+  border-top:1px solid var(--ink-18); border-bottom:1px solid var(--ink-18);
+  font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--ink-80);
+  text-align:center; flex-wrap:wrap;
+}
+.trial b{color:var(--cinnabar); font-weight:500}
+.plan-save{
+  display:inline-block; margin-left:10px; padding:4px 9px;
+  background:var(--patina-soft); color:var(--patina);
+  font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:500;
+  letter-spacing:.14em; text-transform:uppercase; vertical-align:3px;
+}
+.plan{
+  display:flex; flex-direction:column;
+  padding:clamp(30px,3.4vw,52px) clamp(20px,2.2vw,38px) clamp(28px,3vw,42px);
+}
+.plan + .plan{border-left:1px solid var(--ink-10)}
+/* the middle column is the one most people want, so it sits on lifted paper
+   instead of wearing a badge */
+.plan--lift{background:var(--paper-lift)}
+
+.plan-name{display:flex; align-items:baseline; gap:12px; margin:0}
+.plan-name .zh{font-size:clamp(16px,1.3vw,20px); letter-spacing:.12em; color:var(--ink-38)}
+.plan-price{
+  display:flex; align-items:baseline; gap:10px;
+  margin:clamp(18px,2.6vh,28px) 0 clamp(6px,1vh,10px);
+}
+.plan-price b{
+  font-family:'Cormorant Garamond',Georgia,serif; font-weight:400;
+  font-size:clamp(52px,5.4vw,84px); line-height:.86; letter-spacing:-.01em;
+}
+.plan-price span{
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--ink-58);
+}
+.plan-line{
+  margin:0 0 clamp(24px,3.4vh,34px); padding-bottom:clamp(22px,3vh,30px);
+  border-bottom:1px solid var(--ink-18);
+  font-size:14.5px; line-height:1.6; color:var(--ink-58); max-width:34ch;
+}
+.plan-list{margin:0; padding:0; list-style:none; display:grid; gap:clamp(12px,1.8vh,16px)}
+.plan-list li{
+  position:relative; padding-left:22px;
+  font-size:14.5px; line-height:1.58; color:var(--ink-80);
+}
+/* a ruled tick, drawn as a rotated corner: the page owns no icon set */
+.plan-list li::before{
+  content:''; position:absolute; left:0; top:.44em;
+  width:9px; height:5px; border-left:1.5px solid var(--ink-38);
+  border-bottom:1.5px solid var(--ink-38); transform:rotate(-45deg);
+}
+.plan-list li b{font-weight:500; color:var(--ink)}
+
+.plan .enter{
+  --pad:15px;
+  margin-top:auto; padding-top:clamp(30px,4vh,44px);
+}
+/* no motion on this page either: hover is a straight ink-to-cinnabar swap */
+.plan-cta{
+  display:inline-flex; align-items:center; justify-content:center; gap:14px;
+  width:100%; padding:16px clamp(20px,2vw,30px);
+  border:1px solid var(--ink);
+  font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:500;
+  letter-spacing:.26em; text-transform:uppercase; white-space:nowrap;
+}
+.plan-cta--solid{color:var(--paper-lift); background:var(--ink)}
+.plan-cta:hover,.plan-cta:focus-visible{
+  background:var(--cinnabar); border-color:var(--cinnabar); color:var(--paper-lift);
+}
+.plan-cta i{font-style:normal}
+.plan-foot{margin:14px 0 0; font-size:12.5px; color:var(--ink-38)}
+
+@media (max-width:900px){
+  .plan-grid{grid-template-columns:1fr}
+  .trial{letter-spacing:.14em; font-size:10.5px}
+  .plan{padding-inline:0}
+  .plan + .plan{border-left:0; border-top:1px solid var(--ink-18)}
+  .plan--lift{padding-inline:clamp(18px,4vw,28px)}
+  .plan-list{max-width:52ch}
+}
+
+/* ---- the note under the sheet -------------------------------------------- */
+.note{
+  border-top:1px solid var(--ink-10); background:var(--paper-lift);
+  padding-block:clamp(34px,5vh,56px);
+}
+.note .wrap{display:grid; grid-template-columns:1fr auto; gap:clamp(20px,4vw,60px); align-items:center}
+.note p{margin:0; font-size:14.5px; color:var(--ink-58); max-width:62ch}
+.note a{border-bottom:1px solid var(--ink-18); color:var(--ink-80)}
+.note a:hover{border-color:var(--cinnabar); color:var(--cinnabar)}
+@media (max-width:720px){ .note .wrap{grid-template-columns:1fr} }
+
+/* ---- foot ---------------------------------------------------------------- */
+.foot{
+  border-top:1px solid var(--ink-18);
+  padding-block:clamp(40px,6vh,72px) clamp(30px,5vh,52px);
+  background:var(--paper); isolation:isolate;
+}
+.foot .wrap{display:grid; grid-template-columns:1fr auto; gap:clamp(28px,5vw,80px); align-items:end}
+.foot-org{display:grid; gap:16px; justify-items:start}
+.foot-org img{
+  width:clamp(148px,15vw,210px); height:auto;
+  mix-blend-mode:darken; filter:grayscale(1) contrast(1.1);
+  opacity:.9; transition:filter .4s var(--ease), opacity .4s var(--ease);
+}
+.foot-org a:hover img{filter:none; opacity:1}
+.foot-org p{margin:0; font-size:13.5px; color:var(--ink-58); max-width:40ch}
+.foot-links{display:flex; flex-direction:column; align-items:flex-end; text-align:right; margin-block:-11px}
+.foot-links a{
+  padding-block:11px;
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--ink-58);
+  transition:color .25s var(--ease);
+}
+.foot-links a:hover{color:var(--cinnabar)}
+@media (max-width:720px){
+  .foot .wrap{grid-template-columns:1fr}
+  .foot-links{align-items:flex-start; text-align:left}
+  .foot-links a{padding-block:13px}
+}
+
+/* no entrances: the sheet is on the paper the moment it loads */
+</style>
+</head>
+
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <symbol id="seal" viewBox="0 0 32 32">
+    <rect width="32" height="32" fill="#B3382B"/>
+    <g fill="none" stroke="#F7F1E6" stroke-width="2.6">
+      <rect x="6" y="6" width="20" height="20"/>
+      <rect x="13" y="13" width="6" height="6"/>
+    </g>
+  </symbol>
+</svg>
+
+<header class="masthead">
+  <div class="wrap">
+    <nav class="masthead-left" aria-label="Secondary">
+      <a href="https://github.com/wresearch" target="_blank" rel="noopener noreferrer">wresearch</a>
+      <a href="/#features">Features</a>
+    </nav>
+    <a class="brandmark" href="/">Clarity <svg class="seal" aria-hidden="true"><use href="#seal"/></svg></a>
+    <div class="masthead-right">
+      <a class="masthead-link" href="/plans" aria-current="page">Plans</a>
+      <a class="cta" href="/app">Get started</a>
+    </div>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+
+  <section class="head">
+    <figure class="head-art">
+      <img src="/brand/landing/hero-shanshui.jpg" width="1122" height="1402" fetchpriority="high"
+           alt="Ink landscape: a river winding out of the mist between pine ridges." />
+    </figure>
+    <div class="wrap">
+      <p class="mono head-eyebrow">Plans</p>
+      <h1>Start where<br />you are</h1>
+      <p class="lede">Both plans run the same loop. What changes is how long you need it for. Three days free on either one, then you decide.</p>
+      <p class="zh">先自悟，后见解。</p>
+    </div>
+  </section>
+
+  <section class="plans">
+    <div class="wrap">
+
+      <p class="trial"><span>Both plans open with a</span> <b>3 day free trial</b> <span>· cancel inside the app before day three and you are not charged</span></p>
+
+      <div class="plan-grid">
+
+        <article class="plan plan--lift">
+          <h2 class="plan-name">Pro <span class="zh">进阶</span></h2>
+          <p class="plan-price"><b>$79</b> <span>Per month, after the trial</span></p>
+          <p class="plan-line">For the season when a test date is actually on the calendar.</p>
+          <ul class="plan-list">
+            <li>The <b>paced path</b> through every domain and skill</li>
+            <li>The <b>full question bank</b>, not a sample set</li>
+            <li>Full length practice exams, timed the way the real one is</li>
+            <li>The <b>return loop</b>: misses rescheduled on the forgetting curve</li>
+            <li>Dictionary lookups saved with the sentence that taught them</li>
+            <li>Your error log, timed mode and score tracking</li>
+          </ul>
+          <p class="enter">
+            <a class="plan-cta plan-cta--solid" href="https://buy.stripe.com/7sYbJ1cko0dWalHakz1Jm00">Start 3 day trial <i>&rarr;</i></a>
+          </p>
+          <p class="plan-foot">Month to month. Stop the month your test is done.</p>
+        </article>
+
+        <article class="plan">
+          <h2 class="plan-name">Pro Max <span class="zh">臻享</span></h2>
+          <p class="plan-price"><b>$668</b> <span>Per month, after the trial</span></p>
+          <p class="plan-line">For intensive 1-on-1 preparation with Ivy League student mentors.</p>
+          <ul class="plan-list">
+            <li>Everything in Pro</li>
+            <li><b>Ivy League college student tutoring</b> and 1-on-1 strategy sessions</li>
+            <li>Personalized study roadmaps and weekly check-ins</li>
+            <li>Every exam in the library, as each one is added</li>
+            <li><b>Adaptive drills</b> built from your own error log</li>
+            <li>Word bank export and priority expert support</li>
+          </ul>
+          <p class="enter">
+            <a class="plan-cta" href="https://buy.stripe.com/dRmbJ10BG3q88dz2S71Jm03">Start 3 day trial <i>&rarr;</i></a>
+          </p>
+          <p class="plan-foot">Month to month. Cancel or change plans anytime.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="note">
+    <div class="wrap">
+      <p>Not sure which one you need? Take the trial on Pro and run a section. The dashboard will show you where the misses cluster, and you can upgrade to Pro Max anytime for 1-on-1 tutoring. <a href="/#features">See what is in it</a>.</p>
+      <svg class="seal" aria-hidden="true" style="width:15px;height:15px"><use href="#seal"/></svg>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-org">
+      <a href="https://github.com/wresearch" aria-label="wresearch">
+        <img src="/brand/landing/wresearch.jpg" width="640" height="320" loading="lazy" alt="wresearch" />
+      </a>
+      <p>Clarity is built at wresearch.</p>
+    </div>
+    <div class="foot-links">
+      <a href="/">Landing</a>
+      <a href="/app">Get started</a>
+      <a href="https://github.com/wresearch/clarity">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -6,6 +6,12 @@ import {
 } from './components/Adaptive/AdaptiveExperience.tsx'
 import type { BatchAnswers } from './components/Adaptive/BatchQuiz.tsx'
 import { Dashboard } from './components/Dashboard/Dashboard.tsx'
+import {
+  DailyBriefing,
+  DailyDone,
+  DailyReturnPill,
+  DailyWords,
+} from './components/DailyReview/DailyReview.tsx'
 import { PracticeExamPanel } from './components/Exam/PracticeExamPanel.tsx'
 import { Library } from './components/Library/Library.tsx'
 import { MistakeVault } from './components/Review/MistakeVault.tsx'
@@ -17,18 +23,30 @@ import { SessionSummary } from './components/SessionSummary/SessionSummary.tsx'
 import { loadQuestions } from './data/questions.ts'
 import { normalizeProgression, type ProgressionState } from './progression/model.ts'
 import { buildTaxonomy } from './progression/questions.ts'
+import {
+  buildDailyPlan,
+  completeDay,
+  liveStreak,
+  markPrompted,
+  shouldPrompt,
+  type DailyPlan,
+  type DailyState,
+} from './review/daily.ts'
 import { applyReview, isClean, scheduleMistake } from './review/schedule.ts'
 import { buildStream, type StreamItem } from './review/stream.ts'
 import {
   advanceClock,
   clearAll,
   getActiveView,
+  getDailyState,
   getProgression,
   getReview,
   getReviews,
   getSettings,
+  getWordBankEntries,
   now,
   recordAttempt,
+  saveDailyState,
   saveProgression,
   saveReview,
   setActiveView,
@@ -68,6 +86,12 @@ function isView(value: unknown): value is View {
 
 type SessionPhase = 'answer' | 'review-intro' | 'review' | 'summary'
 
+type DailyPhase = 'hidden' | 'briefing' | 'words' | 'done'
+
+// What the current daily run promised, so the closing card can report on it
+// after the queue itself has moved on.
+type DailyRun = { questions: number; wordsTotal: number; wordsKnew: number }
+
 function App() {
   const [questions, setQuestions] = useState<Question[]>([])
   const [loadState, setLoadState] = useState<LoadState>('loading')
@@ -96,6 +120,11 @@ function App() {
   const [timedMode, setTimedModeState] = useState(false)
   const [timeLimitSec, setTimeLimitState] = useState(90)
   const [reviewsVersion, setReviewsVersion] = useState(0)
+
+  // The daily return: one briefing per day, then questions, then words.
+  const [dailyPhase, setDailyPhase] = useState<DailyPhase>('hidden')
+  const [dailyState, setDailyStateValue] = useState<DailyState>(() => getDailyState())
+  const [dailyRun, setDailyRun] = useState<DailyRun | null>(null)
 
   useEffect(() => {
     const s = getSettings()
@@ -132,6 +161,61 @@ function App() {
       ).length,
     [reviewSnapshot],
   )
+
+  // Everything the ladder owes today, on both tracks, grouped by how long each
+  // item has been away.
+  const dailyPlan = useMemo<DailyPlan>(
+    () =>
+      buildDailyPlan(
+        questions,
+        reviewSnapshot.reviews,
+        getWordBankEntries(),
+        reviewSnapshot.at,
+        demoMode,
+      ),
+    [questions, reviewSnapshot, demoMode],
+  )
+
+  // Fires once per day, and only when the day actually owes something. Marking
+  // the prompt before showing it means "Not now" is respected until tomorrow.
+  useEffect(() => {
+    if (loadState !== 'ready') return
+    if (dailyPhase !== 'hidden' || dailyRun) return
+    if (!shouldPrompt(dailyState, dailyPlan)) return
+    const next = markPrompted(dailyState, dailyPlan.day)
+    saveDailyState(next)
+    setDailyStateValue(next)
+    setDailyPhase('briefing')
+  }, [loadState, dailyPhase, dailyRun, dailyState, dailyPlan])
+
+  function startDailyReturn() {
+    setDailyRun({
+      questions: dailyPlan.questions.length,
+      wordsTotal: dailyPlan.words.length,
+      wordsKnew: 0,
+    })
+    if (dailyPlan.questions.length > 0) {
+      setDailyPhase('hidden')
+      startSession(dailyPlan.questions)
+    } else {
+      setDailyPhase('words')
+    }
+  }
+
+  function finishDailyReturn(wordsKnew: number) {
+    const next = completeDay(dailyState, dailyPlan.day)
+    saveDailyState(next)
+    setDailyStateValue(next)
+    setDailyRun((run) => (run ? { ...run, wordsKnew } : run))
+    setDailyPhase('done')
+    setReviewsVersion((version) => version + 1)
+  }
+
+  function leaveDailyReturn() {
+    setDailyPhase('hidden')
+    setDailyRun(null)
+    setView('adaptive')
+  }
 
   function startSession(subset: Question[]) {
     setStream(buildStream(subset, getReviews(), now()))
@@ -348,6 +432,60 @@ function App() {
     </div>
   )
 
+  // Step two of the daily return, and its closing card. Both are full
+  // activities rather than modals - only the briefing interrupts.
+  if (dailyPhase === 'words') {
+    return (
+      <>
+        <DailyWords
+          plan={dailyPlan}
+          onFinish={finishDailyReturn}
+          onLeave={leaveDailyReturn}
+        />
+        {devBar}
+      </>
+    )
+  }
+
+  if (dailyPhase === 'done') {
+    return (
+      <>
+        <DailyDone
+          questionsCleared={dailyRun?.questions ?? 0}
+          wordsRecalled={dailyRun?.wordsKnew ?? 0}
+          wordsTotal={dailyRun?.wordsTotal ?? 0}
+          streak={dailyState.streak}
+          onClose={leaveDailyReturn}
+        />
+        {devBar}
+      </>
+    )
+  }
+
+  const dailyOverlay = (
+    <>
+      {dailyPhase === 'briefing' && (
+        <DailyBriefing
+          plan={dailyPlan}
+          at={reviewSnapshot.at}
+          streak={liveStreak(dailyState, dailyPlan.day)}
+          onStart={startDailyReturn}
+          onDismiss={() => setDailyPhase('hidden')}
+        />
+      )}
+      {dailyPhase === 'hidden' &&
+        !dailyRun &&
+        view !== 'practice' &&
+        dailyPlan.total > 0 &&
+        dailyState.lastCompletedDay !== dailyPlan.day && (
+          <DailyReturnPill
+            count={dailyPlan.total}
+            onOpen={() => setDailyPhase('briefing')}
+          />
+        )}
+    </>
+  )
+
   if (view !== 'practice') {
     const primaryView =
       view === 'lessons'
@@ -416,6 +554,7 @@ function App() {
           onRecordAnswers={recordAdaptiveAnswers}
           onRecordReview={recordAdaptiveReview}
         />
+        {dailyOverlay}
         {devBar}
       </>
     )
@@ -424,12 +563,29 @@ function App() {
   // --- Practice (two-pass) --------------------------------------------------
 
   if (sessionPhase === 'summary') {
+    // Mid-run during a daily return, the summary is a landing, not an ending:
+    // the words saved alongside these questions are still waiting.
+    const wordsLeft = dailyRun?.wordsTotal ?? 0
+    const daily = dailyRun
+      ? wordsLeft > 0
+        ? {
+            label: `Next: ${wordsLeft} ${wordsLeft === 1 ? 'word' : 'words'} from your bank`,
+            action: () => {
+              setView('adaptive')
+              setDailyPhase('words')
+            },
+          }
+        : { label: 'Finish today’s return', action: () => finishDailyReturn(0) }
+      : null
+
     return (
       <>
         <SessionSummary
           attempts={sessionAttempts}
           onPracticeMore={() => setView('browse')}
           onDashboard={() => setView('adaptive')}
+          continueLabel={daily?.label}
+          onContinue={daily?.action}
         />
         {devBar}
       </>

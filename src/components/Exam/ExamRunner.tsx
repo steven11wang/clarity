@@ -16,6 +16,7 @@ import { ExamFigure } from './ExamFigure.tsx'
 import { ExamPassage } from './ExamPassage.tsx'
 import { ExamTable } from './ExamTable.tsx'
 import { LookupText } from '../../dictionary/LookupText.tsx'
+import { resolveChoiceContext } from '../../dictionary/context.ts'
 import { WordLookupPopover } from './WordLookupPopover.tsx'
 import {
   formatClock,
@@ -729,6 +730,13 @@ export function ExamRunner({
                         onLookup={(request) =>
                           wordLookup.open({
                             ...request,
+                            sentence: resolveChoiceContext({
+                              choiceText: choice.text,
+                              word: request.word,
+                              requestSentence: request.sentence,
+                              passage: question.passage,
+                              prompt: question.stem,
+                            }),
                             source: { examId: exam.id, questionId: question.id },
                           })
                         }

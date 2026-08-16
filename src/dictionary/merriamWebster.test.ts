@@ -5,6 +5,7 @@ import {
   entryMatches,
   isMissPayload,
   parseMerriamWebster,
+  parseThesaurusSynonyms,
   stripMarkup,
 } from './merriamWebster.ts'
 
@@ -133,6 +134,47 @@ describe('entryMatches', () => {
   it('rejects a near-miss entry for a different word', () => {
     assert.equal(entryMatches(TEMPER[0], 'temperature'), false)
     assert.equal(entryMatches('temperance', 'temper'), false)
+  })
+})
+
+// Trimmed from the live Intermediate Thesaurus response for "onset".
+const ONSET_THESAURUS = [
+  {
+    meta: {
+      id: 'onset',
+      stems: ['onset', 'onsets'],
+      syns: [
+        [
+          'aggression', 'assault', 'attack', 'blitzkrieg', 'charge', 'descent',
+          'offense', 'offensive', 'onslaught', 'raid', 'rush', 'strike',
+        ],
+        [
+          'alpha', 'beginning', 'birth', 'commencement', 'dawn', 'genesis',
+          'inception', 'incipiency', 'launch', 'morning', 'outset', 'start', 'threshold',
+        ],
+      ],
+      ants: [['close', 'conclusion', 'end', 'ending']],
+    },
+    fl: 'noun',
+  },
+]
+
+describe('parseThesaurusSynonyms', () => {
+  it('flattens every sense cluster into one capped list per part of speech', () => {
+    const synonyms = parseThesaurusSynonyms(ONSET_THESAURUS, 'onset')
+    assert.deepEqual(synonyms.noun, [
+      'aggression', 'assault', 'attack', 'blitzkrieg', 'charge', 'descent', 'offense', 'offensive',
+    ])
+  })
+
+  it('answers no entry for a part of speech the word has none for', () => {
+    const synonyms = parseThesaurusSynonyms(ONSET_THESAURUS, 'onset')
+    assert.equal(synonyms.verb, undefined)
+  })
+
+  it('reports nothing for a miss payload or a near-miss entry', () => {
+    assert.deepEqual(parseThesaurusSynonyms(['onsett', 'unset'], 'onset'), {})
+    assert.deepEqual(parseThesaurusSynonyms(ONSET_THESAURUS, 'inset'), {})
   })
 })
 

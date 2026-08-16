@@ -2,7 +2,7 @@
 // show Merriam-Webster definitions without ever holding an API key.
 //
 //   node --env-file-if-exists=.env.local tools/build-dictionary.mjs
-//   node --env-file-if-exists=.env.local tools/build-dictionary.mjs --budget=200
+//   node --env-file-if-exists=.env.local tools/build-dictionary.mjs --budget=200 --synBudget=200
 //
 // Merriam-Webster's free tier allows 1000 lookups per key per day and the
 // corpus runs to several thousand words, so this is written to be run again and
@@ -11,15 +11,26 @@
 // test-taker actually taps; anything not yet baked still resolves through the
 // live fallback in src/dictionary/lookup.ts.
 //
+// Synonyms are a second, independent pass over words the dictionary pass
+// above already resolved: the Thesaurus is a different MW product with its
+// own daily quota, so it is fetched, budgeted, and can fail separately from
+// the definitions themselves.
+//
 // Keys come from .env.local and stay on this machine:
-//   MERRIAM_WEBSTER_LEARNERS_KEY   - learners' dictionary, the plain-English one
-//   MERRIAM_WEBSTER_COLLEGIATE_KEY - collegiate, for words the learners' lacks
+//   MERRIAM_WEBSTER_LEARNERS_KEY                - learners' dictionary, the plain-English one
+//   MERRIAM_WEBSTER_COLLEGIATE_KEY               - collegiate, for words the learners' lacks
+//   MERRIAM_WEBSTER_INTERMEDIATE_THESAURUS_KEY   - optional; powers "Synonyms of ___"
+//   MERRIAM_WEBSTER_COLLEGIATE_THESAURUS_KEY     - optional; covers the intermediate's gaps
 
 import { readFile, readdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 
 import { normalizeWord } from '../src/dictionary/lookup.ts'
-import { isMissPayload, parseMerriamWebster } from '../src/dictionary/merriamWebster.ts'
+import {
+  isMissPayload,
+  parseMerriamWebster,
+  parseThesaurusSynonyms,
+} from '../src/dictionary/merriamWebster.ts'
 
 const ROOT = path.resolve(import.meta.dirname, '..')
 const DATA_DIR = path.join(ROOT, 'public', 'data')
@@ -45,8 +56,11 @@ function readFlag(name, fallback) {
 }
 
 const budget = Number(readFlag('budget', DEFAULT_BUDGET))
+const synBudget = Number(readFlag('synBudget', DEFAULT_BUDGET))
 const learnersKey = process.env.MERRIAM_WEBSTER_LEARNERS_KEY?.trim()
 const collegiateKey = process.env.MERRIAM_WEBSTER_COLLEGIATE_KEY?.trim()
+const intermediateThesaurusKey = process.env.MERRIAM_WEBSTER_INTERMEDIATE_THESAURUS_KEY?.trim()
+const collegiateThesaurusKey = process.env.MERRIAM_WEBSTER_COLLEGIATE_THESAURUS_KEY?.trim()
 
 // --- Corpus ------------------------------------------------------------------
 
@@ -144,6 +158,24 @@ async function defineWord(word) {
   return collegiate ? { senses: collegiate, reference: 'collegiate' } : null
 }
 
+async function lookupThesaurusReference(reference, key, word) {
+  const url = `${MW_BASE}/${reference}/json/${encodeURIComponent(word)}?key=${key}`
+  const payload = await getJson(url, `Merriam-Webster ${reference}`)
+  if (isMissPayload(payload)) return null
+  const synonyms = parseThesaurusSynonyms(payload, word)
+  return Object.keys(synonyms).length > 0 ? synonyms : null
+}
+
+/** Same shape as defineWord: the intermediate thesaurus first, collegiate for its gaps. */
+async function defineSynonyms(word) {
+  if (intermediateThesaurusKey) {
+    const intermediate = await lookupThesaurusReference('ithesaurus', intermediateThesaurusKey, word)
+    if (intermediate) return intermediate
+  }
+  if (!collegiateThesaurusKey) return null
+  return lookupThesaurusReference('thesaurus', collegiateThesaurusKey, word)
+}
+
 // --- Shaping -----------------------------------------------------------------
 
 /** Tuples rather than objects: the same data, roughly half the bytes. */
@@ -225,23 +257,71 @@ async function main() {
     }
   })
 
-  baked.generatedAt = new Date().toISOString()
-  baked.source = "Merriam-Webster's Learner's and Collegiate Dictionaries (dictionaryapi.com)"
-  await writeFile(OUT_FILE, JSON.stringify(baked), 'utf8')
-
   const total = Object.keys(baked.words).length
-  const bytes = JSON.stringify(baked).length
   console.log(
-    `Wrote ${path.relative(ROOT, OUT_FILE)}: +${found} defined, +${missing} not in either dictionary.\n` +
-    `  ${total} of ${counts.size} corpus words resolved, ${(bytes / 1024 / 1024).toFixed(2)} MB.`,
+    `Definitions: +${found} defined, +${missing} not in either dictionary. ` +
+    `${total} of ${counts.size} corpus words resolved.`,
   )
-
   if (failure) {
-    console.error(`\nStopped early: ${failure.message}`)
-    console.error('Progress above is saved. Re-run tomorrow to continue.')
-    process.exitCode = 1
+    console.error(`Stopped early: ${failure.message}`)
   } else if (total < counts.size) {
     console.log(`  ${counts.size - total} still to go - re-run after the daily quota resets.`)
+  }
+
+  // --- Synonyms: a second, independent pass -----------------------------------
+  // Runs over words the dictionary already has a definition for - including
+  // ones just defined above - regardless of whether the pass above finished
+  // early, since it draws on an entirely separate MW product and quota.
+
+  let synFound = 0
+  let synMissing = 0
+  let synFailure = null
+
+  if (!intermediateThesaurusKey && !collegiateThesaurusKey) {
+    console.log('\nNo thesaurus key set - skipping synonyms. See .env.example to add one.')
+  } else {
+    const synPending = Object.keys(baked.words)
+      .filter((word) => baked.words[word] && !baked.words[word].y)
+      .sort((a, b) => (counts.get(b) ?? 0) - (counts.get(a) ?? 0) || a.localeCompare(b))
+
+    const synBatch = synPending.slice(0, synBudget)
+    console.log(`\nSynonyms: looking up ${synBatch.length} of ${synPending.length} pending (budget ${synBudget})…`)
+
+    await pooled(synBatch, async (word) => {
+      if (synFailure) return
+      try {
+        const synonyms = await defineSynonyms(word)
+        // `{}` records a word Merriam-Webster's thesaurus does not carry, same
+        // as the dictionary pass's `null` - so it is not re-queried tomorrow.
+        baked.words[word].y = synonyms ?? {}
+        if (synonyms) synFound += 1
+        else synMissing += 1
+      } catch (error) {
+        synFailure = error
+      }
+    })
+
+    const synTotal = Object.keys(baked.words).filter((word) => baked.words[word]?.y).length
+    console.log(
+      `Synonyms: +${synFound} found, +${synMissing} not in either thesaurus. ` +
+      `${synTotal} of ${total} defined words resolved.`,
+    )
+    if (synFailure) console.error(`Stopped early: ${synFailure.message}`)
+    else if (synPending.length > synBatch.length) {
+      console.log(`  ${synPending.length - synBatch.length} still to go - re-run after the daily quota resets.`)
+    }
+  }
+
+  baked.generatedAt = new Date().toISOString()
+  baked.source = "Merriam-Webster's Learner's, Collegiate, and Thesaurus references (dictionaryapi.com)"
+  await writeFile(OUT_FILE, JSON.stringify(baked), 'utf8')
+
+  const bytes = JSON.stringify(baked).length
+  console.log(`\nWrote ${path.relative(ROOT, OUT_FILE)} (${(bytes / 1024 / 1024).toFixed(2)} MB).`)
+
+  if (failure || synFailure) {
+    console.error('Progress above is saved. Re-run tomorrow to continue.')
+    process.exitCode = 1
   }
 }
 

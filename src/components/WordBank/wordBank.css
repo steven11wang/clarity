@@ -178,6 +178,20 @@
   margin: 0;
 }
 
+.wordbank__label {
+  color: #8cb4ff;
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: 0.03em;
+  margin-right: 0.35rem;
+}
+
+.wordbank__label--ex {
+  color: rgba(255, 255, 255, 0.5);
+}
+
 .wordbank__row-copy q,
 .wordbank__cloze {
   color: rgba(255, 255, 255, 0.5);

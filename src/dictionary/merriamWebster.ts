@@ -202,3 +202,51 @@ export function parseMerriamWebster(payload: unknown, word: string): WordSense[]
     return true
   })
 }
+
+// --- Thesaurus ----------------------------------------------------------------
+// MW's Thesaurus API answers with the same entry shape as the dictionaries
+// above, plus `meta.syns`: near-synonyms grouped into relevance-ranked
+// clusters, one cluster per numbered sense. The popup shows one synonym list
+// per part of speech rather than per sense - so every cluster for a part of
+// speech is flattened together here, same as parseEntries does for the free
+// live fallback.
+
+// Matches the length of MW's own "Synonyms of ___" panel closely enough.
+const MAX_THESAURUS_SYNONYMS = 8
+
+/**
+ * `word`'s near-synonyms, keyed by part of speech. A part of speech missing
+ * from the result is one MW's thesaurus does not cover for this word - not
+ * the same as an empty list, so callers can tell "none" from "not asked yet".
+ */
+export function parseThesaurusSynonyms(payload: unknown, word: string): Record<string, string[]> {
+  if (isMissPayload(payload)) return {}
+  const byPos: Record<string, string[]> = {}
+
+  for (const raw of payload as Entry[]) {
+    if (!entryMatches(raw, word)) continue
+    const partOfSpeech = typeof raw.fl === 'string' ? raw.fl : 'word'
+    const clusters = (raw as { meta?: { syns?: unknown } }).meta?.syns
+    if (!Array.isArray(clusters)) continue
+
+    const list = byPos[partOfSpeech] ?? []
+    const seen = new Set(list.map((existing) => existing.toLowerCase()))
+    for (const cluster of clusters) {
+      if (!Array.isArray(cluster)) continue
+      for (const item of cluster) {
+        if (typeof item !== 'string') continue
+        const clean = item.trim()
+        if (!clean || seen.has(clean.toLowerCase())) continue
+        seen.add(clean.toLowerCase())
+        list.push(clean)
+      }
+    }
+    byPos[partOfSpeech] = list
+  }
+
+  for (const partOfSpeech of Object.keys(byPos)) {
+    if (byPos[partOfSpeech].length === 0) delete byPos[partOfSpeech]
+    else byPos[partOfSpeech] = byPos[partOfSpeech].slice(0, MAX_THESAURUS_SYNONYMS)
+  }
+  return byPos
+}

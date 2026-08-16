@@ -130,7 +130,11 @@ export function wordStageLabel(entry: WordBankEntry): string {
 export function clozeSentence(entry: WordBankEntry): string {
   const pattern = new RegExp(`\\b${escapeRegExp(entry.word)}\\w*\\b`, 'i')
   if (!pattern.test(entry.sentence)) return entry.sentence
-  return entry.sentence.replace(pattern, '______')
+  const masked = entry.sentence.replace(pattern, '______')
+  if (!/[a-z0-9]/i.test(masked.replace(/______/g, ''))) {
+    return entry.definition ? `______ (${entry.definition})` : `______`
+  }
+  return masked
 }
 
 function escapeRegExp(value: string): string {

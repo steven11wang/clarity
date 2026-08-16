@@ -268,6 +268,62 @@ describe('the passage dictionary', () => {
     )
   })
 
+  it('quietly retries once before showing an error, so a single blip stays invisible', async () => {
+    let liveCalls = 0
+    respond = () => {
+      liveCalls += 1
+      if (liveCalls === 1) throw new Error('offline')
+      return okResponse()
+    }
+    await click(findButton('Dictionary'))
+    const word = [...container.querySelectorAll('.exam-word')].find(
+      (button) => button.textContent === 'proposal.',
+    )
+    await click(word)
+
+    assert.match(
+      container.querySelector('.exam-lookup')?.textContent ?? '',
+      /Having mixed feelings/,
+    )
+    assert.equal(liveCalls, 2)
+  })
+
+  it('gives up and offers a retry after two failures in a row', async () => {
+    let liveCalls = 0
+    respond = () => {
+      liveCalls += 1
+      throw new Error('offline')
+    }
+    await click(findButton('Dictionary'))
+    const word = [...container.querySelectorAll('.exam-word')].find(
+      (button) => button.textContent === 'proposal.',
+    )
+    await click(word)
+
+    assert.match(container.querySelector('.exam-lookup')?.textContent ?? '', /Could not reach/)
+    assert.equal(liveCalls, 2)
+  })
+
+  it('shows a synonyms list from the live dictionary, when it has one', async () => {
+    respond = () =>
+      okResponse([
+        {
+          partOfSpeech: 'adjective',
+          synonyms: ['torn', 'undecided', 'conflicted'],
+          definitions: [{ definition: 'Having mixed feelings about something.' }],
+        },
+      ])
+    await click(findButton('Dictionary'))
+    const word = [...container.querySelectorAll('.exam-word')].find(
+      (button) => button.textContent === 'proposal.',
+    )
+    await click(word)
+
+    const popup = container.querySelector('.exam-lookup')
+    assert.match(popup?.textContent ?? '', /Synonyms of proposal/)
+    assert.match(popup?.textContent ?? '', /torn, undecided, conflicted/)
+  })
+
   it('closes the popup when the tool is switched back off', async () => {
     await click(findButton('Dictionary'))
     const word = [...container.querySelectorAll('.exam-word')].find(
@@ -296,5 +352,19 @@ describe('the passage dictionary', () => {
 
     await click(choiceWord)
     assert.ok(container.querySelector('.exam-lookup'), 'clicking choice word should open definition popover')
+  })
+
+  it('captures passage sentence context when saving a word from an answer choice', async () => {
+    await click(findButton('Dictionary'))
+    const choiceWord = [...container.querySelectorAll('.exam-choice__text .exam-word')].find(
+      (element) => element.textContent?.includes('choice'),
+    )
+    await click(choiceWord)
+    assert.ok(container.querySelector('.exam-lookup'))
+
+    await click(findButton('Save to Word Bank'))
+    const saved = getWordBankEntries()
+    assert.ok(saved.length > 0)
+    assert.ok(saved[0].sentence.length > 5, 'saved sentence should have surrounding context')
   })
 })

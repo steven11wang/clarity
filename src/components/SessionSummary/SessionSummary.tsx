@@ -9,9 +9,19 @@ type Props = {
   attempts: Attempt[]
   onPracticeMore: () => void
   onDashboard: () => void
+  // Set during a daily return, where the session is step one of two: the
+  // continuation takes over as the primary action so the run doesn't end here.
+  continueLabel?: string
+  onContinue?: () => void
 }
 
-export function SessionSummary({ attempts, onPracticeMore, onDashboard }: Props) {
+export function SessionSummary({
+  attempts,
+  onPracticeMore,
+  onDashboard,
+  continueLabel,
+  onContinue,
+}: Props) {
   const nowTs = now()
   const upcoming = useMemo(() => upcomingReviews(getReviews(), 6), [])
 
@@ -73,8 +83,17 @@ export function SessionSummary({ attempts, onPracticeMore, onDashboard }: Props)
       </section>
 
       <div className="summary-actions">
-        <button className="button" type="button" onClick={onPracticeMore}>Practice more</button>
-        <button className="button button--quiet" type="button" onClick={onDashboard}>See dashboard</button>
+        {onContinue && continueLabel ? (
+          <>
+            <button className="button" type="button" onClick={onContinue}>{continueLabel}</button>
+            <button className="button button--quiet" type="button" onClick={onDashboard}>Finish later</button>
+          </>
+        ) : (
+          <>
+            <button className="button" type="button" onClick={onPracticeMore}>Practice more</button>
+            <button className="button button--quiet" type="button" onClick={onDashboard}>See dashboard</button>
+          </>
+        )}
       </div>
     </main>
   )

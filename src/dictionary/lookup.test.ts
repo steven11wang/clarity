@@ -82,6 +82,32 @@ describe('parseEntries', () => {
   it('survives a payload that is not an entry list', () => {
     assert.deepEqual(parseEntries({ title: 'No Definitions Found' }), [])
   })
+
+  it('carries one synonym list per part of speech, deduped and capped', () => {
+    const senses = parseEntries([
+      {
+        word: 'onset',
+        meanings: [
+          {
+            partOfSpeech: 'noun',
+            synonyms: ['storming', 'beginning', 'start', 'beginning', '', 'storming'],
+            definitions: [
+              { definition: 'An attack; an assault.' },
+              { definition: 'A beginning.', example: 'the onset of puberty' },
+            ],
+          },
+          { partOfSpeech: 'verb', definitions: [{ definition: 'To set about; to begin.' }] },
+        ],
+      },
+    ])
+
+    assert.deepEqual(senses[0].synonyms, ['storming', 'beginning', 'start'])
+    // Same list on every sense of that part of speech, same as MW's own panel.
+    assert.deepEqual(senses[1].synonyms, ['storming', 'beginning', 'start'])
+    // No synonyms field at all where the service did not send any - not an
+    // empty array, so callers can tell "none" from "not asked yet".
+    assert.equal(senses[2].synonyms, undefined)
+  })
 })
 
 describe('pickSense', () => {
@@ -269,6 +295,30 @@ describe('the baked dictionary', () => {
         { partOfSpeech: 'verb', definition: 'to dig out the earth beneath something', example: null },
       ],
     })
+  })
+
+  it('attaches the baked thesaurus list to every sense of that part of speech', () => {
+    const index = parseBaked({
+      version: 1,
+      words: {
+        onset: {
+          s: [
+            ['noun', 'an attack', 'withstand the onset of the army'],
+            ['noun', 'a beginning', 'the onset of winter'],
+            ['verb', 'to begin'],
+          ],
+          y: { noun: ['attack', 'assault', 'onslaught'] },
+        },
+      },
+    })
+
+    const senses = index.get('onset')
+    assert.equal(senses?.status, 'found')
+    if (senses?.status !== 'found') return
+    assert.deepEqual(senses.senses[0].synonyms, ['attack', 'assault', 'onslaught'])
+    assert.deepEqual(senses.senses[1].synonyms, ['attack', 'assault', 'onslaught'])
+    // The thesaurus has nothing for the verb sense - no key, not an empty list.
+    assert.equal(senses.senses[2].synonyms, undefined)
   })
 
   it('reads a null entry as a word the dictionary does not carry', () => {

@@ -22,13 +22,16 @@ globals.HTMLElement = dom.window.HTMLElement
 globals.Element = dom.window.Element
 globals.Node = dom.window.Node
 globals.localStorage = dom.window.localStorage
+globals.sessionStorage = dom.window.sessionStorage
 globals.IS_REACT_ACT_ENVIRONMENT = true
+const React = await import('react')
+globals.React = React
 
-const { createElement } = await import('react')
+const { createElement } = React
 const { act } = await import('react')
 const { createRoot } = await import('react-dom/client')
 const { AccountChooser, LocalProfileGate, SignIn } = await import('./AuthBoundary.tsx')
-const { setProfilePin } = await import('./profileShortcuts.ts')
+const { SignInPage } = await import('./SignInPage.tsx')
 
 const container = dom.window.document.getElementById('root')!
 const root = createRoot(container)
@@ -45,182 +48,199 @@ async function waitForContent(pattern: RegExp) {
 
 before(async () => {
   dom.window.sessionStorage.clear()
-  await act(async () => {
-    root.render(createElement(LocalProfileGate, { children: null }))
-  })
+  dom.window.localStorage.clear()
 })
 
 after(() => {
   act(() => root.unmount())
 })
 
-describe('first-time local profile chooser', () => {
-  it('shows only Add User and opens the existing sign-up flow', async () => {
-    assert.match(container.textContent ?? '', /Add User/)
-    assert.doesNotMatch(container.textContent ?? '', /Dara/)
-
-    const addUser = container.querySelector<HTMLButtonElement>('.profile-gate__add')
-    assert.ok(addUser)
-
+describe('Mountain Path Sign-In Page', () => {
+  it('renders the brandmark seal, welcome back title, practice subtitle, inputs, and Google button', async () => {
     await act(async () => {
-      addUser.click()
+      root.render(createElement(SignInPage, { key: 'main-render' }))
     })
 
-    assert.match(container.textContent ?? '', /Create your account\./)
-  })
-})
+    assert.match(container.textContent ?? '', /CLARITY/)
+    assert.match(container.textContent ?? '', /Welcome back/)
+    assert.match(container.textContent ?? '', /Continue your practice\./)
+    assert.match(container.textContent ?? '', /Email/)
+    assert.match(container.textContent ?? '', /Password/)
+    assert.match(container.textContent ?? '', /Forgot password\?/)
+    assert.match(container.textContent ?? '', /Sign in/)
+    assert.match(container.textContent ?? '', /Continue with Google/)
+    assert.match(container.textContent ?? '', /New to Clarity\?/)
+    assert.match(container.textContent ?? '', /Create an account/)
 
-describe('remembered local profile chooser', () => {
-  it('shows a saved learner beside Add User and opens their dashboard without a PIN', async () => {
-    dom.window.sessionStorage.clear()
-    dom.window.localStorage.clear()
-    dom.window.localStorage.setItem('clarity-profile-shortcuts-v1', JSON.stringify([
-      { id: 'local-ada', email: 'ada@example.com', displayName: 'Ada', avatarId: 'spark' },
-    ]))
+    const seal = container.querySelector<SVGElement>('.auth-brandmark-seal')
+    assert.ok(seal)
 
-    await act(async () => {
-      root.render(createElement(LocalProfileGate, { key: 'remembered-profile', children: createElement('p', null, 'Dashboard') }))
-    })
+    const emailInput = container.querySelector<HTMLInputElement>('input[type="email"]')
+    assert.ok(emailInput)
+    assert.equal(emailInput.placeholder, 'name@example.com')
 
-    const profile = container.querySelector<HTMLButtonElement>('[aria-label="Continue as Ada"]')
-    assert.ok(profile)
-    assert.match(container.textContent ?? '', /Add User/)
+    const passwordInput = container.querySelector<HTMLInputElement>('input[type="password"]')
+    assert.ok(passwordInput)
+    assert.equal(passwordInput.placeholder, '••••••••••••')
 
-    await act(async () => {
-      profile.click()
-    })
-
-    assert.match(container.textContent ?? '', /Dashboard/)
+    const googleBtn = container.querySelector<HTMLButtonElement>('.auth-google-btn')
+    assert.ok(googleBtn)
   })
 
-  it('keeps a protected learner locked after a wrong PIN and opens after the correct PIN', async () => {
-    dom.window.sessionStorage.clear()
-    dom.window.localStorage.clear()
-    dom.window.localStorage.setItem('clarity-profile-shortcuts-v1', JSON.stringify([
-      { id: 'local-ada', email: 'ada@example.com', displayName: 'Ada', avatarId: 'spark' },
-    ]))
-    await setProfilePin('local-ada', '2468')
-
+  it('allows toggling password visibility and switching to sign up or forgot password modes', async () => {
     await act(async () => {
-      root.render(createElement(LocalProfileGate, { key: 'protected-profile', children: createElement('p', null, 'Dashboard') }))
-    })
-    await act(async () => {
-      container.querySelector<HTMLButtonElement>('[aria-label="Continue as Ada"]')?.click()
+      root.render(createElement(SignInPage, { key: 'mode-switch-test' }))
     })
 
-    const pinInput = container.querySelector<HTMLInputElement>('[aria-label="PIN for Ada"]')
-    assert.ok(pinInput)
-    assert.doesNotMatch(container.textContent ?? '', /Dashboard/)
+    const eyeBtn = container.querySelector<HTMLButtonElement>('.auth-eye-btn')
+    assert.ok(eyeBtn)
 
     await act(async () => {
-      const valueSetter = Object.getOwnPropertyDescriptor(dom.window.HTMLInputElement.prototype, 'value')?.set
-      valueSetter?.call(pinInput, '0000')
-      pinInput.dispatchEvent(new dom.window.Event('input', { bubbles: true }))
-    })
-    await act(async () => {
-      container.querySelector<HTMLButtonElement>('[data-profile-pin-submit]')?.click()
+      eyeBtn.click()
     })
 
-    await waitForContent(/That PIN doesn’t match/)
-    assert.match(container.textContent ?? '', /That PIN doesn’t match/)
-    assert.doesNotMatch(container.textContent ?? '', /Dashboard/)
+    const revealedInput = container.querySelector<HTMLInputElement>('input[type="text"]')
+    assert.ok(revealedInput)
+
+    const signUpLink = Array.from(container.querySelectorAll<HTMLButtonElement>('.auth-switch-link'))
+      .find((b) => b.textContent?.includes('Create an account'))
+    assert.ok(signUpLink)
 
     await act(async () => {
-      const valueSetter = Object.getOwnPropertyDescriptor(dom.window.HTMLInputElement.prototype, 'value')?.set
-      valueSetter?.call(pinInput, '2468')
-      pinInput.dispatchEvent(new dom.window.Event('input', { bubbles: true }))
-    })
-    await act(async () => {
-      container.querySelector<HTMLButtonElement>('[data-profile-pin-submit]')?.click()
+      signUpLink.click()
     })
 
-    await waitForContent(/Dashboard/)
-    assert.match(container.textContent ?? '', /Dashboard/)
-  })
-})
+    assert.match(container.textContent ?? '', /Create an account/)
+    assert.match(container.textContent ?? '', /Start your practice today\./)
+    assert.match(container.textContent ?? '', /Create account/)
 
-describe('configured profile chooser', () => {
-  it('shows only Add User and opens sign-up without Dara', async () => {
-    await act(async () => {
-      root.render(createElement(SignIn))
-    })
-
-    assert.match(container.textContent ?? '', /Add User/)
-    assert.doesNotMatch(container.textContent ?? '', /Dara/)
-
-    const addUser = container.querySelector<HTMLButtonElement>('.profile-gate__add')
-    assert.ok(addUser)
+    const signInLink = Array.from(container.querySelectorAll<HTMLButtonElement>('.auth-switch-link'))
+      .find((b) => b.textContent?.includes('Sign in'))
+    assert.ok(signInLink)
 
     await act(async () => {
-      addUser.click()
+      signInLink.click()
     })
 
-    assert.match(container.textContent ?? '', /Create your account\./)
+    assert.match(container.textContent ?? '', /Welcome back/)
+
+    const forgotBtn = container.querySelector<HTMLButtonElement>('.auth-forgot-link')
+    assert.ok(forgotBtn)
+
+    await act(async () => {
+      forgotBtn.click()
+    })
+
+    assert.match(container.textContent ?? '', /Reset password/)
+    assert.match(container.textContent ?? '', /Send reset link/)
   })
 
-  it('opens the dashboard path when the remembered profile matches the live session', async () => {
-    dom.window.localStorage.clear()
-    dom.window.localStorage.setItem('clarity-profile-shortcuts-v1', JSON.stringify([
-      { id: 'account-ada', email: 'ada@example.com', displayName: 'Ada', avatarId: 'spark' },
-    ]))
-    let unlocked = false
-
+  it('triggers Google login and calls onSuccess in local mode', async () => {
+    let chosenProfile: unknown = null
     await act(async () => {
       root.render(
-        <AccountChooser
-          activeUserId="account-ada"
-          onUnlock={() => { unlocked = true }}
-        />,
+        createElement(SignInPage, {
+          key: 'google-login-test',
+          onSuccess: (profile) => {
+            chosenProfile = profile
+          },
+        }),
       )
     })
+
+    const googleBtn = container.querySelector<HTMLButtonElement>('.auth-google-btn')
+    assert.ok(googleBtn)
+
     await act(async () => {
-      container.querySelector<HTMLButtonElement>('[aria-label="Continue as Ada"]')?.click()
+      googleBtn.click()
     })
 
-    assert.equal(unlocked, true)
-    assert.equal(container.querySelector('input[type="password"]'), null)
+    assert.ok(chosenProfile)
+    assert.equal((chosenProfile as { email: string }).email, 'learner@gmail.com')
   })
 
-  it('prefills sign-in when the remembered account has no matching live session', async () => {
-    dom.window.localStorage.clear()
-    dom.window.localStorage.setItem('clarity-profile-shortcuts-v1', JSON.stringify([
-      { id: 'account-ada', email: 'ada@example.com', displayName: 'Ada', avatarId: 'spark' },
-    ]))
-
+  it('allows email entry and transitions directly on submit', async () => {
+    let chosenProfile: unknown = null
     await act(async () => {
-      root.render(<AccountChooser activeUserId={null} />)
-    })
-    await act(async () => {
-      container.querySelector<HTMLButtonElement>('[aria-label="Continue as Ada"]')?.click()
+      root.render(
+        createElement(SignInPage, {
+          key: 'email-login-test',
+          onSuccess: (profile) => {
+            chosenProfile = profile
+          },
+        }),
+      )
     })
 
     const emailInput = container.querySelector<HTMLInputElement>('input[type="email"]')
     assert.ok(emailInput)
-    assert.equal(emailInput.value, 'ada@example.com')
-    assert.ok(container.querySelector('input[type="password"]'))
+
+    await act(async () => {
+      const valueSetter = Object.getOwnPropertyDescriptor(dom.window.HTMLInputElement.prototype, 'value')?.set
+      valueSetter?.call(emailInput, 'ada@example.com')
+      emailInput.dispatchEvent(new dom.window.Event('input', { bubbles: true }))
+    })
+
+    const submitBtn = container.querySelector<HTMLButtonElement>('button[type="submit"]')
+    assert.ok(submitBtn)
+
+    await act(async () => {
+      submitBtn.click()
+    })
+
+    assert.ok(chosenProfile)
+    assert.equal((chosenProfile as { email: string }).email, 'ada@example.com')
+    assert.equal((chosenProfile as { displayName: string }).displayName, 'Ada')
   })
 
-  it('returns from another account sign-in to every remembered profile', async () => {
+  it('renders initialError when provided', async () => {
+    await act(async () => {
+      root.render(
+        createElement(SignInPage, {
+          key: 'initial-error-test',
+          initialError: 'Google authentication failed (server_error).',
+        }),
+      )
+    })
+
+    assert.match(container.textContent ?? '', /Google authentication failed \(server_error\)/)
+  })
+})
+
+describe('LocalProfileGate Flow', () => {
+  it('shows SignInPage initially and opens dashboard on successful sign-in', async () => {
+    dom.window.sessionStorage.clear()
     dom.window.localStorage.clear()
-    dom.window.localStorage.setItem('clarity-profile-shortcuts-v1', JSON.stringify([
-      { id: 'account-steven', email: 'steven@example.com', displayName: 'steven', avatarId: 'wave' },
-      { id: 'account-wang', email: 'wang@example.com', displayName: '王恒', avatarId: 'wave' },
-    ]))
 
     await act(async () => {
-      root.render(<AccountChooser key="two-account-chooser" activeUserId="account-steven" />)
-    })
-    await act(async () => {
-      container.querySelector<HTMLButtonElement>('[aria-label="Continue as 王恒"]')?.click()
-    })
-    assert.equal(container.querySelector<HTMLInputElement>('input[type="email"]')?.value, 'wang@example.com')
-
-    await act(async () => {
-      container.querySelector<HTMLButtonElement>('.auth-back')?.click()
+      root.render(
+        createElement(LocalProfileGate, {
+          key: 'local-gate-test',
+          children: createElement('div', { id: 'dashboard-view' }, 'Welcome to Dashboard'),
+        }),
+      )
     })
 
-    assert.ok(container.querySelector('[aria-label="Continue as steven"]'))
-    assert.ok(container.querySelector('[aria-label="Continue as 王恒"]'))
-    assert.match(container.textContent ?? '', /Add User/)
+    assert.match(container.textContent ?? '', /Welcome back/)
+    assert.doesNotMatch(container.textContent ?? '', /Welcome to Dashboard/)
+
+    const emailInput = container.querySelector<HTMLInputElement>('input[type="email"]')
+    assert.ok(emailInput)
+
+    await act(async () => {
+      const valueSetter = Object.getOwnPropertyDescriptor(dom.window.HTMLInputElement.prototype, 'value')?.set
+      valueSetter?.call(emailInput, 'steven@example.com')
+      emailInput.dispatchEvent(new dom.window.Event('input', { bubbles: true }))
+    })
+
+    const submitBtn = container.querySelector<HTMLButtonElement>('button[type="submit"]')
+    assert.ok(submitBtn)
+
+    await act(async () => {
+      submitBtn.click()
+    })
+
+    await waitForContent(/Welcome to Dashboard/)
+    assert.match(container.textContent ?? '', /Welcome to Dashboard/)
   })
 })

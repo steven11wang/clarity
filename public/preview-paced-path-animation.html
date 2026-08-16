@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Claritiy · 循序渐进 蓝色丝带轨迹动画</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink-900: #05080c;
+    --ink-800: #090f16;
+    --ink-700: #0f1a23;
+    --paper:    #ede3ce;
+    --azurite:  #2c6e93;
+    --azurite-hi:#6fb3d2;
+    --malachite:#4e8a6b;
+    --cinnabar: #c6402f;
+    --cinnabar-hi:#e4634c;
+    --ochre:    #c89b5a;
+    --gold:     #ffd778;
+    --hairline: rgba(237, 227, 206, 0.15);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--ink-900);
+    color: var(--paper);
+    font-family: 'Inter Tight', system-ui, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    padding: 20px;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: radial-gradient(rgba(237,227,206,0.15) 0.5px, transparent 0.6px);
+    background-size: 4px 4px;
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .header {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .title-cn {
+    font-family: 'Ma Shan Zheng', 'Noto Serif SC', serif;
+    font-size: clamp(28px, 4vw, 42px);
+    letter-spacing: 0.12em;
+    color: var(--paper);
+    text-shadow: 0 0 20px rgba(111, 179, 210, 0.3);
+  }
+  .title-subtitle {
+    font-size: 14px;
+    color: rgba(237, 227, 206, 0.6);
+    margin-top: 6px;
+    letter-spacing: 0.05em;
+  }
+
+  .stage-container {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 1280px);
+    aspect-ratio: 1536 / 1024;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid var(--hairline);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.8), 0 0 40px rgba(44, 110, 147, 0.2);
+    background: #090f16;
+  }
+
+  .bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .svg-overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .particle-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 15;
+  }
+
+  .node-callout {
+    position: absolute;
+    z-index: 20;
+    transform: translate(-50%, -130%);
+    background: rgba(9, 15, 22, 0.88);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(111, 179, 210, 0.4);
+    padding: 8px 14px;
+    border-radius: 10px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 300ms var(--ease-out), transform 300ms var(--ease-out);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 15px rgba(111, 179, 210, 0.3);
+  }
+  .node-callout.active {
+    opacity: 1;
+    transform: translate(-50%, -140%);
+  }
+  .node-callout__num {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--azurite-hi);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .node-callout__title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--paper);
+    white-space: nowrap;
+  }
+
+  .controls-panel {
+    position: relative;
+    z-index: 5;
+    margin-top: 24px;
+    width: min(100%, 1280px);
+    background: rgba(15, 26, 35, 0.85);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--hairline);
+    border-radius: 16px;
+    padding: 16px 24px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  }
+
+  .btn-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .btn {
+    background: rgba(30, 47, 59, 0.7);
+    border: 1px solid var(--hairline);
+    color: var(--paper);
+    padding: 9px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 200ms var(--ease-out);
+  }
+  .btn:hover {
+    background: rgba(44, 110, 147, 0.4);
+    border-color: var(--azurite-hi);
+    transform: translateY(-1px);
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--azurite), #1a4a66);
+    border-color: var(--azurite-hi);
+    box-shadow: 0 4px 14px rgba(44, 110, 147, 0.4);
+  }
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #3785b0, var(--azurite));
+    box-shadow: 0 6px 20px rgba(111, 179, 210, 0.5);
+  }
+
+  .node-chips {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow-x: auto;
+  }
+  .chip {
+    background: rgba(9, 15, 22, 0.6);
+    border: 1px solid var(--hairline);
+    color: rgba(237, 227, 206, 0.7);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 180ms var(--ease-out);
+    white-space: nowrap;
+  }
+  .chip:hover, .chip.active {
+    background: rgba(44, 110, 147, 0.35);
+    border-color: var(--azurite-hi);
+    color: var(--paper);
+  }
+  .chip.chip-end {
+    border-color: rgba(198, 64, 47, 0.6);
+  }
+  .chip.chip-end.active {
+    background: rgba(198, 64, 47, 0.35);
+    border-color: var(--cinnabar-hi);
+  }
+
+  .progress-wrap {
+    width: 100%;
+    height: 4px;
+    background: rgba(237, 227, 206, 0.1);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: 8px;
+    position: relative;
+  }
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--azurite-hi), var(--ochre), var(--cinnabar-hi));
+    border-radius: 999px;
+    transition: width 100ms linear;
+  }
+</style>
+</head>
+<body>
+
+  <header class="header">
+    <h1 class="title-cn">循序渐进 · 灵轨寻峰</h1>
+    <p class="title-subtitle">Point-to-Point Silk Ribbon Trajectory Animation — Clarity Shanshui</p>
+  </header>
+
+  <div class="stage-container" id="stage">
+    <img src="/brand/landing/f1-paced-path.jpg" alt="Shan Shui Paced Path" class="bg-image" />
+    <canvas id="particleCanvas" class="particle-canvas"></canvas>
+
+    <svg class="svg-overlay" viewBox="0 0 1536 1024" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <filter id="glow-orb" x="-100%" y="-100%" width="300%" height="300%">
+          <feGaussianBlur stdDeviation="6" result="blur1"/>
+          <feGaussianBlur stdDeviation="15" result="blur2"/>
+          <feMerge>
+            <feMergeNode in="blur2"/>
+            <feMergeNode in="blur1"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+
+        <filter id="glow-line" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+
+        <linearGradient id="silkGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#4e8a6b" stop-opacity="0.9"/>
+          <stop offset="40%" stop-color="#6fb3d2" stop-opacity="1"/>
+          <stop offset="80%" stop-color="#ffd778" stop-opacity="1"/>
+          <stop offset="100%" stop-color="#e4634c" stop-opacity="1"/>
+        </linearGradient>
+      </defs>
+
+      <path id="silkPath" d="
+        M 198.6 761.1 
+        C 275.0 812.0, 390.0 690.0, 527.4 716.2 
+        C 645.0 770.0, 750.0 780.0, 848.9 767.2 
+        C 950.0 735.0, 1060.0 600.0, 1116.0 485.4 
+        C 1140.0 400.0, 1165.0 310.0, 1184.3 237.7 
+        C 1220.0 180.0, 1290.0 160.0, 1360.4 137.3
+      " fill="none" stroke="transparent" stroke-width="8" />
+
+      <path id="illuminatedPath" d="
+        M 198.6 761.1 
+        C 275.0 812.0, 390.0 690.0, 527.4 716.2 
+        C 645.0 770.0, 750.0 780.0, 848.9 767.2 
+        C 950.0 735.0, 1060.0 600.0, 1116.0 485.4 
+        C 1140.0 400.0, 1165.0 310.0, 1184.3 237.7 
+        C 1220.0 180.0, 1290.0 160.0, 1360.4 137.3
+      " fill="none" stroke="url(#silkGradient)" stroke-width="6" stroke-linecap="round" filter="url(#glow-line)" opacity="0.85" />
+
+      <g id="nodesGroup">
+        <circle cx="198.6" cy="761.1" r="14" fill="none" stroke="#6fb3d2" stroke-width="2" opacity="0.6" />
+        <circle id="nodeRing1" cx="198.6" cy="761.1" r="8" fill="#2c6e93" stroke="#ede3ce" stroke-width="2" />
+        
+        <circle cx="527.4" cy="716.2" r="14" fill="none" stroke="#6fb3d2" stroke-width="2" opacity="0.6" />
+        <circle id="nodeRing2" cx="527.4" cy="716.2" r="8" fill="#2c6e93" stroke="#ede3ce" stroke-width="2" />
+
+        <circle cx="848.9" cy="767.2" r="14" fill="none" stroke="#6fb3d2" stroke-width="2" opacity="0.6" />
+        <circle id="nodeRing3" cx="848.9" cy="767.2" r="8" fill="#2c6e93" stroke="#ede3ce" stroke-width="2" />
+
+        <circle cx="1116.0" cy="485.4" r="14" fill="none" stroke="#6fb3d2" stroke-width="2" opacity="0.6" />
+        <circle id="nodeRing4" cx="1116.0" cy="485.4" r="8" fill="#2c6e93" stroke="#ede3ce" stroke-width="2" />
+
+        <circle cx="1184.3" cy="237.7" r="14" fill="none" stroke="#6fb3d2" stroke-width="2" opacity="0.6" />
+        <circle id="nodeRing5" cx="1184.3" cy="237.7" r="8" fill="#2c6e93" stroke="#ede3ce" stroke-width="2" />
+
+        <circle cx="1360.4" cy="137.3" r="16" fill="none" stroke="#e4634c" stroke-width="2.5" opacity="0.8" />
+        <circle id="nodeRing6" cx="1360.4" cy="137.3" r="9" fill="#c6402f" stroke="#ede3ce" stroke-width="2.5" />
+      </g>
+
+      <circle id="pulseWave" cx="198.6" cy="761.1" r="10" fill="none" stroke="#ffd778" stroke-width="3" opacity="0" />
+
+      <g id="travelerOrb" filter="url(#glow-orb)">
+        <circle id="orbAura" cx="198.6" cy="761.1" r="22" fill="#6fb3d2" opacity="0.45" />
+        <circle id="orbMid" cx="198.6" cy="761.1" r="12" fill="#ffd778" opacity="0.9" />
+        <circle id="orbCore" cx="198.6" cy="761.1" r="5" fill="#ffffff" />
+      </g>
+    </svg>
+
+    <div id="callout" class="node-callout">
+      <div class="node-callout__num" id="calloutNum">节点 01</div>
+      <div class="node-callout__title" id="calloutTitle">始于足下 · 墨韵启程</div>
+    </div>
+  </div>
+
+  <div class="controls-panel">
+    <div class="btn-group">
+      <button class="btn btn-primary" id="playBtn">
+        <svg id="playIcon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <span id="playText">播放动画</span>
+      </button>
+      <button class="btn" id="restartBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3.5 5.5v5h5"/><path d="M4.2 10.5A8 8 0 1 1 4 14.6"/></svg>
+        重新开始
+      </button>
+    </div>
+
+    <div class="node-chips">
+      <button class="chip active" data-node="0">1. 启程 (起点)</button>
+      <button class="chip" data-node="1">2. 拱桥 (渡水)</button>
+      <button class="chip" data-node="2">3. 烟翠 (谷中)</button>
+      <button class="chip" data-node="3">4. 亭台 (登临)</button>
+      <button class="chip" data-node="4">5. 凌云 (峭壁)</button>
+      <button class="chip chip-end" data-node="5">6. 登峰 (朱砂)</button>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 12px; margin-left: auto;">
+      <span style="font-size: 13px; color: rgba(237,227,206,0.6);">速度:</span>
+      <button class="chip active" id="speed1x">1.0x</button>
+      <button class="chip" id="speed15x">1.5x</button>
+      <button class="chip" id="speed2x">2.0x</button>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </div>
+
+<script>
+  const nodes = [
+    { id: 1, x: 198.6, y: 761.1, title: '始于足下 · 墨韵启程', relX: 12.93, relY: 74.32 },
+    { id: 2, x: 527.4, y: 716.2, title: '跨越飞虹 · 拱桥渡水', relX: 34.34, relY: 69.94 },
+    { id: 3, x: 848.9, y: 767.2, title: '深入幽林 · 烟翠积蕴', relX: 55.27, relY: 74.92 },
+    { id: 4, x: 1116.0, y: 485.4, title: '登临高阁 · 攀峭眺远', relX: 72.66, relY: 47.40 },
+    { id: 5, x: 1184.3, y: 237.7, title: '凌云直上 · 绝壁峭峰', relX: 77.10, relY: 23.21 },
+    { id: 6, x: 1360.4, y: 137.3, title: '登峰造极 · 朱砂成契', relX: 88.57, relY: 13.41 }
+  ];
+
+  const path = document.getElementById('silkPath');
+  const pathLength = path.getTotalLength();
+  const travelerOrb = document.getElementById('travelerOrb');
+  const orbAura = document.getElementById('orbAura');
+  const orbMid = document.getElementById('orbMid');
+  const orbCore = document.getElementById('orbCore');
+  const pulseWave = document.getElementById('pulseWave');
+  const callout = document.getElementById('callout');
+  const calloutNum = document.getElementById('calloutNum');
+  const calloutTitle = document.getElementById('calloutTitle');
+  const progressBar = document.getElementById('progressBar');
+
+  const playBtn = document.getElementById('playBtn');
+  const playIcon = document.getElementById('playIcon');
+  const playText = document.getElementById('playText');
+  const restartBtn = document.getElementById('restartBtn');
+  const chips = document.querySelectorAll('.node-chips .chip');
+
+  const illumPath = document.getElementById('illuminatedPath');
+  illumPath.style.strokeDasharray = pathLength;
+  illumPath.style.strokeDashoffset = pathLength;
+
+  const canvas = document.getElementById('particleCanvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+
+  function resizeCanvas() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  let isPlaying = false;
+  let progress = 0;
+  let speedMultiplier = 1.0;
+  let baseDuration = 8000;
+  let lastTimestamp = null;
+  let animFrameId = null;
+  let currentReachedNode = -1;
+
+  const nodeDistances = nodes.map(n => {
+    let bestT = 0;
+    let minSquareDist = Infinity;
+    const samples = 400;
+    for (let i = 0; i <= samples; i++) {
+      const len = (i / samples) * pathLength;
+      const pt = path.getPointAtLength(len);
+      const distSq = (pt.x - n.x) ** 2 + (pt.y - n.y) ** 2;
+      if (distSq < minSquareDist) {
+        minSquareDist = distSq;
+        bestT = len;
+      }
+    }
+    return bestT;
+  });
+
+  function spawnParticles(svgX, svgY) {
+    const scaleX = canvas.width / 1536;
+    const scaleY = canvas.height / 1024;
+    const px = svgX * scaleX;
+    const py = svgY * scaleY;
+
+    for (let i = 0; i < 3; i++) {
+      particles.push({
+        x: px + (Math.random() - 0.5) * 8,
+        y: py + (Math.random() - 0.5) * 8,
+        vx: (Math.random() - 0.5) * 1.5,
+        vy: (Math.random() - 0.5) * 1.5 - 0.5,
+        radius: Math.random() * 3 + 1.5,
+        alpha: 1.0,
+        color: Math.random() > 0.4 ? '#ffd778' : '#6fb3d2'
+      });
+    }
+  }
+
+  function updateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      p.alpha -= 0.02;
+      p.radius *= 0.96;
+
+      if (p.alpha <= 0 || p.radius <= 0.2) {
+        particles.splice(i, 1);
+        continue;
+      }
+
+      ctx.save();
+      ctx.globalAlpha = p.alpha;
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  function updatePosition(currentLength) {
+    const pt = path.getPointAtLength(currentLength);
+    
+    orbAura.setAttribute('cx', pt.x);
+    orbAura.setAttribute('cy', pt.y);
+    orbMid.setAttribute('cx', pt.x);
+    orbMid.setAttribute('cy', pt.y);
+    orbCore.setAttribute('cx', pt.x);
+    orbCore.setAttribute('cy', pt.y);
+
+    illumPath.style.strokeDashoffset = pathLength - currentLength;
+
+    const pct = (currentLength / pathLength) * 100;
+    progressBar.style.width = pct + '%';
+
+    if (isPlaying) {
+      spawnParticles(pt.x, pt.y);
+    }
+
+    nodes.forEach((n, idx) => {
+      const nodeLen = nodeDistances[idx];
+      const distToNode = Math.abs(currentLength - nodeLen);
+
+      if (distToNode < 12 && currentReachedNode !== idx) {
+        triggerNodeActivation(idx);
+      }
+    });
+  }
+
+  function triggerNodeActivation(nodeIdx) {
+    currentReachedNode = nodeIdx;
+    const n = nodes[nodeIdx];
+
+    pulseWave.setAttribute('cx', n.x);
+    pulseWave.setAttribute('cy', n.y);
+    pulseWave.setAttribute('r', '10');
+    pulseWave.setAttribute('opacity', '0.9');
+
+    let waveRadius = 10;
+    let waveOpacity = 0.9;
+    const waveAnim = () => {
+      waveRadius += 1.8;
+      waveOpacity -= 0.03;
+      pulseWave.setAttribute('r', waveRadius);
+      pulseWave.setAttribute('opacity', Math.max(0, waveOpacity));
+      if (waveOpacity > 0) {
+        requestAnimationFrame(waveAnim);
+      }
+    };
+    waveAnim();
+
+    calloutNum.textContent = `节点 0${n.id}`;
+    calloutTitle.textContent = n.title;
+    callout.style.left = n.relX + '%';
+    callout.style.top = n.relY + '%';
+    callout.classList.add('active');
+
+    chips.forEach((c, idx) => {
+      c.classList.toggle('active', idx === nodeIdx);
+    });
+
+    setTimeout(() => {
+      if (currentReachedNode === nodeIdx && isPlaying && nodeIdx !== 5) {
+        callout.classList.remove('active');
+      }
+    }, 1800);
+  }
+
+  function tick(timestamp) {
+    if (!lastTimestamp) lastTimestamp = timestamp;
+    const delta = timestamp - lastTimestamp;
+    lastTimestamp = timestamp;
+
+    if (isPlaying) {
+      const step = (delta / (baseDuration / speedMultiplier)) * pathLength;
+      let currentLen = (progress * pathLength) + step;
+
+      if (currentLen >= pathLength) {
+        currentLen = pathLength;
+        progress = 1.0;
+        pauseAnimation();
+        triggerNodeActivation(5);
+      } else {
+        progress = currentLen / pathLength;
+      }
+
+      updatePosition(currentLen);
+    }
+
+    updateParticles();
+    animFrameId = requestAnimationFrame(tick);
+  }
+
+  function startAnimation() {
+    if (progress >= 1.0) {
+      progress = 0;
+      currentReachedNode = -1;
+    }
+    isPlaying = true;
+    playIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+    playText.textContent = '暂停动画';
+  }
+
+  function pauseAnimation() {
+    isPlaying = false;
+    playIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+    playText.textContent = '播放动画';
+  }
+
+  playBtn.addEventListener('click', () => {
+    if (isPlaying) pauseAnimation();
+    else startAnimation();
+  });
+
+  restartBtn.addEventListener('click', () => {
+    pauseAnimation();
+    progress = 0;
+    currentReachedNode = -1;
+    updatePosition(0);
+    callout.classList.remove('active');
+    setTimeout(startAnimation, 300);
+  });
+
+  chips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const idx = parseInt(chip.getAttribute('data-node'), 10);
+      pauseAnimation();
+      const targetLen = nodeDistances[idx];
+      progress = targetLen / pathLength;
+      updatePosition(targetLen);
+      triggerNodeActivation(idx);
+    });
+  });
+
+  document.getElementById('speed1x').addEventListener('click', (e) => {
+    setSpeed(1.0, e.target);
+  });
+  document.getElementById('speed15x').addEventListener('click', (e) => {
+    setSpeed(1.5, e.target);
+  });
+  document.getElementById('speed2x').addEventListener('click', (e) => {
+    setSpeed(2.0, e.target);
+  });
+
+  function setSpeed(sp, btn) {
+    speedMultiplier = sp;
+    [document.getElementById('speed1x'), document.getElementById('speed15x'), document.getElementById('speed2x')].forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  window.addEventListener('keydown', (e) => {
+    if (e.code === 'Space') {
+      e.preventDefault();
+      playBtn.click();
+    }
+  });
+
+  updatePosition(0);
+  animFrameId = requestAnimationFrame(tick);
+
+  setTimeout(() => {
+    startAnimation();
+  }, 600);
+</script>
+</body>
+</html>

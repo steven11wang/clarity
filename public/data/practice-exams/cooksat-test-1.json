@@ -45,12 +45,12 @@
           "subtopic": "Words in Context",
           "difficulty": "easy",
           "explanation": {
-            "summary": "The narrator watches Marcus relax in front of an audience and turn into \"a more confident version of himself.\" The blank sits inside \"this is where Marcus ___ shines,\" so it has to intensify how much he shines.",
+            "summary": "The passage describes Marcus as becoming 'a more confident version of himself' when in front of an audience, suggesting that he excels in this setting. The phrase 'this is where Marcus genuinely shines' indicates that Marcus truly excels or performs exceptionally well. The word 'genuinely' in this context means that Marcus's shining quality is authentic and real, aligning with the idea of him being 'more confident.' Therefore, 'genuinely' most nearly means 'truly' in this context.",
             "choices": {
-              "A": "He grins widely and becomes more confident. Nothing about the scene is reluctant.",
-              "B": "The opposite of the point. \"Shines\" plus \"a more confident version of himself\" describes him at his best, not scraping by.",
-              "C": "Correct. Genuinely carries the \"truly\" sense here — this is where he really comes alive.",
-              "D": "Carelessly describes sloppiness. The passage admires the performance."
+              "A": "Reluctantly implies hesitation or unwillingness, which contradicts Marcus's wide grin and increased confidence.",
+              "B": "Barely suggests minimal effort or success, which conflicts with the description of Marcus as 'a more confident version of himself.'",
+              "C": "Correct. 'Truly' aligns with the idea that Marcus's confidence and performance are authentic and genuine.",
+              "D": "Carelessly implies a lack of attention or precision, which is inconsistent with the admiration for Marcus's performance."
             }
           }
         },
@@ -86,12 +86,12 @@
           "subtopic": "Words in Context",
           "difficulty": "easy",
           "explanation": {
-            "summary": "The colon explains the blank: the bowl fragment \"is just one of over ninety,\" while many archaeologists are happy to find \"only one or two.\" The blank needs a word for a large quantity.",
+            "summary": "The passage uses a colon to elaborate on the discoveries by Dr. Layla Hassan's team, highlighting that the decorated bowl fragment is 'just one of over ninety' unearthed. This contrasts with other archaeologists who find 'only one or two.' The word in the blank must convey a sense of large quantity to match the idea of having found over ninety fragments. Thus, 'plentiful' is the most logical and precise choice.",
             "choices": {
-              "A": "Nothing rates the quality of the sherds. The contrast is a count — ninety against one or two.",
-              "B": "The colon supplies a number, not a pattern of chance.",
-              "C": "Finds already unearthed cannot be \"likely.\" The blank describes discoveries in hand.",
-              "D": "Correct. Over ninety fragments where others find one or two is plentiful."
+              "A": "The passage does not discuss the quality of the pottery sherds, only the quantity. 'Inferior' would incorrectly suggest a comparison of quality.",
+              "B": "The passage provides a specific number of discoveries, not suggesting randomness. 'Random' would imply a lack of pattern or predictability, which is not the focus here.",
+              "C": "The passage describes discoveries that have already been made, not potential future finds. 'Likely' would imply a prediction, which is irrelevant to the context.",
+              "D": "Correct. The passage indicates that over ninety fragments have been found, which is a large number compared to 'only one or two,' making 'plentiful' the appropriate choice."
             }
           }
         },
@@ -127,12 +127,12 @@
           "subtopic": "Words in Context",
           "difficulty": "medium",
           "explanation": {
-            "summary": "The torii gate is \"almost always present,\" and even mixed-style shrines \"include several of these traditional elements.\" The blank needs a word for a defining, identifying feature.",
+            "summary": "The phrase 'almost always present' indicates that the torii gate is a common and defining feature of Shinto shrine architecture. Additionally, the passage notes that even shrines with mixed architectural styles 'include several of these traditional elements,' reinforcing the idea that the torii gate is a standard component. Therefore, the blank requires a word that signifies a defining or identifying feature, making 'hallmark' the most logical choice.",
             "choices": {
-              "A": "An imitation copies something else. The gate is the thing being copied, not a copy.",
-              "B": "An innovation is new. The text stresses how consistently the gate appears, not novelty.",
-              "C": "Correct. A hallmark is the feature that identifies a style, which matches \"almost always present\" and \"traditional elements.\"",
-              "D": "A departure breaks from the norm. Here the gate is the norm."
+              "A": "An imitation refers to something that copies another, but the torii gate is the original feature, not a copy.",
+              "B": "An innovation suggests something new or novel, but the passage emphasizes the consistent presence of the torii gate, not its novelty.",
+              "C": "Correct. A hallmark is a defining feature, which aligns with the torii gate being 'almost always present' and part of 'traditional elements.'",
+              "D": "A departure implies a break from tradition, but the torii gate is described as a traditional and consistent element."
             }
           }
         },
@@ -168,12 +168,12 @@
           "subtopic": "Words in Context",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "Astronomers only doubt the old classifications if the old frameworks and the new telescope observations disagree. The blank has to name that mismatch, and the \"and\" after it demands a \"between X and Y\" phrase.",
+            "summary": "The passage discusses how traditional stellar classification systems and recent empirical observations have led astronomers to question the accuracy of those classifications. The phrase 'and recent empirical observations' suggests a comparison between the old frameworks and new data. The word in the blank must indicate a mismatch or conflict, as this would logically lead to 'reservations about the accuracy.' The structure 'between X and Y' indicates a need for a word that fits this comparative framework, suggesting a conflict or difference.",
             "choices": {
-              "A": "Announcements of classification systems would not cast doubt on them, and \"proclamations of X and Y\" sets up no conflict.",
-              "B": "Affinities are agreements. If the frameworks and the observations agreed, nobody would express reservations.",
-              "C": "Repetition of the systems says nothing about accuracy and does not fit the paired structure.",
-              "D": "Correct. Discrepancies between the old frameworks and the new observations is exactly what would make astronomers doubt the classifications."
+              "A": "Proclamations of classification systems would not inherently cause doubt, and 'proclamations of X and Y' does not imply any conflict or comparison.",
+              "B": "Affinities between the systems and observations would imply agreement, not a reason for doubt or reservations.",
+              "C": "Recurrences of systems suggest repetition, which does not address the accuracy or set up a comparative structure.",
+              "D": "Correct. Discrepancies between the old frameworks and new observations suggest a conflict, leading to doubts about the classifications' accuracy."
             }
           }
         },
@@ -209,12 +209,12 @@
           "subtopic": "Text Structure and Purpose",
           "difficulty": "medium",
           "explanation": {
-            "summary": "The underlined sentence lays out C3 photosynthesis and then, with \"in contrast,\" sets CAM beside it. Both do the same job — turning carbon dioxide into sugar — at opposite times of day.",
+            "summary": "The underlined sentence describes C3 photosynthesis and contrasts it with CAM photosynthesis, highlighting their differences. The phrase 'in contrast' indicates that the sentence is setting up a comparison between the two processes. C3 photosynthesis occurs during daylight with stomata open, while CAM photosynthesis stores carbon dioxide at night with stomata open and produces sugars during the day with stomata closed. This contrast helps explain the two processes by showing how they operate differently in terms of timing and stomatal behavior.",
             "choices": {
-              "A": "Correct. It explains one process by holding it against a close relative that works the other way round.",
-              "B": "No research direction is proposed there. New research arrives in the last sentence.",
-              "C": "The sentence says \"in contrast.\" It marks a difference, not a hidden similarity.",
-              "D": "Nothing is called flawed in the underlined sentence. The correction, about how widespread CAM is, comes later."
+              "A": "Correct. The sentence explains C3 photosynthesis by contrasting it with CAM photosynthesis, highlighting their differences in timing and stomatal behavior.",
+              "B": "The sentence does not propose future research directions; it simply contrasts two processes. The mention of new research occurs in the following sentence.",
+              "C": "The sentence uses 'in contrast' to highlight differences, not similarities, between C3 and CAM photosynthesis.",
+              "D": "The underlined sentence does not address any misconceptions or flaws; it merely contrasts two biological processes. The idea of a flawed perception is introduced later."
             }
           }
         },
@@ -250,12 +250,12 @@
           "subtopic": "Text Structure and Purpose",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "Three moves in order: the survey is introduced, the two commuting rates are reported, then one candidate explanation — better bike parking in Copenhagen — is raised and knocked down by the parking figures.",
+            "summary": "The passage first introduces a study that surveyed bicycle commuting in Copenhagen and Rome. It reports the rates of bicycle commuting in both cities, highlighting that a higher percentage of Copenhagen respondents commute by bicycle compared to Rome. The passage then considers and rejects a possible explanation for this difference: the availability of dedicated bike parking facilities. The text notes that Copenhagen's lower access to such facilities means this factor cannot explain the higher commuting rate, thus refuting the proposed explanation.",
             "choices": {
-              "A": "There is one survey covering both cities, and Rome is not used to corroborate anything.",
-              "B": "No open question is posed at the start, and the text ends by rejecting an explanation rather than answering a question.",
-              "C": "The finding is never called unexpected, and the survey method is never blamed for it.",
-              "D": "Correct. Study first, then a possible explanation for the gap considered and rejected on the parking evidence."
+              "A": "The passage describes a single study covering both cities, and Rome's data is not used to support or corroborate findings from Copenhagen.",
+              "B": "The passage does not begin with an open question about transportation planning, nor does it provide an answer; it ends by rejecting an explanation.",
+              "C": "The passage does not describe the finding as unexpected, nor does it attribute the results to the survey method used.",
+              "D": "Correct. The passage introduces the study, reports the results, and then considers and rejects a possible explanation for the observed commuting rates."
             }
           }
         },
@@ -291,12 +291,12 @@
           "subtopic": "Central Ideas and Details",
           "difficulty": "medium",
           "explanation": {
-            "summary": "Sullivan usually writes about daily life in Chinese American communities. Island of Secrets is offered as the exception: a mystery thriller set largely on a remote island in the Philippines.",
+            "summary": "The passage describes Claire Sullivan's typical writing focus on daily experiences in Chinese American communities. However, it notes that her 2015 novel Island of Secrets is different because it is a mystery thriller set largely on a remote island in the Philippines. This setting contrasts with her usual urban Chinese American settings, highlighting a key difference in location and genre from her other works.",
             "choices": {
-              "A": "No adaptation is mentioned anywhere in the text.",
-              "B": "Correct. Her usual Chinese American settings against a Philippine island is the difference the text draws.",
-              "C": "Dialogue never comes up.",
-              "D": "The text says the novel is set outside Chinese American communities; it never describes its characters."
+              "A": "The passage does not mention any movie adaptation for Island of Secrets, so this choice is unsupported by the text.",
+              "B": "Correct. The passage states that Island of Secrets is set on a remote island in the Philippines, which differs from Sullivan's usual settings in Chinese American communities.",
+              "C": "The passage does not discuss the amount of dialogue in Island of Secrets, so this choice is irrelevant to the given information.",
+              "D": "The passage mentions that Island of Secrets is set outside Chinese American communities, but it does not provide information about the ethnicity of the main characters."
             }
           }
         },
@@ -332,12 +332,12 @@
           "subtopic": "Inferences",
           "difficulty": "medium",
           "explanation": {
-            "summary": "The one word attached to Maya is \"sheepishly,\" and what she notes sheepishly is that the tables are already set and every server is already working — at nine-thirty, with the place humming.",
+            "summary": "The passage describes a bustling restaurant scene at nine-thirty in the morning, with servers already working and tables set for the rush. Maya Nair feels 'sheepishly' as she observes this, indicating embarrassment. The word 'sheepishly' suggests she is self-conscious about arriving later than her colleagues, who are already busy with their tasks.",
             "choices": {
-              "A": "Correct. Sheepish is embarrassed, and what embarrasses her is that everyone else started before she did.",
-              "B": "She notices the pleats, but the emotion the text gives her is sheepishness, not fascination, and she is inside the restaurant.",
-              "C": "The scene is orderly — set tables, practiced smiles, crisp uniforms. There is no chaos to be overwhelmed by.",
-              "D": "Pleased does not match \"sheepishly,\" and the servers’ composure is what makes her uncomfortable, not glad."
+              "A": "Correct. The word 'sheepishly' implies Maya Nair feels embarrassed about arriving later than her colleagues, who are already working.",
+              "B": "She notices the dumpling wrappers, but the text describes her feeling as 'sheepishly,' not captivated, and she is already inside the restaurant.",
+              "C": "The restaurant is described as orderly, with 'practiced, courteous smiles' and 'crisp, pressed uniforms,' not chaotic, so she is not overwhelmed.",
+              "D": "The term 'sheepishly' indicates embarrassment, not pleasure, and the servers' composure contributes to her discomfort, not contentment."
             }
           }
         },
@@ -376,12 +376,12 @@
           "subtopic": "Command of Evidence",
           "difficulty": "easy",
           "explanation": {
-            "summary": "The sentence needs a count lower than the 42 American robins at site 3. Read down the site 3 column: house sparrows come in at 11.",
+            "summary": "The sentence needs to demonstrate that the 42 American robins observed at site 3 were not the lowest count at any site. To achieve this, you must find a count lower than 42 in the data table. The table shows that at site 3, only 11 house sparrows were observed, which is indeed lower than 42. Therefore, the correct choice must mention this lower count to effectively complete the assertion.",
             "choices": {
-              "A": "Accurate, but 350 is far above 42, so it does not show a lower count anywhere.",
-              "B": "Correct. Eleven house sparrows at site 3 is below the 42 robins, which is what \"not the lowest count at any site\" requires.",
-              "C": "The table puts northern cardinals at site 3 at 148, not 11.",
-              "D": "Accurate, but 71 blue jays at site 2 is higher than 42."
+              "A": "While there were 350 northern cardinals observed at site 1, this number is much higher than 42, failing to demonstrate a lower count.",
+              "B": "Correct. The 11 house sparrows observed at site 3 is a count lower than the 42 robins, satisfying the requirement of showing a lower count.",
+              "C": "The table indicates 148 northern cardinals at site 3, not 11, so this choice inaccurately represents the data.",
+              "D": "Although 71 blue jays were observed at site 2, this number is still higher than 42, not supporting the claim of a lower count."
             }
           }
         },
@@ -417,12 +417,12 @@
           "subtopic": "Command of Evidence",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "The conclusion is that telling genuine surprise from posed surprise works across cultures. Support has to show accuracy well above chance and show it holding steady from society to society.",
+            "summary": "The passage concludes that the ability to distinguish between genuine and posed expressions of surprise is universal across cultures. To support this, evidence must show that participants accurately identified expressions at rates significantly above chance and that this accuracy was consistent across different societies. The phrase 'universal across cultures' implies that the ability is not dependent on specific cultural or demographic factors, but rather a common human trait.",
             "choices": {
-              "A": "If judgments track a society’s education level, the ability varies by society. That undercuts the universality claim.",
-              "B": "Agreement between Japanese and Peruvian participants shows they judged alike, not that they judged correctly — and two societies out of 23 is a thin base.",
-              "C": "Variation in facial movements is about the expressions themselves, not about anyone’s ability to read them.",
-              "D": "Correct. Sixty-seven percent is well above chance, and similar rates across the societies is the \"universal\" half of the conclusion."
+              "A": "This choice suggests that evaluations are influenced by educational levels, implying variability across societies. This contradicts the conclusion of universality, as it suggests that the ability is not consistent across cultures.",
+              "B": "While this choice indicates agreement between participants from Japan and Peru, it does not confirm the accuracy of their judgments. Additionally, it only references two societies, which is insufficient to support a universal conclusion.",
+              "C": "This choice discusses variations in facial expressions themselves, not the ability to recognize them. It does not address the accuracy or universality of participants' judgments.",
+              "D": "Correct. A 67% accuracy rate is notably above chance, and similar recognition rates across all societies support the claim of a universal ability to distinguish between genuine and posed expressions."
             }
           }
         },
@@ -458,12 +458,12 @@
           "subtopic": "Command of Evidence",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "Lateral-eyed birds register large magnetic signal variation; frontal-eyed birds register little. The prediction says more variation means more avoidance, so lateral-eyed birds should hit landmarks less often than frontal-eyed ones.",
+            "summary": "The passage describes how lateral-eyed birds detect greater magnetic signal variations than frontal-eyed birds, which leads to the prediction that birds with greater signal variations will avoid landmarks more effectively. Therefore, the second research team's prediction implies that lateral-eyed birds should collide with landmarks less often than frontal-eyed birds. The correct finding would show that frontal-eyed birds, which detect less variation, collide more often, supporting the prediction that greater variation leads to better avoidance.",
             "choices": {
-              "A": "Differences among individual woodcocks say nothing about the lateral-versus-frontal comparison the prediction rests on.",
-              "B": "Equal collision rates would mean eye position makes no difference, which is the prediction failing.",
-              "C": "Correct. The frontal-eyed owl, which detects little variation, colliding more than the lateral-eyed woodcock is exactly what the prediction says should happen.",
-              "D": "A collision rate for one species with nothing to compare it against cannot support a claim about relative avoidance."
+              "A": "This choice only discusses differences among individual woodcocks, which doesn't address the comparison between lateral-eyed and frontal-eyed birds needed to support the prediction.",
+              "B": "If lateral-eyed woodcocks and frontal-eyed barn owls collide equally often, it suggests that eye position and magnetic signal variation don't affect collision rates, contradicting the prediction.",
+              "C": "Correct. The finding that frontal-eyed barn owls collide more often than lateral-eyed woodcocks supports the prediction that birds detecting greater magnetic signal variations (lateral-eyed) avoid landmarks better.",
+              "D": "This choice provides collision data only for the barn owl without comparing it to another species, so it doesn't address the prediction about relative avoidance based on eye position."
             }
           }
         },
@@ -502,12 +502,12 @@
           "subtopic": "Command of Evidence",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "The conclusion is that some species manage light absorption with negligible help from Chl a. Support has to point at a species whose Chl a level is close to nothing.",
+            "summary": "The passage concludes that some aquatic plant species can perform light absorption and energy conversion with negligible assistance from chlorophyll a (Chl a). To support this, the evidence must point to a species with very low Chl a levels. The table shows that R. fluitans has an average Chl a level of 0.03, which is significantly lower than the other species, indicating that it can function with minimal Chl a. This supports the conclusion that R. fluitans performs these functions with negligible help from Chl a.",
             "choices": {
-              "A": "High Chl a in E. canadensis is the ordinary case the conclusion is not about.",
-              "B": "Spread within a species says nothing about whether its average level is low enough to be negligible.",
-              "C": "Linking average level to variance describes a pattern in the data, not a species doing without Chl a.",
-              "D": "Correct. R. fluitans averages 0.03 with pale yellow tissue — negligible is exactly the word for that."
+              "A": "E. canadensis having higher Chl a levels than the other species suggests it relies heavily on Chl a, contrary to the conclusion about negligible assistance.",
+              "B": "Less variation in R. fluitans' Chl a levels doesn't address whether its average level is low enough to be negligible.",
+              "C": "A pattern of greater average levels linked to greater variance doesn't indicate any species functioning with negligible Chl a.",
+              "D": "Correct. R. fluitans' very low average Chl a level of 0.03 supports the conclusion that it functions with negligible assistance from Chl a."
             }
           }
         },
@@ -543,12 +543,12 @@
           "subtopic": "Inferences",
           "difficulty": "hard",
           "explanation": {
-            "summary": "The paragraph supplies the two numbers that matter: the meta-analysis sets 195 individuals as the minimum, and the 1993 study had 18. The \"therefore\" clause has to restate that gap.",
+            "summary": "The passage discusses two studies on migratory behavior in songbirds, highlighting a key issue with the 1993 study on thrushes: its small sample size of 18 individuals. The meta-analysis cited indicates that at least 195 individuals are needed to confidently identify a migration tendency. Therefore, the skepticism towards the 1993 study's claim is due to its sample size being significantly below this threshold, as indicated by the phrase 'far below the threshold identified in the meta-analysis.'",
             "choices": {
-              "A": "Plausible-sounding, but the text never says migration is too rare to show up. It says the sample is too small to trust.",
-              "B": "Correct. Eighteen against a 195-individual threshold is the stated reason for skepticism.",
-              "C": "The 1989 study’s sample size is never given, and its finding is not what is being doubted.",
-              "D": "No difference in migration-distance standards is mentioned anywhere."
+              "A": "This choice incorrectly suggests that long-distance migration is too rare to appear in a small sample, but the passage only critiques the sample size's reliability, not the frequency of migration.",
+              "B": "Correct. The passage explicitly states that the sample size of 18 is far below the 195 required by the meta-analysis, justifying skepticism towards the study's claim.",
+              "C": "This choice incorrectly focuses on the 1989 study's sample size, which is not mentioned, and the passage does not question its findings.",
+              "D": "This choice introduces an irrelevant factor about differing standards for migration distance, which the passage does not mention or imply."
             }
           }
         },
@@ -584,12 +584,12 @@
           "subtopic": "Inferences",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "Two dated entries tell the story. Spring 1904: Einstein credits relative simultaneity to Poincaré, a mathematician. June 1904: he is working on \"the puzzle of coordinate time,\" a physics problem.",
+            "summary": "The passage describes Einstein's development of his theory of special relativity through journal entries and letters. In spring 1904, Einstein references Poincaré's 1898 lecture on the concept of relative simultaneity, indicating he was considering mathematical ideas. By June 1904, he mentions 'the puzzle of coordinate time,' suggesting he was applying these mathematical concepts to physics. This sequence indicates that by June 1904, Einstein was exploring how a mathematical postulate could apply to physics, supporting choice A.",
             "choices": {
-              "A": "Correct. A mathematician’s postulate turns up inside Einstein’s physics by June 1904, which is what the sequence of entries shows.",
-              "B": "The entry credits Poincaré’s assertion. Nothing says Einstein traced it back to observations of nature.",
-              "C": "The text discusses 1904 entries only; nothing points to any written in 1905.",
-              "D": "Poincaré’s lecture was in 1898, before both entries, so it cannot postdate the June 1904 note."
+              "A": "Correct. The progression from referencing Poincaré's mathematical ideas to working on 'the puzzle of coordinate time' by June 1904 suggests Einstein was applying mathematical concepts to physics.",
+              "B": "The passage does not indicate that Einstein traced Poincaré's ideas back to natural observations; it only mentions Poincaré's lecture.",
+              "C": "The passage only discusses entries from 1904, with no indication of entries from 1905, making this inference unsupported.",
+              "D": "Poincaré's lecture occurred in 1898, well before Einstein's June 1904 entry, so it cannot be a concept articulated after that date."
             }
           }
         },
@@ -625,12 +625,12 @@
           "subtopic": "Form, Structure, and Sense",
           "difficulty": "easy",
           "explanation": {
-            "summary": "\"When we arrived\" and \"later that day\" both put the sentence in the past, so the verb has to be past tense.",
+            "summary": "The sentence begins with \"When we arrived,\" indicating that the action took place in the past. The phrase \"later that day\" further confirms the past context, as it refers to a time after the arrival. Therefore, the verb describing the action of seeing the stone circle must also be in the past tense to maintain consistency. The correct verb form should reflect an action completed in the past, aligning with the past tense context established by the arrival and subsequent events.",
             "choices": {
-              "A": "Present tense, clashing with \"arrived.\"",
-              "B": "Correct. \"Spotted\" matches \"arrived\" and \"later that day.\"",
-              "C": "Puts the sighting in the future, after a trip that already happened.",
-              "D": "Present progressive cannot follow \"when we arrived.\""
+              "A": "The present tense 'spot' conflicts with the past tense 'arrived,' creating a tense inconsistency.",
+              "B": "Correct. 'Spotted' is in the past tense, matching the past context set by 'arrived' and 'later that day.'",
+              "C": "'Will spot' suggests a future action, which is inconsistent with the past events described by 'arrived' and 'later that day.'",
+              "D": "The present progressive 'are spotting' suggests an ongoing action in the present, which does not fit the past context of 'arrived.'"
             }
           }
         },
@@ -666,12 +666,12 @@
           "subtopic": "Boundaries",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "Three readings are being listed, each an amount plus a time, and the sentence already supplies \"and 4.1 mm at 3:00 p.m.\" The first two items each need a comma after them.",
+            "summary": "The sentence lists three precipitation readings, each consisting of an amount and a time, and ends with 'and 4.1 mm at 3:00 p.m.' To conform to Standard English conventions for lists, each item should be separated by a comma. The phrase 'and 4.1 mm at 3:00 p.m.' indicates the final item, so the first two readings must be followed by commas to clearly separate them. The correct answer provides this necessary punctuation, ensuring clarity and proper list structure.",
             "choices": {
-              "A": "Correct. Commas after the first two readings complete a three-item list ending in \"and 4.1 mm at 3:00 p.m.\"",
-              "B": "With no comma after the first reading, two list items run together.",
-              "C": "The commas fall inside the items, splitting each amount from its own time, and the items are never separated from each other.",
-              "D": "No punctuation at all between the first two readings."
+              "A": "Correct. This choice uses commas after '2.3 mm at 2:00 a.m.' and '5.7 mm at 9:45 a.m.,' properly separating the items in the list.",
+              "B": "This choice lacks a comma after '2.3 mm at 2:00 a.m.,' causing the first two list items to run together without clear separation.",
+              "C": "The commas incorrectly separate the amounts from their respective times, disrupting the logical pairing of each reading and time.",
+              "D": "This choice provides no punctuation between the first two readings, failing to separate the items in the list and creating a run-on structure."
             }
           }
         },
@@ -707,12 +707,12 @@
           "subtopic": "Form, Structure, and Sense",
           "difficulty": "hard",
           "explanation": {
-            "summary": "The subject is \"absorbers ... such as wool fabric and wood panels,\" and \"to this day\" fixes the time as the present.",
+            "summary": "The sentence discusses sound absorbers like wool fabric and wood panels, stating they are still in use today. The phrase 'to this day' indicates that the action is ongoing in the present. Therefore, the verb must be in the present tense to match this timeframe. The correct verb form is 'are,' which aligns with the plural subject 'absorbers' and the present time reference.",
             "choices": {
-              "A": "Correct. Plural subject, present time: absorbers \"are used to this day.\"",
-              "B": "Puts in the past what \"to this day\" places in the present.",
-              "C": "Past progressive, with the same tense problem plus an ongoing-then sense the sentence does not want.",
-              "D": "Describes something that did not actually happen."
+              "A": "Correct. The plural subject 'absorbers' and the present time reference 'to this day' require the present tense verb 'are.'",
+              "B": "This choice incorrectly uses the past tense 'were,' which contradicts the present time reference 'to this day.'",
+              "C": "The past progressive 'were being' suggests an ongoing action in the past, conflicting with the present time reference 'to this day.'",
+              "D": "The conditional perfect 'would have been' implies a hypothetical situation that did not occur, which does not fit the context of ongoing present use."
             }
           }
         },
@@ -748,12 +748,12 @@
           "subtopic": "Form, Structure, and Sense",
           "difficulty": "medium",
           "explanation": {
-            "summary": "\"Over the past decade\" calls for the present perfect, and the subject is \"more composers,\" which is plural. The interrupting \"including Morales\" does not change the subject.",
+            "summary": "The phrase 'over the past decade' indicates that the action started in the past and continues into the present, which requires the present perfect tense. The main subject of the sentence is 'more composers,' which is plural. The phrase 'including Morales' is a non-essential clause and does not affect the number of the subject. Therefore, the correct verb form is 'have begun' to match the plural subject and the required tense.",
             "choices": {
-              "A": "Singular, and present progressive cannot take \"over the past decade.\"",
-              "B": "Correct. Plural subject, present perfect: composers \"have begun\" over the past decade.",
-              "C": "Singular. The subject is composers, not Morales.",
-              "D": "Singular and simple present — wrong on both counts."
+              "A": "The verb 'is beginning' is singular and in the present progressive tense, which does not fit the plural subject 'more composers' or the time frame 'over the past decade.'",
+              "B": "Correct. 'Have begun' is the present perfect tense, matching the plural subject 'more composers' and the time frame 'over the past decade.'",
+              "C": "The verb 'has begun' is singular, which does not match the plural subject 'more composers.'",
+              "D": "The verb 'begins' is singular and in the simple present tense, which does not match the plural subject or the time frame 'over the past decade.'"
             }
           }
         },
@@ -789,12 +789,12 @@
           "subtopic": "Boundaries",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "Three list items each carry an internal comma (\"Mount Kilimanjaro, ranked fourth in height\"), so the items themselves have to be divided by semicolons.",
+            "summary": "The sentence lists three mountain names along with their rankings, each containing an internal comma (e.g., 'Mount Kilimanjaro, ranked fourth in height'). To clearly separate these list items, semicolons are needed between them. This punctuation ensures that each mountain and its ranking are distinct and not confused with one another. The correct answer uses semicolons to separate the items, while keeping the internal commas intact, which is required to maintain clarity in a complex list.",
             "choices": {
-              "A": "The semicolon lands inside the second item, cutting Mount McKinley off from its own ranking.",
-              "B": "With no punctuation, three mountains and three rankings run together.",
-              "C": "Correct. Semicolons separate the items; the commas stay inside them where they belong.",
-              "D": "The extra semicolon after \"Mount McKinley\" breaks the second item apart the same way A does."
+              "A": "The semicolon incorrectly separates 'Mount McKinley' from its ranking, disrupting the list structure.",
+              "B": "Without any punctuation, the list items run together, making it unclear which ranking belongs to which mountain.",
+              "C": "Correct. Semicolons separate the list items, while commas remain within each item, maintaining clarity.",
+              "D": "The extra semicolon after 'Mount McKinley' improperly splits the second item, similar to choice A."
             }
           }
         },
@@ -830,12 +830,12 @@
           "subtopic": "Form, Structure, and Sense",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "The relative clause — \"accounts of whose military campaigns, recounted and embellished over time, ___ legends\" — has no verb without the blank.",
+            "summary": "The sentence describes how accounts of military campaigns transformed into legends over time. The clause 'accounts of whose military campaigns, recounted and embellished over time, ___ legends' needs a finite verb to be complete. The phrase 'recounted and embellished over time' suggests a transformation process that has already occurred, requiring a past tense verb. Therefore, 'eventually became' is the correct choice as it provides the necessary verb form and tense to convey that the accounts turned into legends over time.",
             "choices": {
-              "A": "A participle, which leaves the clause with no verb at all.",
-              "B": "An infinitive, same problem.",
-              "C": "Correct. \"Eventually became\" gives the clause the finite verb it needs.",
-              "D": "Another participle."
+              "A": "This choice uses a participle, 'having eventually become,' which does not provide a finite verb for the clause, leaving it incomplete.",
+              "B": "This choice uses an infinitive, 'to eventually become,' which also fails to provide a finite verb, making the clause incomplete.",
+              "C": "Correct. 'Eventually became' is a finite verb in the past tense, completing the clause and indicating that the accounts turned into legends over time.",
+              "D": "This choice uses a participle, 'eventually becoming,' which does not provide a finite verb, leaving the clause incomplete."
             }
           }
         },
@@ -871,12 +871,12 @@
           "subtopic": "Transitions",
           "difficulty": "medium",
           "explanation": {
-            "summary": "Scientists assumed in 1928 that vitamin C existed only in plants; the animal-liver finding \"wouldn’t emerge until years later.\" The transition has to mark that gap in time.",
+            "summary": "The passage describes an initial discovery in 1928 that vitamin C was found only in plants, followed by a later discovery of vitamin C in animal liver tissue. The phrase 'wouldn't emerge until years later' indicates a significant time gap between these findings. Therefore, the transition must indicate a progression over time, making 'Eventually' the most logical choice as it introduces the later discovery.",
             "choices": {
-              "A": "\"In other words\" restates. The second sentence adds a later, different finding.",
-              "B": "Correct. \"Eventually\" fits a discovery that arrived years after the 1928 assumption.",
-              "C": "The liver finding contradicts the plants-only assumption; it is not an example of it.",
-              "D": "\"Earlier\" reverses the order the sentence itself states."
+              "A": "'In other words' suggests a restatement or clarification of the previous point, but the second sentence introduces a new, later finding, not a restatement.",
+              "B": "Correct. 'Eventually' appropriately indicates that the discovery of vitamin C in animal liver tissue occurred after the initial 1928 finding, marking the passage of time.",
+              "C": "'For example' would imply that the liver finding is an instance of the initial claim, but it actually contradicts the assumption that vitamin C existed only in plants.",
+              "D": "'Earlier' would incorrectly suggest that the discovery of vitamin C in animal liver tissue happened before the 1928 finding, which contradicts the timeline presented in the passage."
             }
           }
         },
@@ -912,12 +912,12 @@
           "subtopic": "Transitions",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "The blank supplies a whole clause that leads into \"resulting in her building designs ... being received not merely as experimental structures but as groundbreaking achievements.\" Radical novelty alone would explain \"experimental\" — something more is needed to explain \"achievements.\"",
+            "summary": "The passage describes Nia Mwangi's architectural philosophy as a 'radical departure' from her contemporaries, indicating her unique approach. The blank must logically connect this departure to the reception of her designs as 'groundbreaking achievements.' The phrase 'resulting in her building designs ... being received not merely as experimental structures but as groundbreaking achievements' suggests that something beyond novelty—such as precision and vision—elevated her work. Therefore, the correct transition should highlight an additional factor that contributed to this high regard.",
             "choices": {
-              "A": "When she founded her firm has no bearing on how the buildings were received.",
-              "B": "Being an engineer too is not a \"specifically\" of the radical departure just described, and it does not explain the reception.",
-              "C": "Correct. Precision and vision in carrying the concepts out is what lifts the work from experiment to achievement, and \"moreover\" adds it to the departure.",
-              "D": "\"In contrast\" fights the previous sentence instead of building on it, and an unpredictable iconoclast reputation pushes the designs toward \"experimental,\" not away from it."
+              "A": "The timing of Mwangi founding her architecture firm does not logically relate to how her designs were received, making it irrelevant to the transition needed.",
+              "B": "Mentioning Mwangi's dual expertise as an engineer and architect does not directly explain how her designs were perceived as groundbreaking, nor does it build on the idea of a radical departure.",
+              "C": "Correct. 'Moreover, Mwangi implemented her concepts with great precision and vision' logically adds to the idea of her radical departure, explaining how her designs were seen as groundbreaking achievements.",
+              "D": "'In contrast' suggests a contradiction to the previous sentence, which is not present. Additionally, being an 'unpredictable iconoclast' would emphasize experimental nature, not the achievement aspect."
             }
           }
         },
@@ -953,12 +953,12 @@
           "subtopic": "Transitions",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "Opening night selections exist to \"showcase cinema traditions of the host country,\" and the two films — Portuguese fado, Japanese tea ceremony — opened in Lisbon and Tokyo. The match is the whole point.",
+            "summary": "The passage discusses how opening night selections at international film festivals aim to 'showcase cinema traditions of the host country.' The examples given—a documentary about Portuguese fado music and a film about the Japanese tea ceremony—were chosen for festivals in Lisbon and Tokyo. This alignment between the films' cultural themes and their host countries is intentional and expected, making 'Fittingly' the most logical transition. It highlights that the films were appropriately chosen to match the cultural traditions of their respective host countries.",
             "choices": {
-              "A": "Correct. \"Fittingly\" marks films landing in exactly the countries whose traditions they treat.",
-              "B": "Nothing is being contrasted; the second sentence follows the rule the first one states.",
-              "C": "\"Additionally\" would add a separate fact. This sentence illustrates the previous one.",
-              "D": "\"Nevertheless\" signals a break from expectation, and this pairing is precisely what you would expect."
+              "A": "Correct. 'Fittingly' indicates that the films were appropriately chosen to match the cultural traditions of their respective host countries, aligning with the purpose of showcasing local cinema traditions.",
+              "B": "'By contrast' suggests a difference or opposition, but the sentence supports the idea that the films were chosen to match the host countries' traditions, not to contrast with them.",
+              "C": "'Additionally' implies adding new information, but the sentence is not introducing a new fact; it is illustrating the previous statement about showcasing local traditions.",
+              "D": "'Nevertheless' suggests an unexpected outcome, but the pairing of films with their host countries is exactly what one would expect, not a deviation from expectations."
             }
           }
         },
@@ -994,12 +994,12 @@
           "subtopic": "Rhetorical Synthesis",
           "difficulty": "medium",
           "explanation": {
-            "summary": "The goal is a difference between Volkov and Osei, so the sentence has to put both of them in and then name something that separates them.",
+            "summary": "The student wants to highlight a difference between Elena Volkov and Marcus Osei. The notes indicate that both musicians performed on Sofia Morales's film scores, but they played different instruments: Volkov played the violin, and Osei played the French horn. The correct answer needs to mention both musicians and their respective instruments to effectively emphasize this difference. The correct choice should clearly state the shared context (working on Morales's scores) and then specify the distinct roles (instruments) each musician had.",
             "choices": {
-              "A": "States what they share, which is a similarity.",
-              "B": "Names two films and the composer without mentioning either musician.",
-              "C": "Covers Volkov only, so no comparison is made.",
-              "D": "Correct. It grants the shared work and then splits them by instrument — violin against French horn."
+              "A": "This choice highlights a similarity between Volkov and Osei, as it only mentions that both contributed to Morales's film scores, without pointing out any differences.",
+              "B": "This choice focuses on the films and the composer, Sofia Morales, without mentioning either musician, so it doesn't address the goal of highlighting a difference between Volkov and Osei.",
+              "C": "This choice only discusses Elena Volkov's involvement with Morales's films, without mentioning Marcus Osei, thus failing to make a comparison between the two musicians.",
+              "D": "Correct. This choice mentions both musicians and specifies the instruments they played (violin for Volkov and French horn for Osei), effectively highlighting the difference between them."
             }
           }
         },
@@ -1035,12 +1035,12 @@
           "subtopic": "Rhetorical Synthesis",
           "difficulty": "easy",
           "explanation": {
-            "summary": "The goal is a similarity, so the sentence has to name both straits and give them the same trait.",
+            "summary": "The student's goal is to emphasize a similarity between the Strait of Gibraltar and the Strait of Hormuz. The notes highlight that both straits 'connect two larger bodies of water while separating two landmasses.' Therefore, the correct choice must mention both straits and their shared characteristic. Choice B effectively uses this information by stating that both the Strait of Gibraltar and the Strait of Hormuz connect two larger bodies of water while separating two landmasses, directly addressing the student's goal of highlighting a similarity.",
             "choices": {
-              "A": "Defines \"strait\" in general and names neither one.",
-              "B": "Correct. Both straits, one shared trait: each connects two larger bodies of water while separating two landmasses.",
-              "C": "Covers the Strait of Hormuz alone.",
-              "D": "Covers the Strait of Gibraltar alone."
+              "A": "This choice defines what a strait is in general terms but does not mention either the Strait of Gibraltar or the Strait of Hormuz, failing to emphasize their similarity.",
+              "B": "Correct. This choice explicitly mentions both the Strait of Gibraltar and the Strait of Hormuz, highlighting their shared trait of connecting two larger bodies of water while separating two landmasses.",
+              "C": "This choice only discusses the Strait of Hormuz, providing specific geographical information but not addressing the similarity between the two straits.",
+              "D": "This choice only discusses the Strait of Gibraltar, providing location information but not addressing the similarity between the two straits."
             }
           }
         },
@@ -1076,12 +1076,12 @@
           "subtopic": "Rhetorical Synthesis",
           "difficulty": "easy",
           "explanation": {
-            "summary": "The goal is an example of a section in sonata form, so the sentence has to name a specific section.",
+            "summary": "The student wants to provide an example of a section in sonata form, so the correct choice must name a specific section. The notes mention that 'the exposition is one section of sonata form,' along with 'the development and the recapitulation.' Therefore, the sentence must include one of these terms to effectively provide an example. The correct choice will directly reference one of these sections to fulfill the goal of the task.",
             "choices": {
-              "A": "\"Some sections are parts of a piece\" names nothing and says nothing.",
-              "B": "Correct. It names the exposition as a section of sonata form, which is what an example is.",
-              "C": "Says sonata form has several sections without naming one.",
-              "D": "A general claim about musical structure, with no section named."
+              "A": "This choice fails to name any specific section within sonata form, making it too vague to serve as an example. It merely states that some sections are parts of a piece, which doesn't meet the requirement.",
+              "B": "Correct. This choice directly names 'the exposition' as a section in sonata form, which aligns with the notes and provides a clear example as requested.",
+              "C": "This choice states that sonata form includes several sections but does not specify any particular section, failing to provide the example needed.",
+              "D": "This choice makes a general statement about musical structure and sonata form but does not name any specific section, thus not fulfilling the requirement to provide an example."
             }
           }
         },
@@ -1117,12 +1117,12 @@
           "subtopic": "Rhetorical Synthesis",
           "difficulty": "medium",
           "explanation": {
-            "summary": "The goal is to emphasize the aromatic complexity of Gesha, so the sentence has to attach high complexity to Gesha specifically.",
+            "summary": "The goal is to highlight the aromatic complexity of Gesha coffee specifically. The notes indicate that participants in a sensory study evaluated Gesha and found its aromatic complexity to be high. This directly ties Gesha to the concept of aromatic complexity, fulfilling the student's objective. The correct choice should clearly connect Gesha with its high aromatic complexity, as demonstrated by the study results.",
             "choices": {
-              "A": "Defines aromatic complexity and cites cheese and nuts. Gesha never appears.",
-              "B": "Gives Gesha’s rarity and origin, nothing about aroma.",
-              "C": "Correct. Study participants rating Gesha’s aromatic complexity as high is the emphasis the goal asks for.",
-              "D": "Lumps Gesha in with cheese and nuts as sources of the compounds rather than emphasizing Gesha’s own complexity."
+              "A": "This choice defines aromatic complexity and mentions aged cheese and toasted nuts, but it fails to mention Gesha. It doesn't connect the concept of aromatic complexity directly to Gesha coffee.",
+              "B": "This choice discusses Gesha's rarity and origin in Yirgacheffe, Ethiopia, but it does not mention anything about its aromatic complexity, which is the focus of the goal.",
+              "C": "Correct. This choice states that participants in a research study found the aromatic complexity of Gesha to be high, directly emphasizing the aromatic complexity of Gesha as intended.",
+              "D": "This choice mentions Gesha alongside cheese and nuts as sources of aromatic compounds, but it doesn't emphasize Gesha's own aromatic complexity. It dilutes the focus by including other foods."
             }
           }
         }
@@ -1167,12 +1167,12 @@
           "subtopic": "Words in Context",
           "difficulty": "medium",
           "explanation": {
-            "summary": "The presenter \"credited much of her inspiration to\" Carson’s book, one of her most influential texts in college. The blank needs a positive pull toward the work.",
+            "summary": "The passage describes how the presenter \"credited much of her inspiration to\" Rachel Carson's work, indicating a positive influence. The phrase \"most influential texts\" suggests that the presenter was deeply affected by Carson's book. Therefore, the blank should express a positive connection to Carson's work, which aligns with the idea of inspiration. The correct choice should reflect a positive and motivating relationship with the text.",
             "choices": {
-              "A": "Indifference is the absence of interest, which cannot be the source of an inspiration.",
-              "B": "A constraint on the work is not something a career gets credited to.",
-              "C": "Skepticism is doubt — the opposite of crediting the book as inspiration.",
-              "D": "Correct. An affinity for Carson’s work is the attraction that explains the inspiration."
+              "A": "Indifference implies a lack of interest or concern, which contradicts the idea of being inspired by the work.",
+              "B": "A constraint suggests a limitation or restriction, which does not align with the notion of inspiration or influence.",
+              "C": "Skepticism indicates doubt or disbelief, which is contrary to the idea of being inspired by Carson's work.",
+              "D": "Correct. An affinity for Carson’s work suggests a strong liking or attraction, which logically explains the presenter's inspiration."
             }
           }
         },
@@ -1208,12 +1208,12 @@
           "subtopic": "Words in Context",
           "difficulty": "medium",
           "explanation": {
-            "summary": "The museum already holds 8 million objects, and the sentence sends visitors out to landmarks for more. The blank is about adding to what the museum gives.",
+            "summary": "The passage describes the British Museum's vast collection and suggests that visitors can enhance their cultural experience by exploring additional landmarks in London. The phrase 'looking to ______ their cultural experience' implies that visitors are seeking to add to or enhance what they have already experienced at the museum. Therefore, the word in the blank should mean to add to or enhance. The correct choice is 'supplement,' as it means to add to something in order to enhance or complete it, which fits the context of exploring more cultural sites beyond the museum.",
             "choices": {
-              "A": "Correct. Street landmarks add to the museum visit, which is what supplementing an experience means.",
-              "B": "Satisfying the experience would end it, not send visitors out looking for more.",
-              "C": "You provoke a reaction, not a cultural experience you are extending.",
-              "D": "Mitigate means lessen, and nothing about the experience is a problem to reduce."
+              "A": "Correct. 'Supplement' means to add to or enhance, which fits the context of visitors seeking to expand their cultural experience beyond the museum.",
+              "B": "'Satisfy' implies completing or fulfilling an experience, which contradicts the idea of seeking more cultural experiences beyond the museum.",
+              "C": "'Provoke' means to stimulate a reaction, which does not fit the context of extending a cultural experience.",
+              "D": "'Mitigate' means to lessen or reduce, which is inappropriate here as the passage suggests enhancing, not reducing, the experience."
             }
           }
         },
@@ -1249,12 +1249,12 @@
           "subtopic": "Words in Context",
           "difficulty": "easy",
           "explanation": {
-            "summary": "The next sentence defines the blank for you: \"Once creating fire turned into a widespread, routine practice.\"",
+            "summary": "The passage discusses the evolution of fire-making from a practical tool to one with social and ritual significance. The phrase 'once creating fire turned into a widespread, routine practice' indicates that fire-making became common and habitual. Therefore, the word in the blank should reflect this idea of being widespread and routine, which is captured by 'commonplace.' The passage contrasts the initial practical use of fire with its later social and ritual roles, emphasizing the shift in purpose as fire-making became more routine.",
             "choices": {
-              "A": "Correct. Commonplace is the one-word version of \"widespread, routine.\"",
-              "B": "Intermittent means occasional, the opposite of routine.",
-              "C": "Nothing in the text says fire-making was disputed.",
-              "D": "Practical is what the purpose shifted away from, not what fire-making became."
+              "A": "Correct. 'Commonplace' aligns with the description of fire-making as 'widespread, routine,' indicating it became a regular part of life.",
+              "B": "Intermittent means occurring at irregular intervals, which contradicts the idea of fire-making becoming a 'routine practice.'",
+              "C": "Contentious implies disagreement or dispute, which is not suggested by the passage's description of fire-making as a routine practice.",
+              "D": "Practical describes the initial purpose of fire-making, but the passage indicates a shift away from practicality as fire-making became more routine."
             }
           }
         },
@@ -1290,12 +1290,12 @@
           "subtopic": "Words in Context",
           "difficulty": "hard",
           "explanation": {
-            "summary": "Hassan says that during the idle stretches an idea crystallizes — a composition, a palette, an angle, a subject. He calls that work even when no photograph is taken.",
+            "summary": "Hassan describes moments of 'seeming idleness' where ideas 'crystallize,' such as a 'composition,' 'color palette,' or 'subject for a series.' He explains that by doing 'nothing' and observing, he is 'actually visualizing,' indicating that this process is an active part of his creative work. The passage emphasizes that these insights and breakthroughs are integral to his artistic process, even if no photographs are taken, highlighting the importance of visualization in creativity.",
             "choices": {
-              "A": "He is defending the value of the time, not confessing to self-deception.",
-              "B": "Nothing is being collected. What the passage describes is ideas forming, not materials gathered.",
-              "C": "Correct. Compositions and insights taking shape is the creative work itself, which is why he says he is \"actually\" doing something.",
-              "D": "Studying other photographers is one setting he mentions, but the payoff he names is insight, not comfort."
+              "A": "Hassan values the time spent in observation as part of his creative process, not as self-deception about commitment.",
+              "B": "The passage focuses on ideas forming, not on collecting physical reference materials.",
+              "C": "Correct. The passage shows that 'visualizing' is part of the creative process, as ideas and compositions take shape during these moments.",
+              "D": "While he mentions studying other photographers, the focus is on gaining insights, not on finding comfort in others' achievements."
             }
           }
         },
@@ -1331,12 +1331,12 @@
           "subtopic": "Text Structure and Purpose",
           "difficulty": "hard",
           "explanation": {
-            "summary": "Some researchers date the Tharsis valley networks to the early Noachian, about 3.5 billion years ago. Montgomery et al. measured 1.2 billion, and 1.5 billion for the highlands generally. The numbers cannot both stand.",
+            "summary": "The passage first mentions that some researchers believe the valley networks in Mars's Tharsis region date back to the early Noachian period, around 3.5 billion years ago. It then contrasts this with findings from a study by Montgomery et al., which determined the formation age of these networks to be much younger, at 1.2 billion years. This creates a clear incompatibility between the initial idea and the study's results, as the numbers cannot both be correct.",
             "choices": {
-              "A": "The study does not clarify anyone’s reasoning. It contradicts their date.",
-              "B": "Nobody in the text is described as reconsidering anything.",
-              "C": "Correct. The early-Noachian idea comes first, then results that cannot fit it.",
-              "D": "The text identifies no discrepancy for the study to explain; the study is what creates the conflict."
+              "A": "The study does not clarify the reasoning behind the initial dating; instead, it provides a conflicting age, challenging the initial hypothesis.",
+              "B": "The passage does not indicate that researchers reconsidered their view based on the study results; it simply presents the conflicting findings.",
+              "C": "Correct. The passage describes the initial idea of an early Noachian age, then presents study results that are incompatible with that idea.",
+              "D": "The passage does not identify a discrepancy for the study to explain; rather, the study itself introduces the conflict by presenting different findings."
             }
           }
         },
@@ -1373,12 +1373,12 @@
           "subtopic": "Text Structure and Purpose",
           "difficulty": "hard",
           "explanation": {
-            "summary": "The companion’s mind \"had grown still\" once she was freed from the sirens and smoke. The phrase names the city she left, and the poem is otherwise all quiet — a high valley, a thrush softening its song.",
+            "summary": "The reference to 'sirens and smoke' in the poem highlights the contrast between the noisy, chaotic environment of the city and the 'still' mind of the speaker's companion. The passage describes a peaceful setting in a 'high valley,' where the companion's mind is 'freed' from the urban distractions symbolized by 'sirens and smoke.' This contrast emphasizes the tranquility and mental clarity achieved away from the city, aligning with the poem's overall theme of finding peace in nature.",
             "choices": {
-              "A": "Sirens and smoke are what she was freed from, so they cannot stand for something she values.",
-              "B": "The unspoken understanding is its own line in the poem. This image is about her mind, not their communication.",
-              "C": "Correct. City noise and smoke set against a mind that has grown still — the contrast is the reason the phrase is there.",
-              "D": "The natural world and the friendship are in harmony here, not in conflict."
+              "A": "The phrase 'freed from the sirens and smoke' indicates that these elements are not valued by the companion, contradicting the idea that they are essential to a meaningful life.",
+              "B": "While the poem mentions an unspoken understanding, the reference to 'sirens and smoke' specifically relates to the companion's mental state, not their communication.",
+              "C": "Correct. The 'sirens and smoke' symbolize the chaotic city life, contrasting with the 'still' mind of the companion, highlighting the peace found in the natural setting.",
+              "D": "There is no conflict between the natural world and the friendship; instead, the natural setting enhances the connection and tranquility experienced by the speaker and her companion."
             }
           }
         },
@@ -1414,12 +1414,12 @@
           "subtopic": "Text Structure and Purpose",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "The underlined phrase names the thing the paragraph argues about: plasticity after development. Everything after it weighs that against the critical-window hypothesis.",
+            "summary": "The underlined phrase, 'neuroplastic responses in post-developmental periods,' identifies the main focus of the passage: the significance of neural plasticity after developmental maturity. The passage contrasts this with the hypothesis that neural adaptations are primarily driven by experiences during critical developmental windows. By highlighting post-developmental plasticity, the text argues that these changes contribute significantly to brain development across the lifespan, as seen in the example of dendritic branching in response to environmental complexity.",
             "choices": {
-              "A": "The phrase is explicitly about post-developmental periods, not changes before maturity.",
-              "B": "Correct. It names the process, and the rest of the text argues for its contribution across the whole lifespan.",
-              "C": "It does not narrow the text to early stages. The text is about what happens after them.",
-              "D": "It identifies a dimension of development rather than defining a term, and the text’s point is that critical periods are not the whole story."
+              "A": "The phrase specifically addresses neuroplasticity after developmental maturity, not changes occurring before maturity, making this choice incorrect.",
+              "B": "Correct. The underlined phrase identifies neuroplastic responses after development as the key process discussed throughout the passage, emphasizing its importance across the lifespan.",
+              "C": "The text does not narrow its focus to early developmental stages; instead, it emphasizes processes occurring after these stages, making this choice incorrect.",
+              "D": "The underlined portion identifies a key aspect of neural development but does not define a scientific term, nor does it focus solely on critical periods, so this choice is incorrect."
             }
           }
         },
@@ -1458,12 +1458,12 @@
           "subtopic": "Cross-Text Connections",
           "difficulty": "hard",
           "explanation": {
-            "summary": "Text 2 explains the old assumption by pointing at where the research happened: shallow coastal regions near research stations, where female display is less common. That is a claim about site selection.",
+            "summary": "Text 2 challenges the assumption in Text 1 that chromatic display is a male trait by providing evidence that females also exhibit this ability. Khoury and colleagues attribute the misconception to research bias, noting that studies have been conducted mostly in shallow coastal regions where female display is less common. This suggests that the assumption in Text 1 was influenced by the selection of study sites, aligning with the claim in Text 2.",
             "choices": {
-              "A": "Correct. \"The kinds of study sites researchers tended to select\" is Khoury’s bias claim in the text’s own terms.",
-              "B": "Text 2 says nothing about male display serving different purposes at different depths.",
-              "C": "Text 2 does not dispute why males change colour. It disputes that only males do.",
-              "D": "Tempting, but the bias Text 2 names is about where researchers looked, not which sex they chose to observe."
+              "A": "Correct. Text 2 attributes the misconception to research conducted in shallow regions, indicating that site selection influenced the view in Text 1.",
+              "B": "Text 2 does not discuss different purposes for male color changes at various depths; it focuses on the misconception about female display.",
+              "C": "Text 2 does not challenge the reasons for male color change; it disputes the idea that only males display color changes.",
+              "D": "While tempting, Text 2 specifies the bias as related to study locations, not a preference for studying males over females."
             }
           }
         },
@@ -1499,12 +1499,12 @@
           "subtopic": "Central Ideas and Details",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "Three moves: the form is notoriously strict, the examples differ remarkably, and Hayes explains why — recognizable restrictions are the ones most worth defying.",
+            "summary": "The passage discusses the villanelle, a poetic form known for its strict formal requirements, and highlights its capacity for variety despite these constraints. It mentions examples like Marilyn Hacker's and Ocean Vuong's villanelles, which differ in theme, tone, and imagery, illustrating this variety. Poet Terrance Hayes is cited, suggesting that the recognizable restrictions of the villanelle make it an inviting form for experimentation, thus allowing for unexpected diversity within its seemingly rigid structure. This indicates that the main idea is about the surprising variety and experimentation possible within the villanelle form, despite its traditional constraints.",
             "choices": {
-              "A": "The text never rates most modern villanelles as conventional.",
-              "B": "No stretch of history without innovation is mentioned.",
-              "C": "Popularity is not the subject. Variety inside a strict form is.",
-              "D": "Correct. Surprising variety despite features that suggest rigidity is the shape of the whole text."
+              "A": "The passage does not discuss the originality of Hacker's and Vuong's villanelles or suggest that most modern examples are conventional. It focuses on variety within the form, not a comparison of originality.",
+              "B": "The passage does not mention a historical period lacking innovation in the villanelle form. It centers on the current potential for variety and experimentation.",
+              "C": "The passage does not address the popularity of the villanelle. Instead, it focuses on the form's ability to accommodate variety despite its strict features.",
+              "D": "Correct. The passage describes how the villanelle, despite its strict characteristics, encourages a surprising amount of variety, as illustrated by the differing examples and Hayes's commentary on experimentation."
             }
           }
         },
@@ -1540,12 +1540,12 @@
           "subtopic": "Inferences",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "Tanaka reports two things: 12 percent of users worldwide use the software, and use is rare in Canada while many users live in Brazil or South Korea. The inference has to stay inside that comparison.",
+            "summary": "Tanaka's research indicates that the use of advanced encryption software is 'rarely employed by citizens in Canada,' while it is more common in countries like Brazil. This suggests that Canadians are less likely to use such tools compared to Brazilians. The passage also mentions that these tools are developed in jurisdictions like Switzerland, which supports the inference that Canadians use them less than Brazilians. The comparison focuses on the frequency of use between countries, specifically highlighting Canada's lower usage.",
             "choices": {
-              "A": "Correct. Rare in Canada against many users in Brazil is Tanaka’s own comparison, and the text defines the software as developed in jurisdictions such as Switzerland.",
-              "B": "Lindqvist criticises firms that fail to encrypt. He would not call weak protection beneficial.",
-              "C": "Swiss residents are never described as users, and convenience never comes up.",
-              "D": "Circumventing data collection is what encryption does, so low Canadian use points the other way."
+              "A": "Correct. The passage states that encryption software is 'rarely employed by citizens in Canada,' while 'many users' in Brazil use it, indicating Canadians are less likely to use these tools than Brazilians.",
+              "B": "Lindqvist criticizes companies for not using robust encryption, implying he would not view legally accessible but weak protection as beneficial. This contradicts the idea that Canadians' practices would be seen as beneficial.",
+              "C": "The passage does not mention Swiss residents using the software or discuss convenience. It focuses on the frequency of use in Canada, Brazil, and South Korea.",
+              "D": "Encryption helps circumvent data collection, so the low use in Canada suggests Canadians are less likely, not more likely, to circumvent corporate data collection compared to South Koreans."
             }
           }
         },
@@ -1584,12 +1584,12 @@
           "subtopic": "Command of Evidence",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "Yellowfin’s maximum tolerance is high enough for the projected warming. The graph puts Pacific bluefin above yellowfin, so the same conclusion follows for it.",
+            "summary": "The passage states that yellowfin tuna's maximum temperature tolerance is high enough to survive projected warming scenarios. The graph shows that Pacific bluefin tuna has a higher maximum temperature tolerance than yellowfin tuna. Therefore, the logical conclusion is that Pacific bluefin tuna should also have the capacity to survive in warming ocean conditions. This supports choice C, as it aligns with the data presented in the graph and the hypothesis about thermal adaptation.",
             "choices": {
-              "A": "Sardines sit lowest on the graph. Nothing in the text supports an \"opposite tendency\" claim about them.",
-              "B": "The graph gives maximum tolerances, not a survival threshold.",
-              "C": "Correct. Bluefin tops the graph, above yellowfin, so if yellowfin clears the bar so does bluefin.",
-              "D": "Bluefin’s higher tolerance argues for the capacity, so grouping it with sardines gets the direction backwards."
+              "A": "Pacific sardines are shown at the lowest point on the graph, indicating they have a lower maximum temperature tolerance. The text does not provide evidence for an 'opposite tendency' regarding their thermal adaptation.",
+              "B": "The graph provides information about maximum temperature tolerances, not the minimum temperature tolerance necessary for survival. The passage does not discuss a specific threshold of 20°C.",
+              "C": "Correct. The graph shows Pacific bluefin tuna with a higher maximum temperature tolerance than yellowfin tuna, supporting the idea that bluefin tuna should also survive in warming conditions.",
+              "D": "The graph shows Pacific bluefin tuna with a higher maximum tolerance than yellowfin tuna, contradicting the idea that bluefin tuna should not demonstrate the capacity to survive warming conditions. Grouping it with sardines, which have a lower tolerance, is incorrect."
             }
           }
         },
@@ -1625,12 +1625,12 @@
           "subtopic": "Command of Evidence",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "Lindqvist’s claim is local: the recordings came from a notebook belonging to a musician working near Brennan’s home. Evidence tying the material to that area is what supports it.",
+            "summary": "Lindqvist argues that the recordings in Brennan's archive likely originate from a local blues musician's performance notebook. The argument hinges on evidence tying the recordings to the area around Brennan's home. The correct answer would provide evidence that the recordings are connected to the local region, supporting Lindqvist's claim that they were copied from a local musician's notebook.",
             "choices": {
-              "A": "Later copies say nothing about where the recordings originally came from.",
-              "B": "If repetitive structures also appear in recordings never performed live, they stop being evidence of live performance.",
-              "C": "Correct. References that assume familiarity with Clarksdale and nearby Delta towns place the performer in Brennan’s area.",
-              "D": "Elite commercial appeal cuts against a local itinerant source rather than supporting one."
+              "A": "This choice suggests that the recordings appear in other collections, but it doesn't address their origin or link them to Brennan's area.",
+              "B": "If repetitive verse structures are common in recordings not performed live, they don't specifically indicate a live performance or local origin.",
+              "C": "Correct. References to Clarksdale and nearby Delta towns suggest the performer was familiar with the area around Brennan's home, supporting the argument of a local origin.",
+              "D": "This choice implies a focus on commercial appeal, which contrasts with the idea of a local, itinerant source and doesn't support Lindqvist's argument."
             }
           }
         },
@@ -1666,12 +1666,12 @@
           "subtopic": "Inferences",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "After the cap, free users went to licensed stores and to pirate sites about 3 percent less. Less streaming did not push them toward owning files; it pushed them away.",
+            "summary": "The passage discusses a study by Ryan Sullivan on the effects of a restriction on the free version of the Swedish streaming service Viewly, which limited usage to ten hours per month. After this restriction, users visited licensed online video retailers and sites offering pirated content about 3% less, indicating a decrease in interest in owning films and television shows. This suggests that restrictions on streaming may suppress viewers' interest in owning content, as evidenced by the reduction in visits to sites where content could be purchased or pirated.",
             "choices": {
-              "A": "The study tracks where users went, not how many users the service kept.",
-              "B": "Correct. Capping streaming coincided with less acquiring of files, licensed or not, so interest in owning fell.",
-              "C": "Movement to the paid tier is never measured.",
-              "D": "The study is about what happened when streaming was restricted, not about content that stays freely streamable."
+              "A": "The passage does not provide information about the total number of users who continued to use the service after the restriction, only about their behavior in terms of content acquisition.",
+              "B": "Correct. The decrease in visits to both licensed and pirated content sites after the streaming cap suggests that the restriction suppressed interest in owning films and shows.",
+              "C": "The passage does not mention any data about users upgrading to the paid version of the service, so this inference is unsupported.",
+              "D": "The study focuses on the effects of streaming restrictions, not on the availability of content through streaming, so this choice is irrelevant to the passage's findings."
             }
           }
         },
@@ -1707,12 +1707,12 @@
           "subtopic": "Inferences",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "The \"however\" flags the limitation: lighting protocols were rare, highly varied, and poorly tracked. That is a reason to distrust the null result about lighting and nothing else.",
+            "summary": "The passage discusses a study on how melatonin levels in aquarium penguins in temperate countries are affected by seasonal variations in darkness duration. The researchers found that melatonin levels were lower in summer than in winter and seemed unaffected by artificial lighting. However, they caution against concluding that artificial lighting adjustments are ineffective because the lighting protocols were rare, highly varied, and poorly tracked. This limitation suggests that the data on lighting is unreliable, making it premature to draw conclusions about its effectiveness.",
             "choices": {
-              "A": "Wild penguins in Antarctica are outside the study, and the caveat given is about the lighting data.",
-              "B": "Correct. With bad data on lighting, \"appeared unaffected\" cannot be read as lighting being ineffective.",
-              "C": "The seasonal melatonin difference is the finding they do stand behind; the lighting caveat does not touch it.",
-              "D": "Poor data is a reason to want more research, not a reason to doubt its usefulness."
+              "A": "This choice incorrectly involves wild emperor penguins in Antarctica, who were not part of the study. The caution is specifically about the reliability of lighting data in aquariums, not about wild penguins.",
+              "B": "Correct. The passage warns against concluding that artificial lighting adjustments are ineffective due to the unreliable data on lighting protocols, which were rare, varied, and poorly tracked.",
+              "C": "This choice misinterprets the caution. The researchers stand by the finding of seasonal variation in melatonin levels; the caution pertains only to the artificial lighting data.",
+              "D": "While poor data might suggest a need for more research, the caution specifically addresses the current inability to draw conclusions about lighting's effectiveness, not the potential usefulness of future research."
             }
           }
         },
@@ -1748,12 +1748,12 @@
           "subtopic": "Inferences",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "The team expected palace-temple control to break the usual diversity-volume relationship. It held in all 89 city-states, so whatever drives that relationship survived the difference in institutions.",
+            "summary": "The researchers hypothesized that the centralized economic control systems in ancient city-states would disrupt the typical relationship between trade volume and partner diversity seen in modern markets. However, their analysis showed that this relationship held true for all 89 ancient city-states studied. This suggests that the underlying commercial and competitive dynamics that drive trade network expansion were consistent across both ancient and modern contexts, despite differences in economic institutions.",
             "choices": {
-              "A": "The study found the relationship held. It measured no slower rate of increase.",
-              "B": "Correct. The prediction failed, which points to consistency in the underlying commercial and competitive dynamics across the two eras.",
-              "C": "Backwards. Identical patterns are evidence that the dynamics were similar, not different.",
-              "D": "Sector-by-sector effects are never examined."
+              "A": "This choice suggests a slower rate of increase in trade partner diversity due to economic institutions, but the passage indicates that the expected relationship held, contradicting this idea.",
+              "B": "Correct. The consistent diversity-volume relationship across ancient and modern markets suggests a notable consistency in the commercial and competitive dynamics shaping trade networks, despite changes in economic control systems.",
+              "C": "This choice incorrectly suggests that the commercial dynamics were different, but the identical patterns in trade partner diversity indicate they were likely similar.",
+              "D": "The passage does not discuss sector-specific effects of centralized institutions; it focuses on the overall relationship between trade volume and partner diversity."
             }
           }
         },
@@ -1789,12 +1789,12 @@
           "subtopic": "Boundaries",
           "difficulty": "hard",
           "explanation": {
-            "summary": "\"Fibrinopeptin\" tells you which enzymatic protein is meant, so it is restrictive — no comma before it — and nothing may sit between the subject and \"has.\"",
+            "summary": "The phrase 'fibrinopeptin (132 amino acids)' specifies which enzymatic protein is being discussed, making it essential information. Therefore, it should not be set off by commas. Additionally, the subject 'protein fibrinopeptin (132 amino acids)' must directly connect to the verb 'has' without interruption. The correct choice maintains this structure, ensuring the sentence flows logically and adheres to the conventions of Standard English.",
             "choices": {
-              "A": "Both commas are wrong: the first treats an essential name as an aside, the second splits subject from verb.",
-              "B": "The comma before the name still makes the essential name look parenthetical.",
-              "C": "The comma after the parenthesis separates the subject from its verb.",
-              "D": "Correct. No punctuation — restrictive name, subject running straight into its verb."
+              "A": "The commas incorrectly suggest that 'fibrinopeptin (132 amino acids)' is non-essential information and disrupt the flow between the subject and the verb 'has.'",
+              "B": "The comma before 'fibrinopeptin' incorrectly treats the essential name as non-essential, making it look like an aside.",
+              "C": "The comma after the parenthesis incorrectly separates the subject 'protein fibrinopeptin (132 amino acids)' from its verb 'has,' disrupting the sentence flow.",
+              "D": "Correct. The sentence flows logically with no punctuation, as 'fibrinopeptin (132 amino acids)' is essential and directly connects to the verb 'has.'"
             }
           }
         },
@@ -1830,12 +1830,12 @@
           "subtopic": "Form, Structure, and Sense",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "\"That requires ... a mutual alignment of needs\" defines the goods-for-goods exchange system, so nothing can be wedged between the noun and its clause.",
+            "summary": "The sentence discusses how barter economies, which require a 'mutual alignment of needs,' are replaced by commodity currency systems like those using wampum beads. The phrase 'that requires what economist Adam Smith describes as a \"mutual alignment of needs\"' is a defining clause for 'a goods-for-goods exchange system.' Therefore, no punctuation should separate 'system' from this defining clause, as it explains the nature of the barter system. The correct choice should maintain this grammatical structure without unnecessary punctuation that would disrupt the sentence's meaning.",
             "choices": {
-              "A": "Correct. No punctuation keeps \"system\" attached to the clause that defines it.",
-              "B": "The dash sets off an aside the sentence does not have.",
-              "C": "The comma cuts \"currency\" from the phrase that completes the thought.",
-              "D": "The second comma severs \"system\" from \"that requires,\" the clause that identifies it."
+              "A": "Correct. This choice maintains the necessary grammatical structure by not inserting any punctuation between 'system' and the defining clause that follows.",
+              "B": "The dash incorrectly sets off the phrase as an aside, which is not appropriate here since the clause is essential to defining 'a goods-for-goods exchange system.'",
+              "C": "The comma incorrectly separates 'currency' from the phrase that completes the thought, disrupting the sentence's flow and meaning.",
+              "D": "The second comma unnecessarily separates 'system' from the defining clause 'that requires,' which is essential to the sentence's meaning."
             }
           }
         },
@@ -1871,12 +1871,12 @@
           "subtopic": "Form, Structure, and Sense",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "The subject is the gerund phrase \"Determining whether memories are ...,\" a single act, so the verb is singular. The dashed interruption does not change it.",
+            "summary": "The sentence's subject is the gerund phrase 'Determining whether memories are ...,' which functions as a singular noun. This means the verb must also be singular to maintain subject-verb agreement. The phrase 'whether experiences, facts, or skills' is a parenthetical element that does not affect the number of the subject. Therefore, the correct verb form to complete the sentence is 'was,' as it matches the singular subject 'Determining.'",
             "choices": {
-              "A": "Agrees with the plural nouns inside the interruption rather than with the subject.",
-              "B": "Correct. Singular gerund subject, singular verb: determining ... was among their primary aims.",
-              "C": "A participle, leaving the sentence with no main verb.",
-              "D": "Same problem."
+              "A": "Uses 'were,' which is plural and incorrectly agrees with the plural nouns in the parenthetical phrase rather than the singular subject 'Determining.'",
+              "B": "Correct. 'Was' is singular and correctly agrees with the singular subject 'Determining whether memories are ...,' maintaining proper subject-verb agreement.",
+              "C": "Uses 'having been,' a participle phrase, which cannot serve as the main verb of the sentence, leaving it incomplete.",
+              "D": "Uses 'being,' another participle, which similarly fails to provide a main verb for the sentence, resulting in a fragment."
             }
           }
         },
@@ -1912,12 +1912,12 @@
           "subtopic": "Form, Structure, and Sense",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "The relative clause already has its verb — \"encourages a broader rethinking.\" The blank must be a participle modifying \"work,\" not a second finite verb.",
+            "summary": "The sentence describes how Connor Murphy's work impacts the perception of Kenzo Tange's architectural contributions. The phrase 'whose work' introduces a relative clause that already includes the verb 'encourages.' Therefore, the blank should be filled with a participle that modifies 'work,' not a second finite verb. The participle 'illustrating' correctly modifies 'work' and fits the sentence structure, indicating that Murphy's work highlights Tange's sophistication and historical importance. This structure aligns with the conventions of Standard English by maintaining a single main verb in the relative clause.",
             "choices": {
-              "A": "Gives the clause two finite verbs.",
-              "B": "Same problem in the present perfect.",
-              "C": "Correct. \"Whose work illustrating ... encourages a broader rethinking\" leaves exactly one verb where one belongs.",
-              "D": "Finite too."
+              "A": "Using 'illustrates' would incorrectly introduce a second finite verb, creating a grammatically incorrect sentence with two main verbs.",
+              "B": "The present perfect 'has illustrated' also introduces a second finite verb, disrupting the sentence's grammatical structure.",
+              "C": "Correct. 'Illustrating' is a participle that modifies 'work,' fitting the sentence structure by providing additional information without adding a second main verb.",
+              "D": "'Is illustrating' introduces a finite verb, which is unnecessary and incorrect because the clause already has the verb 'encourages.'"
             }
           }
         },
@@ -1953,12 +1953,12 @@
           "subtopic": "Form, Structure, and Sense",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "The comma after \"requirements\" attaches a phrase describing the processors. That takes a participle; a finite verb turns the sentence into two clauses joined by nothing but a comma.",
+            "summary": "The sentence describes the capabilities of quantum computing processors and their cooling requirements. The comma after 'requirements' indicates that the following phrase should describe the processors in a way that is grammatically connected to the main clause. The correct choice, 'operating,' forms an absolute phrase that provides additional information about the processors without creating a comma splice. The other choices ('operate,' 'can operate,' 'will operate') incorrectly create a second independent clause, which would require a conjunction or a semicolon to be grammatically correct.",
             "choices": {
-              "A": "Makes a second independent clause after a comma.",
-              "B": "Same splice.",
-              "C": "Same splice.",
-              "D": "Correct. \"The processors typically operating at temperatures ...\" is an absolute phrase, which the comma can carry."
+              "A": "Creates a second independent clause after the comma, resulting in a comma splice.",
+              "B": "Creates a second independent clause after the comma, resulting in a comma splice.",
+              "C": "Creates a second independent clause after the comma, resulting in a comma splice.",
+              "D": "Correct. 'Operating' forms an absolute phrase, appropriately describing the processors' cooling requirements without creating a comma splice."
             }
           }
         },
@@ -1994,12 +1994,12 @@
           "subtopic": "Transitions",
           "difficulty": "medium",
           "explanation": {
-            "summary": "The dashed list of artists is the evidence; the clause after the blank states what came of it — the museum’s reputation as a hub. Cause, then effect.",
+            "summary": "The sentence describes how the Harlem Studio Museum has supported a community of Caribbean American creatives, listing notable figures like Derek Walcott and Harry Belafonte. The phrase after the blank, 'it has garnered a reputation as a hub of Caribbean American art and culture,' indicates the result of this support. The logical relationship is cause and effect: the museum's cultivation of artists leads to its reputation. Therefore, 'therefore' is the appropriate transition to indicate this causal relationship.",
             "choices": {
-              "A": "\"Occasionally\" says the reputation comes and goes, which the sentence does not.",
-              "B": "Nothing is being set against anything.",
-              "C": "\"However\" reverses direction where the sentence runs straight on.",
-              "D": "Correct. Decades of Caribbean American artists, therefore a reputation as a hub."
+              "A": "'Occasionally' suggests that the museum's reputation is intermittent, which contradicts the idea that its consistent support for artists has led to a lasting reputation.",
+              "B": "'In contrast' implies a comparison or opposition, but the sentence presents a cause-and-effect relationship, not a contrast.",
+              "C": "'However' would introduce a contradiction or exception, but the sentence logically follows from cause (supporting artists) to effect (gaining a reputation).",
+              "D": "Correct. 'Therefore' appropriately indicates that the museum's support for Caribbean American creatives has resulted in its reputation as a cultural hub."
             }
           }
         },
@@ -2035,12 +2035,12 @@
           "subtopic": "Transitions",
           "difficulty": "medium",
           "explanation": {
-            "summary": "Latin was the default language of taxonomic names, which is exactly why biologists today meet Latin terms in eighteenth-century classifications.",
+            "summary": "The passage describes how Latin was the default language for taxonomic names in the eighteenth century and explains that this is why modern biologists, like Dr. Layla Hassan, still encounter Latin terms in those classifications. The phrase 'For several centuries after the establishment of modern biological classification' indicates a historical context, leading to the present situation described. The logical relationship is cause and effect: because Latin was the default language, biologists today encounter Latin terms. The word 'Thus' effectively connects the historical practice to its present-day consequence.",
             "choices": {
-              "A": "\"However\" would set the two sentences against each other. They agree.",
-              "B": "Correct. \"Thus\" carries the consequence of Latin having been the default.",
-              "C": "\"Lastly\" closes a list, and there is no list.",
-              "D": "\"Granted\" concedes a point before a counterargument that never arrives."
+              "A": "'However' suggests a contrast between the two sentences, but they are in agreement: both discuss the use of Latin in taxonomy.",
+              "B": "Correct. 'Thus' indicates a cause-and-effect relationship, showing that because Latin was the default language, modern biologists encounter Latin terms.",
+              "C": "'Lastly' implies a conclusion to a list or sequence, but the passage does not present a list of points.",
+              "D": "'Granted' introduces a concession, usually followed by a counterpoint, but the passage does not present a counterargument."
             }
           }
         },
@@ -2076,12 +2076,12 @@
           "subtopic": "Transitions",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "The bridge is exposed to wind, moisture, extreme temperatures, and insects — and it is still structurally sound. The blank has to turn against the expectation the first sentence builds.",
+            "summary": "The passage describes the Prairie Crossing Bridge as being exposed to harsh conditions like wind, moisture, extreme temperatures, and insects. Despite these challenges, the bridge 'remains structurally sound due to its material.' The blank should introduce a contrast between the expected negative impact of these conditions and the actual positive outcome. 'That said' effectively sets up this contrast by acknowledging the exposure and then presenting the unexpected result of structural soundness.",
             "choices": {
-              "A": "\"As a result\" would make the exposure the cause of the soundness.",
-              "B": "\"In addition\" adds another hazard; the sentence delivers good news instead.",
-              "C": "Correct. \"That said\" grants the exposure and then contradicts the outcome you would expect from it.",
-              "D": "\"On the contrary\" denies the first sentence, but the exposure is real. Only the outcome is surprising."
+              "A": "'As a result' implies that the exposure to harsh conditions is the cause of the bridge's soundness, which contradicts the passage's logic.",
+              "B": "'In addition' suggests adding more information about the exposure, but the sentence shifts to a positive outcome, not more hazards.",
+              "C": "Correct. 'That said' acknowledges the exposure to harsh conditions and contrasts it with the unexpected structural soundness of the bridge.",
+              "D": "'On the contrary' suggests denying the exposure itself, but the passage confirms the exposure and only contrasts the expected outcome."
             }
           }
         },
@@ -2117,12 +2117,12 @@
           "subtopic": "Transitions",
           "difficulty": "hard",
           "explanation": {
-            "summary": "India keeps English in daily life; Myanmar barely uses it. The blank has to introduce the opposite case.",
+            "summary": "The passage contrasts the strong influence of the British Empire on India, where English is commonly used, with Myanmar, where English is rarely used. The phrase 'a former colony's tie to the British Empire is so tenuous' indicates a contrast with the previous sentence about India. Therefore, the transition must highlight this difference. 'On the other hand' is the correct choice because it signals a contrast between India's strong linguistic ties to the British Empire and Myanmar's weak ones.",
             "choices": {
-              "A": "No causal line runs from India’s English to Myanmar’s lack of it.",
-              "B": "\"In addition\" would make Myanmar another instance of the same thing. It is the reverse.",
-              "C": "\"At the same time\" concedes a simultaneous truth rather than flipping to the other side of the pattern.",
-              "D": "Correct. \"On the other hand\" sets the tenuous-tie case against the India case."
+              "A": "A causal relationship is not present between India's use of English and Myanmar's lack of it, so 'As a result' is inappropriate.",
+              "B": "'In addition' suggests Myanmar is another example of English being widely used, which contradicts the passage's point about Myanmar.",
+              "C": "'At the same time' suggests simultaneity rather than contrast, failing to highlight the difference between India and Myanmar.",
+              "D": "Correct. 'On the other hand' effectively contrasts India's strong ties to the British Empire with Myanmar's weak ties."
             }
           }
         },
@@ -2158,12 +2158,12 @@
           "subtopic": "Rhetorical Synthesis",
           "difficulty": "easy",
           "explanation": {
-            "summary": "The goal is to identify what causes stalactites, so the sentence has to name the process that forms them.",
+            "summary": "The student's goal is to identify the cause of stalactites, so the answer must describe the process of their formation. The notes explain that stalactites form when 'water containing dissolved minerals drips from the ceiling of a cave' and 'leaves behind mineral deposits.' This repeated dripping and depositing over time results in stalactites. Therefore, the correct answer must reference this process of mineral-rich water dripping and depositing to form stalactites.",
             "choices": {
-              "A": "Explains length rather than the existence of stalactites.",
-              "B": "Correct. Mineral-rich water dripping from the ceiling and depositing over time is the formation process.",
-              "C": "Locates stalactites in Carlsbad Caverns without saying how they form.",
-              "D": "Predicts future growth rather than giving a cause."
+              "A": "This choice focuses on the length of stalactites, mentioning 'many centuries of mineral deposition,' but it doesn't explain the initial formation process, which is the student's goal.",
+              "B": "Correct. This choice accurately describes the formation process: 'The dripping and depositing of mineral-rich water from a cave ceiling forms stalactites,' aligning with the notes about how stalactites are created.",
+              "C": "This choice mentions the presence of stalactites in Carlsbad Caverns but doesn't explain the formation process, which is necessary to identify the cause.",
+              "D": "This choice discusses the future growth of stalactites, stating they 'will continue to grow longer and thicker,' but it doesn't address the initial cause of their formation."
             }
           }
         },
@@ -2199,12 +2199,12 @@
           "subtopic": "Rhetorical Synthesis",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "The goal is a detailed overview of the structures, so the sentence has to stack several structural facts together.",
+            "summary": "The student's goal is to provide a detailed overview of the structures at the House of the Faun. Choice A effectively combines multiple structural details from the notes: it mentions the 'single-story stone and marble construction,' the 'interior courtyards called atria,' and the 'rectangular, interconnected rooms.' These elements collectively give a comprehensive picture of the house's architecture. The other choices either focus on non-structural information or provide only partial structural details, failing to meet the goal of a detailed overview.",
             "choices": {
-              "A": "Correct. Construction materials, height, atria, and the rooms around them — several structural details in one description.",
-              "B": "Gives who built it and when it was occupied, not what it was built like.",
-              "C": "Describes the atria only.",
-              "D": "Names the materials and stops there."
+              "A": "Correct. This choice includes several structural details: the construction materials ('stone and marble'), the building's height ('single-story'), and the layout ('atria surrounded by rectangular, interconnected rooms').",
+              "B": "This choice focuses on the historical context ('inhabited from approximately 180 BCE until the eruption of Mount Vesuvius') rather than the structural details of the house.",
+              "C": "This choice describes only one aspect of the structure, the 'atria,' without mentioning other structural details like materials or the overall layout.",
+              "D": "This choice mentions the construction materials ('stone and marble') but lacks additional structural details like the layout or specific features of the house."
             }
           }
         },
@@ -2240,12 +2240,12 @@
           "subtopic": "Rhetorical Synthesis",
           "difficulty": "extreme",
           "explanation": {
-            "summary": "The goal is a generalization, so the sentence has to state a rule that holds beyond the three liquids in the notes.",
+            "summary": "The student aims to create a generalization about solutions based on their acidity. The notes indicate that acidity is measured using the pH scale, with lower pH values indicating higher acidity. Choice B effectively generalizes this concept by stating that 'any solution with a pH of 2 ... is more acidic than a solution with a pH of 5,' using lemon juice and coffee as examples. This generalization applies beyond the specific examples given, fulfilling the student's goal.",
             "choices": {
-              "A": "Ranks the three specific liquids — a comparison, not a generalization.",
-              "B": "Correct. \"Any solution with a pH of 2 ... is more acidic than a solution with a pH of 5\" states a rule and uses the examples to illustrate it.",
-              "C": "Explains one specific comparison.",
-              "D": "Describes what the scale can do with those three items, still tied to them."
+              "A": "This choice ranks the specific liquids (lemon juice, coffee, and pure water) by acidity, which is a comparison rather than a generalization.",
+              "B": "Correct. This choice states a general rule about acidity and pH values, using lemon juice and coffee as examples to illustrate the concept.",
+              "C": "This choice focuses on a specific comparison between lemon juice and pure water, lacking the broader generalization needed.",
+              "D": "This choice describes the function of the pH scale in ordering the three specific items, not making a general statement about solutions."
             }
           }
         }

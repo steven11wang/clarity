@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 
 import type { FirstPass, Question } from '../../types.ts'
 import { LookupText } from '../../dictionary/LookupText.tsx'
+import { resolveChoiceContext } from '../../dictionary/context.ts'
 import { useWordLookup } from '../../dictionary/useWordLookup.ts'
 import { orderedChoices } from '../../review/ordering.ts'
 import { WordLookupPopover } from '../Exam/WordLookupPopover.tsx'
@@ -174,7 +175,17 @@ export function AnswerPass({ question, isReview, timedMode, timeLimitSec, onAnsw
                       text={slot.text}
                       dictionary={dictionary}
                       onLookup={(req) =>
-                        wordLookup.open({ ...req, source: { examId: question.test || 'practice', questionId: question.id } })
+                        wordLookup.open({
+                          ...req,
+                          sentence: resolveChoiceContext({
+                            choiceText: slot.text,
+                            word: req.word,
+                            requestSentence: req.sentence,
+                            passage: question.passage,
+                            prompt: question.prompt,
+                          }),
+                          source: { examId: question.test || 'practice', questionId: question.id },
+                        })
                       }
                     />
                   </span>

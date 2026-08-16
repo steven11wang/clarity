@@ -1,5 +1,6 @@
 import type { Attempt, ReviewItem } from '../types.ts'
 import type { WordBankEntry } from '../dictionary/wordBank.ts'
+import { normalizeDailyState, type DailyState } from '../review/daily.ts'
 import type { ProgressionState } from '../progression/model.ts'
 import type { Level, SatDomain } from '../progression/config.ts'
 import type { SkillQuizPurpose } from '../progression/model.ts'
@@ -464,6 +465,21 @@ export function isWordSaved(id: string): boolean {
   return id in getWordBank()
 }
 
+// --- Daily return ------------------------------------------------------------
+// Which day the briefing was last shown and last finished, plus the streak.
+// Device-local on purpose: it records when you sat down, not what you know, so
+// restoring a cloud snapshot from another machine must not overwrite it.
+
+const DAILY_KEY = 'daily-review'
+
+export function getDailyState(): DailyState {
+  return normalizeDailyState(storage.get<Partial<DailyState>>(DAILY_KEY))
+}
+
+export function saveDailyState(state: DailyState): void {
+  storage.set(DAILY_KEY, state)
+}
+
 // --- Dev settings -----------------------------------------------------------
 // demoMode compresses review intervals to seconds; clockOffset lets the demo
 // jump forward in time so scheduled items come due without waiting.
@@ -539,6 +555,9 @@ export function replaceCloudState(state: CloudState): void {
     // Lessons read are device-local reading history, not synced progress —
     // restoring a cloud snapshot shouldn't make the student reread them.
     const preservedLessons = localStorage.getItem(namespacedKey(LESSONS_SEEN_KEY))
+    // Same reasoning for the daily return: it is a record of this device's
+    // sittings, not of earned progress.
+    const preservedDaily = localStorage.getItem(namespacedKey(DAILY_KEY))
     const preservedWords = localStorage.getItem(namespacedKey(WORD_BANK_KEY))
     const preservedDictionary = localStorage.getItem(namespacedKey('dictionary-cache'))
     const preservedExamRecords: { key: string; value: string }[] = []
@@ -561,6 +580,9 @@ export function replaceCloudState(state: CloudState): void {
     }
     if (preservedLessons) {
       localStorage.setItem(namespacedKey(LESSONS_SEEN_KEY), preservedLessons)
+    }
+    if (preservedDaily) {
+      localStorage.setItem(namespacedKey(DAILY_KEY), preservedDaily)
     }
     const targetWords =
       state.wordBank !== undefined ? JSON.stringify(state.wordBank) : preservedWords
@@ -608,6 +630,7 @@ export type ClarityDataBackup = {
   reviews: Record<string, ReviewItem>
   wordBank: Record<string, WordBankEntry>
   lessonsSeen: Record<string, number>
+  daily: DailyState
 }
 
 export function exportAllData(): ClarityDataBackup {
@@ -620,6 +643,7 @@ export function exportAllData(): ClarityDataBackup {
     reviews: getReviews(),
     wordBank: getWordBank(),
     lessonsSeen: getLessonsSeen(),
+    daily: getDailyState(),
   }
 }
 
@@ -665,6 +689,9 @@ export function importAllData(data: unknown): void {
       namespacedKey(LESSONS_SEEN_KEY),
       JSON.stringify(raw.lessonsSeen),
     )
+  }
+  if (raw.daily && typeof raw.daily === 'object') {
+    saveDailyState(normalizeDailyState(raw.daily as Partial<DailyState>))
   }
   notifyStorageChange('*')
 }

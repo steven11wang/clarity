@@ -75,7 +75,7 @@ export function useWordLookup() {
   }, [])
 
   const open = useCallback(
-    (request: WordLookupRequest) => {
+    (request: WordLookupRequest, attempt = 0) => {
       requestId.current += 1
       const id = requestId.current
       controller.current?.abort()
@@ -99,6 +99,15 @@ export function useWordLookup() {
         .catch((error: unknown) => {
           if (requestId.current !== id) return
           if (error instanceof DOMException && error.name === 'AbortError') return
+          // The live fallback is a free third-party service with no uptime
+          // guarantee, and most of its failures are a one-off blip rather than
+          // a real outage. One immediate, silent retry clears those before the
+          // learner ever sees an error - only a second failure in a row is
+          // worth interrupting them for.
+          if (attempt === 0) {
+            open(request, 1)
+            return
+          }
           setState({
             phase: 'error',
             ...request,
@@ -128,6 +137,11 @@ export function useWordLookup() {
       setState({ ...state, saved: false })
       return
     }
+    let sentenceToSave = state.sentence
+    const wordCount = sentenceToSave.trim().split(/\s+/).filter(Boolean).length
+    if (wordCount <= 2 && state.sense.example) {
+      sentenceToSave = state.sense.example
+    }
     saveWord(
       createWordEntry(
         {
@@ -135,7 +149,7 @@ export function useWordLookup() {
           word: state.word,
           partOfSpeech: state.sense.partOfSpeech,
           definition: state.sense.definition,
-          sentence: state.sentence,
+          sentence: sentenceToSave,
           source: state.source ?? null,
         },
         getSettings().demoMode,

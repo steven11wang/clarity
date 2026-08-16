@@ -16,6 +16,7 @@ import {
   type SkillLessonSummary,
 } from '../../content/skillLessons.ts'
 import { LookupText } from '../../dictionary/LookupText.tsx'
+import { resolveChoiceContext } from '../../dictionary/context.ts'
 import { useWordLookup } from '../../dictionary/useWordLookup.ts'
 import { WordLookupPopover } from '../Exam/WordLookupPopover.tsx'
 import { DictionaryToggle } from '../QuestionInteraction/ChoiceStrikeout.tsx'
@@ -522,7 +523,17 @@ function WorkedExample({
                       text={text}
                       dictionary={dictionary}
                       onLookup={(req) =>
-                        wordLookup.open({ ...req, source: { examId: 'lesson', questionId: skill } })
+                        wordLookup.open({
+                          ...req,
+                          sentence: resolveChoiceContext({
+                            choiceText: text,
+                            word: req.word,
+                            requestSentence: req.sentence,
+                            passage: example.passage,
+                            prompt: example.prompt,
+                          }),
+                          source: { examId: 'lesson', questionId: skill },
+                        })
                       }
                     />
                   </span>
