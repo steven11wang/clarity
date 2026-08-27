@@ -1,0 +1,298 @@
+/* ============================================================================
+   Clarity · Paywall
+   The gate between a signed-in account and the dashboard. Shares the sign-in
+   page's palette (midnight navy, Cormorant Garamond headings, cinnabar seal
+   accent) and restates the public plans sheet from plans.html.
+   ============================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Sans:wght@400;500;600&display=swap');
+
+.paywall-root {
+  --paywall-ink: #070b18;
+  --paywall-line: rgba(255, 255, 255, 0.1);
+  --paywall-muted: #94a3b8;
+  --paywall-cinnabar: #d8492c;
+
+  min-height: 100dvh;
+  box-sizing: border-box;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(37, 99, 235, 0.16) 0%, transparent 55%),
+    var(--paywall-ink);
+  color: #fff;
+  font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  padding: 0 clamp(1.25rem, 5vw, 5rem) clamp(3rem, 6vh, 5rem);
+}
+
+.paywall-root--centered {
+  display: grid;
+  place-items: center;
+  padding-bottom: 0;
+}
+
+/* ---- wordmark & header ---------------------------------------------------- */
+.paywall-wordmark {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.02em;
+}
+
+.paywall-wordmark span {
+  color: var(--paywall-cinnabar);
+}
+
+.paywall-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1.35rem 0;
+  border-bottom: 1px solid var(--paywall-line);
+}
+
+.paywall-account {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: 0.85rem;
+}
+
+.paywall-email {
+  color: var(--paywall-muted);
+}
+
+.paywall-link-btn {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: #cbd5e1;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.paywall-link-btn:hover:not(:disabled) {
+  color: #fff;
+}
+
+.paywall-link-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* ---- intro ---------------------------------------------------------------- */
+.paywall-intro {
+  max-width: 46rem;
+  margin: clamp(2.5rem, 7vh, 4.5rem) 0 clamp(1.75rem, 4vh, 2.5rem);
+}
+
+.paywall-eyebrow {
+  margin: 0 0 0.75rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--paywall-muted);
+}
+
+.paywall-intro h1 {
+  margin: 0 0 0.85rem;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(2.4rem, 5vw, 3.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+}
+
+.paywall-lede {
+  margin: 0;
+  color: #cbd5e1;
+  line-height: 1.6;
+  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+}
+
+.paywall-lede b {
+  color: #fff;
+  font-weight: 550;
+}
+
+/* ---- notices -------------------------------------------------------------- */
+.paywall-alert {
+  max-width: 46rem;
+  margin: 0 0 1.5rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--paywall-line);
+  border-left: 2px solid var(--paywall-cinnabar);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #e2e8f0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.paywall-alert--error {
+  border-left-color: #f87171;
+}
+
+/* ---- plan sheet ----------------------------------------------------------- */
+.paywall-grid {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.75rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  max-width: 62rem;
+}
+
+.paywall-plan {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.5rem, 3vw, 2.15rem);
+  border: 1px solid var(--paywall-line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.paywall-plan--lift {
+  border-color: rgba(37, 99, 235, 0.45);
+  background: rgba(37, 99, 235, 0.07);
+}
+
+.paywall-plan-name {
+  margin: 0 0 0.6rem;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 500;
+  font-size: 1.75rem;
+}
+
+.paywall-zh {
+  font-size: 1.05rem;
+  color: var(--paywall-muted);
+  margin-left: 0.35rem;
+}
+
+.paywall-plan-price {
+  margin: 0 0 0.9rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.paywall-plan-price b {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2.4rem;
+  font-weight: 500;
+}
+
+.paywall-plan-price span {
+  font-size: 0.8rem;
+  color: var(--paywall-muted);
+}
+
+.paywall-plan-line {
+  margin: 0 0 1.25rem;
+  color: #cbd5e1;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.paywall-plan-list {
+  margin: 0 0 1.75rem;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.paywall-plan-list li {
+  position: relative;
+  padding-left: 1.15rem;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: #e2e8f0;
+}
+
+.paywall-plan-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--paywall-cinnabar);
+}
+
+.paywall-cta {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--paywall-line);
+  border-radius: 8px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 550;
+  font-size: 0.95rem;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.paywall-cta i {
+  font-style: normal;
+}
+
+.paywall-cta:hover {
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-1px);
+}
+
+.paywall-cta--solid {
+  background: #2563eb;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+}
+
+.paywall-cta--solid:hover {
+  background: #1d4ed8;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+}
+
+/* ---- footer --------------------------------------------------------------- */
+.paywall-foot {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: clamp(1.75rem, 4vh, 2.5rem);
+  font-size: 0.85rem;
+  color: var(--paywall-muted);
+}
+
+.paywall-foot a {
+  color: #cbd5e1;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.paywall-foot-sep {
+  opacity: 0.5;
+}
+
+/* ---- post-checkout confirming state --------------------------------------- */
+.paywall-confirming {
+  display: grid;
+  gap: 0.75rem;
+  justify-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.paywall-confirming p {
+  margin: 0;
+  color: #cbd5e1;
+}
+
+.paywall-confirming-note {
+  font-size: 0.85rem;
+  color: var(--paywall-muted) !important;
+}

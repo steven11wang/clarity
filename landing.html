@@ -668,9 +668,9 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
 .close-art{position:relative; z-index:2; margin:0 auto; width:100%; max-width:1600px}
 .close-art img{
   width:100%; height:auto;
-  /* the drawing dissolves into the sheet rather than starting at a seam */
-  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 9%);
-          mask-image:linear-gradient(180deg,transparent 0,#000 9%);
+  /* the drawing dissolves into the sheet softly at both top and bottom edges */
+  -webkit-mask-image:linear-gradient(180deg, transparent 0%, #000 7%, #000 86%, transparent 100%);
+          mask-image:linear-gradient(180deg, transparent 0%, #000 7%, #000 86%, transparent 100%);
 }
 
 .close-feet{
@@ -1013,7 +1013,7 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
     <div class="close-stage">
       <span class="close-mark" aria-hidden="true">Clarity<br />through<br />practice</span>
       <figure class="close-art">
-        <img src="/brand/landing/reader-close.jpg" width="1024" height="682" loading="lazy"
+        <img src="/brand/landing/reader-close-v2.jpg" width="1024" height="682" loading="lazy"
              alt="Pencil drawing of a reader drinking from a cup with earphones, ink mountain ridges in the background." />
       </figure>
 

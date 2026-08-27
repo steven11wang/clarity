@@ -1,9 +1,11 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import type { User } from '@supabase/supabase-js'
 
 import { ConsoleAudioProvider } from '../audio/ConsoleAudioProvider.tsx'
 import { AuthProfileProvider } from './AuthContext.tsx'
+import { PaywallPage } from './PaywallPage.tsx'
 import { SignInPage, type SignInPageProps } from './SignInPage.tsx'
+import { fetchAccess, type AccessState } from '../lib/subscription.ts'
 import {
   clearProfilePin,
   listProfileShortcuts,
@@ -27,6 +29,8 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
   const [syncError, setSyncError] = useState<string | null>(null)
   const [unlockedUserId, setUnlockedUserId] = useState<string | null>(null)
   const [profileRevision, setProfileRevision] = useState(0)
+  const [access, setAccess] = useState<AccessState | null>(null)
+  const [accessError, setAccessError] = useState<string | null>(null)
   const syncedUserId = useRef<string | null>(null)
 
   useEffect(() => {
@@ -103,6 +107,50 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
     })
   }, [user])
 
+  // Paywall. Stripe is the source of truth; the row is written only by the
+  // stripe-webhook edge function running as service role, and row-level
+  // security makes it read-only here, so a browser cannot grant itself a plan.
+  useEffect(() => {
+    if (!user) {
+      setAccess(null)
+      setAccessError(null)
+      return
+    }
+    let active = true
+    setAccess(null)
+    setAccessError(null)
+    void fetchAccess(user)
+      .then((result) => {
+        if (active) setAccess(result)
+      })
+      .catch((error: unknown) => {
+        if (!active) return
+        setAccessError(error instanceof Error ? error.message : 'Could not read your plan.')
+        setAccess({ allowed: false, subscription: null })
+      })
+    return () => {
+      active = false
+    }
+  }, [user])
+
+  const recheckAccess = useCallback(async () => {
+    if (!user) return false
+    const result = await fetchAccess(user)
+    setAccess(result)
+    setAccessError(null)
+    return result.allowed
+  }, [user])
+
+  // Drop ?checkout=success once it has done its job, so a reload or a shared
+  // link does not put the learner back on the confirming screen.
+  useEffect(() => {
+    if (!access?.allowed) return
+    const url = new URL(window.location.href)
+    if (!url.searchParams.has('checkout')) return
+    url.searchParams.delete('checkout')
+    window.history.replaceState({}, document.title, url.pathname + url.search + url.hash)
+  }, [access])
+
   if (!isSupabaseConfigured) {
     return (
       <>
@@ -128,6 +176,32 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
         <SignInPage
           initialError={extractUrlAuthError()}
           onSuccess={(profile) => setUnlockedUserId(profile.id)}
+        />
+      </>
+    )
+  }
+
+  if (!access) {
+    return (
+      <main className="app-status" aria-live="polite">
+        <span className="wordmark">clarity<span>.</span></span>
+        <p>Checking your plan…</p>
+      </main>
+    )
+  }
+
+  if (!access.allowed) {
+    return (
+      <>
+        <ConsoleAudioProvider scene="auth" />
+        <PaywallPage
+          user={user}
+          subscription={access.subscription}
+          onRecheck={recheckAccess}
+          onSignOut={() => {
+            void supabase!.auth.signOut()
+          }}
+          error={accessError}
         />
       </>
     )
