@@ -76,3 +76,66 @@ states, and persistent-shell behavior.
   `:focus-visible` treatment.
 
 final result: passed
+
+---
+
+# Study Path Onboarding — Design QA
+
+## Source truth
+
+- Revised roadmap reference: `/Users/s/.codex/generated_images/01a04089-663b-7ed3-9cde-55a6290168a7/exec-3c5b23ec-f388-4df5-b704-4e53856a8b1e.png`
+- Earlier interaction-state references:
+  - `/Users/s/.codex/generated_images/01a04089-663b-7ed3-9cde-55a6290168a7/exec-2269d961-ba85-4043-bec2-68ed2462f1d1.png`
+  - `/Users/s/.codex/generated_images/01a04089-663b-7ed3-9cde-55a6290168a7/exec-cba89d96-f713-48d2-a38f-2b26b3c26b3d.png`
+
+## Implementation evidence
+
+- Prototype: `http://127.0.0.1:5173/preview-study-path.html`
+- Implementation screenshot: `/private/tmp/clarity-study-path-implementation-v2.png`
+- Mobile screenshot: `/private/tmp/clarity-study-path-mobile.png`
+- Combined reference/implementation comparison: `/private/tmp/clarity-study-path-comparison-v2.png`
+- Viewport: 1440 × 1024 CSS pixels at DPR 1
+- Reference normalization: 1487 × 1058 → 1440 × 1024
+- Compared state: completed roadmap with Step 2 selected as “YOUR START”
+- Focused crops were not required because the full-resolution comparison keeps every fidelity surface and all six roadmap entries legible.
+
+## Fidelity review
+
+| Surface | Result | Evidence |
+| --- | --- | --- |
+| Typography | Pass | Editorial serif heading and clean sans-serif interface copy preserve the reference hierarchy. |
+| Spacing and layout | Pass | Centered paper panel, six-step route, two concept cards, and bottom actions align closely at the matched viewport. |
+| Colors and effects | Pass | Warm paper, muted ink, burgundy accents, misted blue-green landscape, and restrained shadows match the reference direction. |
+| Imagery and icons | Pass | The product’s existing shanshui landscape asset is used; Lucide icons are used for interface affordances; there are no placeholders. |
+| Copy and labels | Pass | All corrected roadmap content is present, including “Untimed Dictionary Score,” critical thinking, accuracy-over-pace analysis, and repetition. |
+| Responsive behavior | Pass | At 390 × 844, the route becomes a readable single-column flow with no horizontal overflow. |
+| Interaction states | Pass | Initial choice, Bluebook recommendation, three-level selection, Step 1/2/5 routing, edit answers, primary action, and secondary score-setup action were exercised. |
+| Browser console | Pass | No warnings or errors in the verified path. |
+
+## Comparison history
+
+### Pass 1
+
+- P2: The desktop heading wrapped too early.
+- P2: Level tags stretched across the option cards.
+- P2: The selected roadmap column had an overly strong full-column tint.
+- P2: The landscape art from the selected reference was missing.
+- P2: The mobile “YOUR START” label clipped at the panel edge.
+
+Fixes applied: widened and retuned the heading, constrained level tags, removed the selected-column wash, incorporated the existing landscape asset, and repositioned the mobile starting-point label.
+
+### Pass 2
+
+- No P0, P1, or P2 findings remain.
+- P3: The reference’s hand-drawn winding ink route is represented by cleaner code-native dividers. The reading order and selected starting point remain unambiguous.
+- P3: The secondary action says “Go to score setup” instead of “Go to dashboard” because this product already requires score setup before dashboard entry.
+
+## Automated verification
+
+- `npm test`: 272 passed, 0 failed.
+- `npm run build`: passed.
+- `git diff --check`: passed.
+
+## Final result
+
+passed
