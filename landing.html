@@ -629,8 +629,8 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
 }
 
 /* ==========================================================================
-   7 · CLOSE. The reader, with the page's own name pressed into the paper beside
-   her rather than across her face.
+   7 · CLOSE. A river-city panorama printed into the same warm paper as the
+   rest of the closing section.
    ========================================================================== */
 .close{
   position:relative; overflow:hidden;
@@ -665,12 +665,23 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
   font-size:clamp(44px,7.6vw,118px); color:var(--ink);
   white-space:nowrap; pointer-events:none; user-select:none;
 }
-.close-art{position:relative; z-index:2; margin:0 auto; width:100%; max-width:1600px}
+.close-art{
+  position:relative; z-index:2; margin:0 auto; width:100%; max-width:2172px;
+  background:var(--paper-warm); overflow:hidden;
+}
+.close-art::after{
+  content:''; position:absolute; inset:-1px; pointer-events:none;
+  background:
+    linear-gradient(180deg,
+      var(--paper-warm) 0%, transparent 14%, transparent 78%, var(--paper-warm) 100%),
+    linear-gradient(90deg,
+      var(--paper-warm) 0%, transparent 5%, transparent 95%, var(--paper-warm) 100%);
+}
 .close-art img{
-  width:100%; height:auto;
-  /* the drawing dissolves into the sheet softly at both top and bottom edges */
-  -webkit-mask-image:linear-gradient(180deg, transparent 0%, #000 7%, #000 86%, transparent 100%);
-          mask-image:linear-gradient(180deg, transparent 0%, #000 7%, #000 86%, transparent 100%);
+  width:100%; height:clamp(230px,33.34vw,724px); object-fit:cover; object-position:center;
+  /* Lift and quiet the ochre so it reads as ink absorbed by this paper. */
+  filter:saturate(.68) brightness(1.08) contrast(.92);
+  opacity:.82; mix-blend-mode:multiply;
 }
 
 .close-feet{
@@ -1013,8 +1024,8 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
     <div class="close-stage">
       <span class="close-mark" aria-hidden="true">Clarity<br />through<br />practice</span>
       <figure class="close-art">
-        <img src="/brand/landing/reader-close-v2.jpg" width="1024" height="682" loading="lazy"
-             alt="Pencil drawing of a reader drinking from a cup with earphones, ink mountain ridges in the background." />
+        <img src="/brand/landing/river-city-panorama.png" width="2172" height="724" loading="lazy"
+             alt="Sepia ink panorama of a riverside city with bridges, boats, streets, and distant mountains." />
       </figure>
 
       <div class="wrap close-feet">
