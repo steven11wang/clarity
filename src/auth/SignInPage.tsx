@@ -38,7 +38,7 @@ export function SignInPage({
     }
 
     setBusy(true)
-    const redirectUrl = `${window.location.origin}/app`
+    const redirectUrl = `${window.location.origin}/app/`
     const { error: oauthError } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
@@ -79,7 +79,7 @@ export function SignInPage({
     // Forgot password flow
     if (mode === 'forgot-password') {
       setBusy(true)
-      const redirectUrl = `${window.location.origin}/app`
+      const redirectUrl = `${window.location.origin}/app/`
       const { error: resetError } = await supabase.auth.resetPasswordForEmail(email.trim(), {
         redirectTo: redirectUrl,
       })
