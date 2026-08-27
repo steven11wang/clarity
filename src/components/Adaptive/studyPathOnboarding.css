@@ -1,0 +1,259 @@
+/* First-entry study path.
+   Deliberately the quietest surface in the product: no artwork, no icons, no
+   glass. It is a decision the student makes in ten seconds, so everything
+   that is not the question or the answer has been removed. Type and one
+   hairline border carry the whole thing. */
+
+.study-path-backdrop {
+  align-items: center;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  background: rgba(4, 6, 14, 0.72);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  overflow-y: auto;
+  padding: clamp(1rem, 4vw, 3rem);
+  position: fixed;
+  z-index: 60;
+}
+
+.study-path-panel {
+  background: var(--ink-800, #0a0f1e);
+  border: 1px solid var(--line-2, rgba(255, 255, 255, 0.13));
+  border-radius: var(--r-lg, 16px);
+  box-shadow: 0 2px 4px rgba(2, 5, 13, 0.5), 0 28px 64px -20px rgba(2, 6, 18, 0.9);
+  color: var(--text-1, #f3f6fc);
+  font-family: Geist, ui-sans-serif, system-ui, -apple-system, sans-serif;
+  margin: auto;
+  max-width: 100%;
+  padding: clamp(1.6rem, 4vw, 2.75rem);
+  width: 34rem;
+}
+
+.study-path-panel--plan {
+  width: 40rem;
+}
+
+/* --- Type ----------------------------------------------------------------- */
+
+.study-path-eyebrow {
+  color: var(--text-3, rgba(240, 245, 255, 0.55));
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  margin: 0 0 0.9rem;
+  text-transform: uppercase;
+}
+
+.study-path-panel h1 {
+  font-size: clamp(1.35rem, 3vw, 1.65rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  margin: 0;
+  outline: none;
+}
+
+.study-path-lede {
+  color: var(--text-2, rgba(240, 245, 255, 0.72));
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0.75rem 0 0;
+  max-width: 34em;
+}
+
+/* --- Answer rows ---------------------------------------------------------- */
+
+.study-path-options {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 1.75rem;
+}
+
+.study-path-options > button {
+  background: transparent;
+  border: 1px solid var(--line-2, rgba(255, 255, 255, 0.13));
+  border-radius: var(--r-md, 12px);
+  color: inherit;
+  cursor: pointer;
+  display: grid;
+  font: inherit;
+  gap: 0.2rem;
+  padding: 0.95rem 1.1rem;
+  text-align: left;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+  width: 100%;
+}
+
+.study-path-options > button:hover,
+.study-path-options > button:focus-visible {
+  background: rgba(47, 98, 217, 0.1);
+  border-color: var(--cobalt, #2f62d9);
+  outline: none;
+}
+
+.study-path-options strong {
+  font-size: 0.98rem;
+  font-weight: 550;
+}
+
+.study-path-options small {
+  color: var(--text-3, rgba(240, 245, 255, 0.55));
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.study-path-options em {
+  color: var(--cobalt-light, #9cc0ff);
+  font-size: 0.75rem;
+  font-style: normal;
+  letter-spacing: 0.04em;
+  margin-top: 0.35rem;
+}
+
+/* --- The six steps -------------------------------------------------------- */
+
+.study-path-plan {
+  border-top: 1px solid var(--line-1, rgba(255, 255, 255, 0.07));
+  list-style: none;
+  margin: 1.75rem 0 0;
+  padding: 0;
+}
+
+.study-path-plan li {
+  border-bottom: 1px solid var(--line-1, rgba(255, 255, 255, 0.07));
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: 1.5rem 1fr;
+  padding: 0.95rem 0;
+}
+
+/* Steps the student has effectively already cleared stay readable but recede,
+   so the eye lands on the one they are being started at. */
+.study-path-plan li[data-earlier='true'] {
+  opacity: 0.45;
+}
+
+.study-path-plan__number {
+  color: var(--text-3, rgba(240, 245, 255, 0.55));
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.55;
+}
+
+.study-path-plan li[data-active='true'] .study-path-plan__number {
+  color: var(--cobalt-light, #9cc0ff);
+}
+
+.study-path-plan h2 {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.95rem;
+  font-weight: 550;
+  gap: 0.6rem;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.study-path-plan h2 em {
+  color: var(--cobalt-light, #9cc0ff);
+  font-size: 0.72rem;
+  font-style: normal;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.study-path-plan p {
+  color: var(--text-3, rgba(240, 245, 255, 0.55));
+  font-size: 0.875rem;
+  line-height: 1.55;
+  margin: 0.2rem 0 0;
+}
+
+.study-path-note {
+  color: var(--text-3, rgba(240, 245, 255, 0.55));
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin: 1.15rem 0 0;
+}
+
+.study-path-note strong {
+  color: var(--text-2, rgba(240, 245, 255, 0.72));
+  font-weight: 550;
+}
+
+/* --- Actions -------------------------------------------------------------- */
+
+.study-path-footer {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.6rem;
+}
+
+.study-path-footer--split {
+  justify-content: space-between;
+}
+
+.study-path-actions {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+}
+
+.study-path-primary-action {
+  background: var(--cobalt, #2f62d9);
+  border: none;
+  border-radius: var(--r-pill, 999px);
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 550;
+  padding: 0.6rem 1.25rem;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+  white-space: nowrap;
+}
+
+.study-path-primary-action:hover,
+.study-path-primary-action:focus-visible {
+  background: var(--cobalt-press, #2450b8);
+  outline: none;
+}
+
+.study-path-text-action {
+  background: none;
+  border: none;
+  color: var(--text-3, rgba(240, 245, 255, 0.55));
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.875rem;
+  padding: 0.35rem 0;
+  transition: color 0.15s ease;
+}
+
+.study-path-text-action:hover,
+.study-path-text-action:focus-visible {
+  color: var(--text-1, #f3f6fc);
+  outline: none;
+}
+
+@media (max-width: 32rem) {
+  .study-path-footer--split {
+    align-items: stretch;
+    flex-direction: column-reverse;
+  }
+
+  .study-path-actions {
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+  }
+
+  .study-path-actions > * {
+    text-align: center;
+    width: 100%;
+  }
+}

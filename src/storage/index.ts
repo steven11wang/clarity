@@ -310,6 +310,50 @@ export function saveProgression(state: ProgressionState): void {
   storage.set(PROGRESSION_KEY, state)
 }
 
+// --- First-entry study path -----------------------------------------------
+// This is device-local setup context rather than earned progress. Keeping it
+// per profile prevents one learner's onboarding choice from hiding the flow
+// for another learner who uses the same device.
+
+export type StudyPathStartingStep = 1 | 2 | 5
+
+export type StudyPathOnboardingState = {
+  hasTakenPracticeTest: true
+  startingStep: StudyPathStartingStep
+  completedAt: number
+}
+
+const STUDY_PATH_KEY = 'study-path-onboarding'
+
+function studyPathKey(profileId: string | null | undefined) {
+  return `${STUDY_PATH_KEY}:${profileId || 'anonymous'}`
+}
+
+export function getStudyPathOnboarding(
+  profileId?: string | null,
+): StudyPathOnboardingState | null {
+  const value = storage.get<Partial<StudyPathOnboardingState>>(
+    studyPathKey(profileId),
+  )
+  if (
+    value?.hasTakenPracticeTest !== true ||
+    (value.startingStep !== 1 &&
+      value.startingStep !== 2 &&
+      value.startingStep !== 5) ||
+    typeof value.completedAt !== 'number'
+  ) {
+    return null
+  }
+  return value as StudyPathOnboardingState
+}
+
+export function saveStudyPathOnboarding(
+  profileId: string | null | undefined,
+  state: StudyPathOnboardingState,
+): void {
+  storage.set(studyPathKey(profileId), state)
+}
+
 // --- In-progress adaptive assessment ---------------------------------------
 // Kept separately from the guarded progression document: it is a resumable UI
 // draft, not earned progress. The progression timestamp + deterministic
@@ -560,10 +604,16 @@ export function replaceCloudState(state: CloudState): void {
     const preservedDaily = localStorage.getItem(namespacedKey(DAILY_KEY))
     const preservedWords = localStorage.getItem(namespacedKey(WORD_BANK_KEY))
     const preservedDictionary = localStorage.getItem(namespacedKey('dictionary-cache'))
+    const preservedStudyPaths: { key: string; value: string }[] = []
+    const studyPathPrefix = namespacedKey(`${STUDY_PATH_KEY}:`)
     const preservedExamRecords: { key: string; value: string }[] = []
     const examRecordsPrefix = namespacedKey(EXAM_RECORDS_PREFIX)
     for (let index = 0; index < localStorage.length; index += 1) {
       const key = localStorage.key(index)
+      if (key?.startsWith(studyPathPrefix)) {
+        const value = localStorage.getItem(key)
+        if (value) preservedStudyPaths.push({ key, value })
+      }
       if (key?.startsWith(examRecordsPrefix)) {
         const val = localStorage.getItem(key)
         if (val) preservedExamRecords.push({ key, value: val })
@@ -592,6 +642,9 @@ export function replaceCloudState(state: CloudState): void {
     if (preservedDictionary) {
       localStorage.setItem(namespacedKey('dictionary-cache'), preservedDictionary)
     }
+    preservedStudyPaths.forEach(({ key, value }) => {
+      localStorage.setItem(key, value)
+    })
     if (state.examRecords === undefined) {
       preservedExamRecords.forEach(({ key, value }) => {
         localStorage.setItem(key, value)
@@ -715,4 +768,3 @@ export function subscribeStorageChanges(listener: () => void): () => void {
   window.addEventListener(STORAGE_CHANGE_EVENT, handler)
   return () => window.removeEventListener(STORAGE_CHANGE_EVENT, handler)
 }
-

@@ -43,6 +43,7 @@ const panels = {
   reviews: createElement('p', null, 'Reviews panel'),
   words: createElement('p', null, 'Words panel'),
   library: createElement('p', null, 'Library panel'),
+  reflect: createElement('p', null, 'Reflect panel'),
   insights: createElement('p', null, 'Insights panel'),
 }
 
@@ -76,7 +77,7 @@ describe('primary view transition', () => {
   })
 
   it('keeps outgoing and incoming panels during a forward handoff', async () => {
-    await render('library')
+    await render('reflect')
 
     const transition = container.querySelector(
       '.console-primary-transition',
@@ -87,7 +88,7 @@ describe('primary view transition', () => {
       2,
     )
     assert.match(container.textContent ?? '', /Practice panel/)
-    assert.match(container.textContent ?? '', /Library panel/)
+    assert.match(container.textContent ?? '', /Reflect panel/)
 
     await settle()
 
@@ -95,7 +96,7 @@ describe('primary view transition', () => {
       container.querySelectorAll('.console-primary-layer').length,
       1,
     )
-    assert.equal(container.textContent, 'Library panel')
+    assert.equal(container.textContent, 'Reflect panel')
   })
 
   it('settles on the latest request after rapid navigation', async () => {
@@ -143,6 +144,7 @@ describe('persistent console shell', () => {
           reviewsPanel: createElement('p', null, 'Embedded reviews'),
           wordsPanel: createElement('p', null, 'Embedded words'),
           libraryPanel: createElement('p', null, 'Embedded library'),
+          reflectPanel: createElement('p', null, 'Embedded reflect'),
           insightsPanel: createElement('p', null, 'Embedded insights'),
           cards,
           onSelectDomain: () => {},
@@ -153,6 +155,7 @@ describe('persistent console shell', () => {
           onOpenReviews: () => {},
           onOpenWords: () => {},
           onOpenLibrary: () => {},
+          onOpenReflect: () => {},
           onOpenInsights: () => {},
         }))
       })
@@ -171,17 +174,28 @@ describe('persistent console shell', () => {
     assert.equal(shellContainer.querySelector('.console-hero-wash'), sceneBefore)
     assert.equal(shellContainer.querySelector('.console-header'), headerBefore)
     assert.match(shellContainer.textContent ?? '', /Embedded lessons/)
-    // Lessons lives on the practice rail now, so no nav tab claims the page.
-    assert.equal(shellContainer.querySelector('[aria-current="page"]'), null)
+    // Lessons is the first shelf of the Learn tab, so Learn claims the page.
+    assert.equal(
+      shellContainer.querySelector('[aria-current="page"]')?.textContent,
+      'Learn',
+    )
 
     await renderShell('library')
 
     assert.equal(shellContainer.querySelector('.console-hero-wash'), sceneBefore)
     assert.equal(shellContainer.querySelector('.console-header'), headerBefore)
     assert.match(shellContainer.textContent ?? '', /Embedded library/)
+    // The Library shelf is under Learn too; the sub-nav names it, not the tab.
     assert.equal(
       shellContainer.querySelector('[aria-current="page"]')?.textContent,
-      'Library',
+      'Learn',
+    )
+    // Both Learn layers are on screen mid-slide, so look for the shelf rather
+    // than assuming the incoming layer comes first in the DOM.
+    assert.ok(
+      [...shellContainer.querySelectorAll('.console-subnav__active')].some(
+        (button) => button.textContent === 'Library',
+      ),
     )
 
     await renderShell('insights')
@@ -197,7 +211,7 @@ describe('persistent console shell', () => {
       [...shellContainer.querySelectorAll('.console-nav button')].map(
         (button) => button.textContent,
       ),
-      ['Practice', 'Library', 'Words', 'Insights'],
+      ['Learn', 'Practice', 'Reflect', 'Words', 'Insights'],
     )
 
     await act(async () => {
@@ -230,6 +244,7 @@ describe('persistent console shell', () => {
         reviewsPanel: createElement('p'),
         wordsPanel: createElement('p'),
         libraryPanel: createElement('p'),
+        reflectPanel: createElement('p'),
         insightsPanel: createElement('p'),
         cards,
         onSelectDomain: () => {},
@@ -240,6 +255,7 @@ describe('persistent console shell', () => {
         onOpenReviews: () => {},
         onOpenWords: () => {},
         onOpenLibrary: () => {},
+        onOpenReflect: () => {},
         onOpenInsights: () => {},
       }))
     })
@@ -287,6 +303,7 @@ describe('persistent console shell', () => {
         reviewsPanel: createElement('p', null, 'Embedded vault'),
         wordsPanel: createElement('p', null, 'Embedded words'),
         libraryPanel: createElement('p'),
+        reflectPanel: createElement('p'),
         insightsPanel: createElement('p'),
         cards,
         onSelectDomain: () => {},
@@ -297,6 +314,7 @@ describe('persistent console shell', () => {
         onOpenReviews: () => { reviewsOpened += 1 },
         onOpenWords: () => {},
         onOpenLibrary: () => { libraryOpened += 1 },
+        onOpenReflect: () => {},
         onOpenInsights: () => {},
       }))
     })

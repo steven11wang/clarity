@@ -50,6 +50,7 @@ type ProgressDashboardProps = {
   reviewsPanel: ReactNode
   wordsPanel: ReactNode
   libraryPanel: ReactNode
+  reflectPanel: ReactNode
   insightsPanel: ReactNode
   cards: DomainCardView[]
   dueCount?: number
@@ -61,13 +62,13 @@ type ProgressDashboardProps = {
   onOpenReviews: () => void
   onOpenWords: () => void
   onOpenLibrary: () => void
+  onOpenReflect: () => void
   onOpenInsights: () => void
 }
 
 type ConsoleSelection =
   | { kind: 'today' }
   | { kind: 'domain'; domain: SatDomain }
-  | { kind: 'lessons' }
   | { kind: 'exam' }
   | { kind: 'reviews' }
 
@@ -76,7 +77,6 @@ type ConsoleSelection =
 // rendered at four different optical weights and shifted between platforms.
 const TILE_ICON_SIZE = 26
 const TILE_ICONS = [Search, BookOpen, GitMerge, TypeIcon]
-const LESSON_TILE_ACCENT = '#8cb4ff'
 const EXAM_TILE_ACCENT = '#f0b64d'
 const HERO_BACKGROUND_LEAD_MS = 180
 const HERO_TEXT_SETTLE_MS = 320
@@ -93,7 +93,6 @@ function buildHero(
   securedSkills: number,
   dueCount: number,
   onSelectDomain: (domain: SatDomain) => void,
-  onOpenLessons: () => void,
   onOpenExam: () => void,
   onOpenReviews: () => void,
   onOpenLibrary: () => void,
@@ -106,18 +105,9 @@ function buildHero(
       title: `${totalSkills - securedSkills} skills are waiting for you.`,
       body: `${DOMAIN_PRESENTATION[next.domain].shortName} is the strongest place to continue. Your path, completed skills, and checkpoint progress are all saved.`,
       primary: 'Continue recommended path',
-      secondary: 'Browse practice library',
+      secondary: 'Open the Learn shelf',
       primaryAction: () => onSelectDomain(next.domain),
       secondaryAction: onOpenLibrary,
-    }
-  }
-  if (selection.kind === 'lessons') {
-    return {
-      kicker: 'LESSONS · CLASSROOM',
-      title: 'Learn the move before you drill it.',
-      body: 'Four lesson halls, one per domain. Step inside, pick the skill you want to understand, and read the Foundations lesson before the questions come at you.',
-      primary: 'Enter classroom',
-      primaryAction: onOpenLessons,
     }
   }
   if (selection.kind === 'exam') {
@@ -167,6 +157,7 @@ export function ProgressDashboard({
   reviewsPanel,
   wordsPanel,
   libraryPanel,
+  reflectPanel,
   insightsPanel,
   cards,
   dueCount = 0,
@@ -178,6 +169,7 @@ export function ProgressDashboard({
   onOpenReviews,
   onOpenWords,
   onOpenLibrary,
+  onOpenReflect,
   onOpenInsights,
 }: ProgressDashboardProps) {
   const { openAccount } = useAuthProfile()
@@ -212,7 +204,6 @@ export function ProgressDashboard({
     securedSkills,
     dueCount,
     onSelectDomain,
-    onOpenLessons,
     onOpenExam,
     onOpenReviews,
     onOpenLibrary,
@@ -222,7 +213,6 @@ export function ProgressDashboard({
     dueCount,
     heroSelection,
     onOpenExam,
-    onOpenLessons,
     onOpenLibrary,
     onOpenReviews,
     onSelectDomain,
@@ -256,9 +246,9 @@ export function ProgressDashboard({
     transitionTimers.current.forEach((timer) => window.clearTimeout(timer))
   }, [])
 
-  // Domains and Lessons are the "game" tiles - the things you actually go and
-  // play. Today and reviews stay utility marks. Insights left the rail; it is a
-  // nav tab beside Library now.
+  // Domains and the exam are the "game" tiles - the things you actually go and
+  // play. Today and reviews stay utility marks. Lessons left the rail when the
+  // Learn tab took them over, the same way Insights left for its own nav tab.
   const rail: Array<{
     label: string
     Mark: typeof House
@@ -277,13 +267,6 @@ export function ProgressDashboard({
       card,
     })),
     {
-      label: 'Lessons',
-      Mark: GraduationCap,
-      selection: { kind: 'lessons' },
-      game: true,
-      accent: LESSON_TILE_ACCENT,
-    },
-    {
       label: 'Practice exam',
       Mark: ClipboardCheck,
       selection: { kind: 'exam' },
@@ -301,6 +284,47 @@ export function ProgressDashboard({
     )
   })
   const activeRail = rail[Math.max(0, activeRailIndex)]
+
+  // Learn is one tab holding two shelves: the lesson halls and the question
+  // library. They stay separate primary views so the slide transition and the
+  // back-buttons inside each keep working; the strip below just names them.
+  const learnActive = activeView === 'lessons' || activeView === 'library'
+
+  function learnShell(section: 'lessons' | 'library', panel: ReactNode) {
+    return (
+      <div className="console-learn">
+        <div className="console-subnav" role="tablist" aria-label="Learn sections">
+          <button
+            className={section === 'lessons' ? 'console-subnav__active' : undefined}
+            type="button"
+            role="tab"
+            aria-selected={section === 'lessons'}
+            onClick={onOpenLessons}
+            data-ui-sound="true"
+            data-ui-sound-hover="hover"
+            data-ui-sound-click="select"
+          >
+            <GraduationCap size={16} strokeWidth={1.5} absoluteStrokeWidth aria-hidden="true" />
+            Lessons
+          </button>
+          <button
+            className={section === 'library' ? 'console-subnav__active' : undefined}
+            type="button"
+            role="tab"
+            aria-selected={section === 'library'}
+            onClick={onOpenLibrary}
+            data-ui-sound="true"
+            data-ui-sound-hover="hover"
+            data-ui-sound-click="select"
+          >
+            <BookOpen size={16} strokeWidth={1.5} absoluteStrokeWidth aria-hidden="true" />
+            Library
+          </button>
+        </div>
+        {panel}
+      </div>
+    )
+  }
 
   return (
     <main
@@ -337,6 +361,17 @@ export function ProgressDashboard({
         </button>
         <nav className="console-nav" aria-label="Main navigation">
           <button
+            className={learnActive ? 'console-nav__active' : undefined}
+            type="button"
+            aria-current={learnActive ? 'page' : undefined}
+            onClick={onOpenLessons}
+            data-ui-sound="true"
+            data-ui-sound-hover="hover"
+            data-ui-sound-click="select"
+          >
+            Learn
+          </button>
+          <button
             className={
               activeView === 'practice' || activeView === 'exam'
                 ? 'console-nav__active'
@@ -357,15 +392,15 @@ export function ProgressDashboard({
             Practice
           </button>
           <button
-            className={activeView === 'library' ? 'console-nav__active' : undefined}
+            className={activeView === 'reflect' ? 'console-nav__active' : undefined}
             type="button"
-            aria-current={activeView === 'library' ? 'page' : undefined}
-            onClick={onOpenLibrary}
+            aria-current={activeView === 'reflect' ? 'page' : undefined}
+            onClick={onOpenReflect}
             data-ui-sound="true"
             data-ui-sound-hover="hover"
             data-ui-sound-click="select"
           >
-            Library
+            Reflect
           </button>
           <button
             className={activeView === 'words' ? 'console-nav__active' : undefined}
@@ -393,7 +428,7 @@ export function ProgressDashboard({
         <div className="console-header__actions">
           <button
             type="button"
-            aria-label="Search practice library"
+            aria-label="Search the Learn shelf"
             onClick={onOpenLibrary}
             data-ui-sound="true"
             data-ui-sound-hover="hover"
@@ -587,10 +622,11 @@ export function ProgressDashboard({
             </>
           ),
           exam: examPanel,
-          lessons: lessonsPanel,
+          lessons: learnShell('lessons', lessonsPanel),
           reviews: reviewsPanel,
+          reflect: reflectPanel,
           words: wordsPanel,
-          library: libraryPanel,
+          library: learnShell('library', libraryPanel),
           insights: insightsPanel,
         }}
       />

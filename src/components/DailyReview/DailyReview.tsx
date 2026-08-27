@@ -255,6 +255,61 @@ export function DailyDone({
   )
 }
 
+// --- The Reflect tab ----------------------------------------------------------
+
+// The same return the briefing sheet offers, but as a place you can walk into
+// rather than a thing that interrupts you. The sheet stays for the once-a-day
+// nudge; this is where the return lives the rest of the time.
+export function DailyReturnPanel({
+  plan,
+  at,
+  streak,
+  finishedToday,
+  onStart,
+}: {
+  plan: DailyPlan
+  at: number
+  streak: number
+  finishedToday: boolean
+  onStart: () => void
+}) {
+  const startsWithQuestions = plan.questions.length > 0
+  const nothingDue = plan.total === 0
+
+  return (
+    <main className="daily-panel" aria-label="Reflect">
+      <p className="daily-sheet__date">{formatDay(at)} · DAILY RETURN</p>
+      <h1>
+        {finishedToday
+          ? 'Today’s return is clear.'
+          : nothingDue
+            ? 'Nothing has come back yet.'
+            : headline(plan)}
+      </h1>
+      <p className="daily-panel__lede">
+        {finishedToday
+          ? 'What you cleared moves up a rung. What caught you comes back tomorrow.'
+          : nothingDue
+            ? 'Misses and saved words are filed the day they happen and handed back on a widening schedule — 1 day, 3 days, a week, a month. Practice something and this fills up.'
+            : 'Each was filed the day it caught you or the day you saved it. Clear one and it moves a rung up the ladder; miss it and it starts over at a day.'}
+      </p>
+
+      {!finishedToday && !nothingDue && <DailyLedger plan={plan} />}
+
+      {!finishedToday && !nothingDue && (
+        <div className="daily-panel__actions">
+          <button className="console-button console-button--primary" type="button" onClick={onStart}>
+            {startsWithQuestions ? 'Start with the questions' : 'Start with the words'}
+            <ArrowRight size={16} strokeWidth={1.75} absoluteStrokeWidth aria-hidden="true" />
+          </button>
+        </div>
+      )}
+
+      <p className="daily-panel__streak">{streakLine(streak, finishedToday)}</p>
+    </main>
+  )
+}
+
 // --- Re-entry -----------------------------------------------------------------
 
 // Dismissing the briefing shouldn't hide the work. This sits quietly above the

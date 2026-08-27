@@ -1,19 +1,24 @@
 export type PrimaryConsoleView =
+  | 'lessons'
+  | 'library'
   | 'practice'
   | 'exam'
-  | 'lessons'
   | 'reviews'
+  | 'reflect'
   | 'words'
-  | 'library'
   | 'insights'
 
+// Nav order, left to right: Learn (lessons + library), Practice (its own rail
+// plus the exam and the vault), Reflect, Words, Insights. The transition reads
+// direction off this list, so it has to match what the header shows.
 const PRIMARY_VIEW_ORDER: PrimaryConsoleView[] = [
+  'lessons',
+  'library',
   'practice',
   'exam',
-  'lessons',
   'reviews',
+  'reflect',
   'words',
-  'library',
   'insights',
 ]
 

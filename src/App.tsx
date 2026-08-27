@@ -9,11 +9,13 @@ import { Dashboard } from './components/Dashboard/Dashboard.tsx'
 import {
   DailyBriefing,
   DailyDone,
+  DailyReturnPanel,
   DailyReturnPill,
   DailyWords,
 } from './components/DailyReview/DailyReview.tsx'
 import { PracticeExamPanel } from './components/Exam/PracticeExamPanel.tsx'
 import { Library } from './components/Library/Library.tsx'
+import type { PrimaryConsoleView } from './components/Adaptive/primaryViewTransition.ts'
 import { MistakeVault } from './components/Review/MistakeVault.tsx'
 import { WordBank } from './components/WordBank/WordBank.tsx'
 import { AnswerPass } from './components/QuestionInteraction/AnswerPass.tsx'
@@ -67,6 +69,7 @@ type View =
   | 'exam'
   | 'insights'
   | 'reviews'
+  | 'reflect'
   | 'words'
 
 const VALID_VIEWS: View[] = [
@@ -77,6 +80,7 @@ const VALID_VIEWS: View[] = [
   'exam',
   'insights',
   'reviews',
+  'reflect',
   'words',
 ]
 
@@ -476,6 +480,7 @@ function App() {
       {dailyPhase === 'hidden' &&
         !dailyRun &&
         view !== 'practice' &&
+        view !== 'reflect' &&
         dailyPlan.total > 0 &&
         dailyState.lastCompletedDay !== dailyPlan.day && (
           <DailyReturnPill
@@ -487,20 +492,16 @@ function App() {
   )
 
   if (view !== 'practice') {
-    const primaryView =
-      view === 'lessons'
-        ? 'lessons'
-        : view === 'exam'
-          ? 'exam'
-          : view === 'reviews'
-            ? 'reviews'
-            : view === 'words'
-              ? 'words'
-              : view === 'browse'
-                ? 'library'
-                : view === 'insights'
-                  ? 'insights'
-                  : 'practice'
+    const PRIMARY_VIEW_BY_VIEW: Partial<Record<View, PrimaryConsoleView>> = {
+      lessons: 'lessons',
+      exam: 'exam',
+      reviews: 'reviews',
+      reflect: 'reflect',
+      words: 'words',
+      browse: 'library',
+      insights: 'insights',
+    }
+    const primaryView: PrimaryConsoleView = PRIMARY_VIEW_BY_VIEW[view] ?? 'practice'
 
     return (
       <>
@@ -525,6 +526,15 @@ function App() {
             />
           )}
           wordsPanel={<WordBank onBack={() => setView('adaptive')} />}
+          reflectPanel={(
+            <DailyReturnPanel
+              plan={dailyPlan}
+              at={reviewSnapshot.at}
+              streak={liveStreak(dailyState, dailyPlan.day)}
+              finishedToday={dailyState.lastCompletedDay === dailyPlan.day}
+              onStart={startDailyReturn}
+            />
+          )}
           reviewsPanel={(
             <MistakeVault
               questions={questions}
@@ -550,6 +560,7 @@ function App() {
           onOpenReviews={() => setView('reviews')}
           onOpenWords={() => setView('words')}
           onOpenLibrary={() => setView('browse')}
+          onOpenReflect={() => setView('reflect')}
           onOpenInsights={() => setView('insights')}
           onRecordAnswers={recordAdaptiveAnswers}
           onRecordReview={recordAdaptiveReview}

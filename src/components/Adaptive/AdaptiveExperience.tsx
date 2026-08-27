@@ -34,10 +34,15 @@ import {
 import {
   clearAdaptiveDraft,
   getAdaptiveDraft,
+  getStudyPathOnboarding,
   hasSeenLesson,
   markLessonSeen,
   saveAdaptiveDraft,
+  saveStudyPathOnboarding,
+  type StudyPathOnboardingState,
+  type StudyPathStartingStep,
 } from '../../storage/index.ts'
+import { useAuthProfile } from '../../auth/AuthContext.tsx'
 import { getSkillLessonSummary } from '../../content/skillLessons.ts'
 import { LessonLibrary } from '../Lesson/LessonLibrary.tsx'
 import { SkillLesson } from '../Lesson/SkillLesson.tsx'
@@ -51,6 +56,7 @@ import {
   type SkillCardView,
 } from './DomainPath.tsx'
 import { Onboarding } from './Onboarding.tsx'
+import { StudyPathOnboarding } from './StudyPathOnboarding.tsx'
 import { QuestionInteraction } from '../QuestionInteraction/QuestionInteraction.tsx'
 import {
   ProgressDashboard,
@@ -71,6 +77,7 @@ type AdaptiveExperienceProps = {
   reviewsPanel: ReactNode
   wordsPanel: ReactNode
   libraryPanel: ReactNode
+  reflectPanel: ReactNode
   insightsPanel: ReactNode
   dueCount: number
   questions: Question[]
@@ -82,6 +89,7 @@ type AdaptiveExperienceProps = {
   onOpenReviews: () => void
   onOpenWords: () => void
   onOpenLibrary: () => void
+  onOpenReflect: () => void
   onOpenInsights: () => void
   onRecordAnswers: (
     assessmentId: string,
@@ -150,6 +158,7 @@ export function AdaptiveExperience({
   reviewsPanel,
   wordsPanel,
   libraryPanel,
+  reflectPanel,
   insightsPanel,
   dueCount,
   questions,
@@ -161,11 +170,17 @@ export function AdaptiveExperience({
   onOpenReviews,
   onOpenWords,
   onOpenLibrary,
+  onOpenReflect,
   onOpenInsights,
   onRecordAnswers,
   onRecordReview,
 }: AdaptiveExperienceProps) {
+  const { profileId } = useAuthProfile()
   const taxonomy = useMemo(() => buildTaxonomy(questions), [questions])
+  const [studyPathSetup, setStudyPathSetup] = useState<StudyPathOnboardingState | null>(
+    () => getStudyPathOnboarding(profileId),
+  )
+  const [studyPathDismissed, setStudyPathDismissed] = useState(false)
   const [restoredDraft] = useState(() => {
     const stored = getAdaptiveDraft()
     const restored = restoreAdaptiveDraft(
@@ -261,6 +276,23 @@ export function AdaptiveExperience({
     setAttemptReferences({})
     setFeedback(null)
     setPendingLesson(null)
+  }
+
+  if (!progression && !studyPathSetup && !studyPathDismissed) {
+    return (
+      <StudyPathOnboarding
+        onDismiss={() => setStudyPathDismissed(true)}
+        onComplete={(startingStep: StudyPathStartingStep) => {
+          const setup: StudyPathOnboardingState = {
+            hasTakenPracticeTest: true,
+            startingStep,
+            completedAt: Date.now(),
+          }
+          saveStudyPathOnboarding(profileId, setup)
+          setStudyPathSetup(setup)
+        }}
+      />
+    )
   }
 
   if (!progression || isUpdatingScore) {
@@ -1060,6 +1092,7 @@ export function AdaptiveExperience({
       reviewsPanel={reviewsPanel}
       wordsPanel={wordsPanel}
       libraryPanel={libraryPanel}
+      reflectPanel={reflectPanel}
       insightsPanel={insightsPanel}
       cards={cards}
       dueCount={dueCount}
@@ -1071,8 +1104,8 @@ export function AdaptiveExperience({
       onOpenReviews={() => openPrimaryView(onOpenReviews)}
       onOpenWords={() => openPrimaryView(onOpenWords)}
       onOpenLibrary={() => openPrimaryView(onOpenLibrary)}
+      onOpenReflect={() => openPrimaryView(onOpenReflect)}
       onOpenInsights={() => openPrimaryView(onOpenInsights)}
     />
   )
 }
-

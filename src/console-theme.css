@@ -961,3 +961,32 @@ a:hover { color: #ffffff; }
 @media (prefers-reduced-motion: reduce) {
   .profile-gate__motes i { animation: none; }
 }
+
+/* --- Learn sub-nav ------------------------------------------------------- */
+.console-subnav {
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  display: flex;
+  gap: .4rem;
+  margin: 0 0 1.25rem;
+  padding: 0 0 .6rem;
+}
+.console-subnav button {
+  align-items: center;
+  background: none;
+  border: 0;
+  border-radius: 999px;
+  color: rgba(255,255,255,.38);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: .86rem;
+  gap: .4rem;
+  min-height: 38px;
+  padding: .3rem .85rem;
+}
+.console-subnav button:hover { color: #fff; }
+.console-subnav .console-subnav__active {
+  background: rgba(43,91,199,.18);
+  color: #fff;
+  font-weight: 600;
+}

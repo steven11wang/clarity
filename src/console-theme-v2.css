@@ -1295,3 +1295,38 @@ a:hover { color: #ffffff; }
   .profile-gate__avatar:hover,
   .profile-gate__add:hover > span { transform: none; }
 }
+
+/* --- Learn sub-nav -------------------------------------------------------
+   Learn holds two shelves, Lessons and Library. The top nav names the room;
+   this strip names the shelf, so it sits a full step down in weight and size
+   from .console-nav and never competes with it. */
+.console-subnav {
+  align-items: center;
+  border-bottom: 1px solid var(--line-1, rgba(255, 255, 255, 0.07));
+  display: flex;
+  gap: 0.4rem;
+  margin: 0 0 1.25rem;
+  padding: 0 0 0.6rem;
+}
+.console-subnav button {
+  align-items: center;
+  background: none;
+  border: 0;
+  border-radius: var(--r-pill, 999px);
+  color: var(--text-3, rgba(240, 245, 255, 0.56));
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 0.86rem;
+  font-weight: 450;
+  gap: 0.4rem;
+  letter-spacing: -0.005em;
+  min-height: 38px;
+  padding: 0.3rem 0.85rem;
+  transition: background 0.16s var(--ease-out), color 0.16s var(--ease-out);
+}
+.console-subnav button:hover { color: var(--text-1); }
+.console-subnav .console-subnav__active {
+  background: var(--cobalt-wash, rgba(43, 91, 199, 0.18));
+  color: var(--text-1);
+  font-weight: 550;
+}
