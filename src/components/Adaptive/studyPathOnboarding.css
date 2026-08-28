@@ -257,3 +257,84 @@
     width: 100%;
   }
 }
+
+/* --- Dev preview harness only --------------------------------------------
+   Styles the transcribed source note that sits behind the modal in
+   preview-study-path.html. Never rendered in the production build. */
+
+.study-path-preview-note {
+  color: var(--text-2, rgba(240, 245, 255, 0.72));
+  font-family: Geist, ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0 auto;
+  max-width: 46rem;
+  padding: clamp(1.5rem, 5vw, 3.5rem) clamp(1rem, 4vw, 2rem) 4rem;
+}
+
+.study-path-preview-note .eyebrow {
+  color: var(--text-3, rgba(240, 245, 255, 0.55));
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  margin: 0 0 0.6rem;
+  text-transform: uppercase;
+}
+
+.study-path-preview-note h1 {
+  color: var(--text-1, #f3f6fc);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.study-path-preview-note .preface {
+  border-left: 2px solid var(--line-3, rgba(255, 255, 255, 0.22));
+  margin: 1rem 0 0;
+  padding-left: 0.9rem;
+}
+
+.study-path-preview-note h2 {
+  border-bottom: 1px solid var(--line-1, rgba(255, 255, 255, 0.07));
+  color: var(--text-3, rgba(240, 245, 255, 0.55));
+  font-size: 0.72rem;
+  font-weight: 550;
+  letter-spacing: 0.12em;
+  margin: 2.25rem 0 1rem;
+  padding-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.study-path-preview-note .branch {
+  margin-bottom: 1.1rem;
+}
+
+.study-path-preview-note .branch strong {
+  color: var(--text-1, #f3f6fc);
+  display: block;
+  font-weight: 550;
+}
+
+.study-path-preview-note .branch p {
+  margin: 0.25rem 0 0;
+  white-space: pre-line;
+}
+
+.study-path-preview-note ol {
+  margin: 0;
+  padding-left: 1.3rem;
+}
+
+.study-path-preview-note ol li {
+  margin-bottom: 0.65rem;
+  padding-left: 0.35rem;
+}
+
+.study-path-preview-result {
+  color: var(--cobalt-light, #9cc0ff);
+  font-family: Geist, ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.85rem;
+  margin: 0 auto;
+  max-width: 46rem;
+  padding: 0 clamp(1rem, 4vw, 2rem) 2rem;
+}
