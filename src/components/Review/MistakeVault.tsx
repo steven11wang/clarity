@@ -49,7 +49,7 @@ export function MistakeVault({ questions, reviews, now, onStart, onBack }: Mista
           <ArrowLeft aria-hidden="true" />
           Back
         </button>
-        <p className="vault__eyebrow">SPACED RETURN · MISTAKE VAULT</p>
+        <p className="vault__eyebrow">MISTAKE VAULT</p>
         <h1>Every miss you<br />haven’t beaten yet.</h1>
         <p className="vault__lede">
           A question you got wrong is filed here and handed back to you on a widening

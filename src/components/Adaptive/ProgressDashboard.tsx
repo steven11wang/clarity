@@ -121,7 +121,7 @@ function buildHero(
   }
   if (selection.kind === 'reviews') {
     return {
-      kicker: 'SPACED RETURN · MISTAKE VAULT',
+      kicker: 'MISTAKE VAULT',
       title:
         dueCount > 0
           ? `${dueCount} ${dueCount === 1 ? 'miss is' : 'misses are'} ready to come back.`
