@@ -32,6 +32,10 @@ Object.defineProperty(globalThis, 'navigator', {
 globals.HTMLElement = dom.window.HTMLElement
 globals.Element = dom.window.Element
 globals.Node = dom.window.Node
+// Missing a worked example files it in the resurrection queue, which writes to
+// storage the same way the practice engine does.
+globals.localStorage = dom.window.localStorage
+globals.CustomEvent = dom.window.CustomEvent
 globals.getComputedStyle = dom.window.getComputedStyle
 globals.requestAnimationFrame = (callback: FrameRequestCallback) =>
   dom.window.setTimeout(() => callback(Date.now()), 0) as unknown as number
@@ -51,6 +55,7 @@ const { act } = await import('react')
 const { createRoot } = await import('react-dom/client')
 const { SkillLesson } = await import('./SkillLesson.tsx')
 const { getSkillLessonSummary } = await import('../../content/skillLessons.ts')
+const { getReviews } = await import('../../storage/index.ts')
 
 const container = dom.window.document.getElementById('root')!
 const root = createRoot(container)
@@ -213,6 +218,53 @@ describe('skill lesson shell', () => {
     const verdict = container.querySelector('.lesson-explanation__verdict')
     assert.ok(verdict, 'no verdict after checking')
     assert.match(verdict.textContent ?? '', /Correct|Not quite|The answer is/)
+  })
+
+  it('files a wrong worked example in the resurrection queue', async () => {
+    dom.window.localStorage.clear()
+    await renderLesson('Boundaries')
+    await openTab('Worked example')
+    if (container.querySelector('.lesson-explanation')) {
+      await click(byText('.link-button', 'Reset this example'))
+    }
+    if (container.querySelector('.lesson-choices')?.className.includes('is-locked')) {
+      await click(byText('.button', 'Show the choices'))
+    }
+
+    // Pick a choice that is not the key, so the example counts as a miss.
+    const choices = all('.lesson-choice')
+    const verdictOf = () => container.querySelector('.lesson-explanation__verdict')?.textContent ?? ''
+    await click(choices[0])
+    await click(byText('.button', 'Check my answer'))
+    if (/Correct/.test(verdictOf())) {
+      await click(byText('.link-button', 'Reset this example'))
+      await click(all('.lesson-choice')[1])
+      await click(byText('.button', 'Check my answer'))
+    }
+    assert.match(verdictOf(), /Not quite/)
+
+    const items = Object.values(getReviews())
+    assert.equal(items.length, 1)
+    assert.equal(items[0].source, 'lesson')
+    assert.equal(items[0].reason, 'miss')
+    // The example is not in the practice bank, so it carries its own copy.
+    assert.equal(items[0].question?.skill, 'Boundaries')
+    assert.ok((items[0].question?.prompt ?? '').length > 0)
+  })
+
+  it('leaves the queue alone when the student only reads the explanation', async () => {
+    dom.window.localStorage.clear()
+    await renderLesson('Boundaries')
+    await openTab('Worked example')
+    // The example keeps its state across renders, so clear a previous reveal.
+    if (container.querySelector('.lesson-explanation')) {
+      await click(byText('.link-button', 'Reset this example'))
+    }
+    if (container.querySelector('.lesson-choices')?.className.includes('is-locked')) {
+      await click(byText('.button', 'Show the choices'))
+    }
+    await click(byText('.link-button', 'Show the explanation'))
+    assert.deepEqual(getReviews(), {})
   })
 
   it('puts skill tips in numbered cards and the general tips behind a disclosure', async () => {

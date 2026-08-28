@@ -78,7 +78,6 @@ type AdaptiveExperienceProps = {
   wordsPanel: ReactNode
   libraryPanel: ReactNode
   reflectPanel: ReactNode
-  insightsPanel: ReactNode
   dueCount: number
   questions: Question[]
   progression: ProgressionState | null
@@ -90,7 +89,6 @@ type AdaptiveExperienceProps = {
   onOpenWords: () => void
   onOpenLibrary: () => void
   onOpenReflect: () => void
-  onOpenInsights: () => void
   onRecordAnswers: (
     assessmentId: string,
     questions: Question[],
@@ -159,7 +157,6 @@ export function AdaptiveExperience({
   wordsPanel,
   libraryPanel,
   reflectPanel,
-  insightsPanel,
   dueCount,
   questions,
   progression,
@@ -171,7 +168,6 @@ export function AdaptiveExperience({
   onOpenWords,
   onOpenLibrary,
   onOpenReflect,
-  onOpenInsights,
   onRecordAnswers,
   onRecordReview,
 }: AdaptiveExperienceProps) {
@@ -1101,7 +1097,6 @@ export function AdaptiveExperience({
       wordsPanel={wordsPanel}
       libraryPanel={libraryPanel}
       reflectPanel={reflectPanel}
-      insightsPanel={insightsPanel}
       cards={cards}
       dueCount={dueCount}
       onSelectDomain={chooseDomain}
@@ -1113,7 +1108,6 @@ export function AdaptiveExperience({
       onOpenWords={() => openPrimaryView(onOpenWords)}
       onOpenLibrary={() => openPrimaryView(onOpenLibrary)}
       onOpenReflect={() => openPrimaryView(onOpenReflect)}
-      onOpenInsights={() => openPrimaryView(onOpenInsights)}
     />
   )
 }

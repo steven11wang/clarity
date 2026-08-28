@@ -44,9 +44,6 @@ const IDLE: WordLookupState = { phase: 'idle' }
 export function useWordLookup() {
   const [state, setState] = useState<WordLookupState>(IDLE)
   const requestId = useRef(0)
-  const controller = useRef<AbortController | null>(null)
-
-  useEffect(() => () => controller.current?.abort(), [])
 
   // Pull the baked dictionary down while the learner is still reading, so the
   // first tap answers from memory instead of showing a spinner.
@@ -55,9 +52,10 @@ export function useWordLookup() {
   }, [])
 
   const close = useCallback(() => {
+    // Bumping the id is what cancels an answer in flight: the request itself is
+    // shared between every tap on the same word and cached when it lands, so
+    // letting it finish costs nothing and warms the next tap.
     requestId.current += 1
-    controller.current?.abort()
-    controller.current = null
     setState(IDLE)
   }, [])
 
@@ -78,27 +76,22 @@ export function useWordLookup() {
     (request: WordLookupRequest, attempt = 0) => {
       requestId.current += 1
       const id = requestId.current
-      controller.current?.abort()
 
       const cached = cachedLookup(request.word)
       if (cached) {
-        controller.current = null
         setState(resolve(request, cached))
         return
       }
 
-      const next = new AbortController()
-      controller.current = next
       setState({ phase: 'loading', ...request })
 
-      lookupWord(request.word, { signal: next.signal })
+      lookupWord(request.word)
         .then((result) => {
           if (requestId.current !== id) return
           setState(resolve(request, result))
         })
-        .catch((error: unknown) => {
+        .catch(() => {
           if (requestId.current !== id) return
-          if (error instanceof DOMException && error.name === 'AbortError') return
           // The live fallback is a free third-party service with no uptime
           // guarantee, and most of its failures are a one-off blip rather than
           // a real outage. One immediate, silent retry clears those before the

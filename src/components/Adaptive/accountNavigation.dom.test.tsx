@@ -65,7 +65,6 @@ before(async () => {
           wordsPanel: null,
           libraryPanel: null,
           reflectPanel: null,
-          insightsPanel: null,
           cards,
           onSelectDomain: () => {},
           onUpdateScore: () => { scoreUpdateCalls += 1 },
@@ -76,7 +75,6 @@ before(async () => {
           onOpenWords: () => {},
           onOpenLibrary: () => {},
           onOpenReflect: () => {},
-          onOpenInsights: () => {},
         }),
       },
     ))

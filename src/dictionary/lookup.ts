@@ -19,6 +19,9 @@ const CACHE_KEY = 'clarity:v1:dictionary-cache'
 const CACHE_TTL_MS = 30 * 24 * 60 * 60 * 1000
 const CACHE_LIMIT = 400
 const MAX_DEFINITION_CHARS = 180
+// Long enough for a slow phone connection, short enough that a dead service is
+// reported rather than waited out.
+const LIVE_TIMEOUT_MS = 6000
 
 export type WordSense = {
   partOfSpeech: string
@@ -433,7 +436,31 @@ export function clearDictionaryCache(): void {
 type LookupOptions = {
   fetchImpl?: typeof fetch
   now?: () => number
-  signal?: AbortSignal
+  /** How long the live fallback gets before it counts as down. Tests shorten it. */
+  timeoutMs?: number
+}
+
+/**
+ * The live fallback is a free service with no uptime guarantee, and its
+ * outages present as a request that hangs for twenty seconds before a 522
+ * rather than as a refusal. Cut it off early: a learner mid-passage is better
+ * served by a quick "try again" than by a spinner that outlives their patience.
+ */
+async function fetchWithDeadline(
+  doFetch: typeof fetch,
+  url: string,
+  timeoutMs: number,
+): Promise<Response> {
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), timeoutMs)
+  try {
+    return await doFetch(url, { signal: controller.signal })
+  } catch (error) {
+    if (controller.signal.aborted) throw new Error('Dictionary request timed out')
+    throw error
+  } finally {
+    clearTimeout(timer)
+  }
 }
 
 /**
@@ -444,7 +471,7 @@ type LookupOptions = {
  */
 export async function lookupWord(
   raw: string,
-  { fetchImpl, now = Date.now, signal }: LookupOptions = {},
+  { fetchImpl, now = Date.now, timeoutMs = LIVE_TIMEOUT_MS }: LookupOptions = {},
 ): Promise<LookupResult> {
   const word = normalizeWord(raw)
   if (!word) return { status: 'missing', word: raw }
@@ -463,7 +490,11 @@ export async function lookupWord(
     if (baked) return baked
 
     const doFetch = fetchImpl ?? fetch
-    const response = await doFetch(`${API_BASE}/${encodeURIComponent(word)}`, { signal })
+    const response = await fetchWithDeadline(
+      doFetch,
+      `${API_BASE}/${encodeURIComponent(word)}`,
+      timeoutMs,
+    )
 
     let result: LookupResult
     if (response.status === 404) {

@@ -1,6 +1,7 @@
 import { wordStatus, type WordBankEntry } from '../dictionary/wordBank.ts'
 import type { Question, ReviewItem } from '../types.ts'
-import { isDue } from './schedule.ts'
+import { resolveReviewQuestion } from './resolve.ts'
+import { isDue, isRetired } from './schedule.ts'
 
 // The daily return: the first time a student opens Clarity on a new day, the
 // misses and words that came due overnight are handed back in one guided run —
@@ -48,12 +49,22 @@ export type DailyCohort = {
   words: number
 }
 
+// What is on the ladder but not owed yet. The Reflect tab reports this so a
+// student who has just filed three misses sees them waiting rather than an
+// empty screen — nothing is due the same day it was missed.
+export type DailyUpcoming = {
+  questions: number
+  words: number
+  nextDueAt: number | null
+}
+
 export type DailyPlan = {
   day: string
   questions: Question[]
   words: WordBankEntry[]
   cohorts: DailyCohort[]
   total: number
+  upcoming: DailyUpcoming
 }
 
 export const EMPTY_PLAN: DailyPlan = {
@@ -62,11 +73,14 @@ export const EMPTY_PLAN: DailyPlan = {
   words: [],
   cohorts: [],
   total: 0,
+  upcoming: { questions: 0, words: 0, nextDueAt: null },
 }
 
-// Everything due right now, oldest debt first, grouped by how long it was away.
-// Questions whose bank entry is missing are dropped, the same way the vault
-// drops them — a plan must never promise a question it cannot show.
+// Everything due right now, oldest debt first, grouped by how long it was away,
+// plus a count of what is filed and still waiting. Questions that can be
+// produced neither from the bank nor from their own filed copy are dropped, the
+// same way the vault drops them — a plan must never promise a question it
+// cannot show.
 export function buildDailyPlan(
   questions: Question[],
   reviews: Record<string, ReviewItem>,
@@ -76,13 +90,32 @@ export function buildDailyPlan(
 ): DailyPlan {
   const byId = new Map(questions.map((question) => [question.id, question]))
 
-  const dueItems = Object.values(reviews)
-    .filter((item) => isDue(item, at) && byId.has(item.questionId))
+  const openItems = Object.values(reviews)
+    .map((item) => ({ item, question: resolveReviewQuestion(byId, item) }))
+    .filter((entry): entry is { item: ReviewItem; question: Question } =>
+      entry.question !== null && !isRetired(entry.item),
+    )
+
+  const dueItems = openItems
+    .filter((entry) => isDue(entry.item, at))
+    .map((entry) => entry.item)
     .sort((a, b) => a.dueAt - b.dueAt)
+
+  const waitingItems = openItems.filter((entry) => !isDue(entry.item, at))
 
   const dueWords = words
     .filter((entry) => wordStatus(entry, at) === 'due')
     .sort((a, b) => a.dueAt - b.dueAt)
+
+  const waitingWords = words.filter((entry) => wordStatus(entry, at) === 'scheduled')
+
+  const nextDueAt = [
+    ...waitingItems.map((entry) => entry.item.dueAt),
+    ...waitingWords.map((entry) => entry.dueAt),
+  ].reduce<number | null>(
+    (soonest, dueAt) => (soonest === null || dueAt < soonest ? dueAt : soonest),
+    null,
+  )
 
   const cohorts = new Map<number, DailyCohort>()
   function bump(stage: number, kind: 'questions' | 'words') {
@@ -95,10 +128,15 @@ export function buildDailyPlan(
 
   return {
     day: dayKey(at),
-    questions: dueItems.map((item) => byId.get(item.questionId)!),
+    questions: dueItems.map((item) => resolveReviewQuestion(byId, item)!),
     words: dueWords,
     cohorts: [...cohorts.values()].sort((a, b) => a.stage - b.stage),
     total: dueItems.length + dueWords.length,
+    upcoming: {
+      questions: waitingItems.length,
+      words: waitingWords.length,
+      nextDueAt,
+    },
   }
 }
 

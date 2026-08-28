@@ -1,4 +1,5 @@
 import type { Question, ReviewItem } from '../types.ts'
+import { resolveReviewQuestion } from './resolve.ts'
 import { isDue, isRetired } from './schedule.ts'
 
 // The mistake vault is the persistent view of the resurrection queue: every
@@ -24,8 +25,8 @@ export function vaultStatus(item: ReviewItem, now: number): VaultStatus {
 
 const STATUS_ORDER: Record<VaultStatus, number> = { due: 0, scheduled: 1, retired: 2 }
 
-// Build the vault from the review store, dropping entries whose question is no
-// longer in the loaded bank. Due items come first (oldest debt first), then
+// Build the vault from the review store, dropping entries whose question can
+// no longer be produced at all. Due items come first (oldest debt first), then
 // upcoming returns by how soon they land, then retired ones most-recent first.
 export function buildVault(
   questions: Question[],
@@ -36,7 +37,7 @@ export function buildVault(
   const entries: VaultEntry[] = []
 
   for (const item of Object.values(reviews)) {
-    const question = byId.get(item.questionId)
+    const question = resolveReviewQuestion(byId, item)
     if (!question) continue
     const status = vaultStatus(item, now)
     entries.push({

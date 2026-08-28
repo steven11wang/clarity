@@ -15,9 +15,11 @@ import {
   type SkillLesson as SkillLessonContent,
   type SkillLessonSummary,
 } from '../../content/skillLessons.ts'
+import { lessonExampleToReviewQuestion } from '../../content/lessonExampleQuestion.ts'
 import { LookupText } from '../../dictionary/LookupText.tsx'
 import { resolveChoiceContext } from '../../dictionary/context.ts'
 import { useWordLookup } from '../../dictionary/useWordLookup.ts'
+import { captureMiss } from '../../review/capture.ts'
 import { WordLookupPopover } from '../Exam/WordLookupPopover.tsx'
 import { DictionaryToggle } from '../QuestionInteraction/ChoiceStrikeout.tsx'
 import './lesson.css'
@@ -178,7 +180,12 @@ export function SkillLesson({
         ) : tab === 'lesson' ? (
           <LessonPanel tabs={tabs} />
         ) : tab === 'example' ? (
-          <ExamplePanel skill={summary.skill} tabs={tabs} oneMove={summary.oneMove} />
+          <ExamplePanel
+            skill={summary.skill}
+            domain={summary.domain}
+            tabs={tabs}
+            oneMove={summary.oneMove}
+          />
         ) : tab === 'tips' ? (
           <TipsPanel tabs={tabs} />
         ) : (
@@ -334,10 +341,12 @@ function numberWord(count: number): string {
 
 function ExamplePanel({
   skill,
+  domain,
   tabs,
   oneMove,
 }: {
   skill: string
+  domain: string
   tabs: LessonTabs
   oneMove: string
 }) {
@@ -365,7 +374,14 @@ function ExamplePanel({
         you rule them out - the same move you will make on the real test.
       </p>
 
-      <WorkedExample key={entry.key} example={entry.example} skill={skill} oneMove={oneMove} />
+      <WorkedExample
+        key={entry.key}
+        example={entry.example}
+        exampleKey={entry.key}
+        skill={skill}
+        domain={domain}
+        oneMove={oneMove}
+      />
     </article>
   )
 }
@@ -377,11 +393,15 @@ function ExamplePanel({
  */
 function WorkedExample({
   example,
+  exampleKey,
   skill,
+  domain,
   oneMove,
 }: {
   example: LessonExample
+  exampleKey: string
   skill: string
+  domain: string
   oneMove: string
 }) {
   const [phrase, setPhrase] = useState('')
@@ -391,8 +411,23 @@ function WorkedExample({
   const [struck, setStruck] = useState<ChoiceLetter[]>([])
   const [revealed, setRevealed] = useState(false)
   const [dictionary, setDictionary] = useState(false)
+  const filed = useRef(false)
   const correct = chosen === example.answer
   const gate = workedExampleGate(skill, oneMove)
+
+  // A miss on a worked example is a miss like any other, so it is filed in the
+  // resurrection queue and comes back on the same ladder. Only a committed
+  // answer counts — reading the explanation without picking one is not a miss.
+  function reveal() {
+    setRevealed(true)
+    if (filed.current || chosen === null || chosen === example.answer) return
+    filed.current = true
+    captureMiss({
+      question: lessonExampleToReviewQuestion({ example, skill, domain, key: exampleKey }),
+      source: 'lesson',
+      chosen,
+    })
+  }
 
   const wordLookup = useWordLookup()
 
@@ -561,14 +596,14 @@ function WorkedExample({
                 className="button"
                 type="button"
                 disabled={chosen === null}
-                onClick={() => setRevealed(true)}
+                onClick={reveal}
               >
                 {chosen === null ? 'Pick an answer' : 'Check my answer'}
               </button>
               <button
                 className="link-button"
                 type="button"
-                onClick={() => setRevealed(true)}
+                onClick={reveal}
               >
                 Show the explanation
               </button>
@@ -606,6 +641,7 @@ function WorkedExample({
                   setRevealed(false)
                   setChosen(null)
                   setStruck([])
+                  filed.current = false
                 }}
               >
                 Reset this example

@@ -51,7 +51,6 @@ type ProgressDashboardProps = {
   wordsPanel: ReactNode
   libraryPanel: ReactNode
   reflectPanel: ReactNode
-  insightsPanel: ReactNode
   cards: DomainCardView[]
   dueCount?: number
   onSelectDomain: (domain: SatDomain) => void
@@ -63,7 +62,6 @@ type ProgressDashboardProps = {
   onOpenWords: () => void
   onOpenLibrary: () => void
   onOpenReflect: () => void
-  onOpenInsights: () => void
 }
 
 type ConsoleSelection =
@@ -158,7 +156,6 @@ export function ProgressDashboard({
   wordsPanel,
   libraryPanel,
   reflectPanel,
-  insightsPanel,
   cards,
   dueCount = 0,
   onSelectDomain,
@@ -170,7 +167,6 @@ export function ProgressDashboard({
   onOpenWords,
   onOpenLibrary,
   onOpenReflect,
-  onOpenInsights,
 }: ProgressDashboardProps) {
   const { openAccount } = useAuthProfile()
   const firstDomain =
@@ -248,7 +244,7 @@ export function ProgressDashboard({
 
   // Domains and the exam are the "game" tiles - the things you actually go and
   // play. Today and reviews stay utility marks. Lessons left the rail when the
-  // Learn tab took them over, the same way Insights left for its own nav tab.
+  // Learn tab took them over.
   const rail: Array<{
     label: string
     Mark: typeof House
@@ -412,17 +408,6 @@ export function ProgressDashboard({
             data-ui-sound-click="select"
           >
             Words
-          </button>
-          <button
-            className={activeView === 'insights' ? 'console-nav__active' : undefined}
-            type="button"
-            aria-current={activeView === 'insights' ? 'page' : undefined}
-            onClick={onOpenInsights}
-            data-ui-sound="true"
-            data-ui-sound-hover="hover"
-            data-ui-sound-click="select"
-          >
-            Insights
           </button>
         </nav>
         <div className="console-header__actions">
@@ -627,7 +612,6 @@ export function ProgressDashboard({
           reflect: reflectPanel,
           words: wordsPanel,
           library: learnShell('library', libraryPanel),
-          insights: insightsPanel,
         }}
       />
     </main>

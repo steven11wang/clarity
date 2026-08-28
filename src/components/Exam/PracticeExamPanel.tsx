@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom'
 import { ArrowLeft, BookA, Check, Trash2 } from 'lucide-react'
 
 import { useAuthProfile } from '../../auth/AuthContext.tsx'
+import { captureMiss } from '../../review/capture.ts'
 import { ExamReport } from './ExamReport.tsx'
 import { ExamRunner, type ExamResult } from './ExamRunner.tsx'
 import {
@@ -31,6 +32,7 @@ import {
   type PracticeExamDraft,
   type PracticeExamRecord,
 } from '../../storage/index.ts'
+import { examQuestionToReviewQuestion } from './reviewQuestion.ts'
 import { useExamTheme } from './useExamTheme.ts'
 import './exam.css'
 
@@ -65,6 +67,34 @@ function timingFor(paceId: string, customMinutes: number) {
   return option.timing(
     Math.min(CUSTOM_MINUTES_MAX, Math.max(CUSTOM_MINUTES_MIN, customMinutes)),
   )
+}
+
+// Every scored question the student got wrong — blanks included — is filed in
+// the resurrection queue, the same as a miss in a practice set. The exam report
+// stays the record of the sitting; this is what makes those misses come back.
+export function fileExamMisses(exam: PracticeExam, result: ExamResult): void {
+  const finishedAt = result.finishedAt
+  let index = 0
+  for (const module of exam.modules) {
+    for (const question of module.questions) {
+      if (question.answer === null) continue
+      const chosen = result.answers[question.id] ?? ''
+      if (chosen === question.answer) continue
+      const reviewQuestion = examQuestionToReviewQuestion(exam, question)
+      if (!reviewQuestion) continue
+      captureMiss({
+        question: reviewQuestion,
+        source: 'exam',
+        chosen,
+        // A blank on a timed module is the clock beating the student, not a
+        // wrong idea about the question.
+        reason: chosen === '' && !result.untimed ? 'timeout' : 'miss',
+        // Attempts are keyed by timestamp; one per question keeps them distinct.
+        timestamp: finishedAt + index,
+      })
+      index += 1
+    }
+  }
 }
 
 /** How long this run will take, without loading the exam file to find out. */
@@ -200,6 +230,7 @@ export function PracticeExamPanel({
           onToggleTheme={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
           onExit={() => setLive(null)}
           onFinish={(finished) => {
+            fileExamMisses(live.exam, finished)
             saveExamRecord({
               id: `exam_record_${finished.finishedAt}_${live.exam.id}`,
               examId: live.exam.id,

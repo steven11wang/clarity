@@ -76,12 +76,12 @@ Over the settle frame, no journey behind it:
 
 ## 6 · Below the fold
 
-Order, revised 15 August after the first review: the doubts come first, because
-that is what a visitor is actually holding when they land. Then how it works,
-then the features with the pictures given real room, then the moment they perform
-themselves, then the close.
+Order, revised 27 August: the stake comes first, because a visitor has to want
+the number before any of the method matters. Then how it works, then the features
+with the pictures given real room, then the moment they perform themselves, then
+the close.
 
-1. Straight answers (the objections)
+1. Why the SAT (the stake: 1550, and the two gates that follow from it)
 2. How it works (the three steps)
 3. Features (four wide plates, sides alternating)
 4. Watch a question come back
@@ -89,6 +89,13 @@ themselves, then the close.
 
 Every section funnels to the same one call to action: **Start practicing**. The
 plans page is a quiet secondary link, never a second competing button.
+
+**a0 · Why the SAT.** The claim in one line — a top-30 school wants a score near
+1550 — and then two small theatres of it side by side, drawn as the page's own 回:
+a square with a square way through it. Left, 1400+ walks up to a shut gate, is
+struck in cinnabar and walked back out. Right, 1500+ walks through the same gate,
+open, into a patina seal marked Round 2. One 7s loop, paused off screen, and a
+single held frame under reduced motion.
 
 **a · How it works.** One vertical sequence, not three columns: numbered beads
 on a bronze thread that draws itself down the left, the third one in cinnabar

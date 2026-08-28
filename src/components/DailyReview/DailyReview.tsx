@@ -38,6 +38,33 @@ function headline(plan: DailyPlan): string {
   return `${parts.join(' and ')} came back.`
 }
 
+// How long until the first thing on the ladder comes back. Coarse on purpose:
+// the exact minute a card unlocks is never the interesting part.
+function returnsIn(nextDueAt: number, at: number): string {
+  const delta = nextDueAt - at
+  if (delta <= 0) return 'any moment now'
+  const minutes = Math.round(delta / 60000)
+  if (minutes < 60) return `in ${minutes} min`
+  const hours = Math.round(minutes / 60)
+  if (hours < 24) return `in ${hours} ${hours === 1 ? 'hour' : 'hours'}`
+  const days = Math.round(hours / 24)
+  return days === 1 ? 'tomorrow' : `in ${days} days`
+}
+
+// What is filed and still waiting, said plainly. Nothing is ever due the same
+// day it was missed, so without this line a student who just missed three
+// questions would be told nothing had been filed at all.
+function waitingLine(plan: DailyPlan, at: number): string | null {
+  const { questions, words, nextDueAt } = plan.upcoming
+  if (questions + words === 0) return null
+  const parts = [
+    questions > 0 ? countLabel(questions, 'question') : null,
+    words > 0 ? countLabel(words, 'word') : null,
+  ].filter(Boolean)
+  const when = nextDueAt === null ? '' : ` The first comes back ${returnsIn(nextDueAt, at)}.`
+  return `${parts.join(' and ')} filed and waiting on the ladder.${when}`
+}
+
 function streakLine(streak: number, finished: boolean): string {
   if (finished) {
     return streak === 1
@@ -255,58 +282,77 @@ export function DailyDone({
   )
 }
 
-// --- The Reflect tab ----------------------------------------------------------
+// --- The return, inside Reflect ------------------------------------------------
 
 // The same return the briefing sheet offers, but as a place you can walk into
 // rather than a thing that interrupts you. The sheet stays for the once-a-day
-// nudge; this is where the return lives the rest of the time.
+// nudge; this is the top band of Reflect the rest of the time.
 export function DailyReturnPanel({
   plan,
   at,
   streak,
   finishedToday,
   onStart,
+  onOpenVault,
 }: {
   plan: DailyPlan
   at: number
   streak: number
   finishedToday: boolean
   onStart: () => void
+  onOpenVault?: () => void
 }) {
   const startsWithQuestions = plan.questions.length > 0
   const nothingDue = plan.total === 0
+  const waiting = waitingLine(plan, at)
+  const filedCount = plan.upcoming.questions + plan.upcoming.words
 
   return (
-    <main className="daily-panel" aria-label="Reflect">
+    <section className="daily-panel" aria-label="Today’s return">
       <p className="daily-sheet__date">{formatDay(at)} · DAILY RETURN</p>
       <h1>
         {finishedToday
           ? 'Today’s return is clear.'
           : nothingDue
-            ? 'Nothing has come back yet.'
+            ? filedCount > 0
+              ? 'Nothing due yet. Everything is filed.'
+              : 'Nothing has come back yet.'
             : headline(plan)}
       </h1>
       <p className="daily-panel__lede">
         {finishedToday
           ? 'What you cleared moves up a rung. What caught you comes back tomorrow.'
           : nothingDue
-            ? 'Misses and saved words are filed the day they happen and handed back on a widening schedule — 1 day, 3 days, a week, a month. Practice something and this fills up.'
+            ? 'Misses and saved words are filed the day they happen and handed back on a widening schedule — 1 day, 3 days, a week, a month. Nothing returns the same day it caught you.'
             : 'Each was filed the day it caught you or the day you saved it. Clear one and it moves a rung up the ladder; miss it and it starts over at a day.'}
       </p>
 
       {!finishedToday && !nothingDue && <DailyLedger plan={plan} />}
 
-      {!finishedToday && !nothingDue && (
+      {waiting && <p className="daily-panel__waiting">{waiting}</p>}
+
+      {(!finishedToday && !nothingDue) || (filedCount > 0 && onOpenVault) ? (
         <div className="daily-panel__actions">
-          <button className="console-button console-button--primary" type="button" onClick={onStart}>
-            {startsWithQuestions ? 'Start with the questions' : 'Start with the words'}
-            <ArrowRight size={16} strokeWidth={1.75} absoluteStrokeWidth aria-hidden="true" />
-          </button>
+          {!finishedToday && !nothingDue && (
+            <button className="console-button console-button--primary" type="button" onClick={onStart}>
+              {startsWithQuestions ? 'Start with the questions' : 'Start with the words'}
+              <ArrowRight size={16} strokeWidth={1.75} absoluteStrokeWidth aria-hidden="true" />
+            </button>
+          )}
+          {filedCount > 0 && onOpenVault && (
+            <button
+              className="console-button console-button--secondary"
+              type="button"
+              onClick={onOpenVault}
+            >
+              See every miss on file
+            </button>
+          )}
         </div>
-      )}
+      ) : null}
 
       <p className="daily-panel__streak">{streakLine(streak, finishedToday)}</p>
-    </main>
+    </section>
   )
 }
 

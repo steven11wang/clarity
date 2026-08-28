@@ -44,7 +44,6 @@ const panels = {
   words: createElement('p', null, 'Words panel'),
   library: createElement('p', null, 'Library panel'),
   reflect: createElement('p', null, 'Reflect panel'),
-  insights: createElement('p', null, 'Insights panel'),
 }
 
 async function render(activeView: PrimaryConsoleView) {
@@ -100,7 +99,7 @@ describe('primary view transition', () => {
   })
 
   it('settles on the latest request after rapid navigation', async () => {
-    await render('insights')
+    await render('words')
     await render('practice')
 
     const transition = container.querySelector(
@@ -145,7 +144,6 @@ describe('persistent console shell', () => {
           wordsPanel: createElement('p', null, 'Embedded words'),
           libraryPanel: createElement('p', null, 'Embedded library'),
           reflectPanel: createElement('p', null, 'Embedded reflect'),
-          insightsPanel: createElement('p', null, 'Embedded insights'),
           cards,
           onSelectDomain: () => {},
           onUpdateScore: () => {},
@@ -156,7 +154,6 @@ describe('persistent console shell', () => {
           onOpenWords: () => {},
           onOpenLibrary: () => {},
           onOpenReflect: () => {},
-          onOpenInsights: () => {},
         }))
       })
     }
@@ -198,20 +195,21 @@ describe('persistent console shell', () => {
       ),
     )
 
-    await renderShell('insights')
+    await renderShell('reflect')
 
     assert.equal(shellContainer.querySelector('.console-hero-wash'), sceneBefore)
     assert.equal(shellContainer.querySelector('.console-header'), headerBefore)
-    assert.match(shellContainer.textContent ?? '', /Embedded insights/)
+    assert.match(shellContainer.textContent ?? '', /Embedded reflect/)
     assert.equal(
       shellContainer.querySelector('[aria-current="page"]')?.textContent,
-      'Insights',
+      'Reflect',
     )
+    // Insights was folded into Reflect, so the nav is four tabs wide.
     assert.deepEqual(
       [...shellContainer.querySelectorAll('.console-nav button')].map(
         (button) => button.textContent,
       ),
-      ['Learn', 'Practice', 'Reflect', 'Words', 'Insights'],
+      ['Learn', 'Practice', 'Reflect', 'Words'],
     )
 
     await act(async () => {
@@ -245,7 +243,6 @@ describe('persistent console shell', () => {
         wordsPanel: createElement('p'),
         libraryPanel: createElement('p'),
         reflectPanel: createElement('p'),
-        insightsPanel: createElement('p'),
         cards,
         onSelectDomain: () => {},
         onUpdateScore: () => {},
@@ -256,7 +253,6 @@ describe('persistent console shell', () => {
         onOpenWords: () => {},
         onOpenLibrary: () => {},
         onOpenReflect: () => {},
-        onOpenInsights: () => {},
       }))
     })
 
@@ -304,7 +300,6 @@ describe('persistent console shell', () => {
         wordsPanel: createElement('p', null, 'Embedded words'),
         libraryPanel: createElement('p'),
         reflectPanel: createElement('p'),
-        insightsPanel: createElement('p'),
         cards,
         onSelectDomain: () => {},
         onUpdateScore: () => {},
@@ -315,7 +310,6 @@ describe('persistent console shell', () => {
         onOpenWords: () => {},
         onOpenLibrary: () => { libraryOpened += 1 },
         onOpenReflect: () => {},
-        onOpenInsights: () => {},
       }))
     })
 
@@ -350,7 +344,7 @@ describe('persistent console shell', () => {
 })
 
 describe('embedded primary panels', () => {
-  it('renders Library and Insights without standalone page headers', async () => {
+  it('renders Library and the error record without standalone page headers', async () => {
     const panelContainer = dom.window.document.createElement('div')
     dom.window.document.body.append(panelContainer)
     const panelRoot = createRoot(panelContainer)

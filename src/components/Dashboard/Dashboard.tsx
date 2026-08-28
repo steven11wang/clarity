@@ -43,7 +43,7 @@ export function Dashboard({
   return (
     <Root
       className={embedded ? 'dashboard dashboard--embedded' : 'dashboard app-shell'}
-      aria-label={embedded ? 'Insights' : undefined}
+      aria-label={embedded ? 'Error record' : undefined}
     >
       {!embedded && <header className="app-header">
         <button className="wordmark wordmark--button" type="button" onClick={onBack} aria-label="Back to Browse">

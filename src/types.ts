@@ -102,6 +102,17 @@ export type Attempt = {
   practiceLevel?: 'Noobie' | 'Adventurer' | 'Master'
 }
 
+// Where a miss happened. Every surface that can mark an answer wrong files
+// into the same queue, so the vault and the daily return are the complete
+// record rather than the practice engine's private log.
+export type MissSource =
+  | 'practice'
+  | 'diagnostic'
+  | 'skill-quiz'
+  | 'checkpoint'
+  | 'lesson'
+  | 'exam'
+
 // A question scheduled to resurface. Lives in its own store, keyed by
 // questionId, so the practice stream can weave due items back in.
 export type ReviewItem = {
@@ -112,4 +123,12 @@ export type ReviewItem = {
   reason: 'miss' | 'hidden-error' | 'timeout'
   clears: number // consecutive correct-with-correct-evidence resurfacings
   lastReviewedAt: number | null
+  // Which surface filed it. Absent on items filed before misses outside the
+  // practice engine were tracked; those all came from practice.
+  source?: MissSource
+  // A self-contained copy of the question, carried only for items that came
+  // from outside the practice bank (a practice exam, a lesson example). The
+  // vault and the daily return render these the same way as bank questions,
+  // and because it rides inside the review item it syncs and exports for free.
+  question?: Question
 }

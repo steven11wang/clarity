@@ -36,7 +36,6 @@ const baseProps = {
   wordsPanel: null,
   libraryPanel: null,
   reflectPanel: null,
-  insightsPanel: null,
   dueCount: 0,
   questions: [],
   progression: null,
@@ -48,7 +47,6 @@ const baseProps = {
   onOpenWords: () => {},
   onOpenLibrary: () => {},
   onOpenReflect: () => {},
-  onOpenInsights: () => {},
   onRecordAnswers: () => ({}),
   onRecordReview: () => {},
 }

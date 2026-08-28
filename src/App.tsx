@@ -5,17 +5,16 @@ import {
   type AdaptiveAttemptReference,
 } from './components/Adaptive/AdaptiveExperience.tsx'
 import type { BatchAnswers } from './components/Adaptive/BatchQuiz.tsx'
-import { Dashboard } from './components/Dashboard/Dashboard.tsx'
 import {
   DailyBriefing,
   DailyDone,
-  DailyReturnPanel,
   DailyReturnPill,
   DailyWords,
 } from './components/DailyReview/DailyReview.tsx'
 import { PracticeExamPanel } from './components/Exam/PracticeExamPanel.tsx'
 import { Library } from './components/Library/Library.tsx'
 import type { PrimaryConsoleView } from './components/Adaptive/primaryViewTransition.ts'
+import { ReflectPanel } from './components/Reflect/ReflectPanel.tsx'
 import { MistakeVault } from './components/Review/MistakeVault.tsx'
 import { WordBank } from './components/WordBank/WordBank.tsx'
 import { AnswerPass } from './components/QuestionInteraction/AnswerPass.tsx'
@@ -54,7 +53,7 @@ import {
   setTimedMode,
 } from './storage/index.ts'
 import type { Level } from './progression/config.ts'
-import type { Attempt, FirstPass, Question } from './types.ts'
+import type { Attempt, FirstPass, MissSource, Question } from './types.ts'
 import './app.css'
 
 type LoadState = 'loading' | 'ready' | 'empty' | 'error'
@@ -64,7 +63,6 @@ type View =
   | 'browse'
   | 'practice'
   | 'exam'
-  | 'insights'
   | 'reviews'
   | 'reflect'
   | 'words'
@@ -75,7 +73,6 @@ const VALID_VIEWS: View[] = [
   'browse',
   'practice',
   'exam',
-  'insights',
   'reviews',
   'reflect',
   'words',
@@ -83,6 +80,14 @@ const VALID_VIEWS: View[] = [
 
 function isView(value: unknown): value is View {
   return typeof value === 'string' && VALID_VIEWS.includes(value as View)
+}
+
+// The adaptive experience names its units by what they are for; the queue names
+// them by where the student was when the miss happened.
+const MISS_SOURCE_BY_ACTIVITY: Record<'diagnostic' | 'skill' | 'checkpoint', MissSource> = {
+  diagnostic: 'diagnostic',
+  skill: 'skill-quiz',
+  checkpoint: 'checkpoint',
 }
 
 type SessionPhase = 'answer' | 'review-intro' | 'review' | 'summary'
@@ -279,15 +284,16 @@ function App() {
       })
 
       if (!correct) {
-        saveReview(
-          scheduleMistake(
+        saveReview({
+          ...scheduleMistake(
             getReview(question.id),
             question.id,
             'miss',
             getSettings().demoMode,
             scheduleTime,
           ),
-        )
+          source: MISS_SOURCE_BY_ACTIVITY[activityKind],
+        })
         scheduled = true
       }
     })
@@ -326,9 +332,15 @@ function App() {
     if (item.isReview && existing) {
       saveReview(applyReview(existing, isClean(attempt.correct), demo, nowTs))
     } else if (attempt.timedOut) {
-      saveReview(scheduleMistake(existing, attempt.questionId, 'timeout', demo, nowTs))
+      saveReview({
+        ...scheduleMistake(existing, attempt.questionId, 'timeout', demo, nowTs),
+        source: 'practice',
+      })
     } else if (!attempt.correct) {
-      saveReview(scheduleMistake(existing, attempt.questionId, 'miss', demo, nowTs))
+      saveReview({
+        ...scheduleMistake(existing, attempt.questionId, 'miss', demo, nowTs),
+        source: 'practice',
+      })
     }
     setReviewsVersion((v) => v + 1)
   }
@@ -461,7 +473,6 @@ function App() {
       reflect: 'reflect',
       words: 'words',
       browse: 'library',
-      insights: 'insights',
     }
     const primaryView: PrimaryConsoleView = PRIMARY_VIEW_BY_VIEW[view] ?? 'practice'
 
@@ -489,12 +500,14 @@ function App() {
           )}
           wordsPanel={<WordBank onBack={() => setView('adaptive')} />}
           reflectPanel={(
-            <DailyReturnPanel
+            <ReflectPanel
               plan={dailyPlan}
               at={reviewSnapshot.at}
               streak={liveStreak(dailyState, dailyPlan.day)}
               finishedToday={dailyState.lastCompletedDay === dailyPlan.day}
               onStart={startDailyReturn}
+              onOpenVault={() => setView('reviews')}
+              onOpenPractice={() => setView('adaptive')}
             />
           )}
           reviewsPanel={(
@@ -507,12 +520,6 @@ function App() {
             />
           )}
           dueCount={dueNow}
-          insightsPanel={(
-            <Dashboard
-              embedded
-              onBack={() => setView('adaptive')}
-            />
-          )}
           questions={questions}
           progression={progression}
           onProgressionChange={updateProgression}
@@ -523,7 +530,6 @@ function App() {
           onOpenWords={() => setView('words')}
           onOpenLibrary={() => setView('browse')}
           onOpenReflect={() => setView('reflect')}
-          onOpenInsights={() => setView('insights')}
           onRecordAnswers={recordAdaptiveAnswers}
           onRecordReview={recordAdaptiveReview}
         />

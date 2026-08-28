@@ -251,6 +251,21 @@ describe('lookupWord', () => {
     await assert.rejects(() => lookupWord('reticent', { fetchImpl }), /502/)
   })
 
+  it('gives up on a service that hangs instead of spinning forever', async () => {
+    clearDictionaryCache()
+    // dictionaryapi.dev goes down by accepting the connection and never
+    // answering, so a hang has to read as a failure the popup can retry.
+    const fetchImpl = ((_url: string, init?: RequestInit) =>
+      new Promise<Response>((_resolve, reject) => {
+        init?.signal?.addEventListener('abort', () => reject(new Error('aborted')))
+      })) as unknown as typeof fetch
+
+    await assert.rejects(
+      () => lookupWord('reticent', { fetchImpl, timeoutMs: 10 }),
+      /timed out/,
+    )
+  })
+
   it('does not cache a failed request', async () => {
     clearDictionaryCache()
     let calls = 0

@@ -152,8 +152,13 @@ export function examDurationMinutes(
 
 const EXAM_DIR = '/data/practice-exams'
 
+/** Site-root-relative path to an exam asset, before the deploy base is added. */
+export function examAssetSrc(src: string): string {
+  return `${EXAM_DIR}/${src}`
+}
+
 export function examAssetPath(src: string): string {
-  return assetPath(`${EXAM_DIR}/${src}`)
+  return assetPath(examAssetSrc(src))
 }
 
 /**

@@ -127,6 +127,38 @@ describe('daily plan', () => {
     const plan = buildDailyPlan(questions, reviews, words, noon, false)
     assert.equal(plan.total, 0)
   })
+
+  it('hands back a question filed from outside the bank', () => {
+    const exam = question('exam:test-1:q7')
+    const reviews = {
+      [exam.id]: { ...review(exam.id, 0, noon - HOUR), question: exam },
+    }
+    const plan = buildDailyPlan(questions, reviews, [], noon, false)
+    assert.deepEqual(plan.questions.map((entry) => entry.id), [exam.id])
+  })
+
+  it('counts what is filed but not due yet, and when it returns', () => {
+    const reviews = {
+      q1: review('q1', 0, noon - HOUR), // due
+      q2: review('q2', 0, noon + 6 * HOUR),
+      q3: review('q3', 0, noon + DAY),
+      gone: review('gone', -1, noon + DAY), // retired, not waiting
+    }
+    const words = [word('lucid', 0, noon + 2 * HOUR)]
+
+    const plan = buildDailyPlan(questions, reviews, words, noon, false)
+
+    assert.deepEqual(plan.upcoming, {
+      questions: 2,
+      words: 1,
+      nextDueAt: noon + 2 * HOUR,
+    })
+  })
+
+  it('reports nothing waiting when the ladder is empty', () => {
+    const plan = buildDailyPlan(questions, {}, [], noon, false)
+    assert.deepEqual(plan.upcoming, { questions: 0, words: 0, nextDueAt: null })
+  })
 })
 
 describe('daily briefing bookkeeping', () => {

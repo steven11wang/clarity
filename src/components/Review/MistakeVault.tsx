@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { ArrowLeft, Check, Clock, Dot } from 'lucide-react'
 
+import { missSourceLabel } from '../../review/capture.ts'
 import { STAGE_LABELS, stageLabel } from '../../review/schedule.ts'
 import {
   REASON_LABELS,
@@ -52,8 +53,9 @@ export function MistakeVault({ questions, reviews, now, onStart, onBack }: Mista
         <p className="vault__eyebrow">MISTAKE VAULT</p>
         <h1>Every miss you<br />haven’t beaten yet.</h1>
         <p className="vault__lede">
-          A question you got wrong is filed here and handed back to you on a widening
-          schedule - {STAGE_LABELS.join(', then ')} after you clear it. Four clean returns
+          Every question you get wrong is filed here - in a practice set, a diagnostic, a
+          lesson example or a full practice exam - and handed back to you on a widening
+          schedule: {STAGE_LABELS.join(', then ')} after you clear it. Four clean returns
           and it retires for good.
         </p>
 
@@ -157,7 +159,7 @@ function VaultRow({
         <span className="vault__row-copy">
           <strong>{question.prompt}</strong>
           <small>
-            {question.domain} · {question.skill} · {question.difficulty}
+            {question.domain} · {question.skill} · {missSourceLabel(item.source)}
           </small>
         </span>
         <span className="vault__row-state">

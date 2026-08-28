@@ -58,6 +58,20 @@ describe('mistake vault', () => {
     assert.deepEqual(entries.map((entry) => entry.question.id), ['q1'])
   })
 
+  it('keeps an entry filed from outside the bank, using the copy it carries', () => {
+    const lesson = question('lesson:Boundaries:part-1:page-2:0')
+    const entries = buildVault(
+      [question('q1')],
+      {
+        q1: review('q1', NOW),
+        [lesson.id]: { ...review(lesson.id, NOW), source: 'lesson', question: lesson },
+      },
+      NOW,
+    )
+
+    assert.deepEqual(entries.map((entry) => entry.question.id).sort(), ['lesson:Boundaries:part-1:page-2:0', 'q1'])
+  })
+
   it('describes the next return in coarse units', () => {
     assert.equal(formatDueIn(0), 'Ready now')
     assert.equal(formatDueIn(-5000), 'Ready now')
