@@ -26,7 +26,7 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
   const [user, setUser] = useState<User | null>(null)
   const [checking, setChecking] = useState(isSupabaseConfigured)
   const [syncing, setSyncing] = useState(false)
-  const [syncError, setSyncError] = useState<string | null>(null)
+  const [, setSyncError] = useState<string | null>(null)
   const [unlockedUserId, setUnlockedUserId] = useState<string | null>(null)
   const [profileRevision, setProfileRevision] = useState(0)
   const [access, setAccess] = useState<AccessState | null>(null)
@@ -212,11 +212,6 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
 
   return (
     <>
-      {syncError && (
-        <div className="sync-warning" role="status">
-          Saved on this device. Cloud sync will retry after your next change. {syncError}
-        </div>
-      )}
       <AuthProfileProvider
         value={{
           email: user.email ?? null,
