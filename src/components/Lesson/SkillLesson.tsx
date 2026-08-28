@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { ChevronLeft } from 'lucide-react'
+import { X } from 'lucide-react'
 
 import {
   buildLessonTabs,
@@ -110,17 +110,19 @@ export function SkillLesson({
       <div ref={topRef} aria-hidden="true" />
 
       {embedded ? (
-        <button
-          className="lesson-reader__back"
-          type="button"
-          onClick={onExit}
-          data-ui-sound="true"
-          data-ui-sound-hover="hover"
-          data-ui-sound-click="back"
-        >
-          <ChevronLeft aria-hidden="true" strokeWidth={1.7} />
-          All lessons
-        </button>
+        <div className="lesson-reader__topbar">
+          <button
+            className="lesson-reader__back"
+            type="button"
+            onClick={onExit}
+            data-ui-sound="true"
+            data-ui-sound-hover="hover"
+            data-ui-sound-click="back"
+          >
+            <X aria-hidden="true" strokeWidth={1.7} />
+            All lessons
+          </button>
+        </div>
       ) : (
         <header className="adaptive-header">
           <button

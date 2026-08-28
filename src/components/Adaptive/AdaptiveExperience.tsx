@@ -1077,6 +1077,12 @@ export function AdaptiveExperience({
       ? 'lessons'
       : primaryView
 
+  // An open lesson takes the whole screen: no console header, no rail, no
+  // subnav - just the reading and one exit control pinned at the top.
+  if (screen === 'lesson' && pendingLesson && pendingLessonSummary) {
+    return <div className="lesson-fullscreen">{lessonsPanel}</div>
+  }
+
   function openPrimaryView(action: () => void) {
     setPendingLesson(null)
     setLessonHall(null)

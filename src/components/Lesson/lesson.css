@@ -1728,24 +1728,57 @@
 }
 
 .lesson-reader--embedded {
-  margin: 0;
+  margin: 0 auto;
+}
+
+/* Fullscreen reading mode: the lesson owns the viewport and scrolls on its
+   own, so the console chrome behind it never competes for attention. */
+.lesson-fullscreen {
+  background: #05070f;
+  bottom: 0;
+  color: #fff;
+  left: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0 clamp(1rem, 2.45vw, 2.75rem);
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 80;
+}
+
+.lesson-fullscreen .lesson-reader {
+  padding-top: 0;
+}
+
+.lesson-reader__topbar {
+  background: linear-gradient(#05070f 68%, rgba(5, 7, 15, 0));
+  display: flex;
+  margin: 0 calc(-1 * clamp(1rem, 2.45vw, 2.75rem));
+  padding: 1rem clamp(1rem, 2.45vw, 2.75rem) 1.4rem;
+  position: sticky;
+  top: 0;
+  z-index: 2;
 }
 
 .lesson-reader__back {
   align-items: center;
-  background: none;
-  border: 0;
-  color: rgba(255, 255, 255, 0.64);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.72);
   cursor: pointer;
   display: inline-flex;
   font: inherit;
   font-size: 0.86rem;
   font-weight: 650;
-  gap: 0.35rem;
-  padding: 0.4rem 0;
+  gap: 0.4rem;
+  padding: 0.45rem 0.95rem 0.45rem 0.75rem;
 }
 
 .lesson-reader__back:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.28);
   color: #fff;
 }
 

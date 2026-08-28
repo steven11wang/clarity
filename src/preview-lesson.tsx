@@ -19,14 +19,18 @@ function Harness() {
   }
   const summary = getSkillLessonSummary(skill)
   if (!summary) return <p>no lesson for {skill}</p>
+  // Production opens lessons fullscreen inside the console; mirror that here.
   return (
-    <SkillLesson
-      key={skill}
-      summary={summary}
-      finishLabel="Back to all lessons"
-      onFinish={() => setSkill(null)}
-      onExit={() => setSkill(null)}
-    />
+    <div className="lesson-fullscreen">
+      <SkillLesson
+        embedded
+        key={skill}
+        summary={summary}
+        finishLabel="Back to all lessons"
+        onFinish={() => setSkill(null)}
+        onExit={() => setSkill(null)}
+      />
+    </div>
   )
 }
 
