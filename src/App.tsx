@@ -37,8 +37,6 @@ import {
 import { applyReview, isClean, scheduleMistake } from './review/schedule.ts'
 import { buildStream, type StreamItem } from './review/stream.ts'
 import {
-  advanceClock,
-  clearAll,
   getActiveView,
   getDailyState,
   getProgression,
@@ -52,7 +50,6 @@ import {
   saveProgression,
   saveReview,
   setActiveView,
-  setDemoMode,
   setTimeLimit,
   setTimedMode,
 } from './storage/index.ts'
@@ -372,11 +369,6 @@ function App() {
     }
   }
 
-  function toggleDemo() {
-    const next = !demoMode
-    setDemoMode(next)
-    setDemoModeState(next)
-  }
   function toggleTimed() {
     const next = !timedMode
     setTimedMode(next)
@@ -385,10 +377,6 @@ function App() {
   function changeLimit(sec: number) {
     setTimeLimit(sec)
     setTimeLimitState(sec)
-  }
-  function jumpAhead() {
-    advanceClock(24 * 60 * 60 * 1000)
-    setReviewsVersion((v) => v + 1)
   }
 
   if (loadState === 'loading') {
@@ -411,30 +399,6 @@ function App() {
     )
   }
 
-  const devBar = (
-    <div className="dev-bar" role="group" aria-label="Demo controls">
-      <span className="dev-tag">demo</span>
-      <label className="dev-toggle">
-        <input type="checkbox" checked={demoMode} onChange={toggleDemo} />
-        Compress schedule (2/7/30 d → 20/60/180 s)
-      </label>
-      <button type="button" onClick={jumpAhead}>Jump +1 day</button>
-      <button
-        type="button"
-        onClick={() => {
-          clearAll()
-          setDemoModeState(false)
-          setTimedModeState(false)
-          setTimeLimitState(90)
-          setProgression(null)
-          setView('adaptive')
-          setReviewsVersion((v) => v + 1)
-        }}
-      >
-        Reset data
-      </button>
-    </div>
-  )
 
   // Step two of the daily return, and its closing card. Both are full
   // activities rather than modals - only the briefing interrupts.
@@ -446,7 +410,6 @@ function App() {
           onFinish={finishDailyReturn}
           onLeave={leaveDailyReturn}
         />
-        {devBar}
       </>
     )
   }
@@ -461,7 +424,6 @@ function App() {
           streak={dailyState.streak}
           onClose={leaveDailyReturn}
         />
-        {devBar}
       </>
     )
   }
@@ -566,7 +528,6 @@ function App() {
           onRecordReview={recordAdaptiveReview}
         />
         {dailyOverlay}
-        {devBar}
       </>
     )
   }
@@ -598,7 +559,6 @@ function App() {
           continueLabel={daily?.label}
           onContinue={daily?.action}
         />
-        {devBar}
       </>
     )
   }
@@ -630,7 +590,6 @@ function App() {
             </button>
           </section>
         </main>
-        {devBar}
       </>
     )
   }
@@ -686,7 +645,6 @@ function App() {
           )}
         </article>
       </main>
-      {devBar}
     </>
   )
 }

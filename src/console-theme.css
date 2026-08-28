@@ -70,8 +70,7 @@ body::after {
 .domain-card,
 .recommendation-callout,
 .review-primer,
-.review-primer__action,
-.dev-bar {
+.review-primer__action {
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
 }
@@ -160,7 +159,7 @@ body::after {
 }
 .button--quiet:hover { background: rgba(255, 255, 255, 0.08); color: var(--console-text); }
 
-.pill, .difficulty, .choice-tag, .chain-tag, .tree-count, .domain-tag, .dev-tag { border-radius: 999px; }
+.pill, .difficulty, .choice-tag, .chain-tag, .tree-count, .domain-tag { border-radius: 999px; }
 .pill { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.16); color: var(--console-text-mute); }
 .pill:hover { border-color: var(--cobalt-light); color: var(--console-text); }
 .pill--on { background: var(--cobalt); border-color: var(--cobalt); color: #ffffff; }
@@ -204,9 +203,6 @@ body::after {
 /* Meta strips read as glass sub-bars, not light panels. */
 .question-meta { background: rgba(255, 255, 255, 0.06); border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
 .passage { border-right-color: rgba(255, 255, 255, 0.1); }
-
-/* Dev bar: dense console chrome. */
-.dev-bar { background: var(--glass-surface-strong); border-top: 1px solid var(--glass-border); }
 
 /* Dark ink on solid amber / lime fills (never white-on-yellow). */
 .review-primer__signal,
