@@ -685,51 +685,33 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
 }
 
 .close-feet{
-  position:absolute; left:0; right:0; bottom:clamp(16px,3vh,34px); z-index:3;
+  position:absolute; left:0; right:0; bottom:clamp(20px,3.4vh,44px); z-index:3;
   display:flex; align-items:flex-end; justify-content:space-between; gap:20px;
   text-align:left; pointer-events:none;
 }
 .close-feet p{margin:0}
-.close-feet .loop-line{margin-top:6px; color:var(--ink-80); letter-spacing:.22em}
 .close-feet .seal{width:15px; height:15px}
+
+/* wresearch sits in the painting itself; multiply drops the logo's white
+   ground so it reads as ink on this paper rather than a pasted tile. */
+.close-org{display:grid; gap:12px; justify-items:start; pointer-events:auto}
+/* the mark is a transparent PNG (black ink, no white plate) so it sits on the
+   painting instead of on a card; multiply lets the paper grain show through. */
+.close-org a{display:block; opacity:.92; transition:opacity .35s var(--ease)}
+.close-org a:hover{opacity:1}
+.close-org img{
+  width:clamp(126px,11.5vw,172px); height:auto; display:block;
+  mix-blend-mode:multiply;
+}
+.close-org p{
+  font-size:13px; line-height:1.5; color:var(--ink); max-width:42ch;
+  text-shadow:0 1px 0 rgba(255,255,255,.35);   /* keeps the black legible over busy ink */
+}
+.close-org .close-note{font-size:12px; color:var(--ink-80)}
 @media (max-width:820px){
   .close-feet{position:static; margin-top:26px; padding-bottom:clamp(24px,4vh,40px)}
   .close-mark{font-size:clamp(34px,9vw,60px)}
-}
-
-/* ==========================================================================
-   8 · FOOT
-   ========================================================================== */
-.foot{
-  border-top:1px solid var(--ink-18);
-  padding-block:clamp(40px,6vh,72px) clamp(30px,5vh,52px);
-  background:var(--paper); isolation:isolate;
-}
-.foot .wrap{
-  display:grid; grid-template-columns:1fr auto; gap:clamp(28px,5vw,80px);
-  align-items:end;
-}
-.foot-org{display:grid; gap:16px; justify-items:start}
-.foot-org img{
-  width:clamp(148px,15vw,210px); height:auto;
-  mix-blend-mode:darken; filter:grayscale(1) contrast(1.1);
-  opacity:.9; transition:filter .4s var(--ease), opacity .4s var(--ease);
-}
-.foot-org a:hover img{filter:none; opacity:1}
-.foot-org p{margin:0; font-size:13.5px; color:var(--ink-58); max-width:44ch}
-.foot-note{margin:0; font-size:12.5px; color:var(--ink-38); max-width:44ch}
-.foot-links{display:flex; flex-direction:column; align-items:flex-end; text-align:right; margin-block:-11px}
-.foot-links a{
-  padding-block:11px;                 /* a 40px tap target without visual weight */
-  font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500;
-  letter-spacing:.2em; text-transform:uppercase; color:var(--ink-58);
-  transition:color .25s var(--ease);
-}
-.foot-links a:hover{color:var(--cinnabar)}
-@media (max-width:720px){
-  .foot .wrap{grid-template-columns:1fr}
-  .foot-links{align-items:flex-start; text-align:left}
-  .foot-links a{padding-block:13px}
+  .close-org p{text-shadow:none}
 }
 
 /* ==========================================================================
@@ -1029,9 +1011,12 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
       </figure>
 
       <div class="wrap close-feet">
-        <div>
-          <p class="mono">The learning loop</p>
-          <p class="mono loop-line">Attempt &rarr; Reflect &rarr; Return</p>
+        <div class="close-org">
+          <a href="https://github.com/wresearch" target="_blank" rel="noopener noreferrer" aria-label="wresearch">
+            <img src="/brand/landing/wresearch-mark.png" width="515" height="109" loading="lazy" alt="wresearch" />
+          </a>
+          <p>Clarity is built at wresearch.</p>
+          <p class="close-note">The paintings and drawings on this page were generated for Clarity.</p>
         </div>
         <svg class="seal" aria-hidden="true"><use href="#seal"/></svg>
       </div>
@@ -1040,23 +1025,6 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
 
 </main>
 
-<footer class="foot">
-  <div class="wrap">
-    <div class="foot-org">
-      <a href="https://github.com/wresearch" aria-label="wresearch">
-        <img src="/brand/landing/wresearch.jpg" width="640" height="320" loading="lazy" alt="wresearch" />
-      </a>
-      <p>Clarity is built at wresearch.</p>
-      <p class="foot-note">The paintings and drawings on this page were generated for Clarity.</p>
-    </div>
-    <div class="foot-links">
-      <a href="/plans">Plans</a>
-      <a href="/app">Get started</a>
-      <a href="https://github.com/wresearch/clarity">GitHub</a>
-      <a href="#top">Back to top</a>
-    </div>
-  </div>
-</footer>
 
 <script>
 (() => {
