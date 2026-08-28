@@ -1740,15 +1740,28 @@
   left: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 0 clamp(1rem, 2.45vw, 2.75rem);
   position: fixed;
   right: 0;
   top: 0;
   z-index: 80;
 }
 
-.lesson-fullscreen .lesson-reader {
-  padding-top: 0;
+/* The reader carries the page gutter itself so the sticky exit bar can span
+   the full width of the layer. */
+.lesson-fullscreen > .lesson-reader {
+  padding: 0 clamp(1rem, 2.45vw, 2.75rem) 6rem;
+}
+
+/* The hall already paints its own backdrop and gutter - it just needs the
+   whole viewport now that the console chrome is gone. */
+.lesson-fullscreen > .lesson-skill-picker {
+  min-height: 100vh;
+}
+
+.lesson-fullscreen > .lesson-skill-picker .lesson-skill-picker__back {
+  position: sticky;
+  top: clamp(1.5rem, 3vw, 3rem);
+  z-index: 2;
 }
 
 .lesson-reader__topbar {
