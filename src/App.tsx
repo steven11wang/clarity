@@ -15,6 +15,7 @@ import { PracticeExamPanel } from './components/Exam/PracticeExamPanel.tsx'
 import { Library } from './components/Library/Library.tsx'
 import type { PrimaryConsoleView } from './components/Adaptive/primaryViewTransition.ts'
 import { ReflectPanel } from './components/Reflect/ReflectPanel.tsx'
+import { Arena, type ArenaAnswer } from './components/Arena/Arena.tsx'
 import { MistakeVault } from './components/Review/MistakeVault.tsx'
 import { WordBank } from './components/WordBank/WordBank.tsx'
 import { AnswerPass } from './components/QuestionInteraction/AnswerPass.tsx'
@@ -65,6 +66,7 @@ type View =
   | 'exam'
   | 'reviews'
   | 'reflect'
+  | 'arena'
   | 'words'
 
 const VALID_VIEWS: View[] = [
@@ -75,6 +77,7 @@ const VALID_VIEWS: View[] = [
   'exam',
   'reviews',
   'reflect',
+  'arena',
   'words',
 ]
 
@@ -165,6 +168,13 @@ function App() {
       Object.values(reviewSnapshot.reviews).filter(
         (item) => item.stage >= 0 && item.dueAt <= reviewSnapshot.at,
       ).length,
+    [reviewSnapshot],
+  )
+
+  // Everything still on the ladder, due or not - what the vault would show if
+  // you opened it right now. A retired question (stage -1) is off the books.
+  const filedNow = useMemo(
+    () => Object.values(reviewSnapshot.reviews).filter((item) => item.stage >= 0).length,
     [reviewSnapshot],
   )
 
@@ -300,6 +310,56 @@ function App() {
 
     if (scheduled) setReviewsVersion((version) => version + 1)
     return references
+  }
+
+  // A battle is still practice: every answer is logged, and every miss is filed
+  // into the same queue as any other, so the vault and the daily return stay the
+  // complete record rather than skipping whatever happened in the Arena.
+  function recordArenaAnswers(matchId: string, answers: ArenaAnswer[]) {
+    const timestamp = Date.now()
+    const scheduleTime = now()
+    let scheduled = false
+
+    answers.forEach((answer, index) => {
+      const reviewStage = getReview(answer.question.id)?.stage ?? 0
+      recordAttempt({
+        questionId: answer.question.id,
+        timestamp: timestamp + index,
+        chosen: answer.chosen,
+        correct: answer.correct,
+        confidence: null,
+        attemptsToCorrect: answer.correct ? 1 : 0,
+        errorCause: null,
+        selfExplanations: null,
+        evidenceUnderlined: [],
+        evidenceScore: null,
+        chainBreakLink: null,
+        trapGuess: null,
+        trapActual: null,
+        hiddenError: false,
+        resurrectionStage: reviewStage,
+        timeSpentMs: answer.elapsedMs,
+        // An unanswered question ran out of clock; nothing else can leave it blank.
+        timedOut: answer.chosen === '',
+        activityId: `arena:${matchId}`,
+      })
+
+      if (!answer.correct) {
+        saveReview({
+          ...scheduleMistake(
+            getReview(answer.question.id),
+            answer.question.id,
+            answer.chosen === '' ? 'timeout' : 'miss',
+            getSettings().demoMode,
+            scheduleTime,
+          ),
+          source: 'arena',
+        })
+        scheduled = true
+      }
+    })
+
+    if (scheduled) setReviewsVersion((version) => version + 1)
   }
 
   function recordAdaptiveReview(
@@ -471,6 +531,7 @@ function App() {
       exam: 'exam',
       reviews: 'reviews',
       reflect: 'reflect',
+      arena: 'arena',
       words: 'words',
       browse: 'library',
     }
@@ -505,6 +566,8 @@ function App() {
               at={reviewSnapshot.at}
               streak={liveStreak(dailyState, dailyPlan.day)}
               finishedToday={dailyState.lastCompletedDay === dailyPlan.day}
+              filedCount={filedNow}
+              dueCount={dueNow}
               onStart={startDailyReturn}
               onOpenVault={() => setView('reviews')}
               onOpenPractice={() => setView('adaptive')}
@@ -516,20 +579,27 @@ function App() {
               reviews={reviewSnapshot.reviews}
               now={reviewSnapshot.at}
               onStart={startSession}
-              onBack={() => setView('adaptive')}
+              onBack={() => setView('reflect')}
             />
           )}
-          dueCount={dueNow}
+          arenaPanel={(
+            <Arena
+              questions={questions}
+              onExit={() => setView('adaptive')}
+              onOpenReviews={() => setView('reviews')}
+              onBattleComplete={recordArenaAnswers}
+            />
+          )}
           questions={questions}
           progression={progression}
           onProgressionChange={updateProgression}
           onOpenPractice={() => setView('adaptive')}
           onOpenExam={() => setView('exam')}
           onOpenLessons={() => setView('lessons')}
-          onOpenReviews={() => setView('reviews')}
           onOpenWords={() => setView('words')}
           onOpenLibrary={() => setView('browse')}
           onOpenReflect={() => setView('reflect')}
+          onOpenArena={() => setView('arena')}
           onRecordAnswers={recordAdaptiveAnswers}
           onRecordReview={recordAdaptiveReview}
         />

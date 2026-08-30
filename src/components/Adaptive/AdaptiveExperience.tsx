@@ -78,17 +78,17 @@ type AdaptiveExperienceProps = {
   wordsPanel: ReactNode
   libraryPanel: ReactNode
   reflectPanel: ReactNode
-  dueCount: number
+  arenaPanel: ReactNode
   questions: Question[]
   progression: ProgressionState | null
   onProgressionChange: (state: ProgressionState) => void
   onOpenPractice: () => void
   onOpenExam: () => void
   onOpenLessons: () => void
-  onOpenReviews: () => void
   onOpenWords: () => void
   onOpenLibrary: () => void
   onOpenReflect: () => void
+  onOpenArena: () => void
   onRecordAnswers: (
     assessmentId: string,
     questions: Question[],
@@ -157,17 +157,17 @@ export function AdaptiveExperience({
   wordsPanel,
   libraryPanel,
   reflectPanel,
-  dueCount,
+  arenaPanel,
   questions,
   progression,
   onProgressionChange,
   onOpenPractice,
   onOpenExam,
   onOpenLessons,
-  onOpenReviews,
   onOpenWords,
   onOpenLibrary,
   onOpenReflect,
+  onOpenArena,
   onRecordAnswers,
   onRecordReview,
 }: AdaptiveExperienceProps) {
@@ -1097,17 +1097,17 @@ export function AdaptiveExperience({
       wordsPanel={wordsPanel}
       libraryPanel={libraryPanel}
       reflectPanel={reflectPanel}
+      arenaPanel={arenaPanel}
       cards={cards}
-      dueCount={dueCount}
       onSelectDomain={chooseDomain}
       onUpdateScore={() => setIsUpdatingScore(true)}
       onOpenPractice={() => openPrimaryView(onOpenPractice)}
       onOpenExam={() => openPrimaryView(onOpenExam)}
       onOpenLessons={() => openPrimaryView(onOpenLessons)}
-      onOpenReviews={() => openPrimaryView(onOpenReviews)}
       onOpenWords={() => openPrimaryView(onOpenWords)}
       onOpenLibrary={() => openPrimaryView(onOpenLibrary)}
       onOpenReflect={() => openPrimaryView(onOpenReflect)}
+      onOpenArena={() => openPrimaryView(onOpenArena)}
     />
   )
 }

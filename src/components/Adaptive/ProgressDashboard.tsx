@@ -13,7 +13,6 @@ import {
   GitMerge,
   GraduationCap,
   House,
-  RotateCcw,
   Search,
   Type as TypeIcon,
   UserRound,
@@ -51,24 +50,23 @@ type ProgressDashboardProps = {
   wordsPanel: ReactNode
   libraryPanel: ReactNode
   reflectPanel: ReactNode
+  arenaPanel: ReactNode
   cards: DomainCardView[]
-  dueCount?: number
   onSelectDomain: (domain: SatDomain) => void
   onUpdateScore: () => void
   onOpenPractice: () => void
   onOpenExam: () => void
   onOpenLessons: () => void
-  onOpenReviews: () => void
   onOpenWords: () => void
   onOpenLibrary: () => void
   onOpenReflect: () => void
+  onOpenArena: () => void
 }
 
 type ConsoleSelection =
   | { kind: 'today' }
   | { kind: 'domain'; domain: SatDomain }
   | { kind: 'exam' }
-  | { kind: 'reviews' }
 
 // One icon family (Lucide) at one stroke weight, instead of Unicode glyphs.
 // Glyphs came from whichever symbol font the OS happened to have, so the rail
@@ -89,12 +87,9 @@ function buildHero(
   cards: DomainCardView[],
   totalSkills: number,
   securedSkills: number,
-  dueCount: number,
   onSelectDomain: (domain: SatDomain) => void,
   onOpenExam: () => void,
-  onOpenReviews: () => void,
   onOpenLibrary: () => void,
-  setSelection: (selection: ConsoleSelection) => void,
 ) {
   if (selection.kind === 'today') {
     const next = cards.find((card) => card.recommended) ?? cards[0]
@@ -115,18 +110,6 @@ function buildHero(
       body: 'Two timed Reading and Writing modules in the same testing app you will face on the day: one question at a time, mark for review, cross out answers, highlight the passage. Scored only when you submit.',
       primary: 'Open practice exam',
       primaryAction: onOpenExam,
-    }
-  }
-  if (selection.kind === 'reviews') {
-    return {
-      kicker: 'MISTAKE VAULT',
-      title:
-        dueCount > 0
-          ? `${dueCount} ${dueCount === 1 ? 'miss is' : 'misses are'} ready to come back.`
-          : 'Every miss comes back in disguise.',
-      body: 'Wrong answers are filed in the vault and handed back on a widening schedule - 1 day, 3 days, a week, a month. Clear all four and the question retires.',
-      primary: 'Open the mistake vault',
-      primaryAction: onOpenReviews,
     }
   }
   const card = cards.find((entry) => entry.domain === selection.domain) ?? cards[0]
@@ -156,17 +139,17 @@ export function ProgressDashboard({
   wordsPanel,
   libraryPanel,
   reflectPanel,
+  arenaPanel,
   cards,
-  dueCount = 0,
   onSelectDomain,
   onUpdateScore,
   onOpenPractice,
   onOpenExam,
   onOpenLessons,
-  onOpenReviews,
   onOpenWords,
   onOpenLibrary,
   onOpenReflect,
+  onOpenArena,
 }: ProgressDashboardProps) {
   const { openAccount } = useAuthProfile()
   const firstDomain =
@@ -198,19 +181,14 @@ export function ProgressDashboard({
     cards,
     totalSkills,
     securedSkills,
-    dueCount,
     onSelectDomain,
     onOpenExam,
-    onOpenReviews,
     onOpenLibrary,
-    setSelection,
   ), [
     cards,
-    dueCount,
     heroSelection,
     onOpenExam,
     onOpenLibrary,
-    onOpenReviews,
     onSelectDomain,
     securedSkills,
     totalSkills,
@@ -243,8 +221,9 @@ export function ProgressDashboard({
   }, [])
 
   // Domains and the exam are the "game" tiles - the things you actually go and
-  // play. Today and reviews stay utility marks. Lessons left the rail when the
-  // Learn tab took them over.
+  // play. Today stays a utility mark. Lessons left the rail when the Learn tab
+  // took them over, and the vault left it for Reflect - a miss you are about to
+  // redo belongs beside the record of why you missed it, not beside the paths.
   const rail: Array<{
     label: string
     Mark: typeof House
@@ -269,7 +248,6 @@ export function ProgressDashboard({
       game: true,
       accent: EXAM_TILE_ACCENT,
     },
-    { label: 'Due reviews', Mark: RotateCcw, selection: { kind: 'reviews' }, game: false },
   ]
 
   const activeRailIndex = rail.findIndex((item) => {
@@ -399,6 +377,17 @@ export function ProgressDashboard({
             Reflect
           </button>
           <button
+            className={activeView === 'arena' ? 'console-nav__active' : undefined}
+            type="button"
+            aria-current={activeView === 'arena' ? 'page' : undefined}
+            onClick={onOpenArena}
+            data-ui-sound="true"
+            data-ui-sound-hover="hover"
+            data-ui-sound-click="open"
+          >
+            Arena
+          </button>
+          <button
             className={activeView === 'words' ? 'console-nav__active' : undefined}
             type="button"
             aria-current={activeView === 'words' ? 'page' : undefined}
@@ -523,16 +512,6 @@ export function ProgressDashboard({
         <span className="console-status-divider" />
         <strong className="console-growth">+12%</strong>
         <button
-          type="button"
-          onClick={onOpenReviews}
-          data-ui-sound="true"
-          data-ui-sound-hover="hover"
-          data-ui-sound-click="open"
-        >
-          <span><RotateCcw size={17} strokeWidth={1.5} absoluteStrokeWidth /></span> Review practice
-          {dueCount > 0 ? ` · ${dueCount} due` : ''}
-        </button>
-        <button
           className="console-status-row__gate"
           type="button"
           onClick={() => {
@@ -610,6 +589,7 @@ export function ProgressDashboard({
           lessons: learnShell('lessons', lessonsPanel),
           reviews: reviewsPanel,
           reflect: reflectPanel,
+          arena: arenaPanel,
           words: wordsPanel,
           library: learnShell('library', libraryPanel),
         }}

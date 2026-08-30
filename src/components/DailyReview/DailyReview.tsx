@@ -293,14 +293,12 @@ export function DailyReturnPanel({
   streak,
   finishedToday,
   onStart,
-  onOpenVault,
 }: {
   plan: DailyPlan
   at: number
   streak: number
   finishedToday: boolean
   onStart: () => void
-  onOpenVault?: () => void
 }) {
   const startsWithQuestions = plan.questions.length > 0
   const nothingDue = plan.total === 0
@@ -331,23 +329,12 @@ export function DailyReturnPanel({
 
       {waiting && <p className="daily-panel__waiting">{waiting}</p>}
 
-      {(!finishedToday && !nothingDue) || (filedCount > 0 && onOpenVault) ? (
+      {!finishedToday && !nothingDue ? (
         <div className="daily-panel__actions">
-          {!finishedToday && !nothingDue && (
-            <button className="console-button console-button--primary" type="button" onClick={onStart}>
-              {startsWithQuestions ? 'Start with the questions' : 'Start with the words'}
-              <ArrowRight size={16} strokeWidth={1.75} absoluteStrokeWidth aria-hidden="true" />
-            </button>
-          )}
-          {filedCount > 0 && onOpenVault && (
-            <button
-              className="console-button console-button--secondary"
-              type="button"
-              onClick={onOpenVault}
-            >
-              See every miss on file
-            </button>
-          )}
+          <button className="console-button console-button--primary" type="button" onClick={onStart}>
+            {startsWithQuestions ? 'Start with the questions' : 'Start with the words'}
+            <ArrowRight size={16} strokeWidth={1.75} absoluteStrokeWidth aria-hidden="true" />
+          </button>
         </div>
       ) : null}
 

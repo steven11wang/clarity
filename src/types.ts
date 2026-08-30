@@ -112,6 +112,7 @@ export type MissSource =
   | 'checkpoint'
   | 'lesson'
   | 'exam'
+  | 'arena'
 
 // A question scheduled to resurface. Lives in its own store, keyed by
 // questionId, so the practice stream can weave due items back in.

@@ -44,6 +44,7 @@ const panels = {
   words: createElement('p', null, 'Words panel'),
   library: createElement('p', null, 'Library panel'),
   reflect: createElement('p', null, 'Reflect panel'),
+  arena: createElement('p', null, 'Arena panel'),
 }
 
 async function render(activeView: PrimaryConsoleView) {
@@ -144,16 +145,17 @@ describe('persistent console shell', () => {
           wordsPanel: createElement('p', null, 'Embedded words'),
           libraryPanel: createElement('p', null, 'Embedded library'),
           reflectPanel: createElement('p', null, 'Embedded reflect'),
+          arenaPanel: createElement('p'),
           cards,
           onSelectDomain: () => {},
           onUpdateScore: () => {},
           onOpenPractice: () => {},
           onOpenExam: () => {},
           onOpenLessons: () => {},
-          onOpenReviews: () => {},
           onOpenWords: () => {},
           onOpenLibrary: () => {},
           onOpenReflect: () => {},
+          onOpenArena: () => {},
         }))
       })
     }
@@ -209,7 +211,7 @@ describe('persistent console shell', () => {
       [...shellContainer.querySelectorAll('.console-nav button')].map(
         (button) => button.textContent,
       ),
-      ['Learn', 'Practice', 'Reflect', 'Words'],
+      ['Learn', 'Practice', 'Reflect', 'Arena', 'Words'],
     )
 
     await act(async () => {
@@ -218,10 +220,13 @@ describe('persistent console shell', () => {
     shellContainer.remove()
   })
 
-  it('does not show a return-to-today action in due reviews', async () => {
-    const reviewContainer = dom.window.document.createElement('div')
-    dom.window.document.body.append(reviewContainer)
-    const reviewRoot = createRoot(reviewContainer)
+  // The vault moved to Reflect, so Practice should offer no way into it: no
+  // rail tile, no status-row shortcut. Two doors to one screen was the reason
+  // it read as a drilling surface rather than part of the record.
+  it('leaves the mistake vault out of the practice console', async () => {
+    const railContainer = dom.window.document.createElement('div')
+    dom.window.document.body.append(railContainer)
+    const railRoot = createRoot(railContainer)
     const cards = [{
       domain: 'Information and Ideas' as const,
       characterStage: 'Noobie' as const,
@@ -235,7 +240,7 @@ describe('persistent console shell', () => {
     }]
 
     await act(async () => {
-      reviewRoot.render(createElement(ProgressDashboard, {
+      railRoot.render(createElement(ProgressDashboard, {
         activeView: 'practice',
         examPanel: createElement('p'),
         lessonsPanel: createElement('p'),
@@ -243,41 +248,37 @@ describe('persistent console shell', () => {
         wordsPanel: createElement('p'),
         libraryPanel: createElement('p'),
         reflectPanel: createElement('p'),
+        arenaPanel: createElement('p'),
         cards,
         onSelectDomain: () => {},
         onUpdateScore: () => {},
         onOpenPractice: () => {},
         onOpenExam: () => {},
         onOpenLessons: () => {},
-        onOpenReviews: () => {},
         onOpenWords: () => {},
         onOpenLibrary: () => {},
         onOpenReflect: () => {},
+        onOpenArena: () => {},
       }))
     })
 
-    await act(async () => {
-      ;(reviewContainer.querySelector('[aria-label="Due reviews"]') as HTMLButtonElement).click()
-      await new Promise((resolve) => setTimeout(resolve, 500))
-    })
-
-    const heroButtons = [...reviewContainer.querySelectorAll('.console-hero__actions button')]
-    assert.equal(heroButtons.some((button) => button.textContent === 'Return to today'), false)
+    assert.equal(railContainer.querySelector('[aria-label="Due reviews"]'), null)
+    const vaultShortcut = [...railContainer.querySelectorAll('button')].find(
+      (button) => button.textContent?.includes('Review practice'),
+    )
+    assert.equal(vaultShortcut, undefined)
 
     await act(async () => {
-      reviewRoot.unmount()
+      railRoot.unmount()
     })
-    reviewContainer.remove()
+    railContainer.remove()
   })
 
-  it('sends the due-reviews hero into the mistake vault, not the library', async () => {
-    let reviewsOpened = 0
-    let libraryOpened = 0
-
-    const heroContainer = dom.window.document.createElement('div')
-    dom.window.document.body.appendChild(heroContainer)
-    const heroRoot = createRoot(heroContainer)
-
+  it('offers Arena in the nav, directly after Reflect', async () => {
+    const navContainer = dom.window.document.createElement('div')
+    dom.window.document.body.append(navContainer)
+    const navRoot = createRoot(navContainer)
+    let arenaOpened = 0
     const cards = [{
       domain: 'Information and Ideas' as const,
       characterStage: 'Noobie' as const,
@@ -291,55 +292,45 @@ describe('persistent console shell', () => {
     }]
 
     await act(async () => {
-      heroRoot.render(createElement(ProgressDashboard, {
+      navRoot.render(createElement(ProgressDashboard, {
         activeView: 'practice',
-        dueCount: 3,
         examPanel: createElement('p'),
         lessonsPanel: createElement('p'),
-        reviewsPanel: createElement('p', null, 'Embedded vault'),
-        wordsPanel: createElement('p', null, 'Embedded words'),
+        reviewsPanel: createElement('p'),
+        wordsPanel: createElement('p'),
         libraryPanel: createElement('p'),
         reflectPanel: createElement('p'),
+        arenaPanel: createElement('p'),
         cards,
         onSelectDomain: () => {},
         onUpdateScore: () => {},
         onOpenPractice: () => {},
         onOpenExam: () => {},
         onOpenLessons: () => {},
-        onOpenReviews: () => { reviewsOpened += 1 },
         onOpenWords: () => {},
-        onOpenLibrary: () => { libraryOpened += 1 },
+        onOpenLibrary: () => {},
         onOpenReflect: () => {},
+        onOpenArena: () => { arenaOpened += 1 },
       }))
     })
 
+    const navLabels = [...navContainer.querySelectorAll('.console-nav button')].map(
+      (button) => button.textContent,
+    )
+    assert.deepEqual(navLabels, ['Learn', 'Practice', 'Reflect', 'Arena', 'Words'])
+
+    const arena = [...navContainer.querySelectorAll<HTMLButtonElement>('.console-nav button')].find(
+      (button) => button.textContent === 'Arena',
+    )!
     await act(async () => {
-      ;(heroContainer.querySelector('[aria-label="Due reviews"]') as HTMLButtonElement).click()
-      await new Promise((resolve) => setTimeout(resolve, 500))
+      arena.click()
     })
-
-    const primary = heroContainer.querySelector(
-      '.console-hero__actions .console-button--primary',
-    ) as HTMLButtonElement
-    assert.equal(primary.textContent, 'Open the mistake vault')
-
-    await act(async () => {
-      primary.click()
-    })
-
-    assert.equal(reviewsOpened, 1)
-    assert.equal(libraryOpened, 0)
-
-    const reviewBtn = [...heroContainer.querySelectorAll('button')].find(
-      (button) => button.textContent?.includes('Review practice'),
-    ) as HTMLButtonElement
-    assert.ok(reviewBtn)
-    assert.ok(reviewBtn.textContent?.includes('3 due'))
+    assert.equal(arenaOpened, 1)
 
     await act(async () => {
-      heroRoot.unmount()
+      navRoot.unmount()
     })
-    heroContainer.remove()
+    navContainer.remove()
   })
 })
 

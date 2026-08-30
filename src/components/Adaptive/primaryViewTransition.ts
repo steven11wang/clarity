@@ -5,19 +5,22 @@ export type PrimaryConsoleView =
   | 'exam'
   | 'reviews'
   | 'reflect'
+  | 'arena'
   | 'words'
 
 // Nav order, left to right: Learn (lessons + library), Practice (its own rail
-// plus the exam and the vault), Reflect (the daily return and the error
-// record), Words. The transition reads direction off this list, so it has to
-// match what the header shows.
+// plus the exam), Reflect (the daily return, the vault, and the error record),
+// Arena, Words. The vault sits just after Reflect because that is the only
+// place you now open it from. The transition reads direction off this list, so
+// it has to match what the header shows.
 const PRIMARY_VIEW_ORDER: PrimaryConsoleView[] = [
   'lessons',
   'library',
   'practice',
   'exam',
-  'reviews',
   'reflect',
+  'reviews',
+  'arena',
   'words',
 ]
 

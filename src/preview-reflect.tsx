@@ -85,6 +85,7 @@ function Harness() {
   if (questions.length === 0) return <p>loading questions…</p>
 
   const plan = buildDailyPlan(questions, reviews, [], NOW, false)
+  const filed = Object.values(reviews).filter((item) => item.stage >= 0)
   return (
     <div className="console-dashboard console-dashboard--today">
       <ReflectPanel
@@ -92,6 +93,8 @@ function Harness() {
         at={NOW}
         streak={4}
         finishedToday={false}
+        filedCount={filed.length}
+        dueCount={filed.filter((item) => item.dueAt <= NOW).length}
         onStart={() => window.alert('start the return')}
         onOpenVault={() => window.alert('open the vault')}
         onOpenPractice={() => window.alert('open practice')}

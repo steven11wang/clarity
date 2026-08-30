@@ -53,16 +53,17 @@ function render(activeView: 'practice' | 'exam') {
       wordsPanel: null,
       libraryPanel: null,
       reflectPanel: null,
+          arenaPanel: null,
       cards,
       onSelectDomain: () => {},
       onUpdateScore: () => {},
       onOpenPractice: () => {},
       onOpenExam: () => { examOpens += 1 },
       onOpenLessons: () => {},
-      onOpenReviews: () => {},
       onOpenWords: () => {},
       onOpenLibrary: () => {},
       onOpenReflect: () => {},
+      onOpenArena: () => {},
     }))
   })
 }
@@ -93,7 +94,7 @@ describe('practice exam navigation', () => {
       container.querySelectorAll<HTMLButtonElement>('.console-nav button'),
     ).map((button) => button.textContent)
 
-    assert.deepEqual(labels, ['Learn', 'Practice', 'Reflect', 'Words'])
+    assert.deepEqual(labels, ['Learn', 'Practice', 'Reflect', 'Arena', 'Words'])
     assert.ok(railTile('Practice exam'))
   })
 
