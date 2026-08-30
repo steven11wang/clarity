@@ -6,14 +6,17 @@
 // rather than calling the API keeps the key off a static site, survives an
 // outage mid-exam, and costs one cached download instead of a request per tap.
 // Words outside the passage corpus - or not yet baked, since the free tier is
-// metered per day - fall back to dictionaryapi.dev, which needs no key.
+// metered per day - fall back to Wiktionary's REST view, which needs no key.
+// (dictionaryapi.dev filled that slot until August 2026, when its origin began
+// answering anything its edge cache had not already seen with a twenty-second
+// hang and then a 522. It is itself a view onto the same Wiktionary data.)
 //
 // Either source answers with every sense of the word, so the work here is
 // picking the one that fits the sentence the learner is actually reading.
 
 import { assetPath } from '../lib/assetPath.ts'
 
-const API_BASE = 'https://api.dictionaryapi.dev/api/v2/entries/en'
+const WIKTIONARY_BASE = 'https://en.wiktionary.org/api/rest_v1/page/definition'
 const BAKED_PATH = '/data/dictionary.json'
 const CACHE_KEY = 'clarity:v1:dictionary-cache'
 const CACHE_TTL_MS = 30 * 24 * 60 * 60 * 1000
@@ -54,6 +57,46 @@ export function normalizeWord(raw: string): string {
 export function isLookupable(raw: string): boolean {
   const word = normalizeWord(raw)
   return word.length > 1 && /[a-z]/.test(word)
+}
+
+/**
+ * Base forms worth trying when the word itself has no entry. A dictionary
+ * carries "portrayal", not "portrayals", and the baked file is built from
+ * whichever form the passages happened to use - so an inflected tap has to be
+ * able to walk back to its lemma before anyone touches the network.
+ *
+ * Deliberately over-generous: a wrong guess costs a miss on a word that was
+ * already missing, and the candidates are only ever checked, never trusted.
+ */
+export function wordVariants(raw: string): string[] {
+  const word = normalizeWord(raw)
+  const out: string[] = []
+  const add = (candidate: string) => {
+    if (candidate.length > 2 && candidate !== word && !out.includes(candidate)) out.push(candidate)
+  }
+
+  if (word.endsWith('ies')) add(`${word.slice(0, -3)}y`)
+  if (word.endsWith('ied')) add(`${word.slice(0, -3)}y`)
+  if (word.endsWith('es')) {
+    add(word.slice(0, -1))
+    add(word.slice(0, -2))
+  }
+  if (word.endsWith('s') && !word.endsWith('ss')) add(word.slice(0, -1))
+  if (word.endsWith('ed')) {
+    add(word.slice(0, -1))
+    add(word.slice(0, -2))
+    if (/(.)\1ed$/.test(word)) add(word.slice(0, -3))
+  }
+  if (word.endsWith('ing')) {
+    if (/(.)\1ing$/.test(word)) add(word.slice(0, -4))
+    add(word.slice(0, -3))
+    add(`${word.slice(0, -3)}e`)
+  }
+  if (word.endsWith('ly')) add(word.slice(0, -2))
+  if (word.endsWith('est')) add(word.slice(0, -3))
+  if (word.endsWith('er')) add(word.slice(0, -2))
+
+  return out
 }
 
 // --- Sense selection --------------------------------------------------------
@@ -238,56 +281,47 @@ function plainDefinition(raw: string): string {
   return `${cut.slice(0, lastSpace > 40 ? lastSpace : MAX_DEFINITION_CHARS).trim()}…`
 }
 
-type ApiEntry = {
-  word?: unknown
-  meanings?: Array<{
+// Wiktionary answers an inflected form with "plural of portrayal" and nothing
+// else, which teaches a learner reading mid-passage nothing. Those senses are
+// dropped, and the walk back to the lemma is left to wordVariants.
+const FORM_OF = /^(?:plural|past tense|past participle|present participle|simple past|gerund|comparative|superlative|third-person singular|inflection|alternative (?:form|spelling))\b/i
+
+function stripMarkup(html: string): string {
+  return html
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\s+/g, ' ')
+    // Stripping the link around "portraying" must not leave "portraying ."
+    .replace(/\s+([,;:.!?])/g, '$1')
+    .trim()
+}
+
+type WiktionaryPayload = {
+  en?: Array<{
     partOfSpeech?: unknown
-    synonyms?: unknown
-    definitions?: Array<{ definition?: unknown; example?: unknown; synonyms?: unknown }>
+    definitions?: Array<{ definition?: unknown; examples?: unknown }>
   }>
 }
 
-// Matches the length of MW's own "Synonyms of ___" panel closely enough.
-const MAX_SYNONYMS = 8
-
-/** Cleaned, deduped, capped - same list whichever sense of this part of speech asks for it. */
-function readSynonyms(raw: unknown): string[] {
-  if (!Array.isArray(raw)) return []
-  const seen = new Set<string>()
-  const out: string[] = []
-  for (const item of raw) {
-    if (typeof item !== 'string') continue
-    const word = item.trim()
-    if (!word || seen.has(word.toLowerCase())) continue
-    seen.add(word.toLowerCase())
-    out.push(word)
-    if (out.length >= MAX_SYNONYMS) break
-  }
-  return out
-}
-
-export function parseEntries(payload: unknown): WordSense[] {
-  if (!Array.isArray(payload)) return []
+/** Wiktionary's REST view: HTML fragments grouped by part of speech. */
+export function parseWiktionary(payload: unknown): WordSense[] {
+  const groups = (payload as WiktionaryPayload)?.en
+  if (!Array.isArray(groups)) return []
   const senses: WordSense[] = []
 
-  for (const entry of payload as ApiEntry[]) {
-    for (const meaning of entry?.meanings ?? []) {
-      const partOfSpeech =
-        typeof meaning?.partOfSpeech === 'string' ? meaning.partOfSpeech : 'word'
-      // One thesaurus-style list per part of speech, same as MW's own panel -
-      // not a different list per individual sense of that part of speech.
-      const synonyms = readSynonyms(meaning?.synonyms)
-      for (const definition of meaning?.definitions ?? []) {
-        if (typeof definition?.definition !== 'string') continue
-        const text = definition.definition.trim()
-        if (!text) continue
-        senses.push({
-          partOfSpeech,
-          definition: plainDefinition(text),
-          example: typeof definition.example === 'string' ? definition.example : null,
-          ...(synonyms.length > 0 ? { synonyms } : {}),
-        })
-      }
+  for (const group of groups) {
+    const partOfSpeech =
+      typeof group?.partOfSpeech === 'string' ? group.partOfSpeech.toLowerCase() : 'word'
+    for (const entry of group?.definitions ?? []) {
+      if (typeof entry?.definition !== 'string') continue
+      const text = stripMarkup(entry.definition)
+      if (!text || FORM_OF.test(text)) continue
+      const rawExample = Array.isArray(entry.examples) ? entry.examples[0] : null
+      const example = typeof rawExample === 'string' ? stripMarkup(rawExample) : ''
+      senses.push({
+        partOfSpeech,
+        definition: plainDefinition(text),
+        example: example || null,
+      })
     }
   }
 
@@ -409,8 +443,7 @@ function writeStoredCache(word: string, result: LookupResult, at: number): void 
  * it has finished downloading, then localStorage. Lets the popup open with the
  * definition already in it rather than flashing a spinner.
  */
-export function cachedLookup(raw: string, now = Date.now()): LookupResult | null {
-  const word = normalizeWord(raw)
+function cachedExact(word: string, now: number): LookupResult | null {
   const inMemory = memoryCache.get(word)
   if (inMemory) return inMemory
 
@@ -421,6 +454,22 @@ export function cachedLookup(raw: string, now = Date.now()): LookupResult | null
   if (!record || now - record.cachedAt > CACHE_TTL_MS) return null
   memoryCache.set(word, record.result)
   return record.result
+}
+
+export function cachedLookup(raw: string, now = Date.now()): LookupResult | null {
+  const word = normalizeWord(raw)
+  const direct = cachedExact(word, now)
+  if (direct?.status === 'found') return direct
+
+  // "portrayals" has no entry of its own; "portrayal" is already on this
+  // machine. Answering from the lemma beats a network round trip - and beats
+  // the shrug the exact word would otherwise get.
+  for (const variant of wordVariants(word)) {
+    const alternate = cachedExact(variant, now)
+    if (alternate?.status === 'found') return alternate
+  }
+
+  return direct
 }
 
 export function clearDictionaryCache(): void {
@@ -463,6 +512,46 @@ async function fetchWithDeadline(
   }
 }
 
+// Enough to cover a plural or a past tense without turning one tap into a
+// fistful of requests.
+const MAX_LIVE_VARIANTS = 2
+
+/**
+ * Asks the live service for a word and for the lemmas it could be an
+ * inflection of. A 404 is an answer - that form has no entry - so the next
+ * candidate is tried; only a request nobody could complete rejects, which is
+ * what lets the popup tell "no such word" apart from "you are offline".
+ */
+async function liveSenses(
+  candidates: string[],
+  doFetch: typeof fetch,
+  timeoutMs: number,
+): Promise<WordSense[]> {
+  let failure: unknown = null
+
+  for (const candidate of candidates) {
+    try {
+      const url = `${WIKTIONARY_BASE}/${encodeURIComponent(candidate)}`
+      const response = await fetchWithDeadline(doFetch, url, timeoutMs)
+      if (response.status === 404) continue
+      if (!response.ok) {
+        failure = new Error(`Dictionary request failed (${response.status})`)
+        continue
+      }
+      const senses = parseWiktionary(await response.json())
+      if (senses.length > 0) return senses
+    } catch (error) {
+      // Down, not merely lacking this word: asking it about the rest of the
+      // candidates would only spend the learner's patience.
+      failure = error
+      break
+    }
+  }
+
+  if (failure) throw failure
+  return []
+}
+
 /**
  * Definitions for a word. Reads the baked Merriam-Webster file first and only
  * falls back to the live service for words it does not carry; concurrent taps
@@ -486,25 +575,24 @@ export async function lookupWord(
     // Not given `fetchImpl`: the baked file is one shared download for the
     // whole session, independent of whatever stub a caller passed for the
     // fallback service.
-    const baked = (await preloadDictionary()).get(word)
-    if (baked) return baked
+    const index = await preloadDictionary()
+    const baked = index.get(word)
+    if (baked?.status === 'found') return baked
+    for (const variant of wordVariants(word)) {
+      const alternate = index.get(variant)
+      if (alternate?.status === 'found') return alternate
+    }
 
     const doFetch = fetchImpl ?? fetch
-    const response = await fetchWithDeadline(
-      doFetch,
-      `${API_BASE}/${encodeURIComponent(word)}`,
-      timeoutMs,
-    )
+    // Same lemma walk as the cache, one service out. Wiktionary titles are
+    // case-sensitive, so a name like "Sullivan" only answers to its capital -
+    // asked last, since the common noun is the likelier reading.
+    const candidates = [word, ...wordVariants(word).slice(0, MAX_LIVE_VARIANTS)]
+    if (/^[A-Z]/.test(raw.trim())) candidates.push(word[0].toUpperCase() + word.slice(1))
+    const senses = await liveSenses(candidates, doFetch, timeoutMs)
 
-    let result: LookupResult
-    if (response.status === 404) {
-      result = { status: 'missing', word }
-    } else if (!response.ok) {
-      throw new Error(`Dictionary request failed (${response.status})`)
-    } else {
-      const senses = parseEntries(await response.json())
-      result = senses.length > 0 ? { status: 'found', word, senses } : { status: 'missing', word }
-    }
+    const result: LookupResult =
+      senses.length > 0 ? { status: 'found', word, senses } : { status: 'missing', word }
 
     memoryCache.set(word, result)
     writeStoredCache(word, result, now())

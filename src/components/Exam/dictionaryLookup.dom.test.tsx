@@ -24,22 +24,18 @@ globals.CustomEvent = dom.window.CustomEvent
 globals.IS_REACT_ACT_ENVIRONMENT = true
 
 let fetchCalls: string[] = []
-let respond: (url: string) => Response = () => okResponse()
+let respond: (url: string) => Response = () => wiktionaryResponse()
 
-/** The dictionaryapi.dev shape, used for words the baked file does not carry. */
-function okResponse(
-  meanings: unknown = [
+/** The Wiktionary REST shape: HTML fragments grouped by part of speech. */
+function wiktionaryResponse(
+  groups: unknown = [
     {
-      partOfSpeech: 'adjective',
-      definitions: [{ definition: 'Having mixed feelings about something.' }],
+      partOfSpeech: 'Adjective',
+      definitions: [{ definition: 'Having <i>mixed</i> feelings about something.' }],
     },
   ],
 ) {
-  return {
-    ok: true,
-    status: 200,
-    json: async () => [{ word: 'ambivalent', meanings }],
-  } as unknown as Response
+  return { ok: true, status: 200, json: async () => ({ en: groups }) } as unknown as Response
 }
 
 /** The build-time file: senses packed as [partOfSpeech, definition, example?]. */
@@ -157,7 +153,7 @@ async function renderRunner() {
 describe('the passage dictionary', () => {
   beforeEach(async () => {
     fetchCalls = []
-    respond = () => okResponse()
+    respond = () => wiktionaryResponse()
     bakedWords = BAKED_WORDS
     dom.window.localStorage.clear()
     clearDictionaryCache()
@@ -219,7 +215,7 @@ describe('the passage dictionary', () => {
       /Having mixed feelings about something\./,
     )
     assert.equal(fetchCalls.length, 2)
-    assert.match(fetchCalls[1], /entries\/en\/ambivalent$/)
+    assert.match(fetchCalls[1], /page\/definition\/ambivalent$/)
   })
 
   it('serves a repeat lookup from the cache', async () => {
@@ -260,7 +256,7 @@ describe('the passage dictionary', () => {
 
     assert.match(container.querySelector('.exam-lookup')?.textContent ?? '', /Could not reach/)
 
-    respond = () => okResponse()
+    respond = () => wiktionaryResponse()
     await click(findButton('Try again'))
     assert.match(
       container.querySelector('.exam-lookup')?.textContent ?? '',
@@ -273,7 +269,7 @@ describe('the passage dictionary', () => {
     respond = () => {
       liveCalls += 1
       if (liveCalls === 1) throw new Error('offline')
-      return okResponse()
+      return wiktionaryResponse()
     }
     await click(findButton('Dictionary'))
     const word = [...container.querySelectorAll('.exam-word')].find(
@@ -301,18 +297,20 @@ describe('the passage dictionary', () => {
     await click(word)
 
     assert.match(container.querySelector('.exam-lookup')?.textContent ?? '', /Could not reach/)
+    // The learner's tap, then the hook's own quiet retry.
     assert.equal(liveCalls, 2)
   })
 
-  it('shows a synonyms list from the live dictionary, when it has one', async () => {
-    respond = () =>
-      okResponse([
-        {
-          partOfSpeech: 'adjective',
-          synonyms: ['torn', 'undecided', 'conflicted'],
-          definitions: [{ definition: 'Having mixed feelings about something.' }],
-        },
-      ])
+  it('shows the baked thesaurus list, when the word has one', async () => {
+    bakedWords = {
+      proposal: {
+        s: [['noun', 'something offered for consideration']],
+        y: { noun: ['offer', 'proposition', 'suggestion'] },
+      },
+    }
+    clearDictionaryCache()
+    await renderRunner()
+
     await click(findButton('Dictionary'))
     const word = [...container.querySelectorAll('.exam-word')].find(
       (button) => button.textContent === 'proposal.',
@@ -321,7 +319,8 @@ describe('the passage dictionary', () => {
 
     const popup = container.querySelector('.exam-lookup')
     assert.match(popup?.textContent ?? '', /Synonyms of proposal/)
-    assert.match(popup?.textContent ?? '', /torn, undecided, conflicted/)
+    assert.match(popup?.textContent ?? '', /offer, proposition, suggestion/)
+    bakedWords = BAKED_WORDS
   })
 
   it('closes the popup when the tool is switched back off', async () => {

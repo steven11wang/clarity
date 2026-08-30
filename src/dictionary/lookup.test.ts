@@ -10,7 +10,7 @@ import {
   lookupWord,
   normalizeWord,
   parseBaked,
-  parseEntries,
+  parseWiktionary,
   pickSense,
   preloadDictionary,
   type WordSense,
@@ -22,6 +22,11 @@ function apiResponse(word: string, meanings: unknown) {
     status: 200,
     json: async () => [{ word, meanings }],
   } as unknown as Response
+}
+
+/** The shape Wiktionary's REST view returns: HTML fragments, grouped by part of speech. */
+function wiktionaryResponse(groups: unknown) {
+  return { ok: true, status: 200, json: async () => ({ en: groups }) } as unknown as Response
 }
 
 function notFound() {
@@ -43,70 +48,68 @@ describe('normalizeWord', () => {
   })
 })
 
-describe('parseEntries', () => {
+describe('parseWiktionary', () => {
   it('flattens every sense the service returns', () => {
-    const senses = parseEntries([
-      {
-        word: 'temper',
-        meanings: [
-          { partOfSpeech: 'noun', definitions: [{ definition: 'A state of mind.' }] },
-          {
-            partOfSpeech: 'verb',
-            definitions: [
-              { definition: 'To moderate or soften.', example: 'tempered his praise' },
-              { definition: '' },
-            ],
-          },
-        ],
-      },
-    ])
+    const senses = parseWiktionary({
+      en: [
+        {
+          partOfSpeech: 'Adjective',
+          definitions: [
+            { definition: 'Having <i>mixed</i> feelings.', examples: ['She was ambivalent.'] },
+            { definition: 'Simultaneously attracted and repelled.' },
+          ],
+        },
+        {
+          partOfSpeech: 'Noun',
+          definitions: [{ definition: 'One who is ambivalent.' }],
+        },
+      ],
+    })
+
     assert.deepEqual(senses, [
-      { partOfSpeech: 'noun', definition: 'A state of mind.', example: null },
       {
-        partOfSpeech: 'verb',
-        definition: 'To moderate or soften.',
-        example: 'tempered his praise',
+        partOfSpeech: 'adjective',
+        definition: 'Having mixed feelings.',
+        example: 'She was ambivalent.',
       },
+      {
+        partOfSpeech: 'adjective',
+        definition: 'Simultaneously attracted and repelled.',
+        example: null,
+      },
+      { partOfSpeech: 'noun', definition: 'One who is ambivalent.', example: null },
     ])
+  })
+
+  it('closes the gap a stripped link leaves in front of punctuation', () => {
+    const [sense] = parseWiktionary({
+      en: [
+        {
+          partOfSpeech: 'Noun',
+          definitions: [{ definition: 'The act of <a href="/wiki/portray">portraying</a>.' }],
+        },
+      ],
+    })
+    assert.equal(sense.definition, 'The act of portraying.')
   })
 
   it('shortens a long definition to something readable mid-passage', () => {
-    const long = `A ${'very '.repeat(60)}long definition.`
-    const [sense] = parseEntries([
-      { meanings: [{ partOfSpeech: 'noun', definitions: [{ definition: long }] }] },
-    ])
-    assert.ok(sense.definition.length <= 181, sense.definition.length.toString())
+    const [sense] = parseWiktionary({
+      en: [
+        {
+          partOfSpeech: 'Noun',
+          definitions: [{ definition: `A ${'very '.repeat(60)}long entry.` }],
+        },
+      ],
+    })
+
+    assert.ok(sense.definition.length <= 181)
     assert.ok(sense.definition.endsWith('…'))
   })
 
-  it('survives a payload that is not an entry list', () => {
-    assert.deepEqual(parseEntries({ title: 'No Definitions Found' }), [])
-  })
-
-  it('carries one synonym list per part of speech, deduped and capped', () => {
-    const senses = parseEntries([
-      {
-        word: 'onset',
-        meanings: [
-          {
-            partOfSpeech: 'noun',
-            synonyms: ['storming', 'beginning', 'start', 'beginning', '', 'storming'],
-            definitions: [
-              { definition: 'An attack; an assault.' },
-              { definition: 'A beginning.', example: 'the onset of puberty' },
-            ],
-          },
-          { partOfSpeech: 'verb', definitions: [{ definition: 'To set about; to begin.' }] },
-        ],
-      },
-    ])
-
-    assert.deepEqual(senses[0].synonyms, ['storming', 'beginning', 'start'])
-    // Same list on every sense of that part of speech, same as MW's own panel.
-    assert.deepEqual(senses[1].synonyms, ['storming', 'beginning', 'start'])
-    // No synonyms field at all where the service did not send any - not an
-    // empty array, so callers can tell "none" from "not asked yet".
-    assert.equal(senses[2].synonyms, undefined)
+  it('survives a payload with no English section', () => {
+    assert.deepEqual(parseWiktionary({ fr: [] }), [])
+    assert.deepEqual(parseWiktionary('not a page'), [])
   })
 })
 
@@ -187,8 +190,11 @@ describe('lookupWord', () => {
     let calls = 0
     const fetchImpl = (async () => {
       calls += 1
-      return apiResponse('ambivalent', [
-        { partOfSpeech: 'adjective', definitions: [{ definition: 'Having mixed feelings.' }] },
+      return wiktionaryResponse([
+        {
+          partOfSpeech: 'Adjective',
+          definitions: [{ definition: 'Having <i>mixed</i> feelings.' }],
+        },
       ])
     }) as unknown as typeof fetch
 
@@ -205,8 +211,8 @@ describe('lookupWord', () => {
     let calls = 0
     const fetchImpl = (async () => {
       calls += 1
-      return apiResponse('laconic', [
-        { partOfSpeech: 'adjective', definitions: [{ definition: 'Using few words.' }] },
+      return wiktionaryResponse([
+        { partOfSpeech: 'Adjective', definitions: [{ definition: 'Using few words.' }] },
       ])
     }) as unknown as typeof fetch
 
@@ -231,12 +237,14 @@ describe('lookupWord', () => {
     await lookupWord('quillfeather', { fetchImpl })
 
     assert.deepEqual(result, { status: 'missing', word: 'quillfeather' })
-    assert.equal(calls, 1)
+    // The word and the lemma it could be an inflection of - then the miss is
+    // cached, so the second tap asks nobody.
+    assert.equal(calls, 2)
   })
 
   it('treats an entry with no usable definitions as missing', async () => {
     clearDictionaryCache()
-    const fetchImpl = (async () => apiResponse('hollow', [])) as unknown as typeof fetch
+    const fetchImpl = (async () => wiktionaryResponse([])) as unknown as typeof fetch
     assert.deepEqual(await lookupWord('hollow', { fetchImpl }), {
       status: 'missing',
       word: 'hollow',
@@ -249,6 +257,56 @@ describe('lookupWord', () => {
       ({ ok: false, status: 502, json: async () => ({}) }) as unknown as Response) as unknown as typeof fetch
 
     await assert.rejects(() => lookupWord('reticent', { fetchImpl }), /502/)
+  })
+
+  it('reads an inflected word off its base form rather than shrugging', async () => {
+    clearDictionaryCache()
+    const asked: string[] = []
+    const fetchImpl = (async (url: string) => {
+      asked.push(String(url))
+      if (String(url).endsWith('/portrayal')) {
+        return wiktionaryResponse([
+          { partOfSpeech: 'Noun', definitions: [{ definition: 'A description of someone.' }] },
+        ])
+      }
+      return notFound()
+    }) as unknown as typeof fetch
+
+    const result = await lookupWord('portrayals', { fetchImpl })
+
+    assert.equal(result.status, 'found')
+    assert.ok(asked.some((url) => url.endsWith('/portrayals')))
+  })
+
+  it('tries the doubled-consonant base of an inflected verb', async () => {
+    clearDictionaryCache()
+    const asked: string[] = []
+    const fetchImpl = (async (url: string) => {
+      asked.push(String(url))
+      if (String(url).endsWith('/run')) {
+        return wiktionaryResponse([
+          { partOfSpeech: 'Verb', definitions: [{ definition: 'To move swiftly on foot.' }] },
+        ])
+      }
+      return notFound()
+    }) as unknown as typeof fetch
+
+    const result = await lookupWord('running', { fetchImpl })
+
+    assert.equal(result.status, 'found')
+    assert.ok(asked.some((url) => url.endsWith('/run')))
+  })
+
+  it('drops a "plural of" entry, which defines nothing on its own', () => {
+    const senses = parseWiktionary({
+      en: [
+        {
+          partOfSpeech: 'Noun',
+          definitions: [{ definition: '<span>plural of</span> <i>portrayal</i>' }],
+        },
+      ],
+    })
+    assert.deepEqual(senses, [])
   })
 
   it('gives up on a service that hangs instead of spinning forever', async () => {
@@ -268,19 +326,18 @@ describe('lookupWord', () => {
 
   it('does not cache a failed request', async () => {
     clearDictionaryCache()
-    let calls = 0
+    let offline = true
     const fetchImpl = (async () => {
-      calls += 1
-      if (calls === 1) throw new Error('offline')
-      return apiResponse('reticent', [
-        { partOfSpeech: 'adjective', definitions: [{ definition: 'Not revealing much.' }] },
+      if (offline) throw new Error('offline')
+      return wiktionaryResponse([
+        { partOfSpeech: 'Adjective', definitions: [{ definition: 'Not revealing much.' }] },
       ])
     }) as unknown as typeof fetch
 
     await assert.rejects(() => lookupWord('reticent', { fetchImpl }))
+    offline = false
     const retried = await lookupWord('reticent', { fetchImpl })
     assert.equal(retried.status, 'found')
-    assert.equal(calls, 2)
   })
 })
 
@@ -371,8 +428,8 @@ describe('the baked dictionary', () => {
     const fetchImpl = (async (url: string) => {
       if (String(url).includes('dictionary.json')) return bakedResponse({ laconic: { s: [['adjective', 'using few words']] } })
       liveCalls += 1
-      return apiResponse('quixotic', [
-        { partOfSpeech: 'adjective', definitions: [{ definition: 'Hopeful but impractical.' }] },
+      return wiktionaryResponse([
+        { partOfSpeech: 'Adjective', definitions: [{ definition: 'Hopeful but impractical.' }] },
       ])
     }) as unknown as typeof fetch
 
