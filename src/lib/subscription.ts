@@ -96,10 +96,111 @@ export const PLANS: Plan[] = [
   },
 ]
 
+/** A code-gated opening offer. The payment link behind one carries the same
+ *  recurring price as the plan it replaces plus a one-off first-week charge, so
+ *  Stripe rolls the learner onto the normal plan price by itself and neither the
+ *  webhook nor the subscriptions table needs to know an offer existed. */
+export type PromoOffer = {
+  id: string
+  /** Every code that opens this offer. Matched case and space insensitively,
+   *  so one offer can carry a different code per advertising channel. */
+  codes: string[]
+  /** The plan column the offer takes over. */
+  appliesTo: PlanId
+  price: string
+  cadence: string
+  /** What happens when the promotional period ends. Stated on the card, because
+   *  an offer that hides its renewal price is the reason people distrust them. */
+  note: string
+  banner: string
+  paymentLink: string
+}
+
+export const PROMO_OFFERS: PromoOffer[] = [
+  {
+    id: 'first_week_9',
+    codes: ['CLARITY9'],
+    appliesTo: 'pro',
+    price: '$9',
+    cadence: 'For your first week',
+    note: 'Then $79 a month, charged on day eight. Cancel inside the app before then and nothing more is taken.',
+    banner: 'Your code opens Pro for a week at $9 · then the normal $79 a month, cancel anytime',
+    paymentLink: 'https://buy.stripe.com/fZucN52JOe4M79vfET1Jm04',
+  },
+]
+
+/** Codes are typed by hand off a poster or a video, so matching ignores case,
+ *  spacing and the dashes people add on their own. */
+export function normalisePromoCode(raw: string): string {
+  return raw.replace(/[\s-]+/g, '').toUpperCase()
+}
+
+export function findPromoOffer(raw: string | null | undefined): PromoOffer | null {
+  if (!raw) return null
+  const code = normalisePromoCode(raw)
+  if (!code) return null
+  return (
+    PROMO_OFFERS.find((offer) => offer.codes.some((candidate) => normalisePromoCode(candidate) === code)) ??
+    null
+  )
+}
+
+const PROMO_STORAGE_KEY = 'clarity-promo-code'
+
+/** Sign-in leaves and re-enters the app through Google, which drops the query
+ *  string, so a code arriving on an advert link is parked before that trip and
+ *  read back on the paywall afterwards. */
+export function capturePromoCodeFromUrl(): string | null {
+  if (typeof window === 'undefined') return null
+  const params = new URLSearchParams(window.location.search)
+  const raw = params.get('code') ?? params.get('promo')
+  if (!raw) return null
+  if (!findPromoOffer(raw)) return null
+  const code = normalisePromoCode(raw)
+  try {
+    window.localStorage.setItem(PROMO_STORAGE_KEY, code)
+  } catch {
+    // Private browsing: the code still applies for this page view.
+  }
+  return code
+}
+
+export function storedPromoCode(): string | null {
+  if (typeof window === 'undefined') return null
+  try {
+    return window.localStorage.getItem(PROMO_STORAGE_KEY)
+  } catch {
+    return null
+  }
+}
+
+export function rememberPromoCode(code: string) {
+  if (typeof window === 'undefined') return
+  try {
+    window.localStorage.setItem(PROMO_STORAGE_KEY, normalisePromoCode(code))
+  } catch {
+    // Nothing to do: the code stays applied for this page view only.
+  }
+}
+
+export function forgetPromoCode() {
+  if (typeof window === 'undefined') return
+  try {
+    window.localStorage.removeItem(PROMO_STORAGE_KEY)
+  } catch {
+    // Already gone as far as this browser is concerned.
+  }
+}
+
 /** client_reference_id is what lets the Stripe webhook attach the payment to
  *  this account; without it a completed checkout cannot be matched to a user. */
-export function checkoutUrl(plan: Plan, user: { id: string; email?: string | null }): string {
-  const url = new URL(plan.paymentLink)
+export function checkoutUrl(
+  plan: Plan,
+  user: { id: string; email?: string | null },
+  offer: PromoOffer | null = null,
+): string {
+  const link = offer && offer.appliesTo === plan.id ? offer.paymentLink : plan.paymentLink
+  const url = new URL(link)
   url.searchParams.set('client_reference_id', user.id)
   if (user.email) url.searchParams.set('prefilled_email', user.email)
   return url.toString()
