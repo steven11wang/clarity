@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import { ArrowLeft, Check, Clock, Dot, Trash2 } from 'lucide-react'
 
 import {
@@ -25,10 +25,66 @@ import {
   startWordDrill,
   type Drill,
 } from './WordDrill.tsx'
+import { WordDecks } from './WordDecks.tsx'
 import './wordBank.css'
+import './wordDecks.css'
+
+// The Words tab holds two things that are related but not the same, and the
+// split is deliberate. The learning decks are four hundred and twenty words the
+// test is known to use, run on Anki's scheduler. The word bank is whatever this
+// particular student had to look up mid-passage, run on Clarity's own four-rung
+// ladder. One is the syllabus; the other is the evidence of what you personally
+// don't know yet.
 
 type WordBankProps = {
   onBack: () => void
+}
+
+type Tab = 'decks' | 'saved'
+
+export function WordBank({ onBack }: WordBankProps) {
+  const [tab, setTab] = useState<Tab>('decks')
+  const [version, setVersion] = useState(0)
+
+  useEffect(() => subscribeStorageChanges(() => setVersion((value) => value + 1)), [])
+
+  const savedDue = useMemo(() => {
+    void version
+    return dueWords(getWordBankEntries(), now()).length
+  }, [version])
+
+  const tabs = (
+    <nav className="words__tabs" aria-label="Words">
+      <button
+        className={tab === 'decks' ? 'is-active' : undefined}
+        type="button"
+        aria-pressed={tab === 'decks'}
+        onClick={() => setTab('decks')}
+      >
+        Learning decks
+      </button>
+      <button
+        className={tab === 'saved' ? 'is-active' : undefined}
+        type="button"
+        aria-pressed={tab === 'saved'}
+        onClick={() => setTab('saved')}
+      >
+        Saved from passages
+        {savedDue > 0 ? <span>{savedDue} due</span> : null}
+      </button>
+    </nav>
+  )
+
+  return tab === 'decks' ? (
+    <WordDecks tabs={tabs} />
+  ) : (
+    <SavedWords onBack={onBack} tabs={tabs} />
+  )
+}
+
+type SavedWordsProps = {
+  onBack: () => void
+  tabs: ReactNode
 }
 
 type Filter = WordStatus | 'all'
@@ -40,7 +96,7 @@ const FILTERS: Array<{ key: Filter; label: string }> = [
   { key: 'all', label: 'Everything' },
 ]
 
-export function WordBank({ onBack }: WordBankProps) {
+function SavedWords({ onBack, tabs }: SavedWordsProps) {
   // The bank is read straight from storage: it is written from inside the exam
   // runner, so a version counter is the simplest way to stay in step with it.
   const [version, setVersion] = useState(0)
@@ -127,6 +183,7 @@ export function WordBank({ onBack }: WordBankProps) {
           <ArrowLeft aria-hidden="true" />
           Back
         </button>
+        {tabs}
         <p className="wordbank__eyebrow">PASSAGE VOCABULARY · WORD BANK</p>
         <h1>Every word you<br />had to look up.</h1>
         <p className="wordbank__lede">

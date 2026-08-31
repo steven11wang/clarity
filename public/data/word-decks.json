@@ -1,0 +1,2117 @@
+{
+  "version": 1,
+  "decks": [
+    {
+      "id": "core",
+      "title": "Clarity All-Around Words",
+      "cards": [
+        {
+          "id": "core:erratic",
+          "word": "erratic",
+          "definition": "unpredictable, inconsistent, irregular"
+        },
+        {
+          "id": "core:secluded",
+          "word": "secluded",
+          "definition": "hard to reach, hidden away"
+        },
+        {
+          "id": "core:fluctuate",
+          "word": "fluctuate",
+          "definition": "to rise and fall irregularly"
+        },
+        {
+          "id": "core:exalt",
+          "word": "exalt",
+          "definition": "to praise, to worship"
+        },
+        {
+          "id": "core:admonish",
+          "word": "admonish",
+          "definition": "to warn or scold someone"
+        },
+        {
+          "id": "core:content",
+          "word": "content",
+          "definition": "1) (adj.) satisfied 2) (noun) what is contained in something; substance"
+        },
+        {
+          "id": "core:eccentric",
+          "word": "eccentric",
+          "definition": "uncommon, strange"
+        },
+        {
+          "id": "core:mired",
+          "word": "mired",
+          "definition": "stuck or trapped in a difficult situation (literally: stuck in mud)"
+        },
+        {
+          "id": "core:colloquial",
+          "word": "colloquial",
+          "definition": "used in casual conversation"
+        },
+        {
+          "id": "core:reconcile",
+          "word": "reconcile",
+          "definition": "settle one's differences, make compatible, bring back to peace"
+        },
+        {
+          "id": "core:alienate",
+          "word": "alienate",
+          "definition": "to cause someone to feel isolated or lonely"
+        },
+        {
+          "id": "core:distinguish",
+          "word": "distinguish",
+          "definition": "to tell the difference between"
+        },
+        {
+          "id": "core:adequate",
+          "word": "adequate",
+          "definition": "sufficient, enough, acceptable"
+        },
+        {
+          "id": "core:contend",
+          "word": "contend",
+          "definition": "1) to deal with someone or something 2) to claim or state a belief confidently"
+        },
+        {
+          "id": "core:skeptical",
+          "word": "skeptical",
+          "definition": "having doubts"
+        },
+        {
+          "id": "core:sophisticated",
+          "word": "sophisticated",
+          "definition": "1) having a lot of worldly experience and knowledge 2) complicated"
+        },
+        {
+          "id": "core:radical",
+          "word": "radical",
+          "definition": "1) thorough, complete, extensive 2) fundamental, essential 3) revolutionary, extreme"
+        },
+        {
+          "id": "core:formulate",
+          "word": "formulate",
+          "definition": "to create or think up"
+        },
+        {
+          "id": "core:attest",
+          "word": "attest",
+          "definition": "to confirm or verify"
+        },
+        {
+          "id": "core:unassuming",
+          "word": "unassuming",
+          "definition": "humble, low-key"
+        },
+        {
+          "id": "core:coerce",
+          "word": "coerce",
+          "definition": "to pressure or force someone to do something"
+        },
+        {
+          "id": "core:adept",
+          "word": "adept",
+          "definition": "very skilled at something"
+        },
+        {
+          "id": "core:eloquent",
+          "word": "eloquent",
+          "definition": "fluent or persuasive in speaking or writing"
+        },
+        {
+          "id": "core:austere",
+          "word": "austere",
+          "definition": "plain and without decoration, comforts, or anything extra"
+        },
+        {
+          "id": "core:inevitable",
+          "word": "inevitable",
+          "definition": "unavoidable"
+        },
+        {
+          "id": "core:spawn",
+          "word": "spawn",
+          "definition": "to produce, generate, or create"
+        },
+        {
+          "id": "core:renounce",
+          "word": "renounce",
+          "definition": "to give up, deny, or surrender something"
+        },
+        {
+          "id": "core:unprecedented",
+          "word": "unprecedented",
+          "definition": "never done or known before"
+        },
+        {
+          "id": "core:broach",
+          "word": "broach",
+          "definition": "to bring up a difficult subject for discussion"
+        },
+        {
+          "id": "core:proxy",
+          "word": "proxy",
+          "definition": "a person authorized to act on behalf of another; substitute"
+        },
+        {
+          "id": "core:detrimental",
+          "word": "detrimental",
+          "definition": "harmful, damaging"
+        },
+        {
+          "id": "core:secular",
+          "word": "secular",
+          "definition": "having no religious or spiritual basis"
+        },
+        {
+          "id": "core:innovative",
+          "word": "innovative",
+          "definition": "new and different"
+        },
+        {
+          "id": "core:tangible",
+          "word": "tangible",
+          "definition": "real and able to be shown or touched"
+        },
+        {
+          "id": "core:disseminate",
+          "word": "disseminate",
+          "definition": "to spread widely (particularly information)"
+        },
+        {
+          "id": "core:delegate-verb",
+          "word": "delegate (verb)",
+          "definition": "to assign a task to another person"
+        },
+        {
+          "id": "core:apparent",
+          "word": "apparent",
+          "definition": "clearly visible or understood; obvious"
+        },
+        {
+          "id": "core:postulate",
+          "word": "postulate",
+          "definition": "to suggest or propose something"
+        },
+        {
+          "id": "core:speculate",
+          "word": "speculate",
+          "definition": "to guess, to form a theory without firm evidence"
+        },
+        {
+          "id": "core:sporadic",
+          "word": "sporadic",
+          "definition": "scattered, irregular, unpredictable"
+        },
+        {
+          "id": "core:incredulous",
+          "word": "incredulous",
+          "definition": "unwilling or unable to believe something"
+        },
+        {
+          "id": "core:idealistic",
+          "word": "idealistic",
+          "definition": "unrealistically aiming for perfection"
+        },
+        {
+          "id": "core:conflate",
+          "word": "conflate",
+          "definition": "to mix or combine into one (typically ideas)"
+        },
+        {
+          "id": "core:paucity",
+          "word": "paucity",
+          "definition": "poverty, scarcity"
+        },
+        {
+          "id": "core:ephemeral",
+          "word": "ephemeral",
+          "definition": "temporary, short-lived"
+        },
+        {
+          "id": "core:prompt",
+          "word": "prompt",
+          "definition": "to cause (someone) to take a course of action"
+        },
+        {
+          "id": "core:reverence",
+          "word": "reverence",
+          "definition": "deep respect for someone or something"
+        },
+        {
+          "id": "core:disparity",
+          "word": "disparity",
+          "definition": "a great difference"
+        },
+        {
+          "id": "core:dispassionate",
+          "word": "dispassionate",
+          "definition": "not influenced by strong emotion, fair-minded"
+        },
+        {
+          "id": "core:phenomenon",
+          "word": "phenomenon",
+          "definition": "a noteworthy occurrence or situation"
+        },
+        {
+          "id": "core:allude",
+          "word": "allude",
+          "definition": "to suggest or call attention to indirectly, to make a reference to something"
+        },
+        {
+          "id": "core:omnipotence",
+          "word": "omnipotence",
+          "definition": "unlimited or very great power"
+        },
+        {
+          "id": "core:provoke",
+          "word": "provoke",
+          "definition": "to cause a reaction or emotion (usually anger); to trigger"
+        },
+        {
+          "id": "core:indulge",
+          "word": "indulge",
+          "definition": "to allow oneself to enjoy the pleasure of"
+        },
+        {
+          "id": "core:entrenched",
+          "word": "entrenched",
+          "definition": "firmly established and unlikely to change"
+        },
+        {
+          "id": "core:inherent",
+          "word": "inherent",
+          "definition": "built-in, existing in something as a permanent or essential characteristic"
+        },
+        {
+          "id": "core:vernacular",
+          "word": "vernacular",
+          "definition": "everyday informal language, local dialect"
+        },
+        {
+          "id": "core:anecdote",
+          "word": "anecdote",
+          "definition": "a short personal story"
+        },
+        {
+          "id": "core:malign",
+          "word": "malign",
+          "definition": "1) (verb) to speak badly about someone unfairly 2) (adj.) evil in nature, harmful"
+        },
+        {
+          "id": "core:anomaly",
+          "word": "anomaly",
+          "definition": "oddity, something that is not normal"
+        },
+        {
+          "id": "core:inhibit",
+          "word": "inhibit",
+          "definition": "to hold someone or something back, to suppress, to prevent"
+        },
+        {
+          "id": "core:mutable",
+          "word": "mutable",
+          "definition": "changeable"
+        },
+        {
+          "id": "core:petty",
+          "word": "petty",
+          "definition": "1) of little importance 2) caring too much about trivial matters"
+        },
+        {
+          "id": "core:avid",
+          "word": "avid",
+          "definition": "passionate about something"
+        },
+        {
+          "id": "core:invoke",
+          "word": "invoke",
+          "definition": "to call on or refer to something"
+        },
+        {
+          "id": "core:imprudent",
+          "word": "imprudent",
+          "definition": "foolish, reckless"
+        },
+        {
+          "id": "core:tenacity",
+          "word": "tenacity",
+          "definition": "persistence, determination"
+        },
+        {
+          "id": "core:venerable",
+          "word": "venerable",
+          "definition": "respected"
+        },
+        {
+          "id": "core:yield",
+          "word": "yield",
+          "definition": "1) to produce or generate (a result) 2) to surrender"
+        },
+        {
+          "id": "core:ambivalent",
+          "word": "ambivalent",
+          "definition": "having mixed feelings"
+        },
+        {
+          "id": "core:endeavor",
+          "word": "endeavor",
+          "definition": "to try hard to do something"
+        },
+        {
+          "id": "core:contemplate",
+          "word": "contemplate",
+          "definition": "to think about for a long time"
+        },
+        {
+          "id": "core:compel",
+          "word": "compel",
+          "definition": "to force someone to do something"
+        },
+        {
+          "id": "core:feasible",
+          "word": "feasible",
+          "definition": "possible to do easily or conveniently"
+        },
+        {
+          "id": "core:conjecture",
+          "word": "conjecture",
+          "definition": "an opinion or conclusion that is unproven, a guess"
+        },
+        {
+          "id": "core:arbitrary",
+          "word": "arbitrary",
+          "definition": "based on random choice or personal impulse, rather than any reason or system"
+        },
+        {
+          "id": "core:reinforce",
+          "word": "reinforce",
+          "definition": "to make stronger"
+        },
+        {
+          "id": "core:to-temper",
+          "word": "to temper",
+          "definition": "to serve as a neutralizing or counterbalancing force to something"
+        },
+        {
+          "id": "core:brevity",
+          "word": "brevity",
+          "definition": "concise use of words in writing or speech"
+        },
+        {
+          "id": "core:equivocal",
+          "word": "equivocal",
+          "definition": "open to more than one interpretation; unclear"
+        },
+        {
+          "id": "core:conceive",
+          "word": "conceive",
+          "definition": "to form or create a plan or idea"
+        },
+        {
+          "id": "core:vanity",
+          "word": "vanity",
+          "definition": "excessive pride in one's own appearance or achievements"
+        },
+        {
+          "id": "core:sluggish",
+          "word": "sluggish",
+          "definition": "slow-moving"
+        },
+        {
+          "id": "core:intuition",
+          "word": "intuition",
+          "definition": "instinct, the ability to understand something immediately"
+        },
+        {
+          "id": "core:inexorable",
+          "word": "inexorable",
+          "definition": "impossible to stop or prevent"
+        },
+        {
+          "id": "core:engender",
+          "word": "engender",
+          "definition": "to cause or give rise to (a feeling, situation, or condition)"
+        },
+        {
+          "id": "core:temperament",
+          "word": "temperament",
+          "definition": "a person's nature, character, or frame of mind"
+        },
+        {
+          "id": "core:upheaval",
+          "word": "upheaval",
+          "definition": "a sudden change or disruption, chaos"
+        },
+        {
+          "id": "core:embrace",
+          "word": "embrace",
+          "definition": "to welcome with open arms, to accept or support willingly"
+        },
+        {
+          "id": "core:substantiate",
+          "word": "substantiate",
+          "definition": "to show to be true"
+        },
+        {
+          "id": "core:superficial",
+          "word": "superficial",
+          "definition": "shallow, on the surface"
+        },
+        {
+          "id": "core:sovereignty",
+          "word": "sovereignty",
+          "definition": "supreme power or authority"
+        },
+        {
+          "id": "core:lavish",
+          "word": "lavish",
+          "definition": "luxurious"
+        },
+        {
+          "id": "core:crux",
+          "word": "crux",
+          "definition": "the essence, the main point"
+        },
+        {
+          "id": "core:indifference",
+          "word": "indifference",
+          "definition": "lack of interest and concern"
+        },
+        {
+          "id": "core:tact",
+          "word": "tact",
+          "definition": "skillfulness and sensitivity in dealing with others or difficult issues"
+        },
+        {
+          "id": "core:abundant",
+          "word": "abundant",
+          "definition": "plentiful"
+        },
+        {
+          "id": "core:viable",
+          "word": "viable",
+          "definition": "capable of working successfully, realistic, doable"
+        },
+        {
+          "id": "core:scorn",
+          "word": "scorn",
+          "definition": "contempt, the feeling that someone or something is worthless"
+        },
+        {
+          "id": "core:transgress",
+          "word": "transgress",
+          "definition": "to break a rule or moral law; to misbehave"
+        },
+        {
+          "id": "core:analogy",
+          "word": "analogy",
+          "definition": "a comparison between two things"
+        },
+        {
+          "id": "core:objection",
+          "word": "objection",
+          "definition": "a reason for disagreeing"
+        },
+        {
+          "id": "core:construe",
+          "word": "construe",
+          "definition": "to interpret in a particular way"
+        },
+        {
+          "id": "core:procure",
+          "word": "procure",
+          "definition": "obtain, acquire"
+        },
+        {
+          "id": "core:evoke",
+          "word": "evoke",
+          "definition": "to bring to mind"
+        },
+        {
+          "id": "core:depiction",
+          "word": "depiction",
+          "definition": "portrayal, illustration"
+        },
+        {
+          "id": "core:burden",
+          "word": "burden",
+          "definition": "a difficulty, problem, or responsibility"
+        },
+        {
+          "id": "core:recollection",
+          "word": "recollection",
+          "definition": "a memory; the act of remembering"
+        },
+        {
+          "id": "core:tumult",
+          "word": "tumult",
+          "definition": "confusion or disorder"
+        },
+        {
+          "id": "core:concede",
+          "word": "concede",
+          "definition": "admit that something is true after first denying it"
+        },
+        {
+          "id": "core:demeanor",
+          "word": "demeanor",
+          "definition": "manner, attitude, appearance"
+        },
+        {
+          "id": "core:tentative",
+          "word": "tentative",
+          "definition": "unconfirmed, subject to change"
+        },
+        {
+          "id": "core:deceive",
+          "word": "deceive",
+          "definition": "to trick or mislead someone"
+        },
+        {
+          "id": "core:trifling",
+          "word": "trifling",
+          "definition": "unimportant, insignificant"
+        },
+        {
+          "id": "core:decrepit",
+          "word": "decrepit",
+          "definition": "1) weak, disabled 2) in a run-down state, decayed"
+        },
+        {
+          "id": "core:corroborate",
+          "word": "corroborate",
+          "definition": "to confirm, to verify"
+        },
+        {
+          "id": "core:obstinacy",
+          "word": "obstinacy",
+          "definition": "stubbornness; unwillingness to change"
+        },
+        {
+          "id": "core:monotony",
+          "word": "monotony",
+          "definition": "boredom, dullness, lack of variety"
+        },
+        {
+          "id": "core:degrade",
+          "word": "degrade",
+          "definition": "1) to treat with disrespect 2) to lower in quality; to break down"
+        },
+        {
+          "id": "core:dilemma",
+          "word": "dilemma",
+          "definition": "a situation in which a difficult choice has to be made between 2 or more alternatives"
+        },
+        {
+          "id": "core:conventional",
+          "word": "conventional",
+          "definition": "traditional, accepted, mainstream, standard"
+        },
+        {
+          "id": "core:proliferate",
+          "word": "proliferate",
+          "definition": "increase or grow rapidly"
+        },
+        {
+          "id": "core:aesthetic",
+          "word": "aesthetic",
+          "definition": "concerned with beauty or the appreciation of beauty"
+        },
+        {
+          "id": "core:prominent",
+          "word": "prominent",
+          "definition": "important; famous"
+        },
+        {
+          "id": "core:unwieldy",
+          "word": "unwieldy",
+          "definition": "difficult to carry or move"
+        },
+        {
+          "id": "core:unilaterally",
+          "word": "unilaterally",
+          "definition": "used to indicate that something is done by only one person or group, without the agreement of others"
+        },
+        {
+          "id": "core:stimulate",
+          "word": "stimulate",
+          "definition": "to trigger, spark, or activate; to excite"
+        },
+        {
+          "id": "core:abate",
+          "word": "abate",
+          "definition": "to become less intense or widespread"
+        },
+        {
+          "id": "core:diligent",
+          "word": "diligent",
+          "definition": "hard-working"
+        },
+        {
+          "id": "core:relegate",
+          "word": "relegate",
+          "definition": "to downgrade, to lower in rank or status"
+        },
+        {
+          "id": "core:demur",
+          "word": "demur",
+          "definition": "to raise doubts or to protest"
+        },
+        {
+          "id": "core:novel",
+          "word": "novel",
+          "definition": "new or unusual in an interesting way"
+        },
+        {
+          "id": "core:abstract",
+          "word": "abstract",
+          "definition": "existing in thought or as an idea but not having a physical or concrete existence; conceptual"
+        },
+        {
+          "id": "core:vestigial",
+          "word": "vestigial",
+          "definition": "left over from something that once existed; no longer developed or functional"
+        },
+        {
+          "id": "core:preoccupied-with",
+          "word": "preoccupied with",
+          "definition": "obsessed with something"
+        },
+        {
+          "id": "core:retain",
+          "word": "retain",
+          "definition": "to keep, to hold on to"
+        },
+        {
+          "id": "core:susceptible",
+          "word": "susceptible",
+          "definition": "easily influenced or harmed by something; vulnerable"
+        },
+        {
+          "id": "core:strenuous",
+          "word": "strenuous",
+          "definition": "difficult, exhausting"
+        },
+        {
+          "id": "core:subservient",
+          "word": "subservient",
+          "definition": "prepared to obey others, submissive, less important"
+        },
+        {
+          "id": "core:empirical",
+          "word": "empirical",
+          "definition": "based on experience rather than theory or pure logic"
+        },
+        {
+          "id": "core:hostile",
+          "word": "hostile",
+          "definition": "unfriendly, threatening"
+        },
+        {
+          "id": "core:promulgate",
+          "word": "promulgate",
+          "definition": "to make widely known, to publicize"
+        },
+        {
+          "id": "core:enact",
+          "word": "enact",
+          "definition": "to make law, to put into practice (a belief, idea, or suggestion)"
+        },
+        {
+          "id": "core:expend",
+          "word": "expend",
+          "definition": "to use up, to consume"
+        },
+        {
+          "id": "core:naive",
+          "word": "naive",
+          "definition": "showing a lack of experience, wisdom, or judgment"
+        },
+        {
+          "id": "core:acquisition",
+          "word": "acquisition",
+          "definition": "something that is bought or obtained, an act of purchase"
+        },
+        {
+          "id": "core:affluent",
+          "word": "affluent",
+          "definition": "wealthy"
+        },
+        {
+          "id": "core:consolidate",
+          "word": "consolidate",
+          "definition": "1) strengthen 2) combine or unite"
+        },
+        {
+          "id": "core:aggregate",
+          "word": "aggregate",
+          "definition": "collection or sum total"
+        },
+        {
+          "id": "core:yearn",
+          "word": "yearn",
+          "definition": "to have an intense feeling of longing for something"
+        },
+        {
+          "id": "core:consummate-adj",
+          "word": "consummate (adj.)",
+          "definition": "complete or perfect, having a high degree of skill"
+        },
+        {
+          "id": "core:endorse",
+          "word": "endorse",
+          "definition": "to support"
+        },
+        {
+          "id": "core:ascertain",
+          "word": "ascertain",
+          "definition": "to find (something) out for certain"
+        },
+        {
+          "id": "core:onerous",
+          "word": "onerous",
+          "definition": "involving a lot of effort, difficult"
+        },
+        {
+          "id": "core:objective-adj",
+          "word": "objective (adj.)",
+          "definition": "fair-minded, not influenced by personal feelings"
+        },
+        {
+          "id": "core:aspire",
+          "word": "aspire",
+          "definition": "to hope to achieve something or be successful"
+        },
+        {
+          "id": "core:obsolete",
+          "word": "obsolete",
+          "definition": "no longer produced or used; out of date"
+        },
+        {
+          "id": "core:inflammatory",
+          "word": "inflammatory",
+          "definition": "arousing angry or violent feelings"
+        },
+        {
+          "id": "core:sentiment",
+          "word": "sentiment",
+          "definition": "a view of or attitude towards a situation or event; a general feeling or opinion"
+        },
+        {
+          "id": "core:candor",
+          "word": "candor",
+          "definition": "honesty and directness in speech"
+        },
+        {
+          "id": "core:prejudice",
+          "word": "prejudice",
+          "definition": "a dislike or unfair opinion (of someone) that is not based on reason or actual experience"
+        },
+        {
+          "id": "core:distinct",
+          "word": "distinct",
+          "definition": "clearly separate and different"
+        },
+        {
+          "id": "core:deference",
+          "word": "deference",
+          "definition": "respect"
+        },
+        {
+          "id": "core:extensive",
+          "word": "extensive",
+          "definition": "large in amount or scale"
+        },
+        {
+          "id": "core:impose",
+          "word": "impose",
+          "definition": "1) to force the acceptance of something 2) to cause inconvenience to someone"
+        },
+        {
+          "id": "core:articulate",
+          "word": "articulate",
+          "definition": "having the ability to speak fluently and persuasively"
+        },
+        {
+          "id": "core:pristine",
+          "word": "pristine",
+          "definition": "original and pure; not spoiled or worn from use"
+        },
+        {
+          "id": "core:atypical",
+          "word": "atypical",
+          "definition": "unusual, uncommon"
+        },
+        {
+          "id": "core:subjugate",
+          "word": "subjugate",
+          "definition": "to bring under domination or control, to conquer"
+        },
+        {
+          "id": "core:ubiquitous",
+          "word": "ubiquitous",
+          "definition": "everywhere, universal"
+        },
+        {
+          "id": "core:altercation",
+          "word": "altercation",
+          "definition": "a noisy argument or disagreement"
+        },
+        {
+          "id": "core:robust",
+          "word": "robust",
+          "definition": "strong and healthy, durable"
+        },
+        {
+          "id": "core:subvert",
+          "word": "subvert",
+          "definition": "to damage or weaken the authority of an established system"
+        },
+        {
+          "id": "core:antipathy",
+          "word": "antipathy",
+          "definition": "hatred, dislike"
+        },
+        {
+          "id": "core:perilous",
+          "word": "perilous",
+          "definition": "dangerous"
+        },
+        {
+          "id": "core:conception",
+          "word": "conception",
+          "definition": "1) origin or beginning 2) an idea or concept"
+        },
+        {
+          "id": "core:impede",
+          "word": "impede",
+          "definition": "to create difficulties for someone or something, resulting in delay"
+        },
+        {
+          "id": "core:contradiction",
+          "word": "contradiction",
+          "definition": "a combination of statements or ideas that are opposed to one another; inconsistency"
+        },
+        {
+          "id": "core:dismal",
+          "word": "dismal",
+          "definition": "depressing, gloomy"
+        },
+        {
+          "id": "core:ambiguous",
+          "word": "ambiguous",
+          "definition": "open to more than one interpretation; unclear"
+        },
+        {
+          "id": "core:wayward",
+          "word": "wayward",
+          "definition": "difficult to control or predict because of unusual behavior"
+        },
+        {
+          "id": "core:implication",
+          "word": "implication",
+          "definition": "1) a conclusion that can be drawn from something 2) a consequence or result"
+        },
+        {
+          "id": "core:deploy",
+          "word": "deploy",
+          "definition": "to bring into effective action"
+        },
+        {
+          "id": "core:credibility",
+          "word": "credibility",
+          "definition": "believability, authority"
+        },
+        {
+          "id": "core:complacent",
+          "word": "complacent",
+          "definition": "overly satisfied or pleased with oneself"
+        },
+        {
+          "id": "core:prospect",
+          "word": "prospect",
+          "definition": "the possibility or likelihood of some future event occurring"
+        },
+        {
+          "id": "core:amicable",
+          "word": "amicable",
+          "definition": "friendly"
+        },
+        {
+          "id": "core:predecessor",
+          "word": "predecessor",
+          "definition": "someone or something that came before"
+        },
+        {
+          "id": "core:deter",
+          "word": "deter",
+          "definition": "to discourage (someone) from doing something"
+        },
+        {
+          "id": "core:indignation",
+          "word": "indignation",
+          "definition": "anger or annoyance"
+        },
+        {
+          "id": "core:rigid",
+          "word": "rigid",
+          "definition": "stiff, firm, unchangeable"
+        },
+        {
+          "id": "core:cultivate",
+          "word": "cultivate",
+          "definition": "to grow, to develop"
+        },
+        {
+          "id": "core:devise",
+          "word": "devise",
+          "definition": "to plan or invent by careful thought"
+        },
+        {
+          "id": "core:perturb",
+          "word": "perturb",
+          "definition": "to make someone anxious or unsettled; to disturb"
+        },
+        {
+          "id": "core:pervasive",
+          "word": "pervasive",
+          "definition": "spreading widely throughout an area or group of people"
+        },
+        {
+          "id": "core:apprehensive",
+          "word": "apprehensive",
+          "definition": "anxious or fearful that something bad or unpleasant will happen"
+        },
+        {
+          "id": "core:provision",
+          "word": "provision",
+          "definition": "1) a condition or requirement in a legal document 2) the act of providing services or resources"
+        },
+        {
+          "id": "core:insolent",
+          "word": "insolent",
+          "definition": "showing a rude lack of respect"
+        },
+        {
+          "id": "core:consensus",
+          "word": "consensus",
+          "definition": "general agreement"
+        },
+        {
+          "id": "core:discord",
+          "word": "discord",
+          "definition": "disagreement between people"
+        },
+        {
+          "id": "core:complement-verb",
+          "word": "complement (verb)",
+          "definition": "to add to (something) in a way that enhances or completes it"
+        },
+        {
+          "id": "core:mortify",
+          "word": "mortify",
+          "definition": "to cause (someone) to feel embarrassed, ashamed, or humiliated"
+        },
+        {
+          "id": "core:dissipate",
+          "word": "dissipate",
+          "definition": "to disappear or evaporate"
+        },
+        {
+          "id": "core:doctrine",
+          "word": "doctrine",
+          "definition": "a belief or set of beliefs"
+        },
+        {
+          "id": "core:incomprehensible",
+          "word": "incomprehensible",
+          "definition": "not able to be understood"
+        },
+        {
+          "id": "core:recount",
+          "word": "recount",
+          "definition": "to tell someone about something, to give a report of an event"
+        },
+        {
+          "id": "core:adversary",
+          "word": "adversary",
+          "definition": "one's opponent or enemy"
+        },
+        {
+          "id": "core:endow",
+          "word": "endow",
+          "definition": "to provide, to supply"
+        },
+        {
+          "id": "core:confound",
+          "word": "confound",
+          "definition": "to cause surprise or confusion in someone"
+        },
+        {
+          "id": "core:assert",
+          "word": "assert",
+          "definition": "to state a fact or belief confidently and forcefully"
+        },
+        {
+          "id": "core:undermine",
+          "word": "undermine",
+          "definition": "to gradually damage or weaken someone or something"
+        },
+        {
+          "id": "core:paradox",
+          "word": "paradox",
+          "definition": "a statement or situation that may be true but seems impossible or difficult to understand because it contains two opposite facts or characteristics"
+        },
+        {
+          "id": "core:apt",
+          "word": "apt",
+          "definition": "appropriate or suitable in the circumstances"
+        },
+        {
+          "id": "core:competent",
+          "word": "competent",
+          "definition": "having the necessary ability, knowledge, or skill to do something successfully"
+        },
+        {
+          "id": "core:severity",
+          "word": "severity",
+          "definition": "the quality of being very unpleasant, unkind, or difficult"
+        },
+        {
+          "id": "core:dismay",
+          "word": "dismay",
+          "definition": "a feeling of shock and unhappiness"
+        },
+        {
+          "id": "core:usurp",
+          "word": "usurp",
+          "definition": "to take power or control of something by force or without the right to do so"
+        },
+        {
+          "id": "core:nostalgic",
+          "word": "nostalgic",
+          "definition": "feeling happy and also slightly sad when you think about things that happened in the past"
+        },
+        {
+          "id": "core:ornate",
+          "word": "ornate",
+          "definition": "having a lot of complex patterns or decoration"
+        },
+        {
+          "id": "core:hierarchy",
+          "word": "hierarchy",
+          "definition": "a system in which people or things are put at various levels or ranks according to their importance"
+        },
+        {
+          "id": "core:irrational",
+          "word": "irrational",
+          "definition": "not logical or reasonable"
+        },
+        {
+          "id": "core:subordinate",
+          "word": "subordinate",
+          "definition": "having a lower or less important position"
+        },
+        {
+          "id": "core:malicious",
+          "word": "malicious",
+          "definition": "intending to cause harm; evil"
+        },
+        {
+          "id": "core:amend",
+          "word": "amend",
+          "definition": "to revise, to make changes"
+        },
+        {
+          "id": "core:conform",
+          "word": "conform",
+          "definition": "to behave according to an expectation or rule"
+        },
+        {
+          "id": "core:tout",
+          "word": "tout",
+          "definition": "to advertise or praise something (often to sell it)"
+        },
+        {
+          "id": "core:permeate",
+          "word": "permeate",
+          "definition": "to spread throughout something"
+        },
+        {
+          "id": "core:impervious",
+          "word": "impervious",
+          "definition": "not able to be influenced, hurt, or damaged"
+        },
+        {
+          "id": "core:actuate",
+          "word": "actuate",
+          "definition": "1) to cause (a machine or device) to operate 2) to cause (someone) to act in a particular way"
+        },
+        {
+          "id": "core:versatility",
+          "word": "versatility",
+          "definition": "ability to adapt to many different functions or activities"
+        },
+        {
+          "id": "core:proclaim",
+          "word": "proclaim",
+          "definition": "to announce officially or publicly"
+        },
+        {
+          "id": "core:modest",
+          "word": "modest",
+          "definition": "1) humble, not showy 2) not large in size or amount"
+        },
+        {
+          "id": "core:adorn",
+          "word": "adorn",
+          "definition": "to decorate"
+        },
+        {
+          "id": "core:solitude",
+          "word": "solitude",
+          "definition": "the state or situation of being alone"
+        },
+        {
+          "id": "core:deplete",
+          "word": "deplete",
+          "definition": "to use up the supply or resources of"
+        },
+        {
+          "id": "core:solemn",
+          "word": "solemn",
+          "definition": "having or showing serious purpose and determination; formal"
+        },
+        {
+          "id": "core:proponent",
+          "word": "proponent",
+          "definition": "a person who supports an idea, plan, or cause"
+        },
+        {
+          "id": "core:keen",
+          "word": "keen",
+          "definition": "sharp; highly developed (usually the senses)"
+        },
+        {
+          "id": "core:engulf",
+          "word": "engulf",
+          "definition": "to surround and cover completely"
+        },
+        {
+          "id": "core:diverge",
+          "word": "diverge",
+          "definition": "to go in different directions from the same point, to become different"
+        },
+        {
+          "id": "core:hypothetical",
+          "word": "hypothetical",
+          "definition": "imagined or suggested but not necessarily real or true"
+        },
+        {
+          "id": "core:pressing",
+          "word": "pressing",
+          "definition": "urgent or needing to be dealt with immediately"
+        },
+        {
+          "id": "core:solicitation",
+          "word": "solicitation",
+          "definition": "a request for money, information, or help"
+        },
+        {
+          "id": "core:meddle",
+          "word": "meddle",
+          "definition": "interfere in something that is not one's concern"
+        },
+        {
+          "id": "core:coarse",
+          "word": "coarse",
+          "definition": "1) rough, not smooth 2) rude or offensive in manner or speech"
+        },
+        {
+          "id": "core:reproach",
+          "word": "reproach",
+          "definition": "to criticize or express disapproval of someone"
+        },
+        {
+          "id": "core:immerse",
+          "word": "immerse",
+          "definition": "1) to put something completely under a liquid 2) to involve someone completely in an activity"
+        },
+        {
+          "id": "core:clout",
+          "word": "clout",
+          "definition": "power and influence (especially in politics or business)"
+        },
+        {
+          "id": "core:exacerbate",
+          "word": "exacerbate",
+          "definition": "to make something that is already bad worse"
+        },
+        {
+          "id": "core:dubious",
+          "word": "dubious",
+          "definition": "doubtful"
+        },
+        {
+          "id": "core:plausible",
+          "word": "plausible",
+          "definition": "possibly true, able to be believed, reasonable"
+        },
+        {
+          "id": "core:notion",
+          "word": "notion",
+          "definition": "a belief or idea"
+        },
+        {
+          "id": "core:impartial",
+          "word": "impartial",
+          "definition": "able to judge something fairly"
+        },
+        {
+          "id": "core:dabble",
+          "word": "dabble",
+          "definition": "to try an activity in a casual way"
+        },
+        {
+          "id": "core:earnest",
+          "word": "earnest",
+          "definition": "sincere and serious"
+        },
+        {
+          "id": "core:vitality",
+          "word": "vitality",
+          "definition": "life, energy, and strength"
+        },
+        {
+          "id": "core:mimic",
+          "word": "mimic",
+          "definition": "to imitate or copy (someone's actions or words)"
+        },
+        {
+          "id": "core:agitate",
+          "word": "agitate",
+          "definition": "1) to make someone troubled or nervous 2) to campaign for something in public"
+        },
+        {
+          "id": "core:practical",
+          "word": "practical",
+          "definition": "likely to succeed or be effective in real circumstances, relating to actual experience rather than knowledge only"
+        },
+        {
+          "id": "core:ominous",
+          "word": "ominous",
+          "definition": "suggesting something unpleasant will happen"
+        },
+        {
+          "id": "core:pretense",
+          "word": "pretense",
+          "definition": "a false display, an attempt to deceive"
+        },
+        {
+          "id": "core:exploit",
+          "word": "exploit",
+          "definition": "to make full use of (a resource), to use (a person) in an unfair or selfish way"
+        },
+        {
+          "id": "core:comprise",
+          "word": "comprise",
+          "definition": "to consist of or to be made up of"
+        },
+        {
+          "id": "core:plight",
+          "word": "plight",
+          "definition": "a dangerous, difficult, or otherwise unfortunate situation"
+        },
+        {
+          "id": "core:exemplify",
+          "word": "exemplify",
+          "definition": "to be a typical example of something"
+        },
+        {
+          "id": "core:momentous",
+          "word": "momentous",
+          "definition": "very important (in reference to a decision or event)"
+        },
+        {
+          "id": "core:reverberate",
+          "word": "reverberate",
+          "definition": "to continue to be heard; to echo repeatedly"
+        },
+        {
+          "id": "core:lament",
+          "word": "lament",
+          "definition": "to express sadness and regret about something"
+        },
+        {
+          "id": "core:mediation",
+          "word": "mediation",
+          "definition": "the process by which someone tries to end a disagreement by helping the two sides to talk about and agree on a solution"
+        },
+        {
+          "id": "core:supple",
+          "word": "supple",
+          "definition": "bending or able to be bent easily; not stiff; flexible"
+        },
+        {
+          "id": "core:oblivious",
+          "word": "oblivious",
+          "definition": "not aware of what is happening around you"
+        },
+        {
+          "id": "core:imperative",
+          "word": "imperative",
+          "definition": "1) extremely important or urgent 2) something that needs to be done immediately"
+        },
+        {
+          "id": "core:reminisce",
+          "word": "reminisce",
+          "definition": "to talk about the past with pleasure"
+        },
+        {
+          "id": "core:tranquil",
+          "word": "tranquil",
+          "definition": "calm, quiet, and peaceful"
+        },
+        {
+          "id": "core:cleave",
+          "word": "cleave",
+          "definition": "1) to cut or split into parts 2) to cling firmly to something (opposite meanings)"
+        },
+        {
+          "id": "core:reluctance",
+          "word": "reluctance",
+          "definition": "an unwillingness to do something"
+        },
+        {
+          "id": "core:misgiving",
+          "word": "misgiving",
+          "definition": "a feeling of doubt, uncertainty, or worry about a future event"
+        },
+        {
+          "id": "core:sparse",
+          "word": "sparse",
+          "definition": "small in number, often spread over a large area; scarce"
+        },
+        {
+          "id": "core:absurd",
+          "word": "absurd",
+          "definition": "ridiculous or completely unreasonable"
+        },
+        {
+          "id": "core:premise",
+          "word": "premise",
+          "definition": "an idea or theory on which a statement or action is based; an assumption"
+        },
+        {
+          "id": "core:scrutinize",
+          "word": "scrutinize",
+          "definition": "to examine someone or something very carefully"
+        },
+        {
+          "id": "core:supplemental",
+          "word": "supplemental",
+          "definition": "added to something else in order to improve it or complete it"
+        },
+        {
+          "id": "core:poignant",
+          "word": "poignant",
+          "definition": "causing a feeling of sadness"
+        },
+        {
+          "id": "core:obscure",
+          "word": "obscure",
+          "definition": "not known to many people, difficult to understand"
+        },
+        {
+          "id": "core:gregarious",
+          "word": "gregarious",
+          "definition": "fond of company; sociable"
+        },
+        {
+          "id": "core:exert",
+          "word": "exert",
+          "definition": "to use power or the ability to make something happen"
+        },
+        {
+          "id": "core:vigorous",
+          "word": "vigorous",
+          "definition": "strong, healthy, and full of energy"
+        },
+        {
+          "id": "core:entreat",
+          "word": "entreat",
+          "definition": "to ask someone sincerely or anxiously to do something"
+        },
+        {
+          "id": "core:desolation",
+          "word": "desolation",
+          "definition": "a state of complete emptiness or destruction"
+        },
+        {
+          "id": "core:notorious",
+          "word": "notorious",
+          "definition": "famous for something bad"
+        },
+        {
+          "id": "core:induce",
+          "word": "induce",
+          "definition": "1) to persuade someone to do something 2) to cause something to happen"
+        },
+        {
+          "id": "core:pompous",
+          "word": "pompous",
+          "definition": "feeling that one is better or more important than other people"
+        },
+        {
+          "id": "core:disparage",
+          "word": "disparage",
+          "definition": "to criticize someone or something in a way that shows a lack of respect"
+        },
+        {
+          "id": "core:intact",
+          "word": "intact",
+          "definition": "complete and in the original state; not damaged"
+        },
+        {
+          "id": "core:verdict",
+          "word": "verdict",
+          "definition": "an opinion or judgment"
+        },
+        {
+          "id": "core:mundane",
+          "word": "mundane",
+          "definition": "ordinary and dull"
+        },
+        {
+          "id": "core:spur",
+          "word": "spur",
+          "definition": "to encourage an activity or development, to cause something to develop faster"
+        },
+        {
+          "id": "core:convey",
+          "word": "convey",
+          "definition": "to make (an idea or feeling) known or understandable to someone; to communicate"
+        },
+        {
+          "id": "core:render",
+          "word": "render",
+          "definition": "to cause someone or something to be in a particular state"
+        },
+        {
+          "id": "core:manifest",
+          "word": "manifest",
+          "definition": "to show something clearly, through signs or actions"
+        },
+        {
+          "id": "core:continuum",
+          "word": "continuum",
+          "definition": "a continuous sequence; a range"
+        },
+        {
+          "id": "core:redress",
+          "word": "redress",
+          "definition": "to correct a wrong"
+        },
+        {
+          "id": "core:underscore",
+          "word": "underscore",
+          "definition": "to emphasize the importance of something"
+        },
+        {
+          "id": "core:enfeeble",
+          "word": "enfeeble",
+          "definition": "to make someone or something very weak"
+        },
+        {
+          "id": "core:disdain",
+          "word": "disdain",
+          "definition": "dislike of someone or something that one feels does not deserve respect"
+        },
+        {
+          "id": "core:posterity",
+          "word": "posterity",
+          "definition": "all future generations of people"
+        },
+        {
+          "id": "core:sustain",
+          "word": "sustain",
+          "definition": "to strengthen or support; to keep alive"
+        },
+        {
+          "id": "core:sheer",
+          "word": "sheer",
+          "definition": "1) not mixed with anything else; pure or complete 2) very large"
+        },
+        {
+          "id": "core:assess",
+          "word": "assess",
+          "definition": "to judge the quality or importance of something"
+        },
+        {
+          "id": "core:artisan",
+          "word": "artisan",
+          "definition": "a person who does skilled work with his or her hands"
+        },
+        {
+          "id": "core:subtle",
+          "word": "subtle",
+          "definition": "not loud, bright, noticeable, or obvious"
+        },
+        {
+          "id": "core:repudiate",
+          "word": "repudiate",
+          "definition": "to refuse to accept something or someone; to reject"
+        },
+        {
+          "id": "core:meander",
+          "word": "meander",
+          "definition": "to follow a route that is not straight or direct"
+        },
+        {
+          "id": "core:effectual",
+          "word": "effectual",
+          "definition": "successful in producing the intended results"
+        },
+        {
+          "id": "core:meager",
+          "word": "meager",
+          "definition": "very small in amount or number"
+        },
+        {
+          "id": "core:tedious",
+          "word": "tedious",
+          "definition": "boring, slow, and tiring"
+        },
+        {
+          "id": "core:calibrate",
+          "word": "calibrate",
+          "definition": "to carefully measure or adjust"
+        },
+        {
+          "id": "core:potent",
+          "word": "potent",
+          "definition": "powerful, persuasive, or effective"
+        },
+        {
+          "id": "core:conducive",
+          "word": "conducive",
+          "definition": "providing the right conditions for something to happen or exist; to help bring about"
+        },
+        {
+          "id": "core:reserved",
+          "word": "reserved",
+          "definition": "tending to keep feelings or thoughts private; quiet"
+        },
+        {
+          "id": "core:medley",
+          "word": "medley",
+          "definition": "a mixture of different things"
+        },
+        {
+          "id": "core:advocate",
+          "word": "advocate",
+          "definition": "1) to support an idea 2) a person who publicly supports an idea"
+        },
+        {
+          "id": "core:undulate",
+          "word": "undulate",
+          "definition": "to move with a smooth wavelike motion"
+        },
+        {
+          "id": "core:magnitude",
+          "word": "magnitude",
+          "definition": "1) the great size or importance of something 2) the extent or degree of something"
+        },
+        {
+          "id": "core:aggrandize",
+          "word": "aggrandize",
+          "definition": "to make someone more powerful or important"
+        },
+        {
+          "id": "core:timid",
+          "word": "timid",
+          "definition": "easily frightened; shy"
+        },
+        {
+          "id": "core:bias",
+          "word": "bias",
+          "definition": "an unfair personal opinion that influences your judgment"
+        },
+        {
+          "id": "core:refine",
+          "word": "refine",
+          "definition": "to improve something by making small changes"
+        },
+        {
+          "id": "core:oscillate",
+          "word": "oscillate",
+          "definition": "to swing back and forth"
+        },
+        {
+          "id": "core:esteem",
+          "word": "esteem",
+          "definition": "respect and admiration for someone"
+        },
+        {
+          "id": "core:displace",
+          "word": "displace",
+          "definition": "to force something or someone out of its usual or original place"
+        },
+        {
+          "id": "core:ingenious",
+          "word": "ingenious",
+          "definition": "clever, original, and inventive (in reference to a person)"
+        },
+        {
+          "id": "core:constitute",
+          "word": "constitute",
+          "definition": "to be the parts that form something"
+        },
+        {
+          "id": "core:insatiable",
+          "word": "insatiable",
+          "definition": "impossible to satisfy"
+        },
+        {
+          "id": "core:volition",
+          "word": "volition",
+          "definition": "the power to make one's own decisions"
+        },
+        {
+          "id": "core:relish",
+          "word": "relish",
+          "definition": "to like or enjoy something"
+        },
+        {
+          "id": "core:facilitate",
+          "word": "facilitate",
+          "definition": "to make (an action or process) possible or easier"
+        },
+        {
+          "id": "core:threshold",
+          "word": "threshold",
+          "definition": "the level or point at which something starts"
+        },
+        {
+          "id": "core:reform",
+          "word": "reform",
+          "definition": "to make changes in something in order to improve it"
+        },
+        {
+          "id": "core:profound",
+          "word": "profound",
+          "definition": "1) intense, extreme 2) requiring deep thought"
+        },
+        {
+          "id": "core:mitigate",
+          "word": "mitigate",
+          "definition": "to make something less severe or harmful"
+        },
+        {
+          "id": "core:alleviate",
+          "word": "alleviate",
+          "definition": "to make a problem or pain less severe"
+        },
+        {
+          "id": "core:nuanced",
+          "word": "nuanced",
+          "definition": "showing subtle distinctions; not simple or one-sided"
+        },
+        {
+          "id": "core:refute",
+          "word": "refute",
+          "definition": "to prove that something is false, using evidence or reasoning"
+        },
+        {
+          "id": "core:pragmatic",
+          "word": "pragmatic",
+          "definition": "practical; focused on what actually works rather than theory"
+        },
+        {
+          "id": "core:prevalent",
+          "word": "prevalent",
+          "definition": "widespread, common in a particular place or time"
+        },
+        {
+          "id": "core:elusive",
+          "word": "elusive",
+          "definition": "difficult to find, catch, or achieve"
+        },
+        {
+          "id": "core:innate",
+          "word": "innate",
+          "definition": "inborn; present from birth rather than learned"
+        },
+        {
+          "id": "core:tenuous",
+          "word": "tenuous",
+          "definition": "weak, thin, or not strongly supported (usually of a claim or connection)"
+        },
+        {
+          "id": "core:transient",
+          "word": "transient",
+          "definition": "lasting only a short time; passing through"
+        },
+        {
+          "id": "core:wane",
+          "word": "wane",
+          "definition": "to decrease in size, strength, or importance"
+        },
+        {
+          "id": "core:implicit",
+          "word": "implicit",
+          "definition": "suggested or understood without being stated directly"
+        },
+        {
+          "id": "core:explicit",
+          "word": "explicit",
+          "definition": "stated clearly and in detail, leaving no room for doubt"
+        },
+        {
+          "id": "core:salient",
+          "word": "salient",
+          "definition": "most noticeable or important; standing out"
+        },
+        {
+          "id": "core:tacit",
+          "word": "tacit",
+          "definition": "understood or implied without being spoken"
+        },
+        {
+          "id": "core:bolster",
+          "word": "bolster",
+          "definition": "to support or strengthen"
+        },
+        {
+          "id": "core:discrete",
+          "word": "discrete",
+          "definition": "separate and distinct (not to be confused with discreet = careful/private)"
+        },
+        {
+          "id": "core:elicit",
+          "word": "elicit",
+          "definition": "to draw out a response, answer, or reaction from someone"
+        },
+        {
+          "id": "core:coherent",
+          "word": "coherent",
+          "definition": "logically connected and consistent; easy to follow"
+        },
+        {
+          "id": "core:qualify",
+          "word": "qualify",
+          "definition": "1) to limit or soften a statement by adding conditions 2) to meet the requirements for something"
+        }
+      ]
+    },
+    {
+      "id": "longshot",
+      "title": "Clarity Long-Shot Words",
+      "cards": [
+        {
+          "id": "longshot:abrupt",
+          "word": "abrupt",
+          "definition": "sudden, unexpected, without warning"
+        },
+        {
+          "id": "longshot:enfranchise",
+          "word": "enfranchise",
+          "definition": "to give the right to vote"
+        },
+        {
+          "id": "longshot:vexing",
+          "word": "vexing",
+          "definition": "annoying, irritating"
+        },
+        {
+          "id": "longshot:dread",
+          "word": "dread",
+          "definition": "to fear, be afraid of"
+        },
+        {
+          "id": "longshot:to-stress",
+          "word": "to stress",
+          "definition": "to emphasize"
+        },
+        {
+          "id": "longshot:bazaar",
+          "word": "bazaar",
+          "definition": "a market selling a large variety of goods"
+        },
+        {
+          "id": "longshot:suffrage",
+          "word": "suffrage",
+          "definition": "the right to vote"
+        },
+        {
+          "id": "longshot:boast",
+          "word": "boast",
+          "definition": "to brag, to show off"
+        },
+        {
+          "id": "longshot:irksome",
+          "word": "irksome",
+          "definition": "irritating, annoying"
+        },
+        {
+          "id": "longshot:inquisition",
+          "word": "inquisition",
+          "definition": "interrogation, questioning"
+        },
+        {
+          "id": "longshot:authoritarian",
+          "word": "authoritarian",
+          "definition": "enforcing strict obedience to authority"
+        },
+        {
+          "id": "longshot:quarrel",
+          "word": "quarrel",
+          "definition": "an angry argument or disagreement"
+        },
+        {
+          "id": "longshot:insurrection",
+          "word": "insurrection",
+          "definition": "a violent uprising or rebellion"
+        },
+        {
+          "id": "longshot:decree",
+          "word": "decree",
+          "definition": "an official order or command"
+        },
+        {
+          "id": "longshot:stronghold",
+          "word": "stronghold",
+          "definition": "a place that is strongly defended, a fortress"
+        },
+        {
+          "id": "longshot:emigration",
+          "word": "emigration",
+          "definition": "the act of leaving one's own country"
+        },
+        {
+          "id": "longshot:irate",
+          "word": "irate",
+          "definition": "angry, furious"
+        },
+        {
+          "id": "longshot:merely",
+          "word": "merely",
+          "definition": "only; just"
+        },
+        {
+          "id": "longshot:labyrinthine",
+          "word": "labyrinthine",
+          "definition": "complicated or confusing"
+        },
+        {
+          "id": "longshot:confinement",
+          "word": "confinement",
+          "definition": "imprisonment, captivity"
+        },
+        {
+          "id": "longshot:optimistic",
+          "word": "optimistic",
+          "definition": "hopeful and confident about the future"
+        },
+        {
+          "id": "longshot:remembrance",
+          "word": "remembrance",
+          "definition": "the act of remembering something; a memory"
+        },
+        {
+          "id": "longshot:enchantment",
+          "word": "enchantment",
+          "definition": "magic, charm, fascination"
+        },
+        {
+          "id": "longshot:abject",
+          "word": "abject",
+          "definition": "miserable, hopeless, awful"
+        },
+        {
+          "id": "longshot:yielding",
+          "word": "yielding",
+          "definition": "giving in to or complying with the requests of others"
+        },
+        {
+          "id": "longshot:ignominious",
+          "word": "ignominious",
+          "definition": "embarrassing, shameful"
+        },
+        {
+          "id": "longshot:pious",
+          "word": "pious",
+          "definition": "very religious or spiritual"
+        },
+        {
+          "id": "longshot:scatterbrained",
+          "word": "scatterbrained",
+          "definition": "disorganized, forgetful"
+        },
+        {
+          "id": "longshot:materialistic",
+          "word": "materialistic",
+          "definition": "excessively concerned with material possessions or money"
+        },
+        {
+          "id": "longshot:veranda",
+          "word": "veranda",
+          "definition": "a porch or balcony"
+        },
+        {
+          "id": "longshot:melodramatic",
+          "word": "melodramatic",
+          "definition": "exaggerated, sensationalized, or overemotional"
+        },
+        {
+          "id": "longshot:glut",
+          "word": "glut",
+          "definition": "an excess supply of something"
+        },
+        {
+          "id": "longshot:repose",
+          "word": "repose",
+          "definition": "rest, relaxation"
+        },
+        {
+          "id": "longshot:judgmental",
+          "word": "judgmental",
+          "definition": "having an excessively critical point of view; disapproving"
+        },
+        {
+          "id": "longshot:convoke",
+          "word": "convoke",
+          "definition": "to summon, to call together"
+        },
+        {
+          "id": "longshot:mocking",
+          "word": "mocking",
+          "definition": "making fun of someone or something in a cruel way"
+        },
+        {
+          "id": "longshot:fetter",
+          "word": "fetter",
+          "definition": "to restrict or restrain, to put in chains"
+        },
+        {
+          "id": "longshot:juvenile",
+          "word": "juvenile",
+          "definition": "young, childish, immature"
+        },
+        {
+          "id": "longshot:convulsion",
+          "word": "convulsion",
+          "definition": "a sudden, violent, irregular movement of the body"
+        },
+        {
+          "id": "longshot:immure",
+          "word": "immure",
+          "definition": "to imprison someone against their will"
+        },
+        {
+          "id": "longshot:solicitude",
+          "word": "solicitude",
+          "definition": "care or concern for someone or something"
+        },
+        {
+          "id": "longshot:tyranny",
+          "word": "tyranny",
+          "definition": "cruel and abusive government or rule"
+        },
+        {
+          "id": "longshot:inefficacious",
+          "word": "inefficacious",
+          "definition": "unable to produce the intended result"
+        },
+        {
+          "id": "longshot:bluster",
+          "word": "bluster",
+          "definition": "talk intended to seem important or threatening but which is not taken seriously and has little effect"
+        },
+        {
+          "id": "longshot:incantation",
+          "word": "incantation",
+          "definition": "a series of words said as a magic spell or charm"
+        },
+        {
+          "id": "longshot:obeisance",
+          "word": "obeisance",
+          "definition": "deep respect"
+        },
+        {
+          "id": "longshot:squalid",
+          "word": "squalid",
+          "definition": "extremely dirty, poor, and unpleasant"
+        },
+        {
+          "id": "longshot:swath",
+          "word": "swath",
+          "definition": "a long strip or area of something"
+        },
+        {
+          "id": "longshot:dominion",
+          "word": "dominion",
+          "definition": "1) control over a country or people 2) the land that belongs to a ruler"
+        },
+        {
+          "id": "longshot:egocentric",
+          "word": "egocentric",
+          "definition": "thinking only of oneself; self-centered"
+        },
+        {
+          "id": "longshot:paternal",
+          "word": "paternal",
+          "definition": "behaving or feeling as a father does toward his child"
+        },
+        {
+          "id": "longshot:miser",
+          "word": "miser",
+          "definition": "someone who has a great desire to possess money and hates to spend it"
+        },
+        {
+          "id": "longshot:sullen",
+          "word": "sullen",
+          "definition": "silent and unpleasant; depressed; gloomy"
+        },
+        {
+          "id": "longshot:progenitor",
+          "word": "progenitor",
+          "definition": "originator, creator, founder"
+        },
+        {
+          "id": "longshot:ancestral",
+          "word": "ancestral",
+          "definition": "belonging to or inherited from one's ancestors"
+        },
+        {
+          "id": "longshot:sentinel",
+          "word": "sentinel",
+          "definition": "a guard whose job is to stand and keep watch"
+        },
+        {
+          "id": "longshot:flatter",
+          "word": "flatter",
+          "definition": "to praise someone in order to please him or her"
+        },
+        {
+          "id": "longshot:pummel",
+          "word": "pummel",
+          "definition": "to hit someone or something repeatedly"
+        },
+        {
+          "id": "longshot:pulpit",
+          "word": "pulpit",
+          "definition": "a raised platform in a church from which the preacher speaks"
+        },
+        {
+          "id": "longshot:sneer",
+          "word": "sneer",
+          "definition": "to make a facial expression that shows disapproval or disrespect"
+        }
+      ]
+    }
+  ]
+}

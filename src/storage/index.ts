@@ -1,5 +1,7 @@
 import type { Attempt, ReviewItem } from '../types.ts'
 import type { WordBankEntry } from '../dictionary/wordBank.ts'
+import type { DeckCard } from '../review/deckScheduler.ts'
+import type { DeckReview } from '../review/deckQueue.ts'
 import { normalizeDailyState, type DailyState } from '../review/daily.ts'
 import type { ProgressionState } from '../progression/model.ts'
 import type { Level, SatDomain } from '../progression/config.ts'
@@ -509,6 +511,57 @@ export function isWordSaved(id: string): boolean {
   return id in getWordBank()
 }
 
+// --- Learning decks ---------------------------------------------------------
+// The two shipped vocabulary decks run Anki's scheduler, so what is stored is
+// what Anki stores: one row of scheduling state per card, and a review log of
+// every button ever pressed. The log is what the analysis screen is drawn from
+// - counts alone can say where a card is, but only the log can say how the
+// learner got it there.
+
+const DECK_CARDS_KEY = 'word-deck-cards'
+const DECK_REVLOG_KEY = 'word-deck-revlog'
+
+/** A year of button presses is plenty for every graph on the analysis screen. */
+const DECK_REVLOG_MAX_AGE_MS = 365 * 24 * 60 * 60 * 1000
+/** A hard ceiling as well, so a runaway session can't fill the storage quota. */
+const DECK_REVLOG_LIMIT = 20000
+
+export function getDeckCards(): Record<string, DeckCard> {
+  return storage.get<Record<string, DeckCard>>(DECK_CARDS_KEY) ?? {}
+}
+
+export function saveDeckCard(card: DeckCard): void {
+  storage.set(DECK_CARDS_KEY, { ...getDeckCards(), [card.id]: card })
+}
+
+export function getDeckReviews(): DeckReview[] {
+  return storage.get<DeckReview[]>(DECK_REVLOG_KEY) ?? []
+}
+
+/**
+ * File a button press. Trimming happens on write rather than on read so the
+ * analysis screen never pays for it, and old entries are dropped by age first
+ * so the graphs lose their tail rather than their most recent day.
+ */
+export function appendDeckReview(entry: DeckReview): void {
+  const cutoff = entry.at - DECK_REVLOG_MAX_AGE_MS
+  const log = [...getDeckReviews().filter((row) => row.at >= cutoff), entry]
+  storage.set(DECK_REVLOG_KEY, log.slice(-DECK_REVLOG_LIMIT))
+}
+
+/** Forget one deck entirely - its cards go back to unseen, its log is dropped. */
+export function resetDeck(deckId: string): void {
+  const cards = getDeckCards()
+  for (const id of Object.keys(cards)) {
+    if (cards[id].deckId === deckId) delete cards[id]
+  }
+  storage.set(DECK_CARDS_KEY, cards)
+  storage.set(
+    DECK_REVLOG_KEY,
+    getDeckReviews().filter((entry) => entry.deckId !== deckId),
+  )
+}
+
 // --- Daily return ------------------------------------------------------------
 // Which day the briefing was last shown and last finished, plus the streak.
 // Device-local on purpose: it records when you sat down, not what you know, so
@@ -588,6 +641,8 @@ export type CloudState = {
   reviews: Record<string, ReviewItem>
   examRecords?: PracticeExamRecord[]
   wordBank?: Record<string, WordBankEntry>
+  deckCards?: Record<string, DeckCard>
+  deckReviews?: DeckReview[]
 }
 
 // Cloud restoration is intentionally atomic from the sync listener's point of
@@ -603,6 +658,11 @@ export function replaceCloudState(state: CloudState): void {
     // sittings, not of earned progress.
     const preservedDaily = localStorage.getItem(namespacedKey(DAILY_KEY))
     const preservedWords = localStorage.getItem(namespacedKey(WORD_BANK_KEY))
+    // The learning decks have no cloud table yet, so a snapshot from another
+    // device carries no deck state - dropping what is here would throw away
+    // real work rather than replace it.
+    const preservedDeckCards = localStorage.getItem(namespacedKey(DECK_CARDS_KEY))
+    const preservedDeckLog = localStorage.getItem(namespacedKey(DECK_REVLOG_KEY))
     const preservedDictionary = localStorage.getItem(namespacedKey('dictionary-cache'))
     const preservedStudyPaths: { key: string; value: string }[] = []
     const studyPathPrefix = namespacedKey(`${STUDY_PATH_KEY}:`)
@@ -641,6 +701,16 @@ export function replaceCloudState(state: CloudState): void {
     }
     if (preservedDictionary) {
       localStorage.setItem(namespacedKey('dictionary-cache'), preservedDictionary)
+    }
+    const targetDeckCards =
+      state.deckCards !== undefined ? JSON.stringify(state.deckCards) : preservedDeckCards
+    if (targetDeckCards) {
+      localStorage.setItem(namespacedKey(DECK_CARDS_KEY), targetDeckCards)
+    }
+    const targetDeckLog =
+      state.deckReviews !== undefined ? JSON.stringify(state.deckReviews) : preservedDeckLog
+    if (targetDeckLog) {
+      localStorage.setItem(namespacedKey(DECK_REVLOG_KEY), targetDeckLog)
     }
     preservedStudyPaths.forEach(({ key, value }) => {
       localStorage.setItem(key, value)
@@ -682,6 +752,8 @@ export type ClarityDataBackup = {
   examRecords: PracticeExamRecord[]
   reviews: Record<string, ReviewItem>
   wordBank: Record<string, WordBankEntry>
+  deckCards: Record<string, DeckCard>
+  deckReviews: DeckReview[]
   lessonsSeen: Record<string, number>
   daily: DailyState
 }
@@ -695,6 +767,8 @@ export function exportAllData(): ClarityDataBackup {
     examRecords: getExamRecords(),
     reviews: getReviews(),
     wordBank: getWordBank(),
+    deckCards: getDeckCards(),
+    deckReviews: getDeckReviews(),
     lessonsSeen: getLessonsSeen(),
     daily: getDailyState(),
   }
@@ -729,12 +803,22 @@ export function importAllData(data: unknown): void {
       ? (raw.wordBank as Record<string, WordBankEntry>)
       : {}
 
+  const deckCards =
+    typeof raw.deckCards === 'object' && raw.deckCards !== null
+      ? (raw.deckCards as Record<string, DeckCard>)
+      : undefined
+  const deckReviews = Array.isArray(raw.deckReviews)
+    ? (raw.deckReviews as DeckReview[])
+    : undefined
+
   replaceCloudState({
     progression,
     attempts,
     reviews,
     examRecords,
     wordBank,
+    deckCards,
+    deckReviews,
   })
 
   if (raw.lessonsSeen && typeof raw.lessonsSeen === 'object') {
@@ -758,6 +842,8 @@ export function subscribeStorageChanges(listener: () => void): () => void {
       key === PROGRESSION_KEY ||
       key === REVIEWS_KEY ||
       key === WORD_BANK_KEY ||
+      key === DECK_CARDS_KEY ||
+      key === DECK_REVLOG_KEY ||
       key?.startsWith('attempts:') ||
       key?.startsWith('exam-records:') ||
       key?.startsWith('exam-draft:')
