@@ -554,86 +554,6 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
 }
 
 /* ==========================================================================
-   6 · THE HOLD. The one interactive moment: the visitor draws the 回 themselves,
-   and when the line closes, the question they missed comes back.
-   ========================================================================== */
-.hold{
-  padding-block:clamp(56px,9vh,120px) clamp(44px,7vh,92px);
-  border-top:1px solid var(--ink-10);
-  background:var(--paper-lift);
-}
-.hold .wrap{
-  display:grid; gap:clamp(34px,5vw,86px);
-  grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
-  align-items:center;
-}
-.hold h2{
-  font-family:'Cormorant Garamond',Georgia,serif; font-weight:300;
-  text-transform:uppercase; line-height:.92; letter-spacing:.005em;
-  font-size:clamp(34px,4vw,64px); margin:clamp(16px,2.4vh,26px) 0 0; text-wrap:balance;
-}
-.hold .body{margin-top:clamp(16px,2.2vh,24px); max-width:38ch}
-
-.hold-stage{display:flex; align-items:center; gap:clamp(24px,3.4vw,52px); flex-wrap:wrap}
-.holder{
-  position:relative; display:grid; place-items:center;
-  width:clamp(148px,15vw,200px); aspect-ratio:1;
-  background:none; border:0; padding:0; cursor:pointer;
-  touch-action:none; -webkit-tap-highlight-color:transparent;
-}
-.holder svg{width:100%; height:100%; overflow:visible}
-.holder .track{fill:none; stroke:var(--bronze-soft); stroke-width:2}
-.holder .draw{
-  fill:none; stroke:var(--patina); stroke-width:2.4;
-  stroke-dasharray:var(--len,600);
-  stroke-dashoffset:calc(var(--len,600) * (1 - var(--h,0)));
-}
-/* the drawn nested squares are the 回 themselves, so no glyph is set over them */
-.holder::before{
-  content:''; position:absolute; inset:6%;
-  border:1px solid var(--bronze); opacity:.18;
-  animation:breathe 5.5s var(--ease) -1.4s infinite;
-}
-.holder.done::before,.holder:active::before{animation:none; opacity:0}
-@keyframes breathe{
-  0%,100%{transform:scale(1);   opacity:.06}
-  50%    {transform:scale(1.05); opacity:.22}
-}
-.holder::after{
-  content:''; position:absolute; inset:-10px;
-  border:1px solid var(--bronze); opacity:0;
-  transition:opacity .4s var(--ease);
-}
-.holder:hover::after,.holder:focus-visible::after{opacity:.35}
-.hold-label{
-  font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500;
-  letter-spacing:.2em; text-transform:uppercase; color:var(--ink-58);
-  margin:14px 0 0; text-align:center;
-}
-.returned{
-  flex:1 1 260px; min-width:0;
-  border-left:2px solid var(--bronze); padding:4px 0 4px clamp(16px,2vw,26px);
-  opacity:calc(.2 + .8 * var(--h,0));
-  transform:translateY(calc((1 - var(--h,0)) * 10px));
-}
-.returned .q{
-  font-family:'Cormorant Garamond',Georgia,serif; font-size:clamp(19px,1.7vw,25px);
-  line-height:1.28; margin:0 0 12px;
-}
-.returned .a{margin:0; font-size:14.5px; line-height:1.62; color:var(--ink-58)}
-.returned .stamp{
-  display:inline-block; margin-top:16px; padding:5px 10px;
-  background:var(--patina-soft); color:var(--patina);
-  font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:500;
-  letter-spacing:.16em; text-transform:uppercase;
-  opacity:0; transition:opacity .5s var(--ease);
-}
-.holder.done ~ .returned .stamp,.hold-stage.done .stamp{opacity:1}
-@media (max-width:900px){
-  .hold .wrap{grid-template-columns:1fr}
-}
-
-/* ==========================================================================
    5 · WHY THE SAT. One claim, then the same three applicants at the same gate
    twice, with only the number on the file changed. The gate is drawn as 回,
    the page's own motif: a square with a square way through it. Everything
@@ -1316,7 +1236,7 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
     <div class="features-head">
       <p class="mono" style="margin:0">Features</p>
       <span class="fret thin" aria-hidden="true"></span>
-      <p class="mono count" style="margin:0">Four · 01–04</p>
+      <p class="mono count" style="margin:0">Three · 01–03</p>
     </div>
 
     <article class="feature rise">
@@ -1367,56 +1287,10 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
       </div>
     </article>
 
-    <article class="feature rise">
-      <figure class="feature-art">
-        <img src="/brand/landing/plate-04.jpg" width="1600" height="1067" loading="lazy"
-             alt="A river bending back on itself in a closed circle around a small island with one pavilion." />
-        <figcaption class="feature-chip">Loop / 04</figcaption>
-        <video class="feature-vid" data-src="/brand/landing/feat/f4-return-loop.mp4"
-               muted loop playsinline preload="none" aria-label="Screen recording: three missed questions coming back as the daily return."></video>
-      </figure>
-      <div class="feature-txt">
-        <p class="mono feature-idx">04 · Return loop</p>
-        <h2>What you miss returns</h2>
-        <p class="body">Missed questions and words come back on a schedule built around when people forget, so nothing quietly rots in an error log you never open.</p>
-        <p class="feature-foot"><span>Attempt · Reflect · Return</span></p>
-      </div>
-    </article>
-
     <div class="features-seal"><svg class="seal" aria-hidden="true"><use href="#seal"/></svg></div>
   </section>
 
-  <!-- 5 · THE HOLD --------------------------------------------------------- -->
-  <section class="hold" id="hold">
-    <div class="wrap">
-      <div class="rise">
-        <p class="mono" style="margin:0">The return, performed</p>
-        <h2>Watch a question come back</h2>
-        <p class="body">The bronze fret on an old vessel is one line that leaves and returns to itself. Hold it until it closes, and a question you got wrong two weeks ago comes back with it.</p>
-      </div>
-
-      <div class="hold-stage">
-        <div>
-          <button class="holder" id="holder" aria-describedby="hold-label">
-            <svg viewBox="0 0 120 120" aria-hidden="true">
-              <path class="track" d="M14 14 H106 V106 H14 Z M46 46 H74 V74 H46 Z" />
-              <path class="draw"  d="M14 14 H106 V106 H14 Z M46 46 H74 V74 H46 Z" />
-            </svg>
-            <span class="sr-only">Hold to close the loop</span>
-          </button>
-          <p class="mono hold-label" id="hold-label">Hold to close the loop</p>
-        </div>
-
-        <div class="returned">
-          <p class="q">You marked <em>tempered</em> as “softened” on August 2. In that passage it meant something closer to “held in check.”</p>
-          <p class="a">Same word, new sentence, fourteen days later. That gap is the whole method: long enough that recalling it is real work, short enough that you still can.</p>
-          <span class="stamp">Returned · Day 14</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 6 · CLOSE ------------------------------------------------------------ -->
+  <!-- 5 · CLOSE ------------------------------------------------------------ -->
   <section class="close">
     <div class="wrap">
       <p class="mono close-eyebrow">Focus · Reflect · Master</p>
@@ -1757,54 +1631,10 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
     loops.forEach(el => looping.observe(el));
   }
 
-  /* ---- the one interactive moment: hold until the fret closes ------------- */
-  const holder = document.getElementById('holder');
-  const drawn  = holder.querySelector('.draw');
-  const stageEl = holder.closest('.hold-stage');
-  const len = drawn.getTotalLength();
-  holder.style.setProperty('--len', len);
-  drawn.style.strokeDasharray = len;
-
-  let held = false, h = 0, holdRaf = null, holdLast = 0;
-  function setH(v) {
-    h = clamp(v, 0, 1);
-    holder.style.setProperty('--h', h);
-    stageEl.style.setProperty('--h', h);
-    if (h >= 1) { holder.classList.add('done'); stageEl.classList.add('done') }
-    else if (h < 0.98) { holder.classList.remove('done'); stageEl.classList.remove('done') }
-  }
-  function holdTick(now) {
-    const dt = Math.min(100, now - (holdLast || now));
-    holdLast = now;
-    setH(h + (held ? dt / 1400 : -dt / 900));     // release eases back, never snaps
-    if ((held && h < 1) || (!held && h > 0)) holdRaf = requestAnimationFrame(holdTick);
-    else { holdRaf = null; holdLast = 0 }
-  }
-  function startHold(e) {
-    if (e && e.cancelable) e.preventDefault();
-    held = true;
-    if (holdRaf === null) holdRaf = requestAnimationFrame(holdTick);
-  }
-  function endHold() {
-    held = false;
-    if (holdRaf === null && h > 0) holdRaf = requestAnimationFrame(holdTick);
-  }
-  holder.addEventListener('pointerdown', startHold);
-  addEventListener('pointerup', endHold);
-  addEventListener('pointercancel', endHold);
-  holder.addEventListener('keydown', e => {
-    if (e.key === ' ' || e.key === 'Enter') startHold(e);
-  });
-  holder.addEventListener('keyup', e => {
-    if (e.key === ' ' || e.key === 'Enter') endHold();
-  });
-  if (reduced.matches) setH(1);
-
   /* ---- reduced motion, honoured live and in both directions --------------- */
   function pinToFinalStates() {
     document.querySelectorAll('.rise,.stagger,.fret').forEach(el => el.classList.add('in'));
     document.querySelectorAll('.stagger').forEach(el => el.classList.add('settled'));
-    setH(1);
   }
   reduced.addEventListener('change', e => {
     if (e.matches) { pinToFinalStates(); disableScrub() }
