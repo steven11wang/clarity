@@ -38,6 +38,7 @@ const container = dom.window.document.getElementById('root')!
 const root = createRoot(container)
 const panels = {
   practice: createElement('p', null, 'Practice panel'),
+  drill: createElement('p', null, 'Drill panel'),
   exam: createElement('p', null, 'Exam panel'),
   lessons: createElement('p', null, 'Lessons panel'),
   reviews: createElement('p', null, 'Reviews panel'),
@@ -140,6 +141,7 @@ describe('persistent console shell', () => {
         shellRoot.render(createElement(ProgressDashboard, {
           activeView,
           examPanel: createElement('p', null, 'Embedded exam'),
+          drillPanel: createElement('p', null, 'Embedded drills'),
           lessonsPanel: createElement('p', null, 'Embedded lessons'),
           reviewsPanel: createElement('p', null, 'Embedded reviews'),
           wordsPanel: createElement('p', null, 'Embedded words'),
@@ -150,6 +152,8 @@ describe('persistent console shell', () => {
           onSelectDomain: () => {},
           onUpdateScore: () => {},
           onOpenPractice: () => {},
+          onOpenDrill: () => {},
+          onOpenVault: () => {},
           onOpenExam: () => {},
           onOpenLessons: () => {},
           onOpenWords: () => {},
@@ -243,6 +247,7 @@ describe('persistent console shell', () => {
       railRoot.render(createElement(ProgressDashboard, {
         activeView: 'practice',
         examPanel: createElement('p'),
+        drillPanel: createElement('p'),
         lessonsPanel: createElement('p'),
         reviewsPanel: createElement('p'),
         wordsPanel: createElement('p'),
@@ -253,6 +258,8 @@ describe('persistent console shell', () => {
         onSelectDomain: () => {},
         onUpdateScore: () => {},
         onOpenPractice: () => {},
+        onOpenDrill: () => {},
+        onOpenVault: () => {},
         onOpenExam: () => {},
         onOpenLessons: () => {},
         onOpenWords: () => {},
@@ -295,6 +302,7 @@ describe('persistent console shell', () => {
       navRoot.render(createElement(ProgressDashboard, {
         activeView: 'practice',
         examPanel: createElement('p'),
+        drillPanel: createElement('p'),
         lessonsPanel: createElement('p'),
         reviewsPanel: createElement('p'),
         wordsPanel: createElement('p'),
@@ -305,6 +313,8 @@ describe('persistent console shell', () => {
         onSelectDomain: () => {},
         onUpdateScore: () => {},
         onOpenPractice: () => {},
+        onOpenDrill: () => {},
+        onOpenVault: () => {},
         onOpenExam: () => {},
         onOpenLessons: () => {},
         onOpenWords: () => {},

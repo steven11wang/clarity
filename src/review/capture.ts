@@ -18,6 +18,7 @@ export const MISS_SOURCE_LABELS: Record<MissSource, string> = {
   lesson: 'Lesson example',
   exam: 'Practice exam',
   arena: 'Arena battle',
+  drill: 'Drill',
 }
 
 export function missSourceLabel(source: MissSource | undefined): string {

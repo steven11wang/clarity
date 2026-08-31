@@ -113,6 +113,7 @@ export type MissSource =
   | 'lesson'
   | 'exam'
   | 'arena'
+  | 'drill'
 
 // A question scheduled to resurface. Lives in its own store, keyed by
 // questionId, so the practice stream can weave due items back in.

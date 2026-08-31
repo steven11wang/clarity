@@ -32,6 +32,7 @@ const root = createRoot(container)
 const baseProps = {
   primaryView: 'practice' as const,
   examPanel: null,
+  drillPanel: null,
   reviewsPanel: null,
   wordsPanel: null,
   libraryPanel: null,
@@ -41,6 +42,8 @@ const baseProps = {
   progression: null,
   onProgressionChange: () => {},
   onOpenPractice: () => {},
+  onOpenDrill: () => {},
+  onOpenVault: () => {},
   onOpenExam: () => {},
   onOpenLessons: () => {},
   onOpenWords: () => {},

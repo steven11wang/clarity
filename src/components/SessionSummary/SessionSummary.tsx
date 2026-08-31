@@ -8,6 +8,10 @@ import './summary.css'
 type Props = {
   attempts: Attempt[]
   onPracticeMore: () => void
+  /** Overrides "Practice more" when the run came from somewhere with a name. */
+  practiceMoreLabel?: string
+  /** An extra route out, e.g. the vault after a drill. */
+  secondary?: { label: string; action: () => void }
   onDashboard: () => void
   // Set during a daily return, where the session is step one of two: the
   // continuation takes over as the primary action so the run doesn't end here.
@@ -18,6 +22,8 @@ type Props = {
 export function SessionSummary({
   attempts,
   onPracticeMore,
+  practiceMoreLabel,
+  secondary,
   onDashboard,
   continueLabel,
   onContinue,
@@ -90,7 +96,14 @@ export function SessionSummary({
           </>
         ) : (
           <>
-            <button className="button" type="button" onClick={onPracticeMore}>Practice more</button>
+            <button className="button" type="button" onClick={onPracticeMore}>
+              {practiceMoreLabel ?? 'Practice more'}
+            </button>
+            {secondary ? (
+              <button className="button button--quiet" type="button" onClick={secondary.action}>
+                {secondary.label}
+              </button>
+            ) : null}
             <button className="button button--quiet" type="button" onClick={onDashboard}>See dashboard</button>
           </>
         )}

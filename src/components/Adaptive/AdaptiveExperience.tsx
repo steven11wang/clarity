@@ -74,6 +74,7 @@ export type AdaptiveAttemptReference = {
 type AdaptiveExperienceProps = {
   primaryView: PrimaryConsoleView
   examPanel: ReactNode
+  drillPanel: ReactNode
   reviewsPanel: ReactNode
   wordsPanel: ReactNode
   libraryPanel: ReactNode
@@ -83,6 +84,8 @@ type AdaptiveExperienceProps = {
   progression: ProgressionState | null
   onProgressionChange: (state: ProgressionState) => void
   onOpenPractice: () => void
+  onOpenDrill: () => void
+  onOpenVault: () => void
   onOpenExam: () => void
   onOpenLessons: () => void
   onOpenWords: () => void
@@ -153,6 +156,7 @@ type ContentFailure = {
 export function AdaptiveExperience({
   primaryView,
   examPanel,
+  drillPanel,
   reviewsPanel,
   wordsPanel,
   libraryPanel,
@@ -162,6 +166,8 @@ export function AdaptiveExperience({
   progression,
   onProgressionChange,
   onOpenPractice,
+  onOpenDrill,
+  onOpenVault,
   onOpenExam,
   onOpenLessons,
   onOpenWords,
@@ -1092,6 +1098,7 @@ export function AdaptiveExperience({
     <ProgressDashboard
       activeView={shellActiveView}
       examPanel={examPanel}
+      drillPanel={drillPanel}
       lessonsPanel={lessonsPanel}
       reviewsPanel={reviewsPanel}
       wordsPanel={wordsPanel}
@@ -1102,6 +1109,8 @@ export function AdaptiveExperience({
       onSelectDomain={chooseDomain}
       onUpdateScore={() => setIsUpdatingScore(true)}
       onOpenPractice={() => openPrimaryView(onOpenPractice)}
+      onOpenDrill={() => openPrimaryView(onOpenDrill)}
+      onOpenVault={() => openPrimaryView(onOpenVault)}
       onOpenExam={() => openPrimaryView(onOpenExam)}
       onOpenLessons={() => openPrimaryView(onOpenLessons)}
       onOpenWords={() => openPrimaryView(onOpenWords)}

@@ -1,0 +1,416 @@
+/* --- Drills ---------------------------------------------------------------
+   The build screen for a self-made set. It sits inside the console shell, so
+   it borrows the shell's tokens rather than introducing a second palette: one
+   cobalt accent for anything you press, navy-tinted depth, Geist's ladder.
+
+   The screen reads as two halves - the target on the left, the run on the
+   right - and resolves into one readout that says exactly what pressing start
+   will hand you. */
+
+.drill {
+  display: block;
+  margin: 0;
+  max-width: 940px;
+  padding: clamp(1.75rem, 4vw, 3rem) 0 3.5rem;
+}
+
+.drill__back {
+  align-items: center;
+  background: none;
+  border: 0;
+  color: var(--text-3);
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: 0.85rem;
+  gap: 0.4rem;
+  margin: 0 0 1.1rem -0.35rem;
+  padding: 0.3rem 0.35rem;
+  transition: color 0.16s var(--ease-out);
+}
+
+.drill__back:hover { color: var(--text-1); }
+.drill__back svg { transition: transform 0.2s var(--ease-spring); }
+.drill__back:hover svg { transform: translateX(-3px); }
+
+.drill__head h1 {
+  font-size: clamp(2.1rem, 3.6vw, 3rem);
+  font-weight: 400;
+  letter-spacing: -0.028em;
+  line-height: 1.06;
+  margin: 0 0 0.85rem;
+  text-wrap: balance;
+}
+
+.drill__head p {
+  color: var(--text-2);
+  font-size: 0.98rem;
+  line-height: 1.62;
+  margin: 0;
+  max-width: 62ch;
+}
+
+.drill__body {
+  align-items: start;
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.75rem);
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  margin-top: clamp(1.75rem, 3.4vw, 2.75rem);
+}
+
+.drill__target,
+.drill__run {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* --- One choice group ----------------------------------------------------- */
+
+.drill-group__label {
+  color: var(--text-3);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  margin: 0 0 0.7rem;
+  text-transform: uppercase;
+}
+
+.drill-group__hint {
+  color: var(--text-3);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  margin: 0.7rem 0 0;
+  max-width: 46ch;
+}
+
+.drill-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.drill-options--rows {
+  display: grid;
+  gap: 0.4rem;
+  grid-template-columns: 1fr;
+}
+
+.drill-option {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.022);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-pill);
+  color: var(--text-2);
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 450;
+  gap: 0.55rem;
+  letter-spacing: -0.008em;
+  min-height: 40px;
+  padding: 0.35rem 0.95rem;
+  transition:
+    background 0.18s var(--ease-out),
+    border-color 0.18s var(--ease-out),
+    color 0.18s var(--ease-out);
+}
+
+.drill-options--rows .drill-option {
+  border-radius: var(--r-md);
+  justify-content: space-between;
+  padding: 0.6rem 1rem;
+  text-align: left;
+}
+
+.drill-option:hover {
+  border-color: var(--line-2);
+  color: var(--text-1);
+}
+
+.drill-option:focus-visible {
+  outline: 2px solid var(--cobalt-light);
+  outline-offset: 2px;
+}
+
+.drill-option--on {
+  background: var(--cobalt-wash);
+  border-color: color-mix(in srgb, var(--cobalt) 62%, transparent);
+  color: var(--text-1);
+  font-weight: 550;
+}
+
+/* --- The readout ---------------------------------------------------------
+   Everything above resolves here: how many questions you are about to get,
+   how long that takes, and the one control that starts it. */
+
+.drill__readout {
+  background: var(--glass-surface);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-1), var(--glass-sheen);
+  padding: 1.35rem 1.4rem 1.4rem;
+}
+
+.drill__readout-line {
+  align-items: baseline;
+  display: flex;
+  gap: 0.75rem;
+  margin: 0 0 1.15rem;
+}
+
+.drill__readout-line strong {
+  animation: drillCount 0.42s var(--ease-out) both;
+  color: var(--text-1);
+  font-size: 3.1rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 350;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.drill__readout-line > span {
+  color: var(--text-2);
+  display: flex;
+  flex-direction: column;
+  font-size: 0.92rem;
+  gap: 0.3rem;
+  letter-spacing: -0.006em;
+}
+
+.drill__readout-line b {
+  align-items: center;
+  color: var(--text-3);
+  display: inline-flex;
+  font-size: 0.8rem;
+  font-weight: 450;
+  gap: 0.35rem;
+}
+
+.drill__warn {
+  border-top: 1px solid var(--line-1);
+  color: var(--console-amber);
+  font-size: 0.83rem;
+  line-height: 1.55;
+  margin: 0 0 1.1rem;
+  padding-top: 0.9rem;
+}
+
+.drill__start {
+  align-items: center;
+  background: var(--cobalt);
+  border: 1px solid var(--cobalt);
+  border-radius: var(--r-pill);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 550;
+  gap: 0.5rem;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0.5rem 1.2rem;
+  transition:
+    background 0.18s var(--ease-out),
+    transform 0.18s var(--ease-spring);
+  width: 100%;
+}
+
+.drill__start:hover:not(:disabled) { background: #3d72e8; transform: translateY(-1px); }
+.drill__start:active:not(:disabled) { transform: translateY(1px); }
+.drill__start svg { transition: transform 0.22s var(--ease-spring); }
+.drill__start:hover:not(:disabled) svg { transform: translateX(3px); }
+
+.drill__start:disabled {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--line-1);
+  color: var(--text-3);
+  cursor: not-allowed;
+}
+
+.drill__vault {
+  background: none;
+  border: 0;
+  color: var(--text-3);
+  cursor: pointer;
+  display: block;
+  font: inherit;
+  font-size: 0.83rem;
+  margin: 0.9rem auto 0;
+  padding: 0.2rem 0.3rem;
+  text-decoration: underline;
+  text-decoration-color: var(--line-3);
+  text-underline-offset: 4px;
+  transition: color 0.16s var(--ease-out), text-decoration-color 0.16s var(--ease-out);
+}
+
+.drill__vault:hover {
+  color: var(--text-1);
+  text-decoration-color: var(--cobalt-light);
+}
+
+@keyframes drillCount {
+  from { opacity: 0; transform: translateY(0.28em); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 880px) {
+  .drill__body { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drill__readout-line strong { animation: none; }
+  .drill__back svg { transition: none; }
+  .drill__back:hover svg { transform: none; }
+  .drill__start,
+  .drill__start svg { transition: none; }
+  .drill__start:hover:not(:disabled),
+  .drill__start:active:not(:disabled) { transform: none; }
+  .drill__start:hover:not(:disabled) svg { transform: none; }
+}
+
+/* --- The verdict between questions ---------------------------------------
+   Shown in place of the question the moment an answer is committed. It is a
+   beat, not a screen: one word of verdict, the choice that was right, and the
+   control that moves on - already focused, so a keyboard run never leaves the
+   rhythm. Mint means clear, amber means it comes back; the same two semantic
+   colours the rest of the console uses. */
+
+.drill-verdict {
+  --verdict: var(--console-online);
+  margin: 0 auto;
+  max-width: 46rem;
+  padding: clamp(1.5rem, 4vw, 2.5rem) 0 1rem;
+}
+
+.drill-verdict--missed,
+.drill-verdict--timeout { --verdict: var(--console-amber); }
+
+.drill-verdict__count {
+  color: var(--text-3);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  margin: 0 0 0.9rem;
+}
+
+.drill-verdict__prompt {
+  color: var(--text-2);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  margin: 0 0 1.1rem;
+  max-width: 60ch;
+}
+
+.drill-verdict__headline {
+  align-items: center;
+  display: flex;
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  font-weight: 400;
+  gap: 0.7rem;
+  letter-spacing: -0.028em;
+  margin: 0 0 1.5rem;
+}
+
+.drill-verdict__mark {
+  align-items: center;
+  background: color-mix(in srgb, var(--verdict) 16%, transparent);
+  border-radius: var(--r-pill);
+  color: var(--verdict);
+  display: inline-flex;
+  height: 2.1rem;
+  justify-content: center;
+  width: 2.1rem;
+}
+
+.drill-verdict__answers {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0 0 1.35rem;
+}
+
+.drill-verdict__answer {
+  background: rgba(255, 255, 255, 0.022);
+  border: 1px solid var(--line-1);
+  border-radius: var(--r-md);
+  padding: 0.85rem 1rem;
+}
+
+.drill-verdict__answer dt {
+  color: var(--text-3);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  margin-bottom: 0.45rem;
+  text-transform: uppercase;
+}
+
+.drill-verdict__answer dd {
+  align-items: baseline;
+  color: var(--text-1);
+  display: flex;
+  font-size: 0.97rem;
+  gap: 0.7rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.drill-verdict__answer dd b {
+  color: var(--text-3);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.drill-verdict__answer--key {
+  background: color-mix(in srgb, var(--verdict) 9%, transparent);
+  border-color: color-mix(in srgb, var(--verdict) 34%, transparent);
+}
+
+.drill-verdict__answer--key dd b { color: var(--verdict); }
+
+.drill-verdict__answer--yours dd { color: var(--text-2); }
+
+.drill-verdict__note {
+  color: var(--text-3);
+  font-size: 0.87rem;
+  line-height: 1.6;
+  margin: 0 0 1.6rem;
+  max-width: 54ch;
+}
+
+.drill-verdict__next {
+  align-items: center;
+  background: var(--cobalt);
+  border: 1px solid var(--cobalt);
+  border-radius: var(--r-pill);
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 550;
+  gap: 0.5rem;
+  min-height: 46px;
+  padding: 0.5rem 1.45rem;
+  transition: background 0.18s var(--ease-out), transform 0.18s var(--ease-spring);
+}
+
+.drill-verdict__next:hover { background: #3d72e8; transform: translateY(-1px); }
+.drill-verdict__next:active { transform: translateY(1px); }
+.drill-verdict__next svg { transition: transform 0.22s var(--ease-spring); }
+.drill-verdict__next:hover svg { transform: translateX(3px); }
+
+.drill-verdict__next:focus-visible {
+  outline: 2px solid var(--cobalt-light);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drill-verdict__next,
+  .drill-verdict__next svg { transition: none; }
+  .drill-verdict__next:hover,
+  .drill-verdict__next:active { transform: none; }
+  .drill-verdict__next:hover svg { transform: none; }
+}

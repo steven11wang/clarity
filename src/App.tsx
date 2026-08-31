@@ -11,6 +11,8 @@ import {
   DailyReturnPill,
   DailyWords,
 } from './components/DailyReview/DailyReview.tsx'
+import { DrillPanel } from './components/Drill/DrillPanel.tsx'
+import { DrillVerdict } from './components/Drill/DrillVerdict.tsx'
 import { PracticeExamPanel } from './components/Exam/PracticeExamPanel.tsx'
 import { Library } from './components/Library/Library.tsx'
 import type { PrimaryConsoleView } from './components/Adaptive/primaryViewTransition.ts'
@@ -23,6 +25,12 @@ import { QuestionInteraction } from './components/QuestionInteraction/QuestionIn
 import { firstPassAttempt } from './components/QuestionInteraction/model.ts'
 import { SessionSummary } from './components/SessionSummary/SessionSummary.tsx'
 import { loadQuestions } from './data/questions.ts'
+import {
+  DEFAULT_DRILL_SETUP,
+  lastSeenAt,
+  normalizeDrillSetup,
+  type DrillSetup,
+} from './drill/setup.ts'
 import { normalizeProgression, type ProgressionState } from './progression/model.ts'
 import { buildTaxonomy } from './progression/questions.ts'
 import {
@@ -38,7 +46,9 @@ import { applyReview, isClean, scheduleMistake } from './review/schedule.ts'
 import { buildStream, type StreamItem } from './review/stream.ts'
 import {
   getActiveView,
+  getAttempts,
   getDailyState,
+  getDrillSetup,
   getProgression,
   getReview,
   getReviews,
@@ -47,6 +57,7 @@ import {
   now,
   recordAttempt,
   saveDailyState,
+  saveDrillSetup,
   saveProgression,
   saveReview,
   setActiveView,
@@ -63,6 +74,7 @@ type View =
   | 'lessons'
   | 'browse'
   | 'practice'
+  | 'drill'
   | 'exam'
   | 'reviews'
   | 'reflect'
@@ -74,6 +86,7 @@ const VALID_VIEWS: View[] = [
   'lessons',
   'browse',
   'practice',
+  'drill',
   'exam',
   'reviews',
   'reflect',
@@ -125,6 +138,19 @@ function App() {
   const [reviewIndex, setReviewIndex] = useState(0)
   const [sessionAttempts, setSessionAttempts] = useState<Attempt[]>([])
 
+  // A drill is the same session engine with two differences: it answers back
+  // after every question, and its own clock overrides the global timed-mode
+  // setting for the length of the run.
+  const [sessionKind, setSessionKind] = useState<'standard' | 'drill'>('standard')
+  const [sessionClock, setSessionClock] = useState<{ timed: boolean; limitSec: number } | null>(null)
+  const [drillId, setDrillId] = useState<string | null>(null)
+  const [drillVerdict, setDrillVerdict] = useState<
+    { item: StreamItem; firstPass: FirstPass; answers: Record<string, FirstPass> } | null
+  >(null)
+  const [drillSetup, setDrillSetupState] = useState<DrillSetup>(
+    () => normalizeDrillSetup(getDrillSetup()),
+  )
+
   const [demoMode, setDemoModeState] = useState(false)
   const [timedMode, setTimedModeState] = useState(false)
   const [timeLimitSec, setTimeLimitState] = useState(90)
@@ -170,6 +196,15 @@ function App() {
       ).length,
     [reviewSnapshot],
   )
+
+  // Freshness for drills: the last time each question was answered, so a
+  // repeat drill on the same target works through the bank instead of dealing
+  // the same ten questions again.
+  const drillSeen = useMemo(() => {
+    void reviewsVersion
+    void view
+    return lastSeenAt(getAttempts())
+  }, [reviewsVersion, view])
 
   // Everything still on the ladder, due or not - what the vault would show if
   // you opened it right now. A retired question (stage -1) is off the books.
@@ -233,7 +268,13 @@ function App() {
     setView('adaptive')
   }
 
-  function startSession(subset: Question[]) {
+  type SessionOptions = {
+    kind?: 'standard' | 'drill'
+    clock?: { timed: boolean; limitSec: number } | null
+    activityId?: string | null
+  }
+
+  function startSession(subset: Question[], options: SessionOptions = {}) {
     setStream(buildStream(subset, getReviews(), now()))
     setAnswerIndex(0)
     setAnswers({})
@@ -241,7 +282,31 @@ function App() {
     setReviewIndex(0)
     setSessionAttempts([])
     setSessionPhase('answer')
+    setSessionKind(options.kind ?? 'standard')
+    setSessionClock(options.clock ?? null)
+    setDrillId(options.activityId ?? null)
+    setDrillVerdict(null)
     setView('practice')
+  }
+
+  function changeDrillSetup(next: DrillSetup) {
+    saveDrillSetup(next)
+    setDrillSetupState(next)
+  }
+
+  // The drill set is chosen against the target, then handed to the same stream
+  // builder as any other set, so a question that happens to be due resurfaces
+  // shuffled inside the drill instead of being counted twice.
+  function startDrill(setup: DrillSetup, drillQuestions: Question[]) {
+    changeDrillSetup(setup)
+    startSession(drillQuestions, {
+      kind: 'drill',
+      clock:
+        setup.secondsPerQuestion === null
+          ? { timed: false, limitSec: timeLimitSec }
+          : { timed: true, limitSec: setup.secondsPerQuestion },
+      activityId: `drill:${Date.now()}`,
+    })
   }
 
   function updateProgression(next: ProgressionState) {
@@ -382,8 +447,10 @@ function App() {
   // Record + schedule a completed attempt. Correct answers are finalized right
   // after the answer pass; missed ones after their review.
   function finalizeAttempt(attempt: Attempt, item: StreamItem) {
-    recordAttempt(attempt)
-    setSessionAttempts((prev) => [...prev, attempt])
+    const inDrill = sessionKind === 'drill'
+    const logged = inDrill && drillId ? { ...attempt, activityId: drillId } : attempt
+    recordAttempt(logged)
+    setSessionAttempts((prev) => [...prev, logged])
 
     const demo = getSettings().demoMode
     const existing = getReview(attempt.questionId)
@@ -394,12 +461,12 @@ function App() {
     } else if (attempt.timedOut) {
       saveReview({
         ...scheduleMistake(existing, attempt.questionId, 'timeout', demo, nowTs),
-        source: 'practice',
+        source: inDrill ? 'drill' : 'practice',
       })
     } else if (!attempt.correct) {
       saveReview({
         ...scheduleMistake(existing, attempt.questionId, 'miss', demo, nowTs),
-        source: 'practice',
+        source: inDrill ? 'drill' : 'practice',
       })
     }
     setReviewsVersion((v) => v + 1)
@@ -409,11 +476,27 @@ function App() {
     const item = stream[answerIndex]
     const next = { ...answers, [item.question.id]: firstPass }
     setAnswers(next)
+    // A drill says right or wrong first; everything else runs the answer pass
+    // straight through and holds every verdict for the review.
+    if (sessionKind === 'drill') {
+      setDrillVerdict({ item, firstPass, answers: next })
+      return
+    }
+    advanceAnswerPass(next)
+  }
+
+  function advanceAnswerPass(allAnswers: Record<string, FirstPass>) {
     if (answerIndex + 1 < stream.length) {
       setAnswerIndex((i) => i + 1)
     } else {
-      finishAnswerPass(next)
+      finishAnswerPass(allAnswers)
     }
+  }
+
+  function leaveDrillVerdict() {
+    const pending = drillVerdict
+    setDrillVerdict(null)
+    if (pending) advanceAnswerPass(pending.answers)
   }
 
   function finishAnswerPass(allAnswers: Record<string, FirstPass>) {
@@ -528,6 +611,7 @@ function App() {
   if (view !== 'practice') {
     const PRIMARY_VIEW_BY_VIEW: Partial<Record<View, PrimaryConsoleView>> = {
       lessons: 'lessons',
+      drill: 'drill',
       exam: 'exam',
       reviews: 'reviews',
       reflect: 'reflect',
@@ -545,6 +629,18 @@ function App() {
             <PracticeExamPanel
               onBack={() => setView('adaptive')}
               onOpenWords={() => setView('words')}
+            />
+          )}
+          drillPanel={(
+            <DrillPanel
+              questions={questions}
+              seen={drillSeen}
+              setup={drillSetup}
+              onChangeSetup={changeDrillSetup}
+              onStart={startDrill}
+              onBack={() => setView('adaptive')}
+              onOpenVault={() => setView('reviews')}
+              vaultOpenCount={filedNow}
             />
           )}
           libraryPanel={(
@@ -594,6 +690,8 @@ function App() {
           progression={progression}
           onProgressionChange={updateProgression}
           onOpenPractice={() => setView('adaptive')}
+          onOpenDrill={() => setView('drill')}
+          onOpenVault={() => setView('reviews')}
           onOpenExam={() => setView('exam')}
           onOpenLessons={() => setView('lessons')}
           onOpenWords={() => setView('words')}
@@ -626,11 +724,19 @@ function App() {
         : { label: 'Finish today’s return', action: () => finishDailyReturn(0) }
       : null
 
+    const drillEnd = sessionKind === 'drill' && !daily
+
     return (
       <>
         <SessionSummary
           attempts={sessionAttempts}
-          onPracticeMore={() => setView('browse')}
+          onPracticeMore={() => setView(drillEnd ? 'drill' : 'browse')}
+          practiceMoreLabel={drillEnd ? 'Build another drill' : undefined}
+          secondary={
+            drillEnd
+              ? { label: 'Open the mistake vault', action: () => setView('reviews') }
+              : undefined
+          }
           onDashboard={() => setView('adaptive')}
           continueLabel={daily?.label}
           onContinue={daily?.action}
@@ -641,7 +747,12 @@ function App() {
 
   const header = (
     <header className="app-header">
-      <button className="wordmark wordmark--button" type="button" onClick={() => setView('browse')} aria-label="Back to Browse">
+      <button
+        className="wordmark wordmark--button"
+        type="button"
+        onClick={() => setView(sessionKind === 'drill' ? 'drill' : 'browse')}
+        aria-label={sessionKind === 'drill' ? 'Back to Drills' : 'Back to Browse'}
+      >
         clarity<span>.</span>
       </button>
       <button className="link-button" type="button" onClick={() => setView('adaptive')}>Dashboard</button>
@@ -665,6 +776,28 @@ function App() {
               Start the review →
             </button>
           </section>
+        </main>
+      </>
+    )
+  }
+
+  // Between two drill questions the verdict replaces the card entirely: the
+  // question has been answered, so re-reading the passage is not the point.
+  if (drillVerdict) {
+    const answered = Object.values(drillVerdict.answers)
+    return (
+      <>
+        <main className="app-shell">
+          {header}
+          <DrillVerdict
+            question={drillVerdict.item.question}
+            isReview={drillVerdict.item.isReview}
+            firstPass={drillVerdict.firstPass}
+            position={answered.length}
+            total={stream.length}
+            correctSoFar={answered.filter((pass) => pass.correct).length}
+            onContinue={leaveDrillVerdict}
+          />
         </main>
       </>
     )
@@ -714,8 +847,8 @@ function App() {
               key={item.question.id}
               question={item.question}
               isReview={item.isReview}
-              timedMode={timedMode}
-              timeLimitSec={timeLimitSec}
+              timedMode={sessionClock ? sessionClock.timed : timedMode}
+              timeLimitSec={sessionClock ? sessionClock.limitSec : timeLimitSec}
               onAnswer={handleAnswer}
             />
           )}

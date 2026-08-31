@@ -445,6 +445,7 @@ a:hover { color: #ffffff; }
 .console-dashboard--domain-1 { --hero-accent: #4f93e0; }
 .console-dashboard--domain-2 { --hero-accent: #8fb84a; }
 .console-dashboard--domain-3 { --hero-accent: #8f7ad0; }
+.console-dashboard--drill { --hero-accent: #7b66dd; }
 .console-dashboard--lessons { --hero-accent: #6f9bf0; }
 .console-dashboard--reviews { --hero-accent: #d4a94e; }
 

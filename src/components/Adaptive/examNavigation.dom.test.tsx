@@ -48,6 +48,7 @@ function render(activeView: 'practice' | 'exam') {
     root.render(createElement(ProgressDashboard, {
       activeView,
       examPanel: createElement('p', null, 'Practice exam panel'),
+      drillPanel: null,
       lessonsPanel: createElement('p', null, 'Lessons panel'),
       reviewsPanel: null,
       wordsPanel: null,
@@ -58,6 +59,8 @@ function render(activeView: 'practice' | 'exam') {
       onSelectDomain: () => {},
       onUpdateScore: () => {},
       onOpenPractice: () => {},
+      onOpenDrill: () => {},
+      onOpenVault: () => {},
       onOpenExam: () => { examOpens += 1 },
       onOpenLessons: () => {},
       onOpenWords: () => {},

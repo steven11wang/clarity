@@ -14,6 +14,7 @@ import {
   GraduationCap,
   House,
   Search,
+  Timer,
   Type as TypeIcon,
   UserRound,
 } from 'lucide-react'
@@ -45,6 +46,7 @@ export type DomainCardView = {
 type ProgressDashboardProps = {
   activeView: PrimaryConsoleView
   examPanel: ReactNode
+  drillPanel: ReactNode
   lessonsPanel: ReactNode
   reviewsPanel: ReactNode
   wordsPanel: ReactNode
@@ -55,6 +57,8 @@ type ProgressDashboardProps = {
   onSelectDomain: (domain: SatDomain) => void
   onUpdateScore: () => void
   onOpenPractice: () => void
+  onOpenDrill: () => void
+  onOpenVault: () => void
   onOpenExam: () => void
   onOpenLessons: () => void
   onOpenWords: () => void
@@ -66,6 +70,7 @@ type ProgressDashboardProps = {
 type ConsoleSelection =
   | { kind: 'today' }
   | { kind: 'domain'; domain: SatDomain }
+  | { kind: 'drill' }
   | { kind: 'exam' }
 
 // One icon family (Lucide) at one stroke weight, instead of Unicode glyphs.
@@ -74,6 +79,9 @@ type ConsoleSelection =
 const TILE_ICON_SIZE = 26
 const TILE_ICONS = [Search, BookOpen, GitMerge, TypeIcon]
 const EXAM_TILE_ACCENT = '#f0b64d'
+// Drills are the student's own set rather than a path or the exam, so the tile
+// carries its own colour instead of borrowing a domain's.
+const DRILL_TILE_ACCENT = '#6f5bd6'
 const HERO_BACKGROUND_LEAD_MS = 180
 const HERO_TEXT_SETTLE_MS = 320
 
@@ -90,6 +98,8 @@ function buildHero(
   onSelectDomain: (domain: SatDomain) => void,
   onOpenExam: () => void,
   onOpenLibrary: () => void,
+  onOpenDrill: () => void,
+  onOpenVault: () => void,
 ) {
   if (selection.kind === 'today') {
     const next = cards.find((card) => card.recommended) ?? cards[0]
@@ -101,6 +111,17 @@ function buildHero(
       secondary: 'Open the Learn shelf',
       primaryAction: () => onSelectDomain(next.domain),
       secondaryAction: onOpenLibrary,
+    }
+  }
+  if (selection.kind === 'drill') {
+    return {
+      kicker: 'DRILLS · YOUR OWN SET',
+      title: 'Build the set you actually need.',
+      body: 'Pick a domain, a skill and a difficulty, say how many questions and how long you get for each. You see right or wrong as you go, work the misses at the end, and every one of them files into your mistake vault.',
+      primary: 'Build a drill',
+      secondary: 'Open the mistake vault',
+      primaryAction: onOpenDrill,
+      secondaryAction: onOpenVault,
     }
   }
   if (selection.kind === 'exam') {
@@ -134,6 +155,7 @@ function buildHero(
 export function ProgressDashboard({
   activeView,
   examPanel,
+  drillPanel,
   lessonsPanel,
   reviewsPanel,
   wordsPanel,
@@ -144,6 +166,8 @@ export function ProgressDashboard({
   onSelectDomain,
   onUpdateScore,
   onOpenPractice,
+  onOpenDrill,
+  onOpenVault,
   onOpenExam,
   onOpenLessons,
   onOpenWords,
@@ -184,11 +208,15 @@ export function ProgressDashboard({
     onSelectDomain,
     onOpenExam,
     onOpenLibrary,
+    onOpenDrill,
+    onOpenVault,
   ), [
     cards,
     heroSelection,
+    onOpenDrill,
     onOpenExam,
     onOpenLibrary,
+    onOpenVault,
     onSelectDomain,
     securedSkills,
     totalSkills,
@@ -241,6 +269,13 @@ export function ProgressDashboard({
       accent: DOMAIN_PRESENTATION[card.domain].accent,
       card,
     })),
+    {
+      label: 'Drills',
+      Mark: Timer,
+      selection: { kind: 'drill' },
+      game: true,
+      accent: DRILL_TILE_ACCENT,
+    },
     {
       label: 'Practice exam',
       Mark: ClipboardCheck,
@@ -347,13 +382,15 @@ export function ProgressDashboard({
           </button>
           <button
             className={
-              activeView === 'practice' || activeView === 'exam'
+              activeView === 'practice' || activeView === 'exam' || activeView === 'drill'
                 ? 'console-nav__active'
                 : undefined
             }
             type="button"
             aria-current={
-              activeView === 'practice' || activeView === 'exam' ? 'page' : undefined
+              activeView === 'practice' || activeView === 'exam' || activeView === 'drill'
+                ? 'page'
+                : undefined
             }
             onClick={() => {
               setSelection({ kind: 'today' })
@@ -585,6 +622,7 @@ export function ProgressDashboard({
       </section>
             </>
           ),
+          drill: drillPanel,
           exam: examPanel,
           lessons: learnShell('lessons', lessonsPanel),
           reviews: reviewsPanel,

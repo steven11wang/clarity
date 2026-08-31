@@ -3,6 +3,7 @@ import type { WordBankEntry } from '../dictionary/wordBank.ts'
 import type { DeckCard } from '../review/deckScheduler.ts'
 import type { DeckReview } from '../review/deckQueue.ts'
 import { normalizeDailyState, type DailyState } from '../review/daily.ts'
+import type { DrillSetup } from '../drill/setup.ts'
 import type { ProgressionState } from '../progression/model.ts'
 import type { Level, SatDomain } from '../progression/config.ts'
 import type { SkillQuizPurpose } from '../progression/model.ts'
@@ -454,6 +455,20 @@ export function getActiveView<T extends string = string>(): T | null {
 
 export function setActiveView(view: string): void {
   storage.set(ACTIVE_VIEW_KEY, view)
+}
+
+// --- Drill setup ------------------------------------------------------------
+// The last drill the student built, so the setup screen opens on the target
+// they were already working rather than resetting to the mixed default.
+
+const DRILL_SETUP_KEY = 'drill-setup'
+
+export function getDrillSetup(): unknown {
+  return storage.get<unknown>(DRILL_SETUP_KEY)
+}
+
+export function saveDrillSetup(setup: DrillSetup): void {
+  storage.set(DRILL_SETUP_KEY, setup)
 }
 
 // --- Foundations lessons ----------------------------------------------------
