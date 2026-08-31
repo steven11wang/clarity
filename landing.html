@@ -486,9 +486,27 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
 }
 .feature-art img{
   width:100%; height:auto; aspect-ratio:3/2; object-fit:cover;
-  transition:transform 1.4s var(--ease);
+  transition:transform 1.4s var(--ease), opacity .55s var(--ease), filter .55s var(--ease);
 }
 .feature:hover .feature-art img{transform:scale(1.022)}
+
+/* the plate dissolving into the recording it stands for. The video sits over
+   the still, under the corner marks, and only exists once someone asks. */
+.feature-vid{
+  position:absolute; inset:0; z-index:1;
+  width:100%; height:100%; object-fit:cover;
+  background:var(--ink);
+  opacity:0; transform:scale(1.045); pointer-events:none;
+  transition:opacity .62s var(--ease), transform 1.1s var(--ease);
+}
+.feature-art.playing .feature-vid{opacity:1; transform:scale(1)}
+.feature .feature-art.playing img{opacity:0; transform:scale(1.05); filter:blur(3px)}
+
+@media (prefers-reduced-motion:reduce){
+  .feature-vid,.feature-art img{transition:opacity .2s linear}
+  .feature-art.playing .feature-vid{transform:none}
+  .feature .feature-art.playing img{transform:none; filter:none}
+}
 .feature-art::before,.feature-art::after{
   content:''; position:absolute; width:16px; height:16px; z-index:2;
   border:1px solid var(--bronze); opacity:0;
@@ -1306,6 +1324,8 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
         <img src="/brand/landing/plate-01.jpg" width="1600" height="1067" loading="lazy"
              alt="A stone path climbing an ink mountain in stages, a blue thread tracing the route to the summit pavilion." />
         <figcaption class="feature-chip">Path / 01</figcaption>
+        <video class="feature-vid" data-src="/brand/landing/feat/f1-paced-path.mp4"
+               muted loop playsinline preload="none" aria-label="Screen recording: the paced path laying out six steps and starting at step one."></video>
       </figure>
       <div class="feature-txt">
         <p class="mono feature-idx">01 · Paced path</p>
@@ -1320,6 +1340,8 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
         <img src="/brand/landing/plate-02.jpg" width="1600" height="1067" loading="lazy"
              alt="A scholar's courtyard where four open rooms face one shared court around a bronze water basin." />
         <figcaption class="feature-chip">Hub / 02</figcaption>
+        <video class="feature-vid" data-src="/brand/landing/feat/f2-one-place.mp4"
+               muted loop playsinline preload="none" aria-label="Screen recording: Arena, Reflect and the rest of Clarity sitting on one surface."></video>
       </figure>
       <div class="feature-txt">
         <p class="mono feature-idx">02 · One place</p>
@@ -1334,6 +1356,8 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
         <img src="/brand/landing/plate-03.jpg" width="1600" height="1067" loading="lazy"
              alt="A reader at a low desk by a window, one ink thread lifting off the open page into a cloud edged with a bronze fret." />
         <figcaption class="feature-chip">Lexicon / 03</figcaption>
+        <video class="feature-vid" data-src="/brand/landing/feat/f3-dictionary.mp4"
+               muted loop playsinline preload="none" aria-label="Screen recording: a word looked up inside the passage without leaving the question."></video>
       </figure>
       <div class="feature-txt">
         <p class="mono feature-idx">03 · Dictionary</p>
@@ -1348,6 +1372,8 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
         <img src="/brand/landing/plate-04.jpg" width="1600" height="1067" loading="lazy"
              alt="A river bending back on itself in a closed circle around a small island with one pavilion." />
         <figcaption class="feature-chip">Loop / 04</figcaption>
+        <video class="feature-vid" data-src="/brand/landing/feat/f4-return-loop.mp4"
+               muted loop playsinline preload="none" aria-label="Screen recording: three missed questions coming back as the daily return."></video>
       </figure>
       <div class="feature-txt">
         <p class="mono feature-idx">04 · Return loop</p>
@@ -1420,6 +1446,98 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
   </section>
 
 </main>
+
+<script>
+/* ==========================================================================
+   Feature plates. Each still is a painting of a thing the app does; hovering it
+   dissolves the painting into the recording of that thing actually happening.
+   The file is not fetched until someone reaches for it.
+   ========================================================================== */
+(() => {
+  'use strict';
+
+  const figures = [...document.querySelectorAll('.feature-art')].filter(f => f.querySelector('.feature-vid'));
+  if (!figures.length) return;
+
+  const reduced  = matchMedia('(prefers-reduced-motion: reduce)');
+  const canHover = matchMedia('(hover: hover) and (pointer: fine)');
+
+  function arm(vid) {
+    if (vid.src) return;
+    vid.preload = 'auto';
+    vid.src = vid.dataset.src;
+    vid.load();
+  }
+
+  function play(fig) {
+    const vid = fig.querySelector('.feature-vid');
+    arm(vid);
+    // the promise settles once a frame is actually on screen, so the plate
+    // never fades out onto a black hole while the file is still arriving
+    const p = vid.play();
+    if (p) p.then(() => fig.classList.add('playing')).catch(() => {});
+    else fig.classList.add('playing');
+  }
+
+  function stop(fig, rewind) {
+    const vid = fig.querySelector('.feature-vid');
+    fig.classList.remove('playing');
+    vid.pause();
+    if (rewind) {
+      // let the crossfade finish before the frame under it jumps back to zero
+      setTimeout(() => { if (!fig.classList.contains('playing')) vid.currentTime = 0 }, 650);
+    }
+  }
+
+  /* ---- a mouse: hover is the whole gesture ------------------------------- */
+  figures.forEach(fig => {
+    const article = fig.closest('.feature') || fig;
+    article.addEventListener('pointerenter', e => {
+      if (e.pointerType !== 'mouse' || !canHover.matches) return;
+      play(fig);
+    });
+    article.addEventListener('pointerleave', e => {
+      if (e.pointerType !== 'mouse') return;
+      stop(fig, true);
+    });
+    // one warm fetch as the cursor nears, so the swap is not a stall
+    article.addEventListener('pointermove', function warm(e) {
+      if (e.pointerType !== 'mouse') return;
+      arm(fig.querySelector('.feature-vid'));
+      article.removeEventListener('pointermove', warm);
+    });
+  });
+
+  /* ---- a finger: no hover exists, so the plate plays when it is on screen,
+     and a tap toggles it back to the painting ----------------------------- */
+  if (!canHover.matches && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        const fig = en.target;
+        if (fig.dataset.held === '1') return;
+        if (en.isIntersecting) play(fig); else stop(fig, false);
+      });
+    }, { threshold: 0.55 });
+    figures.forEach(fig => {
+      io.observe(fig);
+      fig.addEventListener('click', () => {
+        if (fig.classList.contains('playing')) { fig.dataset.held = '1'; stop(fig, false) }
+        else { fig.dataset.held = '0'; play(fig) }
+      });
+    });
+  }
+
+  /* ---- nothing decodes on a tab nobody is looking at --------------------- */
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) return;
+    figures.forEach(fig => fig.querySelector('.feature-vid').pause());
+  });
+
+  /* ---- reduced motion: the swap still happens, it just does not travel ---- */
+  if (reduced.matches) figures.forEach(fig => arm(fig.querySelector('.feature-vid')));
+})();
+</script>
+
 
 
 <script>
