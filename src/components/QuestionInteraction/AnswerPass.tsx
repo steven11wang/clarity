@@ -35,6 +35,12 @@ export function AnswerPass({ question, isReview, timedMode, timeLimitSec, onAnsw
   const wordLookup = useWordLookup()
   const startRef = useRef(Date.now())
   const firedRef = useRef(false)
+  // The clock's interval outlives the render that started it, so the choice it
+  // has to commit is read from a ref rather than that first closure.
+  const choiceRef = useRef<string | null>(null)
+  const struckRef = useRef<string[]>([])
+  choiceRef.current = choice
+  struckRef.current = struckChoices
   const [remaining, setRemaining] = useState(timeLimitSec)
 
   const choiceSlots = useMemo(() => orderedChoices(question, isReview), [question, isReview])
@@ -56,9 +62,25 @@ export function AnswerPass({ question, isReview, timedMode, timeLimitSec, onAnsw
     })
   }
 
+  // The clock running out is not the same as having no answer. A choice that
+  // was already selected is committed as the answer - the student made the
+  // call, they just hadn't pressed Continue. Only an untouched question is
+  // logged as beaten by the clock.
   function handleTimeout() {
     if (firedRef.current) return
     firedRef.current = true
+    const picked = choiceRef.current
+    if (picked) {
+      onAnswer({
+        chosen: picked,
+        confidence: null,
+        correct: picked === question.answer,
+        timeMs: timeLimitSec * 1000,
+        timedOut: false,
+        struckChoices: struckRef.current,
+      })
+      return
+    }
     setTimedOut(true)
   }
 

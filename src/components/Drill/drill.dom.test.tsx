@@ -25,8 +25,11 @@ const { createElement, useState } = await import('react')
 const { act } = await import('react')
 const { createRoot } = await import('react-dom/client')
 const { DrillPanel } = await import('./DrillPanel.tsx')
-const { DrillVerdict } = await import('./DrillVerdict.tsx')
+const { ExamRunner } = await import('../Exam/ExamRunner.tsx')
+const { drillToPracticeExam, toSourceLetter } = await import('../../drill/examAdapter.ts')
 const { DEFAULT_DRILL_SETUP } = await import('../../drill/setup.ts')
+
+type ExamResult = import('../Exam/ExamRunner.tsx').ExamResult
 
 type Question = import('../../types.ts').Question
 type DrillSetup = import('../../drill/setup.ts').DrillSetup
@@ -184,89 +187,103 @@ describe('the drill setup panel', () => {
   })
 })
 
-describe('the verdict between drill questions', () => {
-  it('names the miss, the answer, and where the question goes next', async () => {
-    const container = dom.window.document.createElement('div')
-    dom.window.document.body.append(container)
-    const root = createRoot(container)
-    let advanced = 0
+describe('a drill in the exam runner', () => {
+  it('carries a bank question into the exam shape, and the answer back out', () => {
+    const shuffled = drillToPracticeExam(
+      [{ question: BANK[6], isReview: true }],
+      DEFAULT_DRILL_SETUP,
+    )
+    const [module] = shuffled.exam.modules
+    assert.equal(shuffled.exam.modules.length, 1, 'a drill is one module')
+    assert.equal(module.questions.length, 1)
 
-    await act(async () => {
-      root.render(
-        createElement(DrillVerdict, {
-          question: BANK[6],
-          isReview: false,
-          firstPass: {
-            chosen: 'D',
-            confidence: null,
-            correct: false,
-            timeMs: 12_000,
-            timedOut: false,
-            struckChoices: [],
-          },
-          position: 3,
-          total: 10,
-          correctSoFar: 2,
-          onContinue: () => { advanced += 1 },
-        }),
-      )
-    })
+    const converted = module.questions[0]
+    assert.equal(converted.id, BANK[6].id)
+    assert.deepEqual(converted.passage, ['Passage.'])
+    assert.equal(converted.stem, BANK[6].prompt)
+    assert.equal(converted.topic, 'Craft and Structure')
+    assert.equal(converted.subtopic, 'Words in Context')
+    // The bank writes Hard; the exam renderer reads hard.
+    assert.equal(converted.difficulty, 'hard')
 
-    const text = container.textContent ?? ''
-    assert.match(text, /Question 3 of 10 · 2 right so far/)
-    assert.match(text, /Not this one\./)
-    assert.match(text, /You picked/)
-    assert.match(text, /delta/)
-    assert.match(text, /bravo/)
-    assert.match(text, /lands in your mistake vault/)
-
-    // The control is already focused, so a keyboard run keeps its rhythm.
-    const next = buttonNamed(container, 'Next question') as HTMLButtonElement
-    assert.equal(dom.window.document.activeElement, next)
-
-    await act(async () => {
-      next.click()
-    })
-    assert.equal(advanced, 1)
-
-    await act(async () => {
-      root.unmount()
-    })
-    container.remove()
+    // A resurfaced question is shuffled, so the letter the student sees is not
+    // the letter the bank stores - and the key follows the text, not the slot.
+    assert.deepEqual(
+      converted.choices.map((choice) => choice.letter),
+      ['A', 'B', 'C', 'D'],
+    )
+    const keyed = converted.choices.find((choice) => choice.letter === converted.answer)
+    assert.equal(keyed?.text, BANK[6].choices[BANK[6].answer])
+    assert.equal(toSourceLetter(shuffled, BANK[6].id, converted.answer ?? ''), BANK[6].answer)
+    // A blank stays blank rather than becoming a letter.
+    assert.equal(toSourceLetter(shuffled, BANK[6].id, ''), '')
   })
 
-  it('closes a clean answer without offering a return', async () => {
+  it('moves on when the question clock runs out, keeping the answer already picked', async () => {
     const container = dom.window.document.createElement('div')
     dom.window.document.body.append(container)
     const root = createRoot(container)
+    const converted = drillToPracticeExam(
+      [BANK[6], BANK[7]].map((question) => ({ question, isReview: false })),
+      { ...DEFAULT_DRILL_SETUP, count: 2, secondsPerQuestion: 1 },
+    )
+    let finished: ExamResult | null = null
+
+    function named(label: string) {
+      return Array.from(container.querySelectorAll<HTMLButtonElement>('button')).find(
+        (entry) => entry.textContent?.trim() === label,
+      )
+    }
+    async function tick(ms: number) {
+      await act(async () => {
+        await new Promise((resolve) => setTimeout(resolve, ms))
+      })
+    }
 
     await act(async () => {
       root.render(
-        createElement(DrillVerdict, {
-          question: BANK[6],
-          isReview: false,
-          firstPass: {
-            chosen: 'B',
-            confidence: null,
-            correct: true,
-            timeMs: 9_000,
-            timedOut: false,
-            struckChoices: [],
-          },
-          position: 10,
-          total: 10,
-          correctSoFar: 7,
-          onContinue: () => {},
+        createElement(ExamRunner, {
+          exam: converted.exam,
+          learnerName: 'Test Learner',
+          theme: 'dark' as const,
+          timing: { kind: 'fixed' as const, minutesPerModule: 1 / 60, label: 'One second' },
+          perQuestionSeconds: 1,
+          persistDraft: false,
+          bannerLabel: 'THIS IS A DRILL',
+          onToggleTheme: () => {},
+          onExit: () => {},
+          onFinish: (result: ExamResult) => { finished = result },
         }),
       )
     })
 
-    const text = container.textContent ?? ''
-    assert.match(text, /Correct\./)
-    assert.match(text, /Nothing comes back from this one/)
-    assert.doesNotMatch(text, /You picked/)
-    // The last question closes the run rather than promising another.
-    assert.ok(buttonNamed(container, 'Finish the drill'))
+    const begin = named('Begin module')
+    assert.ok(begin, 'the drill opens on its interstitial')
+    await act(async () => begin.click())
+    assert.match(container.textContent ?? '', /THIS IS A DRILL/)
+    // Going back would hand out a second clock on a question already spent.
+    assert.equal((named('Back') as HTMLButtonElement).disabled, true)
+
+    // Pick an answer and let the clock beat the Next button.
+    const choice = Array.from(container.querySelectorAll<HTMLButtonElement>('.exam-choice')).find(
+      (entry) => entry.textContent?.includes('bravo'),
+    )
+    assert.ok(choice)
+    await act(async () => choice.click())
+    await tick(1400)
+
+    // Question two, on a fresh clock - and nothing revealed on the way.
+    assert.equal(container.querySelector('.exam-question-number')?.textContent, '2')
+    assert.doesNotMatch(container.textContent ?? '', /Correct|Not this one|right so far/)
+    assert.equal(finished, null)
+
+    await tick(1400)
+
+    assert.ok(finished, 'the last question closes the drill instead of a review page')
+    const result = finished as unknown as ExamResult
+    // The picked answer survived the clock; the untouched question is blank.
+    assert.equal(toSourceLetter(converted, BANK[6].id, result.answers[BANK[6].id] ?? ''), 'B')
+    assert.equal(result.answers[BANK[7].id], undefined)
 
     await act(async () => {
       root.unmount()

@@ -153,9 +153,10 @@ export function DrillPanel({
         </button>
         <h1>Build a drill.</h1>
         <p>
-          Name the target, set the length, set the clock. You see right or wrong after
-          every question, then work the misses at the end - and each one files into your
-          mistake vault to come back on a widening schedule.
+          Name the target, set the length, set the clock. You sit the whole set the way
+          you'd sit the test - full screen, nothing revealed - and then walk back through
+          every question, right or wrong. Each miss files into your mistake vault to come
+          back on a widening schedule.
         </p>
       </header>
 

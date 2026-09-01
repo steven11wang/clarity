@@ -60,6 +60,17 @@ type ExamRunnerProps = {
   paceId?: string
   customMinutes?: number
   initialDraft?: PracticeExamDraft | null
+  /**
+   * Seconds on the clock for each question, one at a time, instead of one
+   * clock for the whole module. A drill runs this way: the clock restarts on
+   * every question and running it out moves the student on rather than closing
+   * the section. Null keeps the module clock.
+   */
+  perQuestionSeconds?: number | null
+  /** Drills are one sitting and are never resumed, so they save no draft. */
+  persistDraft?: boolean
+  /** The strip under the header. */
+  bannerLabel?: string
   onToggleTheme: () => void
   onExit: () => void
   onFinish: (result: ExamResult) => void
@@ -80,10 +91,14 @@ export function ExamRunner({
   paceId,
   customMinutes,
   initialDraft,
+  perQuestionSeconds = null,
+  persistDraft = true,
+  bannerLabel = 'THIS IS A PRACTICE TEST',
   onToggleTheme,
   onExit,
   onFinish,
 }: ExamRunnerProps) {
+  const perQuestion = perQuestionSeconds !== null && timing.kind !== 'untimed'
   const [moduleIndex, setModuleIndex] = useState(
     () => Math.min(Math.max(0, initialDraft?.moduleIndex ?? 0), exam.modules.length - 1),
   )
@@ -122,7 +137,10 @@ export function ExamRunner({
   const [navOpen, setNavOpen] = useState(false)
   const [moreOpen, setMoreOpen] = useState(false)
   const [secondsLeft, setSecondsLeft] = useState(
-    () => initialDraft?.secondsLeft ?? (moduleDurationSeconds(exam.modules[0], timing) ?? 0),
+    () =>
+      perQuestionSeconds ??
+      initialDraft?.secondsLeft ??
+      (moduleDurationSeconds(exam.modules[0], timing) ?? 0),
   )
   /** Seconds counted up: the whole run when untimed, the spillover otherwise. */
   const [extraSeconds, setExtraSeconds] = useState(
@@ -134,6 +152,7 @@ export function ExamRunner({
   const [timeUpOpen, setTimeUpOpen] = useState(false)
 
   useEffect(() => {
+    if (!persistDraft) return
     savePracticeExamDraft({
       examId: exam.id,
       paceId: paceId ?? initialDraft?.paceId ?? 'official',
@@ -154,6 +173,7 @@ export function ExamRunner({
       updatedAt: Date.now(),
     })
   }, [
+    persistDraft,
     exam.id,
     paceId,
     customMinutes,
@@ -192,7 +212,7 @@ export function ExamRunner({
   billedQuestion.current = onQuestion ? question.id : null
 
   function finishExam(remaining: number) {
-    clearPracticeExamDraft(exam.id)
+    if (persistDraft) clearPracticeExamDraft(exam.id)
     onFinish({
       answers,
       flagged: Object.keys(flagged).filter((id) => flagged[id]),
@@ -219,7 +239,9 @@ export function ExamRunner({
     }))
     setModuleIndex((index) => index + 1)
     setQuestionIndex(0)
-    setSecondsLeft(moduleDurationSeconds(exam.modules[moduleIndex + 1], timing) ?? 0)
+    setSecondsLeft(
+      perQuestionSeconds ?? moduleDurationSeconds(exam.modules[moduleIndex + 1], timing) ?? 0,
+    )
     setExtraSeconds(0)
     setOvertimeMode(false)
     setScreen('module-intro')
@@ -249,13 +271,28 @@ export function ExamRunner({
   // Time is up. Rather than closing the module the way test day does, ask:
   // keep working past the clock, or submit the section now.
   useEffect(() => {
+    if (perQuestion) return
     if (!running || untimed || overtimeMode || timeUpOpen) return
     if (secondsLeft > 0) return
     setTimeUpOpen(true)
     setNavOpen(false)
     setMoreOpen(false)
     setDirectionsOpen(false)
-  }, [running, untimed, overtimeMode, timeUpOpen, secondsLeft])
+  }, [perQuestion, running, untimed, overtimeMode, timeUpOpen, secondsLeft])
+
+  // Running the clock out moves the student on, carrying whatever they had
+  // selected: choices are committed on click here, so a picked answer counts
+  // even when the clock beats them to the Next button. Once per question - the
+  // ref is what stops a zero that hasn't been re-rendered yet from spending the
+  // next question too.
+  const autoAdvancedRef = useRef<string | null>(null)
+  useEffect(() => {
+    if (!perQuestion || !running || secondsLeft > 0) return
+    if (autoAdvancedRef.current === question.id) return
+    autoAdvancedRef.current = question.id
+    goNext()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [perQuestion, running, secondsLeft, question.id])
 
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
@@ -309,6 +346,14 @@ export function ExamRunner({
     }
     if (questionIndex + 1 < module.questions.length) {
       setQuestionIndex((index) => index + 1)
+      // Each question gets the whole clock, fresh, and it has to be reset in
+      // the same commit that moves the question - a frame of "next question,
+      // no time left" would run the auto-advance below a second time.
+      if (perQuestion) setSecondsLeft(perQuestionSeconds ?? 0)
+    } else if (perQuestion) {
+      // A per-question clock has no check-your-work page: there is nothing to
+      // come back to, because each question closed when its own clock did.
+      advanceModule()
     } else {
       setScreen('review')
     }
@@ -333,14 +378,23 @@ export function ExamRunner({
           <h1>{module.subject}</h1>
           <p className="exam-interstitial__lead">
             {module.questions.length} questions ·{' '}
-            {untimed
-              ? 'no time limit, the clock counts up so you can still see your pace.'
-              : `${Math.round(
-                  (moduleDurationSeconds(module, timing) ?? 0) / 60,
-                )} minutes (${timing.label}). The clock starts when you continue; when it runs out you choose whether to keep working or submit the section.`}
+            {perQuestion
+              ? `${perQuestionSeconds} seconds a question. The clock restarts on every question; when it runs out you move on, and whatever you had selected counts as your answer.`
+              : untimed
+                ? 'no time limit, the clock counts up so you can still see your pace.'
+                : `${Math.round(
+                    (moduleDurationSeconds(module, timing) ?? 0) / 60,
+                  )} minutes (${timing.label}). The clock starts when you continue; when it runs out you choose whether to keep working or submit the section.`}
           </p>
           <ul className="exam-interstitial__list">
-            <li>Mark questions for review and come back to them from the question list.</li>
+            {perQuestion ? (
+              <li>
+                One question at a time: there is no going back, because each question
+                closes when its own clock does.
+              </li>
+            ) : (
+              <li>Mark questions for review and come back to them from the question list.</li>
+            )}
             <li>Turn on the ABC tool to cross out answers you have ruled out.</li>
             <li>Turn on the highlighter to mark evidence in the passage.</li>
             <li>
@@ -353,7 +407,7 @@ export function ExamRunner({
               {moduleIndex === 0 ? 'Begin module' : 'Continue'}
             </button>
             <button className="exam-button exam-button--ghost" type="button" onClick={onExit}>
-              Leave the exam
+              {perQuestion ? 'Leave the drill' : 'Leave the exam'}
             </button>
           </div>
         </div>
@@ -402,7 +456,7 @@ export function ExamRunner({
           </strong>
         ) : (
           <strong
-            className={`exam-clock ${secondsLeft <= 300 ? 'exam-clock--warning' : ''}`}
+            className={`exam-clock ${secondsLeft <= (perQuestion ? 15 : 300) ? 'exam-clock--warning' : ''}`}
             aria-live="off"
           >
             {formatClock(secondsLeft)}
@@ -468,14 +522,16 @@ export function ExamRunner({
           </button>
           {moreOpen ? (
             <div className="exam-more__menu" role="menu">
-              <button type="button" role="menuitem" onClick={() => { setMoreOpen(false); setScreen('review') }}>
-                Go to review page
-              </button>
+              {perQuestion ? null : (
+                <button type="button" role="menuitem" onClick={() => { setMoreOpen(false); setScreen('review') }}>
+                  Go to review page
+                </button>
+              )}
               <button type="button" role="menuitem" onClick={() => { setMoreOpen(false); finishExam(secondsLeft) }}>
-                Submit and score now
+                {perQuestion ? 'End the drill here' : 'Submit and score now'}
               </button>
               <button type="button" role="menuitem" onClick={onExit}>
-                Exit the exam
+                {perQuestion ? 'Exit the drill' : 'Exit the exam'}
               </button>
             </div>
           ) : null}
@@ -484,7 +540,7 @@ export function ExamRunner({
     </header>
   )
 
-  const banner = <p className="exam-banner">THIS IS A PRACTICE TEST</p>
+  const banner = <p className="exam-banner">{bannerLabel}</p>
 
   const unansweredNow = module.questions.length - answered
   const timeUpDialog = timeUpOpen ? (
@@ -561,19 +617,22 @@ export function ExamRunner({
                   ].filter(Boolean).join(' ')}
                   type="button"
                   key={item.id}
+                  disabled={perQuestion}
                   onClick={() => goToQuestion(index)}
                 >
                   {index + 1}
                 </button>
               ))}
             </div>
-            <button
-              className="exam-button exam-button--ghost"
-              type="button"
-              onClick={() => { setNavOpen(false); setScreen('review') }}
-            >
-              Go to review page
-            </button>
+            {perQuestion ? null : (
+              <button
+                className="exam-button exam-button--ghost"
+                type="button"
+                onClick={() => { setNavOpen(false); setScreen('review') }}
+              >
+                Go to review page
+              </button>
+            )}
           </div>
         ) : null}
       </div>
@@ -582,7 +641,7 @@ export function ExamRunner({
           className="exam-button exam-button--muted"
           type="button"
           onClick={goBack}
-          disabled={screen === 'question' && questionIndex === 0}
+          disabled={perQuestion || (screen === 'question' && questionIndex === 0)}
         >
           Back
         </button>

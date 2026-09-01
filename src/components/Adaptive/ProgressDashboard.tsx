@@ -117,7 +117,7 @@ function buildHero(
     return {
       kicker: 'DRILLS · YOUR OWN SET',
       title: 'Build the set you actually need.',
-      body: 'Pick a domain, a skill and a difficulty, say how many questions and how long you get for each. You see right or wrong as you go, work the misses at the end, and every one of them files into your mistake vault.',
+      body: 'Pick a domain, a skill and a difficulty, say how many questions and how long you get for each. You sit it full screen the way you sit the test - nothing revealed until the end - then walk back through every question, and every miss files into your mistake vault.',
       primary: 'Build a drill',
       secondary: 'Open the mistake vault',
       primaryAction: onOpenDrill,

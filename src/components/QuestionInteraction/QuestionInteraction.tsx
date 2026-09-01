@@ -12,6 +12,7 @@ import { AbcToggle, ChoiceMarker, DictionaryToggle } from './ChoiceStrikeout.tsx
 import {
   CAUSES,
   WRONG_REASONS,
+  confirmCorrect,
   initReview,
   setCause,
   setContrast,
@@ -99,8 +100,53 @@ export function QuestionInteraction({
           </div>
         </div>
 
+        {/* Already right: a drill still shows it back, but there is nothing to
+            redo and nothing to diagnose - only the reasoning to read. */}
+        {state.phase === 'redo' && state.correct && (
+          <div className="step">
+            <p className="panel-label">
+              You got this one right. Here it is again with the reasoning, so the win is
+              one you can repeat.
+            </p>
+            <AnswerChoiceComparison
+              question={question}
+              choiceSlots={choiceSlots}
+              firstChoice={firstPass.chosen}
+              struckChoices={state.pass1StruckChoices}
+              dictionary={dictionary}
+              onLookup={(req) =>
+                wordLookup.open({
+                  ...req,
+                  sentence: resolveChoiceContext({
+                    choiceText: req.sentence,
+                    word: req.word,
+                    requestSentence: req.sentence,
+                    passage: question.passage,
+                    prompt: question.prompt,
+                  }),
+                  source: { examId: question.test || 'practice', questionId: question.id },
+                })
+              }
+            />
+            <div className="reasoning-head">
+              <p className="panel-label">The reasoning</p>
+              <button type="button" className="link-button" onClick={() => setShowReasoning((v) => !v)}>
+                {showReasoning ? 'Hide' : 'Show'}
+              </button>
+            </div>
+            {showReasoning && <p className="rationale">{question.rationale}</p>}
+            <button
+              type="button"
+              className="button button--full"
+              onClick={() => setState((s) => confirmCorrect(s))}
+            >
+              Continue
+            </button>
+          </div>
+        )}
+
         {/* Redo: re-attempt the missed question, answer-until-correct. */}
-        {state.phase === 'redo' && (
+        {state.phase === 'redo' && !state.correct && (
           <>
             <p className="panel-label">
               {firstPass.timedOut
@@ -302,11 +348,15 @@ function DoneStep({ state, onNext }: { state: ReturnType<typeof initReview>; onN
 
   return (
     <div className="step done">
-      <p className="done-headline">Error diagnosed.</p>
+      <p className="done-headline">{state.correct ? 'Clean.' : 'Error diagnosed.'}</p>
       <ul className="done-facts">
         {priority && <li className="done-flag">You were sure - and missed it. That’s your single most fixable error.</li>}
         {state.pass1TimedOut && <li>You ran out of time on this in the set - now you’ve worked it properly.</li>}
-        <li>This one rejoins your practice - disguised - until you clear it.</li>
+        <li>
+          {state.correct
+            ? 'Nothing comes back from this one.'
+            : 'This one rejoins your practice - disguised - until you clear it.'}
+        </li>
       </ul>
       <button type="button" className="button button--full" onClick={onNext}>
         Next

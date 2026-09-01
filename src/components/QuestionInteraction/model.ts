@@ -102,6 +102,13 @@ export function submitRedo(state: LoopState, choice: string): LoopState {
   return { ...state, attempts, wrongChoices }
 }
 
+// A drill reviews every question it dealt, right or wrong. There is nothing to
+// diagnose about one that was already right, so its review is the reasoning and
+// nothing more - it is marked as reached in one attempt and closed.
+export function confirmCorrect(state: LoopState): LoopState {
+  return { ...state, attempts: Math.max(1, state.attempts), phase: 'done' }
+}
+
 // The contrast screen shows both answers side by side with the official
 // reasoning one tap away; the student picks why their own answer failed.
 export function setContrast(state: LoopState, whyWrong: string): LoopState {

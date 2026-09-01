@@ -171,3 +171,78 @@ describe('review loop', () => {
     assert.ok(!text().includes('Specimen found'))
   })
 })
+
+// A drill reviews every question it dealt. One that was already right has
+// nothing to redo and nothing to diagnose: it shows the reasoning and closes.
+describe('reviewing a question that was already right', () => {
+  it('reads the answer back instead of asking for a redo', async () => {
+    const secondContainer = dom.window.document.createElement('div')
+    dom.window.document.body.append(secondContainer)
+    const secondRoot = createRoot(secondContainer)
+    const logged: Attempt[] = []
+    let advanced = 0
+
+    await act(async () => {
+      secondRoot.render(
+        createElement(QuestionInteraction, {
+          question,
+          isReview: false,
+          firstPass: {
+            chosen: 'B',
+            confidence: null,
+            correct: true,
+            timeMs: 21000,
+            timedOut: false,
+            struckChoices: [],
+          },
+          reviewStage: 0,
+          onComplete: (attempt: Attempt) => logged.push(attempt),
+          onNext: () => { advanced += 1 },
+        }),
+      )
+    })
+
+    const body = secondContainer.textContent ?? ''
+    assert.match(body, /You got this one right/)
+    assert.doesNotMatch(body, /You missed this in the set/)
+    // Nothing to re-answer: the choices are shown as a comparison, not as a redo.
+    assert.equal(secondContainer.querySelector('button.choice-select'), null)
+    assert.match(body, /Correct answer/)
+
+    const reasoning = [...secondContainer.querySelectorAll('button')].find(
+      (button) => button.textContent?.trim() === 'Show',
+    )
+    await act(async () => {
+      reasoning?.dispatchEvent(new dom.window.MouseEvent('click', { bubbles: true }))
+    })
+    assert.match(secondContainer.textContent ?? '', /the dams slow the current/)
+
+    const cont = [...secondContainer.querySelectorAll('button')].find(
+      (button) => button.textContent?.trim() === 'Continue',
+    )
+    await act(async () => {
+      cont?.dispatchEvent(new dom.window.MouseEvent('click', { bubbles: true }))
+    })
+
+    // Closed as clean, logged as correct, and never asked why it was missed.
+    assert.match(secondContainer.textContent ?? '', /Clean\./)
+    assert.match(secondContainer.textContent ?? '', /Nothing comes back from this one/)
+    assert.equal(logged.length, 1)
+    assert.equal(logged[0].correct, true)
+    assert.equal(logged[0].errorCause, null)
+    assert.equal(logged[0].chosen, 'B')
+
+    const next = [...secondContainer.querySelectorAll('button')].find(
+      (button) => button.textContent?.trim() === 'Next',
+    )
+    await act(async () => {
+      next?.dispatchEvent(new dom.window.MouseEvent('click', { bubbles: true }))
+    })
+    assert.equal(advanced, 1)
+
+    await act(async () => {
+      secondRoot.unmount()
+    })
+    secondContainer.remove()
+  })
+})

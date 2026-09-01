@@ -1,23 +1,26 @@
 // Dev-only harness for the Drills screens: the tile and hero in the Practice
-// rail, the setup panel behind them, and the verdict beat that lands between
-// two drill questions. Not part of the production build.
+// rail, the setup panel behind them, and the full-screen run itself - a drill
+// sat in the exam runner, on its own per-question clock. Not part of the
+// production build.
 import { StrictMode, useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 
 import { ProgressDashboard } from './components/Adaptive/ProgressDashboard.tsx'
 import { DrillPanel } from './components/Drill/DrillPanel.tsx'
-import { DrillVerdict } from './components/Drill/DrillVerdict.tsx'
+import { ExamRunner } from './components/Exam/ExamRunner.tsx'
 import { loadQuestions } from './data/questions.ts'
+import { drillToPracticeExam } from './drill/examAdapter.ts'
 import { DEFAULT_DRILL_SETUP, type DrillSetup } from './drill/setup.ts'
 import { SAT_DOMAINS } from './progression/config.ts'
 import type { Question } from './types.ts'
 import './app.css'
+import './components/Exam/exam.css'
 import './components/Adaptive/adaptive.css'
 import './console-theme-v2.css'
 
-type Screen = 'shell' | 'setup' | 'correct' | 'missed'
+type Screen = 'shell' | 'setup' | 'run'
 
-const SCREENS: Screen[] = ['shell', 'setup', 'correct', 'missed']
+const SCREENS: Screen[] = ['shell', 'setup', 'run']
 
 const CARDS = SAT_DOMAINS.map((domain, index) => ({
   domain,
@@ -75,20 +78,13 @@ function Harness() {
 
   if (questions.length === 0) return <p>loading questions…</p>
 
-  const sample = questions[0]
-  const wrongLetter = (['A', 'B', 'C', 'D'] as const).find(
-    (letter) => letter !== sample.answer,
-  )!
-
   const drillPanel = (
     <DrillPanel
       questions={questions}
       seen={{}}
       setup={setup}
       onChangeSetup={setSetup}
-      onStart={(next, drillQuestions) =>
-        window.alert(`start ${drillQuestions.length} questions · ${next.domain}`)
-      }
+      onStart={() => setScreen('run')}
       onBack={() => setScreen('shell')}
       onOpenVault={() => window.alert('vault')}
       vaultOpenCount={12}
@@ -126,28 +122,40 @@ function Harness() {
     )
   }
 
+  const drillExam = drillToPracticeExam(
+    questions.slice(0, setup.count).map((question) => ({ question, isReview: false })),
+    setup,
+  )
+
   return (
-    <div className="console-dashboard console-dashboard--drill">
-      <main className="app-shell">
-        <DrillVerdict
-          question={sample}
-          isReview={false}
-          firstPass={{
-            chosen: screen === 'correct' ? sample.answer : wrongLetter,
-            confidence: null,
-            correct: screen === 'correct',
-            timeMs: 41_000,
-            timedOut: false,
-            struckChoices: [],
+    <>
+      <div className="exam-overlay" data-exam-theme="dark">
+        <ExamRunner
+          exam={drillExam.exam}
+          learnerName="Preview"
+          theme="dark"
+          timing={
+            setup.secondsPerQuestion === null
+              ? { kind: 'untimed', label: 'No clock' }
+              : {
+                  kind: 'fixed',
+                  minutesPerModule: (setup.secondsPerQuestion * setup.count) / 60,
+                  label: `${setup.secondsPerQuestion} seconds a question`,
+                }
+          }
+          perQuestionSeconds={setup.secondsPerQuestion}
+          persistDraft={false}
+          bannerLabel="THIS IS A DRILL"
+          onToggleTheme={() => {}}
+          onExit={() => setScreen('setup')}
+          onFinish={(result) => {
+            window.alert(`finished · ${Object.keys(result.answers).length} answered`)
+            setScreen('setup')
           }}
-          position={4}
-          total={10}
-          correctSoFar={screen === 'correct' ? 4 : 3}
-          onContinue={() => setScreen('shell')}
         />
-      </main>
+      </div>
       <HarnessNav screen={screen} onChange={setScreen} />
-    </div>
+    </>
   )
 }
 

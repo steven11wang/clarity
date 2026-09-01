@@ -12,7 +12,8 @@ import {
   DailyWords,
 } from './components/DailyReview/DailyReview.tsx'
 import { DrillPanel } from './components/Drill/DrillPanel.tsx'
-import { DrillVerdict } from './components/Drill/DrillVerdict.tsx'
+import { ExamRunner, type ExamResult } from './components/Exam/ExamRunner.tsx'
+import { useExamTheme } from './components/Exam/useExamTheme.ts'
 import { PracticeExamPanel } from './components/Exam/PracticeExamPanel.tsx'
 import { Library } from './components/Library/Library.tsx'
 import type { PrimaryConsoleView } from './components/Adaptive/primaryViewTransition.ts'
@@ -20,6 +21,7 @@ import { ReflectPanel } from './components/Reflect/ReflectPanel.tsx'
 import { Arena, type ArenaAnswer } from './components/Arena/Arena.tsx'
 import { MistakeVault } from './components/Review/MistakeVault.tsx'
 import { WordBank } from './components/WordBank/WordBank.tsx'
+import { useAuthProfile } from './auth/AuthContext.tsx'
 import { AnswerPass } from './components/QuestionInteraction/AnswerPass.tsx'
 import { QuestionInteraction } from './components/QuestionInteraction/QuestionInteraction.tsx'
 import { firstPassAttempt } from './components/QuestionInteraction/model.ts'
@@ -31,6 +33,11 @@ import {
   normalizeDrillSetup,
   type DrillSetup,
 } from './drill/setup.ts'
+import {
+  drillToPracticeExam,
+  toSourceLetter,
+  type DrillExam,
+} from './drill/examAdapter.ts'
 import { normalizeProgression, type ProgressionState } from './progression/model.ts'
 import { buildTaxonomy } from './progression/questions.ts'
 import {
@@ -115,6 +122,7 @@ type DailyPhase = 'hidden' | 'briefing' | 'words' | 'done'
 type DailyRun = { questions: number; wordsTotal: number; wordsKnew: number }
 
 function App() {
+  const { displayName } = useAuthProfile()
   const [questions, setQuestions] = useState<Question[]>([])
   const [loadState, setLoadState] = useState<LoadState>('loading')
   const [viewState, setViewState] = useState<View>(() => {
@@ -138,19 +146,19 @@ function App() {
   const [reviewIndex, setReviewIndex] = useState(0)
   const [sessionAttempts, setSessionAttempts] = useState<Attempt[]>([])
 
-  // A drill is the same session engine with two differences: it answers back
-  // after every question, and its own clock overrides the global timed-mode
-  // setting for the length of the run.
+  // A drill is the same session engine, sat in the exam's surface: the whole
+  // set is answered full-screen under a per-question clock, nothing is revealed
+  // until the last question is behind you, and then every question - right or
+  // wrong - is reviewed.
   const [sessionKind, setSessionKind] = useState<'standard' | 'drill'>('standard')
   const [sessionClock, setSessionClock] = useState<{ timed: boolean; limitSec: number } | null>(null)
   const [drillId, setDrillId] = useState<string | null>(null)
-  const [drillVerdict, setDrillVerdict] = useState<
-    { item: StreamItem; firstPass: FirstPass; answers: Record<string, FirstPass> } | null
-  >(null)
+  const [drillExam, setDrillExam] = useState<DrillExam | null>(null)
   const [drillSetup, setDrillSetupState] = useState<DrillSetup>(
     () => normalizeDrillSetup(getDrillSetup()),
   )
 
+  const [examTheme, setExamTheme] = useExamTheme()
   const [demoMode, setDemoModeState] = useState(false)
   const [timedMode, setTimedModeState] = useState(false)
   const [timeLimitSec, setTimeLimitState] = useState(90)
@@ -285,7 +293,7 @@ function App() {
     setSessionKind(options.kind ?? 'standard')
     setSessionClock(options.clock ?? null)
     setDrillId(options.activityId ?? null)
-    setDrillVerdict(null)
+    setDrillExam(null)
     setView('practice')
   }
 
@@ -296,17 +304,58 @@ function App() {
 
   // The drill set is chosen against the target, then handed to the same stream
   // builder as any other set, so a question that happens to be due resurfaces
-  // shuffled inside the drill instead of being counted twice.
+  // shuffled inside the drill instead of being counted twice. The stream is
+  // built here rather than inside startSession because the exam runner needs
+  // the finished order - and the shuffle each item was dealt with - to draw it.
   function startDrill(setup: DrillSetup, drillQuestions: Question[]) {
     changeDrillSetup(setup)
-    startSession(drillQuestions, {
-      kind: 'drill',
-      clock:
-        setup.secondsPerQuestion === null
-          ? { timed: false, limitSec: timeLimitSec }
-          : { timed: true, limitSec: setup.secondsPerQuestion },
-      activityId: `drill:${Date.now()}`,
-    })
+    const activityId = `drill:${Date.now()}`
+    const nextStream = buildStream(drillQuestions, getReviews(), now())
+    setStream(nextStream)
+    setAnswerIndex(0)
+    setAnswers({})
+    setReviewList([])
+    setReviewIndex(0)
+    setSessionAttempts([])
+    setSessionPhase('answer')
+    setSessionKind('drill')
+    setSessionClock(
+      setup.secondsPerQuestion === null
+        ? { timed: false, limitSec: timeLimitSec }
+        : { timed: true, limitSec: setup.secondsPerQuestion },
+    )
+    setDrillId(activityId)
+    setDrillExam(drillToPracticeExam(nextStream, setup, activityId))
+    setView('practice')
+  }
+
+  // The drill is over. Every answer the runner collected is turned into the
+  // same first-pass record the ordinary answer pass produces, then the whole
+  // set - not only the misses - goes to review.
+  function finishDrillRun(result: ExamResult, converted: DrillExam) {
+    const collected: Record<string, FirstPass> = {}
+    for (const item of stream) {
+      const id = item.question.id
+      const chosen = toSourceLetter(converted, id, result.answers[id] ?? '')
+      const seconds = result.questionSeconds[id]
+      collected[id] = {
+        chosen,
+        confidence: null,
+        correct: chosen !== '' && chosen === item.question.answer,
+        timeMs: seconds === undefined ? null : seconds * 1000,
+        // Only a question left blank was beaten by the clock. A choice that was
+        // selected when time ran out is an answer, and counts as one.
+        timedOut: chosen === '',
+        struckChoices: [],
+      }
+    }
+    setAnswers(collected)
+    setDrillExam(null)
+    // Nothing is finalized here: a drill reviews every question it dealt, so
+    // each one is logged on the way out of its own review screen.
+    setReviewList([...stream])
+    setReviewIndex(0)
+    setSessionPhase(stream.length === 0 ? 'summary' : 'review-intro')
   }
 
   function updateProgression(next: ProgressionState) {
@@ -476,12 +525,6 @@ function App() {
     const item = stream[answerIndex]
     const next = { ...answers, [item.question.id]: firstPass }
     setAnswers(next)
-    // A drill says right or wrong first; everything else runs the answer pass
-    // straight through and holds every verdict for the review.
-    if (sessionKind === 'drill') {
-      setDrillVerdict({ item, firstPass, answers: next })
-      return
-    }
     advanceAnswerPass(next)
   }
 
@@ -491,12 +534,6 @@ function App() {
     } else {
       finishAnswerPass(allAnswers)
     }
-  }
-
-  function leaveDrillVerdict() {
-    const pending = drillVerdict
-    setDrillVerdict(null)
-    if (pending) advanceAnswerPass(pending.answers)
   }
 
   function finishAnswerPass(allAnswers: Record<string, FirstPass>) {
@@ -760,17 +797,26 @@ function App() {
   )
 
   if (sessionPhase === 'review-intro') {
-    const right = stream.length - reviewList.length
+    // A drill reviews everything it dealt, so the count of misses can't be read
+    // off the length of the review list the way it can in a practice set.
+    const missed = stream.filter((item) => !answers[item.question.id]?.correct).length
+    const right = stream.length - missed
+    const reviewAll = sessionKind === 'drill'
     return (
       <>
         <main className="app-shell">
           {header}
           <section className="pass-intro">
             <p className="eyebrow">Answers locked in</p>
-            <h1>{right} right, {reviewList.length} to review.</h1>
+            <h1>
+              {right} right, {missed} missed.
+            </h1>
             <p>
-              No scores to chase - the value is here. Redo each one you missed, diagnose it in your own
-              words, then see the reasoning. They’ll come back later, disguised, until they can’t catch you.
+              {reviewAll
+                ? `No scores to chase - the value is here. You'll walk back through all ${stream.length} ${
+                    stream.length === 1 ? 'question' : 'questions'
+                  }: redo each one you missed and diagnose it in your own words, and read the reasoning on the ones you got right. The misses come back later, disguised, until they can't catch you.`
+                : 'No scores to chase - the value is here. Redo each one you missed, diagnose it in your own words, then see the reasoning. They’ll come back later, disguised, until they can’t catch you.'}
             </p>
             <button className="button" type="button" onClick={() => setSessionPhase('review')}>
               Start the review →
@@ -781,25 +827,37 @@ function App() {
     )
   }
 
-  // Between two drill questions the verdict replaces the card entirely: the
-  // question has been answered, so re-reading the passage is not the point.
-  if (drillVerdict) {
-    const answered = Object.values(drillVerdict.answers)
+  // A drill is sat in the exam's surface: full screen, passage beside question,
+  // its own clock on every question. Nothing is revealed inside it - the whole
+  // set is answered first, and the review that follows covers all of it.
+  if (drillExam) {
+    const perQuestionSeconds = sessionClock?.timed ? sessionClock.limitSec : null
     return (
-      <>
-        <main className="app-shell">
-          {header}
-          <DrillVerdict
-            question={drillVerdict.item.question}
-            isReview={drillVerdict.item.isReview}
-            firstPass={drillVerdict.firstPass}
-            position={answered.length}
-            total={stream.length}
-            correctSoFar={answered.filter((pass) => pass.correct).length}
-            onContinue={leaveDrillVerdict}
-          />
-        </main>
-      </>
+      <div className="exam-overlay" data-exam-theme={examTheme}>
+        <ExamRunner
+          exam={drillExam.exam}
+          learnerName={displayName}
+          theme={examTheme}
+          timing={
+            perQuestionSeconds === null
+              ? { kind: 'untimed', label: 'No clock' }
+              : {
+                  kind: 'fixed',
+                  minutesPerModule: (perQuestionSeconds * stream.length) / 60,
+                  label: `${perQuestionSeconds} seconds a question`,
+                }
+          }
+          perQuestionSeconds={perQuestionSeconds}
+          persistDraft={false}
+          bannerLabel="THIS IS A DRILL"
+          onToggleTheme={() => setExamTheme(examTheme === 'dark' ? 'light' : 'dark')}
+          onExit={() => {
+            setDrillExam(null)
+            setView('drill')
+          }}
+          onFinish={(result) => finishDrillRun(result, drillExam)}
+        />
+      </div>
     )
   }
 
