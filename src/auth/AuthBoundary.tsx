@@ -3,7 +3,6 @@ import type { User } from '@supabase/supabase-js'
 
 import { ConsoleAudioProvider } from '../audio/ConsoleAudioProvider.tsx'
 import { AuthProfileProvider } from './AuthContext.tsx'
-import { PaywallPage } from './PaywallPage.tsx'
 import { SignInPage, type SignInPageProps } from './SignInPage.tsx'
 import { fetchAccess, type AccessState } from '../lib/subscription.ts'
 import {
@@ -39,7 +38,12 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
     void supabase.auth.getSession().then(({ data, error }) => {
       if (!active) return
       if (error) setSyncError(error.message)
-      setUser(data.session?.user ?? null)
+      const restoredUser = data.session?.user ?? null
+      setUser(restoredUser)
+      // A persisted session means this browser already remembers the learner
+      // (Supabase keeps it in localStorage) - skip straight to the dashboard
+      // instead of asking them to sign in again.
+      if (restoredUser) setUnlockedUserId(restoredUser.id)
       setChecking(false)
     })
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
@@ -181,31 +185,12 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
     )
   }
 
-  if (!access) {
-    return (
-      <main className="app-status" aria-live="polite">
-        <span className="wordmark">clarity<span>.</span></span>
-        <p>Checking your plan…</p>
-      </main>
-    )
-  }
-
-  if (!access.allowed) {
-    return (
-      <>
-        <ConsoleAudioProvider scene="auth" />
-        <PaywallPage
-          user={user}
-          subscription={access.subscription}
-          onRecheck={recheckAccess}
-          onSignOut={() => {
-            void supabase!.auth.signOut()
-          }}
-          error={accessError}
-        />
-      </>
-    )
-  }
+  // Paywall is disabled: once signed in, everyone goes straight to the
+  // dashboard. `access` is still fetched (see effect above) so re-enabling
+  // the gate later is a one-line change, but it never blocks rendering here.
+  void access
+  void accessError
+  void recheckAccess
 
   void profileRevision
   const activeShortcut = listProfileShortcuts().find((profile) => profile.id === user.id)
