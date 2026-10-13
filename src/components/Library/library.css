@@ -81,17 +81,17 @@
 .library__book { align-items: end; background: none; border: 0; cursor: pointer; display: flex; height: calc(18rem + var(--library-book-order) * 0.8rem); padding: 0; transform: rotateY(-15deg); transition: transform 180ms ease; }
 .library__book:hover,
 .library__book.is-selected { transform: translateY(-1.2rem) rotateY(-6deg) scale(1.025); }
-.library__book-spine { align-self: stretch; background: linear-gradient(180deg, var(--book-bright), var(--book-dark)); border-radius: 0.3rem 0 0 0.3rem; box-shadow: inset -0.4rem 0 0.8rem rgba(20, 17, 12, 0.38); width: 1.25rem; }
-.library__book-cover { background: linear-gradient(155deg, var(--book-cover), var(--book-dark)); border: 1px solid rgba(20, 17, 12, 0.126); border-left: 0; border-radius: 0 0.32rem 0.32rem 0; box-shadow: 0 1.1rem 2rem rgba(20, 17, 12, 0.4); color: #14110C; display: flex; flex-direction: column; height: 100%; justify-content: space-between; padding: 1.35rem 1.05rem; text-align: left; width: clamp(6.1rem, 10vw, 10.3rem); }
-.library__book.is-selected .library__book-cover { border-color: rgba(179, 56, 43, 0.7); box-shadow: 0 1.7rem 3.2rem rgba(20, 17, 12, 0.55), 0 0 2rem rgba(179, 56, 43, 0.2); }
-.library__book-cover > span { color: rgba(20, 17, 12, 0.58); font-size: 0.58rem; font-weight: 750; letter-spacing: 0.13em; }
+.library__book-spine { align-self: stretch; background: linear-gradient(180deg, var(--book-bright), var(--book-dark)); border-radius: 0.3rem 0 0 0.3rem; box-shadow: inset -0.4rem 0 0.8rem rgba(20, 17, 12, 0.18); width: 1.25rem; }
+.library__book-cover { background: linear-gradient(155deg, var(--book-cover), var(--book-dark)); border: 1px solid rgba(20, 17, 12, 0.126); border-left: 0; border-radius: 0 0.32rem 0.32rem 0; box-shadow: 0 1.1rem 2rem rgba(20, 17, 12, 0.2); color: #14110C; display: flex; flex-direction: column; height: 100%; justify-content: space-between; padding: 1.35rem 1.05rem; text-align: left; width: clamp(6.1rem, 10vw, 10.3rem); }
+.library__book.is-selected .library__book-cover { border-color: rgba(179, 56, 43, 0.7); box-shadow: 0 1.7rem 3.2rem rgba(20, 17, 12, 0.3), 0 0 2rem rgba(179, 56, 43, 0.2); }
+.library__book-cover > span { color: rgba(20, 17, 12, 0.72); font-size: 0.58rem; font-weight: 750; letter-spacing: 0.13em; }
 .library__book-cover strong { font-size: clamp(0.98rem, 1.6vw, 1.42rem); font-weight: 300; letter-spacing: -0.04em; line-height: 1.1; }
-.library__book-cover i { background: rgba(20, 17, 12, 0.315); height: 2px; width: 2.2rem; }
-.library__book-cover small { color: rgba(20, 17, 12, 0.65); font-size: 0.7rem; line-height: 1.35; }
-.library__book--blue { --book-bright: #B3382B; --book-cover: #B3382B; --book-dark: #14110C; }
-.library__book--indigo { --book-bright: #B3382B; --book-cover: #B3382B; --book-dark: #14110C; }
-.library__book--violet { --book-bright: #B3382B; --book-cover: #B3382B; --book-dark: #14110C; }
-.library__book--green { --book-bright: #3F7D72; --book-cover: #14110C; --book-dark: #14110C; }
+.library__book-cover i { background: rgba(20, 17, 12, 0.4); height: 2px; width: 2.2rem; }
+.library__book-cover small { color: rgba(20, 17, 12, 0.75); font-size: 0.7rem; line-height: 1.35; }
+.library__book--blue { --book-bright: #C4574A; --book-cover: #E8A596; --book-dark: #C96F5F; }
+.library__book--indigo { --book-bright: #B0904F; --book-cover: #E6D0A0; --book-dark: #CDB074; }
+.library__book--violet { --book-bright: #5F7F9C; --book-cover: #BCCDDB; --book-dark: #8EA6BB; }
+.library__book--green { --book-bright: #3F7D72; --book-cover: #A9CFC6; --book-dark: #6FA396; }
 .library__shelf-edge { background: linear-gradient(180deg, rgba(179, 56, 43, 0.34), rgba(179, 56, 43, 0.02)); height: 0.8rem; margin: 1.7rem -2.4rem 0; }
 
 .library__vault { display: flex; flex-direction: column; padding: 2rem; }
