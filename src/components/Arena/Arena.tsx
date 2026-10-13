@@ -34,6 +34,7 @@ import {
   newInviteCode,
   type MatchTransport,
 } from '../../arena/matchmaking.ts'
+import { parseInviteCode } from '../../arena/inviteCode.ts'
 import {
   loadArenaHistory,
   loadArenaProfile,
@@ -60,7 +61,7 @@ export type ArenaAnswer = {
 
 type Stage = 'lobby' | 'searching' | 'versus' | 'battle' | 'result'
 
-type Search = { kind: 'queue' | 'invite'; code?: string; seen: number }
+type Search = { kind: 'queue' | 'invite'; code?: string; seen: number; joining?: boolean }
 
 type ActiveMatch = {
   session: MatchSession
@@ -246,14 +247,10 @@ export function Arena({
     })
   }, [auth.displayName, avatarId, config, pickQuestionIds, poolCount, profile.rank, selfId, startLiveMatch])
 
-  // Arriving on ?arena=CODE means someone sent an invite link. Consume the code
-  // from the URL so a reload doesn't try to rejoin a finished match.
-  useEffect(() => {
-    if (typeof window === 'undefined' || !isLiveArenaAvailable()) return
-    const code = new URLSearchParams(window.location.search).get('arena')
-    if (!code) return
-    window.history.replaceState({}, '', window.location.pathname)
-    setSearch({ kind: 'invite', code, seen: 0 })
+  // Joining a friend's private match, from a pasted code or an invite link.
+  const joinWithCode = useCallback((code: string) => {
+    if (!isLiveArenaAvailable()) return
+    setSearch({ kind: 'invite', code, seen: 0, joining: true })
     setStage('searching')
     const pending = joinInvite(code, {
       id: selfId,
@@ -265,6 +262,16 @@ export function Arena({
     pending.promise.then((session) => {
       if (session) startLiveMatch(session)
     })
+  }, [auth.displayName, avatarId, profile.rank, selfId, startLiveMatch])
+
+  // Arriving on ?arena=CODE means someone sent an invite link. Consume the code
+  // from the URL so a reload doesn't try to rejoin a finished match.
+  useEffect(() => {
+    if (typeof window === 'undefined' || !isLiveArenaAvailable()) return
+    const code = parseInviteCode(window.location.search)
+    if (!code) return
+    window.history.replaceState({}, '', window.location.pathname)
+    joinWithCode(code)
     // Deliberately once, on mount: this is a one-shot read of the landing URL.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -387,6 +394,7 @@ export function Arena({
       <ArenaSearching
         kind={search?.kind ?? 'queue'}
         code={search?.code}
+        joining={search?.joining ?? false}
         opponentsSeen={search?.seen ?? 0}
         timeoutMs={QUEUE_TIMEOUT_MS}
         live={isLiveArenaAvailable()}
@@ -490,6 +498,7 @@ export function Arena({
       onDifficultyChange={setDifficulty}
       onStart={findOpponent}
       onInvite={invite}
+      onJoinCode={joinWithCode}
     />
   )
 }

@@ -1,5 +1,7 @@
-import { Link2, Swords, Timer, Zap } from 'lucide-react'
+import { useState, type FormEvent } from 'react'
+import { KeyRound, Link2, Swords, Timer, Zap } from 'lucide-react'
 
+import { parseInviteCode } from '../../arena/inviteCode.ts'
 import { DIFFICULTY_CHOICES, QUESTIONS_PER_BATTLE, type ArenaMode } from '../../arena/config.ts'
 import {
   levelFor,
@@ -45,6 +47,7 @@ export function ArenaLobby({
   onDifficultyChange,
   onStart,
   onInvite,
+  onJoinCode,
 }: {
   profile: ArenaProfile
   history: MatchHistoryEntry[]
@@ -59,12 +62,28 @@ export function ArenaLobby({
   onDifficultyChange: (difficulty: string) => void
   onStart: () => void
   onInvite: () => void
+  onJoinCode: (code: string) => void
 }) {
+  const [joiningOpen, setJoiningOpen] = useState(false)
+  const [codeText, setCodeText] = useState('')
+  const [codeError, setCodeError] = useState<string | null>(null)
+
   const level = levelFor(profile.xp)
   // Blitz and Overreach set their own ground, so the pickers go inert rather
   // than disappearing - the filter you would get is still worth seeing.
   const pickersLocked = mode !== 'ranked'
   const enoughQuestions = poolCount >= QUESTIONS_PER_BATTLE
+
+  function submitCode(event: FormEvent) {
+    event.preventDefault()
+    const code = parseInviteCode(codeText)
+    if (!code) {
+      setCodeError('That does not look like a code. It is 6 letters and numbers.')
+      return
+    }
+    setCodeError(null)
+    onJoinCode(code)
+  }
 
   return (
     <section className="arena-shell arena-lobby">
@@ -193,7 +212,54 @@ export function ArenaLobby({
               <Link2 size={17} strokeWidth={1.6} absoluteStrokeWidth />
               Invite a friend
             </button>
+            <button
+              className="arena-button"
+              type="button"
+              onClick={() => setJoiningOpen((open) => !open)}
+              disabled={!liveAvailable}
+              aria-expanded={joiningOpen}
+              title={liveAvailable ? undefined : 'Sign in to battle a friend'}
+              data-ui-sound="true"
+              data-ui-sound-hover="hover"
+              data-ui-sound-click="select"
+            >
+              <KeyRound size={17} strokeWidth={1.6} absoluteStrokeWidth />
+              Enter a friend&rsquo;s code
+            </button>
           </div>
+
+          {joiningOpen && liveAvailable && (
+            <form className="arena-join" onSubmit={submitCode}>
+              <label className="arena-picker__label" htmlFor="arena-join-code">
+                Paste the code or link your friend sent
+              </label>
+              <div className="arena-join__row">
+                <input
+                  id="arena-join-code"
+                  className="arena-join__input"
+                  value={codeText}
+                  onChange={(event) => {
+                    setCodeText(event.target.value)
+                    setCodeError(null)
+                  }}
+                  placeholder="K7M2QX"
+                  autoComplete="off"
+                  autoCapitalize="characters"
+                  spellCheck={false}
+                  autoFocus
+                  aria-invalid={codeError !== null}
+                />
+                <button className="arena-button arena-button--primary" type="submit">
+                  Join match
+                </button>
+              </div>
+              {codeError && (
+                <p className="arena-join__error" role="alert">
+                  {codeError}
+                </p>
+              )}
+            </form>
+          )}
 
           <div className="arena-history">
             <p className="arena-picker__label">Recent battles</p>

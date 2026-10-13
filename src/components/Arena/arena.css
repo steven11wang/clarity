@@ -363,6 +363,38 @@
   display: flex;
 }
 
+.arena-launch--center { justify-content: center; }
+
+.arena-join {
+  display: grid;
+  gap: .5rem;
+}
+
+.arena-join__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .65rem;
+}
+
+.arena-join__input {
+  background: rgba(247, 244, 236, 0.9);
+  border: 1px solid var(--line-3);
+  border-radius: var(--r-md);
+  color: var(--text-1);
+  flex: 1 1 11rem;
+  font-family: Geist Mono,ui-monospace,monospace;
+  font-size: 1.05rem;
+  letter-spacing: .18em;
+  min-height: 2.85rem;
+  padding: .55rem .9rem;
+  text-transform: uppercase;
+}
+
+.arena-join__input::placeholder { color: var(--text-3); letter-spacing: .18em; }
+.arena-join__input:focus-visible { border-color: var(--cobalt); outline: 2px solid var(--cobalt-wash); outline-offset: 1px; }
+.arena-join__input[aria-invalid='true'] { border-color: var(--cobalt); }
+.arena-join__error { color: var(--cobalt); font-size: .85rem; margin: 0; }
+
 .arena-history {
   margin-top: .2rem;
 }

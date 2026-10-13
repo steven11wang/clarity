@@ -1,4 +1,5 @@
 import { supabase, isSupabaseConfigured } from '../lib/supabase.ts'
+import { INVITE_ALPHABET, INVITE_CODE_LENGTH } from './inviteCode.ts'
 import {
   botIdentity,
   scriptBot,
@@ -55,9 +56,10 @@ export function newMatchId(): string {
 
 // Ambiguous characters are left out so a code read aloud still works.
 export function newInviteCode(): string {
-  const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
   let code = ''
-  for (let i = 0; i < 6; i += 1) code += alphabet[Math.floor(Math.random() * alphabet.length)]
+  for (let i = 0; i < INVITE_CODE_LENGTH; i += 1) {
+    code += INVITE_ALPHABET[Math.floor(Math.random() * INVITE_ALPHABET.length)]
+  }
   return code
 }
 
