@@ -94,7 +94,11 @@
 }
 
 .passage__figure img {
+  border-radius: 8px;
   display: block;
   height: auto;
   max-width: 100%;
+  /* Source charts are white-backed PNGs. Multiplying drops the white to the
+     panel behind it so the figure sits on the page instead of glowing on it. */
+  mix-blend-mode: multiply;
 }

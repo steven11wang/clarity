@@ -733,6 +733,8 @@
   height: auto;
   max-width: 100%;
 }
+/* White-backed chart PNGs take the panel colour instead of glowing on it. */
+.exam-figure img { mix-blend-mode: multiply; }
 .exam-figure--missing {
   border: 1px dashed var(--exam-line);
   color: var(--exam-muted);

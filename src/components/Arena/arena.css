@@ -29,7 +29,7 @@
   cursor: pointer;
   font: inherit;
   white-space: nowrap;
-  background: rgba(154, 123, 63, 0.722);
+  background: rgba(247, 244, 236, 0.86);
   justify-content: center;
   align-items: center;
   gap: .5rem;
@@ -255,7 +255,7 @@
   color: var(--text-1);
   cursor: pointer;
   text-align: left;
-  background: rgba(154, 123, 63, 0.741);
+  background: rgba(247, 244, 236, 0.86);
   justify-items: start;
   gap: .4rem;
   min-height: 8.5rem;
@@ -333,7 +333,7 @@
   color: var(--text-2);
   cursor: pointer;
   font: inherit;
-  background: rgba(154, 123, 63, 0.62);
+  background: rgba(247, 244, 236, 0.86);
   min-height: 2.35rem;
   padding: .42rem .85rem;
   font-size: .8rem;
@@ -428,7 +428,7 @@
   border: 1px dashed var(--line-2);
   border-radius: var(--r-lg);
   color: var(--text-3);
-  background: rgba(154, 123, 63, 0.459);
+  background: rgba(247, 244, 236, 0.68);
   margin: .5rem 0 0;
   padding: 1rem;
   font-size: .82rem;
@@ -676,7 +676,7 @@
   border: 1px solid var(--line-3);
   border-radius: var(--r-lg);
   box-shadow: inset 0 0 0 1px rgba(179, 56, 43, 0.078), var(--shadow-1);
-  background: rgba(154, 123, 63, 0.902);
+  background: rgba(240, 233, 216, 0.96);
   justify-content: center;
   align-items: center;
   width: clamp(108px,14vw,152px);
@@ -711,7 +711,7 @@
   border: 1px solid var(--line-2);
   border-radius: var(--r-lg);
   box-shadow: inset 0 1px rgba(20, 17, 12, 0.024), var(--shadow-1);
-  background: rgba(154, 123, 63, 0.941);
+  background: rgba(240, 233, 216, 0.96);
   grid-template-columns: auto minmax(0,1fr) minmax(220px,1.45fr) minmax(0,1fr);
   align-items: center;
   gap: clamp(.7rem,1.8vw,1.5rem);
@@ -831,7 +831,7 @@
   border: 1px solid var(--line-2);
   border-radius: var(--r-lg);
   box-shadow: var(--shadow-1);
-  background: rgba(154, 123, 63, 0.82);
+  background: rgba(247, 244, 236, 0.86);
   grid-template-columns: minmax(0,1fr) minmax(0,1fr);
   align-items: stretch;
   min-height: min(68dvh,790px);
@@ -881,7 +881,7 @@
   cursor: pointer;
   font: inherit;
   text-align: left;
-  background: rgba(154, 123, 63, 0.541);
+  background: rgba(247, 244, 236, 0.68);
   align-items: flex-start;
   gap: .8rem;
   width: 100%;
@@ -994,7 +994,7 @@
   border: 1px solid var(--line-2);
   border-radius: var(--r-lg);
   text-align: left;
-  background: rgba(154, 123, 63, 0.62);
+  background: rgba(247, 244, 236, 0.86);
   align-items: center;
   gap: 1.2rem;
   padding: 1rem 1.3rem;
