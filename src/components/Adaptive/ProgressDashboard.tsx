@@ -25,6 +25,7 @@ import {
   type Level,
   type SatDomain,
 } from '../../progression/config.ts'
+import { FeedbackButton } from '../Feedback/FeedbackButton.tsx'
 import { ProfilePopover } from '../Settings/ProfilePopover.tsx'
 import { SettingsPopover } from '../Settings/SettingsPopover.tsx'
 import { PrimaryViewTransition } from './PrimaryViewTransition.tsx'
@@ -435,6 +436,7 @@ export function ProgressDashboard({
           </button>
         </nav>
         <div className="console-header__actions">
+          <FeedbackButton view={activeView} />
           <button
             type="button"
             aria-label="Search the Learn shelf"
