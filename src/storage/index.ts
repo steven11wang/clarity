@@ -254,7 +254,17 @@ export function saveExamRecord(record: PracticeExamRecord): void {
 }
 
 
+/** The sample result an earlier build seeded into every account (it read 720).
+ *  Removed from this browser on sight, and never accepted back from a cloud
+ *  restore or an import, so a new account cannot inherit it. */
+function purgeSampleExamRecord(): void {
+  storage.remove(
+    `${EXAM_RECORDS_PREFIX}${RECOVERED_COOKSAT_EXAM_RECORD.finishedAt}:${RECOVERED_COOKSAT_EXAM_RECORD.examId}`,
+  )
+}
+
 export function getExamRecords(): PracticeExamRecord[] {
+  purgeSampleExamRecord()
   // A new account starts with no exam history. (An earlier build seeded a
   // recovered sample result here, which showed a 720 to every new learner.)
   const records = storage.list<PracticeExamRecord>(EXAM_RECORDS_PREFIX)
@@ -734,6 +744,7 @@ export function replaceCloudState(state: CloudState): void {
     } else {
       storage.set(SEEDED_KEY, true)
       state.examRecords.forEach((record) => {
+        if (record.id === RECOVERED_COOKSAT_EXAM_RECORD.id) return
         localStorage.setItem(
           namespacedKey(`exam-records:${record.finishedAt}:${record.examId}`),
           JSON.stringify(record),

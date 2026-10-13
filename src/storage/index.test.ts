@@ -26,6 +26,7 @@ import {
   setActiveView,
   storage,
   type PracticeExamRecord,
+  RECOVERED_COOKSAT_EXAM_RECORD,
 } from './index.ts'
 import type { WordBankEntry } from '../dictionary/wordBank.ts'
 
@@ -342,6 +343,21 @@ describe('storage', () => {
 
   it('starts a new account with no exam history', () => {
     assert.deepEqual(getExamRecords(), [])
+    assert.deepEqual(getExamRecords(), [])
+  })
+
+  it('removes the old sample exam result already sitting in this browser', () => {
+    saveExamRecord(RECOVERED_COOKSAT_EXAM_RECORD)
+    assert.deepEqual(getExamRecords(), [])
+  })
+
+  it('does not take the sample exam result back from a cloud restore', () => {
+    replaceCloudState({
+      progression: null,
+      attempts: [],
+      reviews: {},
+      examRecords: [RECOVERED_COOKSAT_EXAM_RECORD],
+    } as unknown as Parameters<typeof replaceCloudState>[0])
     assert.deepEqual(getExamRecords(), [])
   })
 })
