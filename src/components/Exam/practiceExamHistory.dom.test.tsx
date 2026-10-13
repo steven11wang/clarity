@@ -116,7 +116,7 @@ describe('Practice Exam History Persistence', () => {
       await new Promise((r) => setTimeout(r, 50))
     })
     await act(async () => {
-      openStep('Untimed exam 2 of 4')
+      openStep('Exam 2')
     })
 
     const attempt = container.querySelector('.step__attempt')
@@ -155,7 +155,7 @@ describe('Practice Exam History Persistence', () => {
       await new Promise((r) => setTimeout(r, 50))
     })
     await act(async () => {
-      openStep('Untimed exam 2 of 4')
+      openStep('Exam 2')
     })
 
     const deleteBtn = container.querySelector<HTMLButtonElement>('.step__delete')

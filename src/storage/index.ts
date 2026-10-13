@@ -255,12 +255,9 @@ export function saveExamRecord(record: PracticeExamRecord): void {
 
 
 export function getExamRecords(): PracticeExamRecord[] {
+  // A new account starts with no exam history. (An earlier build seeded a
+  // recovered sample result here, which showed a 720 to every new learner.)
   const records = storage.list<PracticeExamRecord>(EXAM_RECORDS_PREFIX)
-  if (records.length === 0 && !storage.get<boolean>(SEEDED_KEY)) {
-    storage.set(SEEDED_KEY, true)
-    saveExamRecord(RECOVERED_COOKSAT_EXAM_RECORD)
-    return [RECOVERED_COOKSAT_EXAM_RECORD]
-  }
   return records.sort((a, b) => b.finishedAt - a.finishedAt)
 }
 

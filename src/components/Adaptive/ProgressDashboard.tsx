@@ -106,7 +106,7 @@ function buildHero(
     return {
       kicker: 'TODAY · WHAT SHOULD I DO NEXT?',
       title: 'What should I practice next?',
-      body: `${DOMAIN_PRESENTATION[next.domain].shortName} is a good place to keep going. A skill is one small thing the test asks about, like finding the detail that supports an idea. Finish them one at a time, and your progress stays saved.`,
+      body: `${DOMAIN_PRESENTATION[next.domain].shortName} is a good place to keep going. A skill is one small thing the test asks about.`,
       primary: 'Pick up where I left off',
       secondary: 'Browse the Learn shelf',
       primaryAction: () => onSelectDomain(next.domain),
@@ -117,7 +117,7 @@ function buildHero(
     return {
       kicker: 'DRILLS · YOUR OWN SET',
       title: 'How do I practice just the skill I need?',
-      body: 'A drill is a short set of questions that you build yourself. Pick a domain, a skill, and a difficulty, then choose how many questions you want and how much time each one gets. You see right or wrong as you go, and every miss is saved to your mistake vault so it can come back later.',
+      body: 'Pick a domain, a skill, and a difficulty, then set the length and time. Every miss is saved to your vault.',
       primary: 'Build a drill',
       secondary: 'Open the mistake vault',
       primaryAction: onOpenDrill,
@@ -128,7 +128,7 @@ function buildHero(
     return {
       kicker: 'PRACTICE EXAM · FULL LENGTH',
       title: 'What is it like to take the whole section?',
-      body: 'A practice exam is two timed Reading and Writing modules, in the same kind of testing app you will use on test day. You answer one question at a time, mark questions to come back to, cross out choices, and highlight the passage. Your score appears only after you submit.',
+      body: 'Two timed Reading and Writing modules in a test-day style app. Your score appears after you submit.',
       primary: 'Open practice exam',
       primaryAction: onOpenExam,
     }

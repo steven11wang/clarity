@@ -192,8 +192,8 @@ export function ExamReview({
           </p>
         </div>
         <p className="exam-score-summary__note">
-          The scaled score is Clarity’s approximation of the CookSAT curve, not an
-          official College Board conversion.
+          The scaled score is Clarity’s approximation, not an official College Board
+          conversion.
         </p>
       </section>
 

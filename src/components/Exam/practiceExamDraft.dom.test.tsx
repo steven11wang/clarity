@@ -163,7 +163,7 @@ describe('Practice Exam Draft Persistence', () => {
       await new Promise((r) => setTimeout(r, 50))
     })
     await act(async () => {
-      openStep('Untimed exam 2 of 4')
+      openStep('Exam 2')
     })
 
     const resumeBtn = [...container.querySelectorAll<HTMLButtonElement>('.exam-button')].find(
@@ -217,7 +217,7 @@ describe('Practice Exam Draft Persistence', () => {
       await new Promise((r) => setTimeout(r, 50))
     })
     await act(async () => {
-      openStep('Untimed exam 2 of 4')
+      openStep('Exam 2')
     })
 
     const startFreshBtn = [...container.querySelectorAll<HTMLButtonElement>('.exam-button')].find(

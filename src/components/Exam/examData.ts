@@ -167,11 +167,11 @@ export function examAssetPath(src: string): string {
  * five exam files over the wire; the file itself is fetched on start.
  */
 export const EXAM_CATALOG = [
-  { id: 'kaplan-diagnostic', title: 'Diagnostic', source: 'Kaplan', questions: 54, modules: 2 },
-  { id: 'cooksat-test-1', title: 'Practice Test 1', source: 'CookSAT', questions: 54, modules: 2 },
-  { id: 'cooksat-mock-exam-2', title: 'Practice Test 2', source: 'CookSAT', questions: 54, modules: 2 },
-  { id: 'dsat-june-2026-exam-1', title: 'Practice Test 3', source: 'June 2026 bank', questions: 54, modules: 2 },
-  { id: 'dsat-aug-2025-us-v2', title: 'Practice Test 4', source: 'August 2025 US', questions: 54, modules: 2 },
+  { id: 'kaplan-diagnostic', title: 'Diagnostic', source: '', questions: 54, modules: 2 },
+  { id: 'cooksat-test-1', title: 'Practice Test 1', source: '', questions: 54, modules: 2 },
+  { id: 'cooksat-mock-exam-2', title: 'Practice Test 2', source: '', questions: 54, modules: 2 },
+  { id: 'dsat-june-2026-exam-1', title: 'Practice Test 3', source: '', questions: 54, modules: 2 },
+  { id: 'dsat-aug-2025-us-v2', title: 'Practice Test 4', source: '', questions: 54, modules: 2 },
 ] as const
 
 export type ExamCatalogId = (typeof EXAM_CATALOG)[number]['id']

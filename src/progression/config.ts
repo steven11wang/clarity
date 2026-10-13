@@ -61,7 +61,7 @@ export const DOMAIN_PRESENTATION: Record<SatDomain, DomainPresentation> = {
     characterRole: 'evidence scout',
     accent: '#B3382B',
     accentSoft: 'rgba(179,56,43,0.12)',
-    description: 'Learn to find the main idea of a text and the details that support it. You will practice drawing careful conclusions from what the text actually says.',
+    description: 'Find the main idea and the details that support it, then draw careful conclusions.',
   },
   'Craft and Structure': {
     shortName: 'Craft',
@@ -69,7 +69,7 @@ export const DOMAIN_PRESENTATION: Record<SatDomain, DomainPresentation> = {
     characterRole: 'language explorer',
     accent: '#4A6B8A',
     accentSoft: 'rgba(74,107,138,0.14)',
-    description: 'Learn why an author picks certain words and how a text is put together. You will practice spotting purpose, structure, and how two texts connect.',
+    description: 'See why an author picks certain words, how a text is built, and how two texts connect.',
   },
   'Expression of Ideas': {
     shortName: 'Expression',
@@ -77,7 +77,7 @@ export const DOMAIN_PRESENTATION: Record<SatDomain, DomainPresentation> = {
     characterRole: 'idea builder',
     accent: '#3F7D72',
     accentSoft: 'rgba(63,125,114,0.14)',
-    description: 'Learn to make writing clearer and stronger. You will practice choosing transitions that connect ideas and combining notes into one smooth point.',
+    description: 'Make writing clearer: choose transitions that connect ideas and combine notes into one point.',
   },
   'Standard English Conventions': {
     shortName: 'Conventions',
@@ -85,6 +85,6 @@ export const DOMAIN_PRESENTATION: Record<SatDomain, DomainPresentation> = {
     characterRole: 'sentence engineer',
     accent: '#9A7B3F',
     accentSoft: 'rgba(154,123,63,0.16)',
-    description: 'Learn the rules that make a sentence correct. You will practice punctuation, verb forms, and sentence structure until the right choice feels natural.',
+    description: 'Learn the rules that make a sentence correct: punctuation, verb forms, and structure.',
   },
 }

@@ -339,5 +339,9 @@ describe('storage', () => {
     assert.equal(getExamRecords().length, 1)
     assert.equal(getExamRecord('exam_record_500_test')?.examTitle, 'Test Exam')
   })
-})
 
+  it('starts a new account with no exam history', () => {
+    assert.deepEqual(getExamRecords(), [])
+    assert.deepEqual(getExamRecords(), [])
+  })
+})

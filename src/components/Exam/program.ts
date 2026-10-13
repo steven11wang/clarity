@@ -36,7 +36,7 @@ export const PROGRAM: ProgramStep[] = [
     id: 'diagnostic',
     examId: 'kaplan-diagnostic',
     title: 'Find your untimed dictionary score',
-    source: 'Kaplan',
+    source: '',
     blurb:
       'No clock, dictionary on, look up every word you don’t know. This is the score you’d already have if vocabulary and speed weren’t in the way.',
   },
@@ -44,7 +44,7 @@ export const PROGRAM: ProgramStep[] = [
     kind: 'exam' as const,
     id: `exam-${index + 1}`,
     examId: exam.id,
-    title: `Untimed exam ${index + 1} of 4`,
+    title: `Exam ${index + 1}`,
     source: exam.source,
     blurb:
       index === 0

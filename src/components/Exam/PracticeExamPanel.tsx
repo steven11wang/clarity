@@ -485,8 +485,8 @@ function StepRow(props: StepRowProps) {
         <div className="step__panel">
           <p className="step__hint">
             {catalog?.questions} questions · {catalog?.modules} modules ·{' '}
-            {lengthLabel(props.paceId, props.customMinutes, catalog?.modules ?? 2)} ·{' '}
-            {catalog?.source}
+            {lengthLabel(props.paceId, props.customMinutes, catalog?.modules ?? 2)}
+            {catalog?.source ? ` · ${catalog.source}` : ''}
           </p>
 
           <div className="step__paces" role="radiogroup" aria-label="Pace">
