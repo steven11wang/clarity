@@ -818,6 +818,52 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
   .marquee-track{animation:none; transform:none}
   .motes{display:none}
 }
+/* ==========================================================================
+   Value props, "why Clarity", fine print and footer. Same ink and paper as the
+   rest of the page; the notes are small on purpose, and every number a claim
+   cites is a link to its note.
+   ========================================================================== */
+.fn{font-size:.62em; line-height:0; margin-left:2px; vertical-align:super}
+.fn a{color:var(--cinnabar); text-decoration:none; padding:0 1px}
+.fn a:hover,.fn a:focus-visible{text-decoration:underline}
+
+.props{list-style:none; margin:0; padding:0; display:grid; gap:clamp(12px,1.8vh,18px); max-width:46ch}
+.props li{display:grid; gap:2px; padding-left:16px; border-left:2px solid var(--ink-18)}
+.props strong{font-size:15.5px; font-weight:600; color:var(--ink)}
+.props span{font-size:15px; line-height:1.6; color:var(--ink-80)}
+.feature-cta{display:flex; flex-wrap:wrap; align-items:center; gap:clamp(14px,2vw,26px); margin:clamp(20px,3vh,30px) 0 0}
+
+.whyc{padding-top:clamp(40px,6vh,72px); padding-bottom:clamp(40px,6vh,72px)}
+.whyc-grid{display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:clamp(20px,4vw,64px); align-items:start;
+  padding:clamp(26px,3.4vh,40px) 0; border-top:1px solid var(--ink-18); border-bottom:1px solid var(--ink-10)}
+.whyc-claim h2,.whyc-else h3{margin:0 0 14px; font-family:'Cormorant Garamond',Georgia,serif; font-weight:300; line-height:1.02; letter-spacing:.01em; text-wrap:balance}
+.whyc-claim h2{font-size:clamp(34px,4.4vw,66px)}
+.whyc-list{list-style:none; margin:0; padding:0; display:grid; gap:0}
+.whyc-list li{padding:16px 0; border-bottom:1px solid var(--ink-10); font-family:'Cormorant Garamond',Georgia,serif; font-size:clamp(20px,1.9vw,28px); line-height:1.25; color:var(--ink)}
+.whyc-list li:first-child{padding-top:0}
+.whyc-else{padding-top:clamp(28px,4vh,44px); max-width:56ch}
+.whyc-else h3{font-size:clamp(26px,2.6vw,40px)}
+
+.fine{padding-top:clamp(28px,4vh,44px); padding-bottom:clamp(32px,5vh,56px); color:var(--ink-58); font-size:12.5px; line-height:1.6}
+.fine h2{margin:0 0 14px}
+.fine p{margin:0 0 10px; max-width:112ch}
+.notes{margin:18px 0 0; padding:0 0 0 20px; display:grid; gap:8px; max-width:112ch}
+.notes li{padding-left:4px}
+.notes li:target{color:var(--ink); background:var(--bronze-soft)}
+
+.site-foot{border-top:1px solid var(--ink-18); background:var(--paper-deep); padding:clamp(28px,4vh,44px) 0 clamp(24px,3vh,36px)}
+.site-foot-cols{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(18px,3vw,48px)}
+.site-foot-cols p{margin:0 0 12px}
+.site-foot-cols ul{list-style:none; margin:0; padding:0; display:grid; gap:8px}
+.site-foot-cols a{font-size:14px; color:var(--ink-80)}
+.site-foot-cols a:hover,.site-foot-cols a:focus-visible{color:var(--cinnabar); text-decoration:underline}
+.site-foot-legal{margin:clamp(22px,3vh,32px) 0 0; font-size:12px; color:var(--ink-58)}
+.sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+.hero-static-more{margin:16px 0 0}
+@media (max-width:860px){
+  .whyc-grid{grid-template-columns:1fr}
+  .site-foot-cols{grid-template-columns:1fr 1fr}
+}
 </style>
 </head>
 
@@ -874,9 +920,9 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
 
         <div class="bands">
           <div class="band band-1" data-band="0,0.30">
-            <h1 class="line">The score</h1>
-            <p class="line">stops moving.</p>
-            <p class="lede sub">The practice tests keep coming, and the number stays where it is.</p>
+            <h1 class="line">Practice that</h1>
+            <p class="line">makes a difference.</p>
+            <p class="lede sub">Straightforward review and a clear path can help you study with confidence.</p>
           </div>
 
           <div class="band band-2" data-band="0.34,0.62" aria-hidden="true">
@@ -896,6 +942,7 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
             <p class="lede sub">Everything you get wrong comes back, on the day you were about to lose it.</p>
             <p class="row">
               <a class="enter" href="/app">Get started <i>&rarr;</i></a>
+              <a class="quiet-link" href="#features">See how it works</a>
             </p>
           </div>
         </div>
@@ -908,6 +955,7 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
         <p class="lede sub">Everything you get wrong comes back, on the day you were about to lose it.</p>
         <p class="zh">先自悟，后见解。</p>
         <a class="enter" href="/app">Get started <i>&rarr;</i></a>
+        <p class="hero-static-more"><a class="quiet-link" href="#features">See how it works</a></p>
       </div>
 
       <p class="mono hero-cue">Scroll</p>
@@ -925,7 +973,7 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
 
     <div class="schools-claim rise">
       <h2>Transform your score</h2>
-      <p class="body">Your shot at getting into a top college.</p>
+      <p class="body">Your shot at getting into a top college.<sup class="fn"><a href="#fn3" aria-label="Note 3">3</a></sup></p>
     </div>
 
     <div class="marquee rise">
@@ -1129,7 +1177,7 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
     <div class="why-claim rise">
       <h2>Why the SAT?</h2>
       <div>
-        <p class="body">If your goal is a top-30 university in the US, you need a score around 1550. That is the number that decides whether the rest of your application is read at all.</p>
+        <p class="body">If your goal is a top-30 university in the US, you need a score around 1550. That is the number that decides whether the rest of your application is read at all.<sup class="fn"><a href="#fn3" aria-label="Note 3">3</a></sup></p>
         <p class="why-eg">Ex. <b>Reading and Writing 760</b> · <b>Math 790</b></p>
       </div>
     </div>
@@ -1254,7 +1302,7 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
       <p class="mono count" style="margin:0">Four · 01–04</p>
     </div>
 
-    <article class="feature rise">
+    <article class="feature rise" id="paced-path">
       <figure class="feature-art">
         <img src="/brand/landing/plate-01.jpg" width="1600" height="1067" loading="lazy"
              alt="A stone path climbing an ink mountain in stages, a blue thread tracing the route to the summit pavilion." />
@@ -1264,13 +1312,18 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
       </figure>
       <div class="feature-txt">
         <p class="mono feature-idx">01 · Paced path</p>
-        <h2>Learn at the right pace</h2>
-        <p class="body">A guided route through every domain and skill, so you always know what to work on next instead of guessing which weakness to chase.</p>
+        <h2>Know what to work on next with a paced path</h2>
+        <ul class="props">
+          <li><strong>A clear route</strong><span>Follow a guided path through every domain and skill, so you never have to guess which weakness to chase.<sup class="fn"><a href="#fn2" aria-label="Note 2">2</a></sup></span></li>
+          <li><strong>Starts where you are</strong><span>Upload or enter your score report and Clarity picks the best place to begin.<sup class="fn"><a href="#fn2" aria-label="Note 2">2</a></sup></span></li>
+          <li><strong>Progress that stays saved</strong><span>Every skill you secure stays secured as you move on.</span></li>
+        </ul>
+        <p class="feature-cta"><a class="enter" href="/app">Get started <i>&rarr;</i></a><a class="quiet-link" href="/app">Explore the paced path</a></p>
         <p class="feature-foot"><span>Path · Domain · Skill</span></p>
       </div>
     </article>
 
-    <article class="feature rise">
+    <article class="feature rise" id="one-place">
       <figure class="feature-art">
         <img src="/brand/landing/plate-02.jpg" width="1600" height="1067" loading="lazy"
              alt="A scholar's courtyard where four open rooms face one shared court around a bronze water basin." />
@@ -1280,8 +1333,13 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
       </figure>
       <div class="feature-txt">
         <p class="mono feature-idx">02 · One place</p>
-        <h2>Everything in one place</h2>
-        <p class="body">Lessons, domain practice, full exams, the guide and your words. One place, not six tabs.</p>
+        <h2>Study everything in one place</h2>
+        <ul class="props">
+          <li><strong>Lessons and practice together</strong><span>Learn a skill, then practice it right away, without switching tabs.</span></li>
+          <li><strong>Full-length practice exams</strong><span>Sit two timed modules in a testing app built to feel like test day.<sup class="fn"><a href="#fn4" aria-label="Note 4">4</a></sup></span></li>
+          <li><strong>Your guide, words, and misses</strong><span>Your study guide, saved words, and mistake vault sit right next to your practice.</span></li>
+        </ul>
+        <p class="feature-cta"><a class="enter" href="/app">Get started <i>&rarr;</i></a><a class="quiet-link" href="/app">Explore practice and exams</a></p>
         <p class="feature-foot"><span>Lessons · Exams · Guide</span></p>
       </div>
     </article>
@@ -1296,13 +1354,18 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
       </figure>
       <div class="feature-txt">
         <p class="mono feature-idx">03 · Dictionary</p>
-        <h2>Words, understood fast</h2>
-        <p class="body">Look a word up inside the passage you are reading. The digital SAT tests words in context, so that is where you learn them, and that is how they come back.</p>
+        <h2>Understand every word in context</h2>
+        <ul class="props">
+          <li><strong>Look it up in the passage</strong><span>Check a word while you read, without leaving the question.<sup class="fn"><a href="#fn5" aria-label="Note 5">5</a></sup></span></li>
+          <li><strong>Learn words the way the test asks</strong><span>The digital SAT tests words in context, so that is where you learn them.</span></li>
+          <li><strong>Words that come back</strong><span>Saved words return on a schedule, so they stick.<sup class="fn"><a href="#fn6" aria-label="Note 6">6</a></sup></span></li>
+        </ul>
+        <p class="feature-cta"><a class="enter" href="/app">Get started <i>&rarr;</i></a><a class="quiet-link" href="/app">Explore the dictionary</a></p>
         <p class="feature-foot"><span>Context · Meaning · Word</span></p>
       </div>
     </article>
 
-    <article class="feature rise">
+    <article class="feature rise" id="return-loop">
       <figure class="feature-art">
         <img src="/brand/landing/plate-04.jpg" width="1600" height="1067" loading="lazy"
              alt="A river bending back on itself in a closed circle around a small island with one pavilion." />
@@ -1312,13 +1375,43 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
       </figure>
       <div class="feature-txt">
         <p class="mono feature-idx">04 · Return loop</p>
-        <h2>What you miss returns</h2>
-        <p class="body">Missed questions and words come back on a schedule built around when people forget, so nothing quietly rots in an error log you never open.</p>
+        <h2>Never lose a missed question again</h2>
+        <ul class="props">
+          <li><strong>Every miss is filed</strong><span>Wrong answers are saved the moment you miss them.</span></li>
+          <li><strong>They return at the right time</strong><span>Questions and words come back on a schedule built around when people forget.<sup class="fn"><a href="#fn6" aria-label="Note 6">6</a></sup></span></li>
+          <li><strong>Nothing sits in an error log</strong><span>There is no log to open and forget. Today’s review is already waiting.</span></li>
+        </ul>
+        <p class="feature-cta"><a class="enter" href="/app">Get started <i>&rarr;</i></a><a class="quiet-link" href="/app">Explore the return loop</a></p>
         <p class="feature-foot"><span>Attempt · Reflect · Return</span></p>
       </div>
     </article>
 
     <div class="features-seal"><svg class="seal" aria-hidden="true"><use href="#seal"/></svg></div>
+  </section>
+
+  <!-- 4b · WHY CLARITY, then the way in for anyone who is not sure ----------- -->
+  <section class="whyc wrap" id="why-clarity">
+    <div class="why-head">
+      <p class="mono" style="margin:0">Why Clarity</p>
+      <span class="fret thin" aria-hidden="true"></span>
+    </div>
+    <div class="whyc-grid">
+      <div class="whyc-claim rise">
+        <h2>Why choose Clarity?</h2>
+        <p class="body">One idea runs through everything here: the questions you miss are the most useful ones you have. A simple, disciplined routine puts them back in front of you.</p>
+      </div>
+      <ul class="whyc-list rise">
+        <li>A clear, straightforward experience</li>
+        <li>Guidance as your score changes</li>
+        <li>Practice, exams, and words in one place</li>
+        <li>Free to use, with no fees at any step<sup class="fn"><a href="#fn1" aria-label="Note 1">1</a></sup></li>
+      </ul>
+    </div>
+    <div class="whyc-else rise">
+      <h3>Looking for something else?</h3>
+      <p class="body">Not sure where to start? Upload your score report, or answer a couple of questions about where you are, and Clarity will suggest the best place to begin.</p>
+      <p class="feature-cta"><a class="enter" href="/app">Get started <i>&rarr;</i></a></p>
+    </div>
   </section>
 
   <!-- 5 · CLOSE ------------------------------------------------------------ -->
@@ -1349,8 +1442,56 @@ body.paused *, body.paused *::before, body.paused *::after{animation-play-state:
       </div>
     </div>
   </section>
+  <!-- 6 · FINE PRINT. Warnings and numbered notes, in the order the page cites them. -->
+  <section class="fine wrap" id="fine" aria-labelledby="fine-title">
+    <h2 class="mono" id="fine-title">Important information</h2>
+    <p>Keep in mind that studying takes effort, and results vary. Your score may go up, stay the same, or go down on test day. Clarity does not guarantee a score or admission to any college.</p>
+    <p>Clarity is a study tool. The information on this page is general in nature and is not admissions, financial aid, legal, or tax advice.</p>
+    <p>SAT&reg; is a registered trademark of the College Board, which is not affiliated with, and does not endorse, Clarity. College names and logos belong to their owners, appear for reference only, and do not imply endorsement.</p>
+    <p>The images, graphs, tools, and videos on this page are for illustrative purposes only. The paintings and drawings were generated for Clarity.</p>
+    <ol class="notes">
+      <li id="fn1">Clarity is free to use. There are no account fees, subscriptions, or hidden charges. Features and availability may change.</li>
+      <li id="fn2">The paced path starts from the score report results you upload or enter, and adjusts as you finish skills. It is a study guide, not a prediction of your score.</li>
+      <li id="fn3">Median SAT figures are approximate, are shown for illustration, and may be out of date. Check each college&rsquo;s own admissions site for its current ranges. Admission depends on the whole application, not on a score alone.</li>
+      <li id="fn4">Practice exams follow the digital SAT format. They are practice material, not official College Board tests, and a practice score is an estimate.</li>
+      <li id="fn5">Word definitions come from published dictionaries and are shown for study.</li>
+      <li id="fn6">Review timing follows a spaced repetition schedule. How well it works varies from learner to learner.</li>
+    </ol>
+  </section>
 
 </main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <nav class="site-foot-cols" aria-label="Footer">
+      <div>
+        <p class="mono">Learn</p>
+        <ul>
+          <li><a href="#paced-path">Paced path</a></li>
+          <li><a href="#one-place">Practice and exams</a></li>
+          <li><a href="#vocabulary">Dictionary</a></li>
+          <li><a href="#return-loop">Return loop</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="mono">Clarity</p>
+        <ul>
+          <li><a href="#why">Why the SAT</a></li>
+          <li><a href="#why-clarity">Why Clarity</a></li>
+          <li><a href="/app">Get started</a></li>
+          <li><a href="#fine">Important information</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="mono">Stay connected</p>
+        <ul>
+          <li><a href="https://github.com/wresearch" target="_blank" rel="noopener noreferrer">wresearch on GitHub<span class="sr"> (opens in a new tab)</span></a></li>
+        </ul>
+      </div>
+    </nav>
+    <p class="site-foot-legal">Clarity is built at wresearch. &copy; 2026 wresearch. All rights reserved.</p>
+  </div>
+</footer>
 
 <script>
 /* ==========================================================================

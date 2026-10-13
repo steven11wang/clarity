@@ -103,11 +103,11 @@ function buildHero(
   if (selection.kind === 'today') {
     const next = cards.find((card) => card.recommended) ?? cards[0]
     return {
-      kicker: 'TODAY · YOUR NEXT MOVE',
-      title: `${totalSkills - securedSkills} skills are waiting for you.`,
-      body: `${DOMAIN_PRESENTATION[next.domain].shortName} is the strongest place to continue. Your path, completed skills, and checkpoint progress are all saved.`,
-      primary: 'Continue recommended path',
-      secondary: 'Open the Learn shelf',
+      kicker: 'TODAY · WHAT SHOULD I DO NEXT?',
+      title: 'What should I practice next?',
+      body: `${DOMAIN_PRESENTATION[next.domain].shortName} is a good place to keep going. A skill is one small thing the test asks about, like finding the detail that supports an idea. Finish them one at a time, and your progress stays saved.`,
+      primary: 'Pick up where I left off',
+      secondary: 'Browse the Learn shelf',
       primaryAction: () => onSelectDomain(next.domain),
       secondaryAction: onOpenLibrary,
     }
@@ -115,8 +115,8 @@ function buildHero(
   if (selection.kind === 'drill') {
     return {
       kicker: 'DRILLS · YOUR OWN SET',
-      title: 'Build the set you actually need.',
-      body: 'Pick a domain, a skill and a difficulty, say how many questions and how long you get for each. You see right or wrong as you go, work the misses at the end, and every one of them files into your mistake vault.',
+      title: 'How do I practice just the skill I need?',
+      body: 'A drill is a short set of questions that you build yourself. Pick a domain, a skill, and a difficulty, then choose how many questions you want and how much time each one gets. You see right or wrong as you go, and every miss is saved to your mistake vault so it can come back later.',
       primary: 'Build a drill',
       secondary: 'Open the mistake vault',
       primaryAction: onOpenDrill,
@@ -126,8 +126,8 @@ function buildHero(
   if (selection.kind === 'exam') {
     return {
       kicker: 'PRACTICE EXAM · FULL LENGTH',
-      title: 'Sit the whole section, test-day rules.',
-      body: 'Two timed Reading and Writing modules in the same testing app you will face on the day: one question at a time, mark for review, cross out answers, highlight the passage. Scored only when you submit.',
+      title: 'What is it like to take the whole section?',
+      body: 'A practice exam is two timed Reading and Writing modules, in the same kind of testing app you will use on test day. You answer one question at a time, mark questions to come back to, cross out choices, and highlight the passage. Your score appears only after you submit.',
       primary: 'Open practice exam',
       primaryAction: onOpenExam,
     }
@@ -556,7 +556,7 @@ export function ProgressDashboard({
           <article className="console-widget console-session-widget">
             <h2>Session</h2>
             <div className="console-session-widget__body">
-              <div><strong>Focus session · choose your next set</strong><p>Your next focused activity is ready whenever you are.</p></div>
+              <div><strong>What should my next set be?</strong><p>A focus session is a short set of questions picked for you. It is ready whenever you are.</p></div>
             </div>
             <div className="console-energy"><span>ENERGY</span><b>{Math.max(40, 100 - (totalSkills - securedSkills) * 2)}%</b></div>
             <div className="console-energy__bar"><i /></div>
@@ -575,22 +575,22 @@ export function ProgressDashboard({
         <div className="console-widget-stack">
           <article className="console-widget console-friends-widget">
             <h2>Study guide</h2>
-            <div><span className="console-friend-dot console-friend-dot--blue" /><p><strong>{securedSkills} skills are secured</strong><small>Completed work stays safe as you advance.</small></p></div>
-            <div><span className="console-friend-dot console-friend-dot--gold" /><p><strong>{totalSkills - securedSkills} skills remain</strong><small>Keep building toward the next mixed challenge.</small></p></div>
+            <div><span className="console-friend-dot console-friend-dot--blue" /><p><strong>{securedSkills} skills secured</strong><small>A secured skill stays saved as you move forward.</small></p></div>
+            <div><span className="console-friend-dot console-friend-dot--gold" /><p><strong>{totalSkills - securedSkills} skills to go</strong><small>Each one you finish brings the mixed challenge closer.</small></p></div>
           </article>
           <article className="console-widget console-trophy-widget">
             <h2>Trophies</h2>
             <p><strong>{cards.filter((card) => card.finished).length}</strong> / {cards.length}</p>
             <div><span>Platinum {cards.filter((card) => card.finished).length}</span><span>Gold {cards.filter((card) => card.completedSkills === card.totalSkills && !card.finished).length}</span></div>
-            <small>Next: secure every skill in a path.</small>
+            <small>Why does it work? Securing every skill in a path earns the next trophy.</small>
           </article>
         </div>
 
         <div className="console-widget-stack">
           <article className="console-widget console-checkpoint-widget">
-            <h2>Next checkpoint</h2>
+            <h2>What is a checkpoint?</h2>
             <h3>{(cards.find((card) => card.checkpointStatus === 'Ready') ?? cards.find((card) => card.recommended) ?? cards[0]).domain}</h3>
-            <p>Complete every current-level skill to open the mixed challenge. Your secured progress is never reset.</p>
+            <p>A checkpoint is a mixed challenge that opens once you finish every skill at your current level. Your secured progress is never reset.</p>
             {cards.map((card) => (
               <button type="button" onClick={() => onSelectDomain(card.domain)} key={card.domain}>
                 <i className={card.completedSkills === card.totalSkills ? 'is-done' : ''}>
