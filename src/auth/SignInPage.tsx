@@ -4,10 +4,21 @@ import { listProfileShortcuts, upsertProfileShortcut, type ProfileShortcut } fro
 import './signInPage.css'
 
 export type SignInPageProps = {
+  /** 'choose' (default) opens on the Google / Email options; 'form' opens the email form. */
+  initialView?: 'choose' | 'form'
   initialEmail?: string
   initialError?: string | null
   onSuccess?: (profile: ProfileShortcut) => void
 }
+
+const GOOGLE_ICON = (
+  <svg viewBox="0 0 24 24">
+                      <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17Z" />
+                      <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24Z" />
+                      <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.03 0 12s.45 3.82 1.25 5.42l4.03-3.15Z" />
+                      <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98Z" />
+                    </svg>
+)
 
 export function defaultUsername(email: string) {
   const local = email.split('@')[0] ?? ''
@@ -24,12 +35,20 @@ export function validateUsername(value: string): string | null {
 }
 
 /** Painting on the left, wordmark centred over the form on the right. */
-export function AuthShell({ label, children }: { label: string; children: ReactNode }) {
+export function AuthShell({
+  label,
+  children,
+  footer,
+}: {
+  label: string
+  children: ReactNode
+  footer?: ReactNode
+}) {
   return (
     <main className="auth-page-root">
       <div className="auth-visual" aria-hidden="true">
         <p className="auth-visual-tagline">
-          Miss it once<em>/</em>Master it twice.
+          Miss it once / Master it twice.
         </p>
       </div>
 
@@ -52,6 +71,7 @@ export function AuthShell({ label, children }: { label: string; children: ReactN
         <section className="auth-main-stage" aria-label={label}>
           <div className="auth-card-box">{children}</div>
         </section>
+        {footer ? <footer className="auth-panel-footer">{footer}</footer> : null}
       </div>
     </main>
   )
@@ -119,6 +139,7 @@ export function UsernameStep({ email, onSubmit }: UsernameStepProps) {
 }
 
 export function SignInPage({
+  initialView = 'choose',
   initialEmail = '',
   initialError = null,
   onSuccess,
@@ -130,6 +151,7 @@ export function SignInPage({
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(initialError)
   const [message, setMessage] = useState<string | null>(null)
+  const [view, setView] = useState<'choose' | 'form'>(initialView)
   const [pendingLocal, setPendingLocal] = useState<ProfileShortcut | null>(null)
 
   /** Offline mode: a returning profile goes straight in, a new one picks a username first. */
@@ -271,6 +293,67 @@ export function SignInPage({
     )
   }
 
+  if (view === 'choose') {
+    return (
+      <AuthShell
+        label="Sign up for Clarity"
+        footer={
+          <>
+            Already have an account?
+            <button
+              type="button"
+              className="auth-switch-link"
+              onClick={() => {
+                setMode('sign-in')
+                setError(null)
+                setView('form')
+              }}
+            >
+              Sign in
+            </button>
+          </>
+        }
+      >
+        <h1 className="auth-title auth-title--choose">Sign up</h1>
+        {error && (
+          <div className="auth-alert-message auth-alert-message--error" role="alert">
+            {error}
+          </div>
+        )}
+        <button
+          type="button"
+          className="auth-google-btn auth-google-btn--solid"
+          onClick={handleGoogleSignIn}
+          disabled={busy}
+          aria-label="Continue with Google"
+        >
+          <span className="auth-google-icon" aria-hidden="true">
+            {GOOGLE_ICON}
+          </span>
+          <span>Continue with Google</span>
+        </button>
+        <div className="auth-divider">
+          <span>or</span>
+        </div>
+        <button
+          type="button"
+          className="auth-email-btn"
+          onClick={() => {
+            setMode('sign-up')
+            setError(null)
+            setView('form')
+          }}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="14" rx="2" />
+            <path d="m3.5 6.5 8.5 6.5 8.5-6.5" />
+          </svg>
+          <span>Email</span>
+        </button>
+      </AuthShell>
+    )
+  }
+
   return (
     <AuthShell label="Sign in to Clarity">
           <h1 className="auth-title">
@@ -401,12 +484,7 @@ export function SignInPage({
                   aria-label="Continue with Google"
                 >
                   <span className="auth-google-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24">
-                      <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17Z" />
-                      <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24Z" />
-                      <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.03 0 12s.45 3.82 1.25 5.42l4.03-3.15Z" />
-                      <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98Z" />
-                    </svg>
+                    {GOOGLE_ICON}
                   </span>
                   <span>Continue with Google</span>
                 </button>

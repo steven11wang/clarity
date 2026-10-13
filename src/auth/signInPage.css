@@ -403,3 +403,62 @@
     right: 1rem;
   }
 }
+
+/* ---- Choose screen (Sign up: Google / Email) ----------------------------- */
+.auth-visual-tagline {
+  font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.auth-title--choose {
+  font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.7rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.6rem;
+}
+
+.auth-google-btn--solid {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fffdf8;
+}
+
+.auth-google-btn--solid:hover:not(:disabled) {
+  background: #2c2720;
+  border-color: #2c2720;
+}
+
+.auth-email-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.97rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.auth-email-btn:hover {
+  background: rgba(22, 19, 15, 0.06);
+}
+
+.auth-panel-footer {
+  width: calc(100% + 4rem);
+  margin: 0 -2rem -2rem;
+  padding: 1.5rem 2rem 1.7rem;
+  border-top: 1px solid var(--rule);
+  text-align: center;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  box-sizing: border-box;
+}

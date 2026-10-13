@@ -58,7 +58,7 @@ after(() => {
 describe('Mountain Path Sign-In Page', () => {
   it('renders the brandmark seal, welcome back title, practice subtitle, inputs, and Google button', async () => {
     await act(async () => {
-      root.render(createElement(SignInPage, { key: 'main-render' }))
+      root.render(createElement(SignInPage, { initialView: 'form', key: 'main-render' }))
     })
 
     assert.match(container.textContent ?? '', /CLARITY/)
@@ -89,7 +89,7 @@ describe('Mountain Path Sign-In Page', () => {
 
   it('allows toggling password visibility and switching to sign up or forgot password modes', async () => {
     await act(async () => {
-      root.render(createElement(SignInPage, { key: 'mode-switch-test' }))
+      root.render(createElement(SignInPage, { initialView: 'form', key: 'mode-switch-test' }))
     })
 
     const eyeBtn = container.querySelector<HTMLButtonElement>('.auth-eye-btn')
@@ -140,6 +140,7 @@ describe('Mountain Path Sign-In Page', () => {
     await act(async () => {
       root.render(
         createElement(SignInPage, {
+          initialView: 'form',
           key: 'google-login-test',
           onSuccess: (profile) => {
             chosenProfile = profile
@@ -169,6 +170,7 @@ describe('Mountain Path Sign-In Page', () => {
     await act(async () => {
       root.render(
         createElement(SignInPage, {
+          initialView: 'form',
           key: 'email-login-test',
           onSuccess: (profile) => {
             chosenProfile = profile
@@ -208,6 +210,7 @@ describe('Mountain Path Sign-In Page', () => {
     await act(async () => {
       root.render(
         createElement(SignInPage, {
+          initialView: 'form',
           key: 'initial-error-test',
           initialError: 'Google authentication failed (server_error).',
         }),
@@ -232,8 +235,16 @@ describe('LocalProfileGate Flow', () => {
       )
     })
 
-    assert.match(container.textContent ?? '', /Welcome back/)
+    // First screen: Sign up with Google or Email, Sign in at the bottom.
+    assert.match(container.textContent ?? '', /Sign up/)
+    assert.match(container.textContent ?? '', /Continue with Google/)
+    assert.match(container.textContent ?? '', /Already have an account\?/)
     assert.doesNotMatch(container.textContent ?? '', /Welcome to Dashboard/)
+
+    await act(async () => {
+      container.querySelector<HTMLButtonElement>('.auth-email-btn')?.click()
+    })
+    assert.match(container.textContent ?? '', /Create an account/)
 
     const emailInput = container.querySelector<HTMLInputElement>('input[type="email"]')
     assert.ok(emailInput)
