@@ -3,8 +3,7 @@ import type { User } from '@supabase/supabase-js'
 
 import { ConsoleAudioProvider } from '../audio/ConsoleAudioProvider.tsx'
 import { AuthProfileProvider } from './AuthContext.tsx'
-import { SignInPage, type SignInPageProps } from './SignInPage.tsx'
-import { fetchAccess, type AccessState } from '../lib/subscription.ts'
+import { SignInPage, UsernameStep, type SignInPageProps } from './SignInPage.tsx'
 import {
   clearProfilePin,
   listProfileShortcuts,
@@ -28,8 +27,6 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
   const [, setSyncError] = useState<string | null>(null)
   const [unlockedUserId, setUnlockedUserId] = useState<string | null>(null)
   const [profileRevision, setProfileRevision] = useState(0)
-  const [access, setAccess] = useState<AccessState | null>(null)
-  const [accessError, setAccessError] = useState<string | null>(null)
   const syncedUserId = useRef<string | null>(null)
 
   useEffect(() => {
@@ -111,50 +108,6 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
     })
   }, [user])
 
-  // Paywall. Stripe is the source of truth; the row is written only by the
-  // stripe-webhook edge function running as service role, and row-level
-  // security makes it read-only here, so a browser cannot grant itself a plan.
-  useEffect(() => {
-    if (!user) {
-      setAccess(null)
-      setAccessError(null)
-      return
-    }
-    let active = true
-    setAccess(null)
-    setAccessError(null)
-    void fetchAccess(user)
-      .then((result) => {
-        if (active) setAccess(result)
-      })
-      .catch((error: unknown) => {
-        if (!active) return
-        setAccessError(error instanceof Error ? error.message : 'Could not read your plan.')
-        setAccess({ allowed: false, subscription: null })
-      })
-    return () => {
-      active = false
-    }
-  }, [user])
-
-  const recheckAccess = useCallback(async () => {
-    if (!user) return false
-    const result = await fetchAccess(user)
-    setAccess(result)
-    setAccessError(null)
-    return result.allowed
-  }, [user])
-
-  // Drop ?checkout=success once it has done its job, so a reload or a shared
-  // link does not put the learner back on the confirming screen.
-  useEffect(() => {
-    if (!access?.allowed) return
-    const url = new URL(window.location.href)
-    if (!url.searchParams.has('checkout')) return
-    url.searchParams.delete('checkout')
-    window.history.replaceState({}, document.title, url.pathname + url.search + url.hash)
-  }, [access])
-
   if (!isSupabaseConfigured) {
     return (
       <>
@@ -185,12 +138,31 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
     )
   }
 
-  // Paywall is disabled: once signed in, everyone goes straight to the
-  // dashboard. `access` is still fetched (see effect above) so re-enabling
-  // the gate later is a one-line change, but it never blocks rendering here.
-  void access
-  void accessError
-  void recheckAccess
+  // First sign-in: ask for a public username (defaults to the email name)
+  // before the dashboard. Stored on the account, so it is asked only once.
+  const savedName = user.user_metadata?.display_name
+  if (typeof savedName !== 'string' || !savedName.trim()) {
+    return (
+      <>
+        <ConsoleAudioProvider scene="auth" />
+        <UsernameStep
+          email={user.email ?? ''}
+          onSubmit={async (username) => {
+            const { data, error } = await supabase!.auth.updateUser({ data: { display_name: username } })
+            if (error) return error.message
+            upsertProfileShortcut({
+              id: user.id,
+              email: user.email ?? '',
+              displayName: username,
+              avatarId: typeof user.user_metadata?.avatar_id === 'string' ? user.user_metadata.avatar_id as AvatarId : 'orbit',
+            })
+            setUser(data.user ?? { ...user, user_metadata: { ...user.user_metadata, display_name: username } })
+            return null
+          }}
+        />
+      </>
+    )
+  }
 
   void profileRevision
   const activeShortcut = listProfileShortcuts().find((profile) => profile.id === user.id)
@@ -269,15 +241,43 @@ export function extractUrlAuthError(): string | null {
   return null
 }
 
+// Offline mode remembers the learner in localStorage so a return visit lands
+// on the dashboard (satclarity.com's landing page checks the same key).
+const ACTIVE_PROFILE_KEY = 'clarity-active-profile'
+
+function readActiveProfileId() {
+  try {
+    return window.localStorage.getItem(ACTIVE_PROFILE_KEY)
+  } catch {
+    return null
+  }
+}
+
+function saveActiveProfileId(id: string) {
+  try {
+    window.localStorage.setItem(ACTIVE_PROFILE_KEY, id)
+  } catch {
+    // Storage blocked: the learner just signs in again next visit.
+  }
+}
+
+function clearActiveProfileId() {
+  try {
+    window.localStorage.removeItem(ACTIVE_PROFILE_KEY)
+  } catch {
+    // ignore
+  }
+}
+
 export function LocalProfileGate({ children }: { children: ReactNode }) {
   const [selected, setSelected] = useState<ProfileShortcut | null>(() => {
-    const activeId = window.sessionStorage.getItem('clarity-active-profile')
+    const activeId = readActiveProfileId()
     return listProfileShortcuts().find((profile) => profile.id === activeId) ?? null
   })
   const [authError, setAuthError] = useState<string | null>(() => extractUrlAuthError())
 
   function openAccount() {
-    window.sessionStorage.removeItem('clarity-active-profile')
+    clearActiveProfileId()
     setSelected(null)
   }
 
@@ -316,7 +316,7 @@ export function LocalProfileGate({ children }: { children: ReactNode }) {
     <SignInPage
       initialError={authError}
       onSuccess={(profile) => {
-        window.sessionStorage.setItem('clarity-active-profile', profile.id)
+        saveActiveProfileId(profile.id)
         setAuthError(null)
         setSelected(profile)
       }}

@@ -155,6 +155,11 @@ describe('Mountain Path Sign-In Page', () => {
       googleBtn.click()
     })
 
+    assert.match(container.textContent ?? '', /Almost there/)
+    await act(async () => {
+      container.querySelector<HTMLButtonElement>('button[type="submit"]')?.click()
+    })
+
     assert.ok(chosenProfile)
     assert.equal((chosenProfile as { email: string }).email, 'learner@gmail.com')
   })
@@ -188,9 +193,15 @@ describe('Mountain Path Sign-In Page', () => {
       submitBtn.click()
     })
 
+    assert.match(container.textContent ?? '', /Almost there/)
+    assert.equal(container.querySelector<HTMLInputElement>('#auth-username')?.value, 'ada')
+    await act(async () => {
+      container.querySelector<HTMLButtonElement>('button[type="submit"]')?.click()
+    })
+
     assert.ok(chosenProfile)
     assert.equal((chosenProfile as { email: string }).email, 'ada@example.com')
-    assert.equal((chosenProfile as { displayName: string }).displayName, 'Ada')
+    assert.equal((chosenProfile as { displayName: string }).displayName, 'ada')
   })
 
   it('renders initialError when provided', async () => {
@@ -240,7 +251,17 @@ describe('LocalProfileGate Flow', () => {
       submitBtn.click()
     })
 
+    // A new profile picks a username first, defaulting to the email name.
+    await waitForContent(/Almost there/)
+    const usernameInput = container.querySelector<HTMLInputElement>('#auth-username')
+    assert.equal(usernameInput?.value, 'steven')
+
+    await act(async () => {
+      container.querySelector<HTMLButtonElement>('button[type="submit"]')?.click()
+    })
+
     await waitForContent(/Welcome to Dashboard/)
     assert.match(container.textContent ?? '', /Welcome to Dashboard/)
+    assert.equal(dom.window.localStorage.getItem('clarity-active-profile'), 'local-steven@example.com')
   })
 })
