@@ -1,13 +1,13 @@
 export const tokens = {
   color: {
-    background: '#05070f',
-    surface: 'rgba(16,22,38,0.55)',
-    text: '#ffffff',
-    mutedText: 'rgba(255,255,255,0.62)',
-    border: 'rgba(255,255,255,0.14)',
-    accent: '#2b5bc7',
-    accentSoft: 'rgba(43,91,199,0.20)',
-    neutral: 'rgba(255,255,255,0.55)',
+    background: '#F2EEE3',
+    surface: 'rgba(247,244,236,0.85)',
+    text: '#14110C',
+    mutedText: 'rgba(20,17,12,0.62)',
+    border: 'rgba(20,17,12,0.14)',
+    accent: '#B3382B',
+    accentSoft: 'rgba(179,56,43,0.12)',
+    neutral: 'rgba(20,17,12,0.55)',
   },
   space: {
     xs: '0.25rem',

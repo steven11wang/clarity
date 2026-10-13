@@ -49,34 +49,34 @@
 }
 
 :root {
-  /* Neutrals: one cool ramp. v1 mixed #05070f, #080c1c, #0c1222, #10182c and
-     #10224b, which read as five different blacks under the scanline. */
-  --ink-900: #04060e;
-  --ink-850: #070a16;
-  --ink-800: #0a0f1e;
-  --ink-700: #0e1526;
-  --ink-600: #131c31;
+  /* Neutrals: one cool ramp. v1 mixed #F2EEE3, #F7F4EC, #F7F4EC, #F7F4EC and
+     #F7F4EC, which read as five different blacks under the scanline. */
+  --ink-900: #F2EEE3;
+  --ink-850: #F2EEE3;
+  --ink-800: #F7F4EC;
+  --ink-700: #F7F4EC;
+  --ink-600: #F7F4EC;
 
-  --line-1: rgba(255, 255, 255, 0.07);
-  --line-2: rgba(255, 255, 255, 0.13);
-  --line-3: rgba(255, 255, 255, 0.22);
+  --line-1: rgba(20, 17, 12, 0.063);
+  --line-2: rgba(20, 17, 12, 0.117);
+  --line-3: rgba(20, 17, 12, 0.198);
 
-  --text-1: #f3f6fc;
-  --text-2: rgba(240, 245, 255, 0.72);
-  --text-3: rgba(240, 245, 255, 0.55);
+  --text-1: #14110C;
+  --text-2: rgba(20, 17, 12, 0.72);
+  --text-3: rgba(20, 17, 12, 0.55);
 
   /* Accent lock. Cobalt is the one accent for every interactive surface.
      The per-domain "game colour" below is scenery, never a control. */
-  --cobalt: #2f62d9;
-  --cobalt-press: #2450b8;
-  --cobalt-deep: #1b3d8f;
-  --cobalt-light: #9cc0ff;
-  --cobalt-wash: rgba(47, 98, 217, 0.18);
+  --cobalt: #B3382B;
+  --cobalt-press: #952D22;
+  --cobalt-deep: #7A241B;
+  --cobalt-light: #B3382B;
+  --cobalt-wash: rgba(179, 56, 43, 0.10);
 
   /* Semantic only. Amber means "needs review", mint means "clear". */
-  --console-amber: #edc25c;
-  --console-online: #46d18b;
-  --ink-on-amber: #241a00;
+  --console-amber: #9A7B3F;
+  --console-online: #3F7D72;
+  --ink-on-amber: #F7F4EC;
 
   /* Legacy aliases so component css written against v1 keeps working. */
   --console-bg-flat: var(--ink-800);
@@ -84,19 +84,13 @@
   --console-text-mute: var(--text-2);
   --console-text-dim: var(--text-3);
 
-  --console-bg: radial-gradient(
-    128% 88% at 50% -18%,
-    #2a4fa8 0%,
-    #17306c 30%,
-    #0a1330 60%,
-    var(--ink-900) 100%
-  );
+  --console-bg: linear-gradient(180deg, #F7F4EC 0%, #F2EEE3 55%, #EBE5D5 100%);
 
-  --glass-surface: rgba(14, 21, 38, 0.62);
-  --glass-surface-strong: rgba(8, 12, 24, 0.78);
+  --glass-surface: rgba(247, 244, 236, 0.62);
+  --glass-surface-strong: rgba(242, 238, 227, 0.78);
   --glass-border: var(--line-2);
   --glass-blur: blur(26px) saturate(1.24);
-  --glass-sheen: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  --glass-sheen: inset 0 1px 0 rgba(20, 17, 12, 0.049);
 
   /* Shape lock. Four steps, no drift.
      sm = inline controls, md = tiles + answer rows, lg = cards + widgets,
@@ -111,14 +105,14 @@
 
   /* Depth is navy, not black. Pure-black shadow on a blue field reads as a
      hole; tinting it to the background hue reads as elevation. */
-  --shadow-1: 0 1px 2px rgba(2, 5, 13, 0.5), 0 10px 26px -10px rgba(2, 5, 13, 0.7);
-  --shadow-2: 0 2px 4px rgba(2, 5, 13, 0.5), 0 28px 64px -20px rgba(2, 6, 18, 0.9);
+  --shadow-1: 0 1px 2px rgba(20, 17, 12, 0.08), 0 10px 26px -12px rgba(20, 17, 12, 0.22);
+  --shadow-2: 0 2px 4px rgba(20, 17, 12, 0.08), 0 28px 64px -24px rgba(20, 17, 12, 0.3);
   --shadow-console: var(--shadow-1);
 
   --ease-out: cubic-bezier(0.22, 0.85, 0.28, 1);
   --ease-spring: cubic-bezier(0.18, 0.94, 0.28, 1.04);
 
-  color-scheme: dark;
+  color-scheme: light;
   font-family: Geist, ui-sans-serif, system-ui, -apple-system, sans-serif;
   color: var(--text-1);
   font-synthesis-weight: none;
@@ -147,7 +141,7 @@ body::before { background: var(--console-bg); z-index: -2; }
 body::after {
   background: repeating-linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.018) 0 1px,
+    rgba(20, 17, 12, 0.013) 0 1px,
     transparent 1px 3px
   );
   z-index: -1;
@@ -307,7 +301,7 @@ body::after {
   background: var(--cobalt);
   border-color: var(--cobalt);
   border-radius: var(--r-pill);
-  color: #ffffff;
+  color: #F7F4EC;
   font-weight: 600;
   letter-spacing: 0.06em;
   padding: 0.78rem 1.45rem;
@@ -323,7 +317,7 @@ body::after {
 .button:active:not(:disabled) {
   background: var(--cobalt-deep);
   border-color: var(--cobalt-deep);
-  box-shadow: inset 0 2px 6px rgba(2, 6, 18, 0.45);
+  box-shadow: inset 0 2px 6px rgba(20, 17, 12, 0.45);
   transform: translateY(1px);
 }
 .button--quiet {
@@ -331,36 +325,36 @@ body::after {
   border-color: var(--line-3);
   color: var(--text-2);
 }
-.button--quiet:hover { background: rgba(255, 255, 255, 0.07); color: var(--text-1); }
+.button--quiet:hover { background: rgba(20, 17, 12, 0.049); color: var(--text-1); }
 
 .pill, .difficulty, .choice-tag, .chain-tag, .tree-count, .domain-tag {
   border-radius: var(--r-pill);
 }
 .pill {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(20, 17, 12, 0.035);
   border-color: var(--line-2);
   color: var(--text-2);
   transition: border-color 0.14s var(--ease-out), color 0.14s var(--ease-out);
 }
 .pill:hover { border-color: var(--cobalt-light); color: var(--text-1); }
-.pill--on { background: var(--cobalt); border-color: var(--cobalt); color: #ffffff; }
+.pill--on { background: var(--cobalt); border-color: var(--cobalt); color: #F7F4EC; }
 
 /* Answer choices / options: glass rows that lift on the selected state. */
 .choice, .option, .reason-select, .field input, .adaptive-result-field select {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(20, 17, 12, 0.028);
   border-color: var(--line-2);
   color: var(--text-1);
   transition: background 0.14s var(--ease-out), border-color 0.14s var(--ease-out),
     transform 0.12s var(--ease-out);
 }
 .reason-select { color-scheme: dark; }
-/* v1 dropped to #000 here, the only pure black on the page. */
+/* v1 dropped to #F2EEE3 here, the only pure black on the page. */
 .reason-select option {
   background: var(--ink-800);
   color: var(--text-1);
 }
 .choice:hover:not(:disabled), .option:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(20, 17, 12, 0.056);
   border-color: var(--cobalt-light);
 }
 .choice:active:not(:disabled) { transform: translateY(1px); }
@@ -373,21 +367,21 @@ body::after {
 .choice--selected .choice-letter { background: transparent; color: var(--text-1); }
 
 /* Focus: the console's bright white ring, on every focusable surface. */
-:focus-visible { outline: 2px solid #ffffff; outline-offset: 2px; }
+:focus-visible { outline: 2px solid rgba(20, 17, 12, 0.81); outline-offset: 2px; }
 .field input:focus,
 .reason-select:focus,
 .adaptive-result-field select:focus {
   border-color: var(--cobalt-light);
-  outline: 3px solid rgba(47, 98, 217, 0.5);
+  outline: 3px solid rgba(179, 56, 43, 0.5);
   outline-offset: 1px;
 }
 /* Placeholder was at 40% white, which fails AA against these surfaces. */
 ::placeholder { color: var(--text-3); }
-::selection { background: rgba(47, 98, 217, 0.55); color: #ffffff; }
+::selection { background: rgba(179, 56, 43, 0.55); color: #14110C; }
 
 /* Progress + meters */
 .progress-track, .bar-track, .timer-bar {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(20, 17, 12, 0.07);
   border-radius: var(--r-pill);
   overflow: hidden;
 }
@@ -402,7 +396,7 @@ body::after {
 
 /* Meta strips read as glass sub-bars, not light panels. */
 .question-meta {
-  background: rgba(255, 255, 255, 0.045);
+  background: rgba(20, 17, 12, 0.032);
   border-bottom: 1px solid var(--line-1);
 }
 .passage { border-right-color: var(--line-1); }
@@ -415,12 +409,12 @@ body::after {
 .batch-choice--selected .choice-letter { background: transparent; color: var(--text-1); }
 
 a { color: var(--cobalt-light); text-decoration: none; }
-a:hover { color: #ffffff; }
+a:hover { color: #14110C; }
 
 ::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.03); }
-::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.16); border-radius: var(--r-pill); }
-::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.26); }
+::-webkit-scrollbar-track { background: rgba(20, 17, 12, 0.021); }
+::-webkit-scrollbar-thumb { background: rgba(20, 17, 12, 0.112); border-radius: var(--r-pill); }
+::-webkit-scrollbar-thumb:hover { background: rgba(20, 17, 12, 0.182); }
 
 @media (max-width: 560px) {
   .button { padding: 0.72rem 1.2rem; }
@@ -432,7 +426,7 @@ a:hover { color: #ffffff; }
    CTAs, meters, counters and status pills, so a cobalt page grew a lime
    button in the middle. */
 .console-dashboard {
-  --hero-accent: #3f74e8;
+  --hero-accent: #B3382B;
   background: var(--ink-900);
   color: var(--text-1);
   min-height: 100dvh;
@@ -441,23 +435,23 @@ a:hover { color: #ffffff; }
   position: relative;
 }
 
-.console-dashboard--domain-0 { --hero-accent: #3f74e8; }
-.console-dashboard--domain-1 { --hero-accent: #4f93e0; }
-.console-dashboard--domain-2 { --hero-accent: #8fb84a; }
-.console-dashboard--domain-3 { --hero-accent: #8f7ad0; }
-.console-dashboard--drill { --hero-accent: #7b66dd; }
-.console-dashboard--lessons { --hero-accent: #6f9bf0; }
-.console-dashboard--reviews { --hero-accent: #d4a94e; }
+.console-dashboard--domain-0 { --hero-accent: #B3382B; }
+.console-dashboard--domain-1 { --hero-accent: #B3382B; }
+.console-dashboard--domain-2 { --hero-accent: #3F7D72; }
+.console-dashboard--domain-3 { --hero-accent: #B3382B; }
+.console-dashboard--drill { --hero-accent: #B3382B; }
+.console-dashboard--lessons { --hero-accent: #B3382B; }
+.console-dashboard--reviews { --hero-accent: #9A7B3F; }
 
 .console-hero-wash {
   background:
     radial-gradient(
       78% 88% at 72% 15%,
-      color-mix(in srgb, var(--hero-accent) 30%, #16294a) 0,
-      rgba(6, 12, 27, 0.74) 52%,
+      color-mix(in srgb, var(--hero-accent) 30%, #F7F4EC) 0,
+      rgba(242, 238, 227, 0.74) 52%,
       transparent 78%
     ),
-    linear-gradient(180deg, rgba(6, 12, 27, 0.88), rgba(4, 6, 14, 0.1) 69%, var(--ink-900));
+    linear-gradient(180deg, rgba(242, 238, 227, 0.88), rgba(242, 238, 227, 0.1) 69%, var(--ink-900));
   height: 41rem;
   left: 48%;
   pointer-events: none;
@@ -482,7 +476,7 @@ a:hover { color: #ffffff; }
   width: 25rem;
 }
 .console-hero-wash::after {
-  border-color: rgba(255, 255, 255, 0.13);
+  border-color: rgba(20, 17, 12, 0.117);
   height: 17rem;
   right: 16%;
   top: 6.8rem;
@@ -492,10 +486,10 @@ a:hover { color: #ffffff; }
 .console-hero-wash span {
   background: linear-gradient(
     145deg,
-    color-mix(in srgb, var(--hero-accent) 22%, #16293c),
-    rgba(4, 6, 14, 0.55)
+    color-mix(in srgb, var(--hero-accent) 22%, #F7F4EC),
+    rgba(242, 238, 227, 0.55)
   );
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(20, 17, 12, 0.18);
   border-radius: var(--r-lg);
   box-shadow: var(--shadow-2);
   height: 10rem;
@@ -505,7 +499,7 @@ a:hover { color: #ffffff; }
   width: 10rem;
 }
 .console-hero-wash i {
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.035), transparent);
+  background: linear-gradient(90deg, transparent, rgba(20, 17, 12, 0.025), transparent);
   inset: 0;
   position: absolute;
   transform: skewX(-6deg);
@@ -542,8 +536,8 @@ a:hover { color: #ffffff; }
 .console-header__actions > button {
   background: none;
   border: 0;
-  /* 38% white failed contrast against #04060e. 56% clears AA for large text. */
-  color: rgba(240, 245, 255, 0.56);
+  /* 38% white failed contrast against rgba(20, 17, 12, 0.81). 56% clears AA for large text. */
+  color: rgba(20, 17, 12, 0.56);
   cursor: pointer;
   transition: color 0.16s var(--ease-out);
 }
@@ -586,13 +580,13 @@ a:hover { color: #ffffff; }
   width: 2.3rem;
 }
 .console-header__actions > button:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(20, 17, 12, 0.056);
   color: var(--text-1);
 }
 .console-header__actions .console-avatar {
   align-items: center;
-  background: radial-gradient(circle at 34% 26%, #53bca8, #0a504b 68%, #082b31);
-  border: 2px solid rgba(255, 255, 255, 0.26);
+  background: radial-gradient(circle at 34% 26%, #3F7D72, #F7F4EC 68%, #F7F4EC);
+  border: 2px solid rgba(20, 17, 12, 0.234);
   border-radius: 50%;
   display: flex;
   font-size: 1.2rem;
@@ -600,7 +594,7 @@ a:hover { color: #ffffff; }
   justify-content: center;
   width: 2.4rem;
 }
-.console-header__actions .console-avatar:hover { background: radial-gradient(circle at 34% 26%, #5fd0ba, #0a504b 68%, #082b31); }
+.console-header__actions .console-avatar:hover { background: radial-gradient(circle at 34% 26%, #3F7D72, #F7F4EC 68%, #F7F4EC); }
 
 .console-primary-transition {
   --console-primary-enter: 10px;
@@ -660,8 +654,8 @@ a:hover { color: #ffffff; }
   --tile-accent: var(--cobalt);
   background: linear-gradient(
     148deg,
-    color-mix(in srgb, var(--tile-accent) 62%, #15274d),
-    #0d1830
+    color-mix(in srgb, var(--tile-accent) 62%, #F7F4EC),
+    #F7F4EC
   );
   border: 0;
   border-radius: var(--r-md);
@@ -684,16 +678,15 @@ a:hover { color: #ffffff; }
       color-mix(in srgb, var(--tile-accent) 34%, transparent),
       transparent 46%
     ),
-    linear-gradient(148deg, #142549, #06101f 78%);
+    linear-gradient(148deg, #F7F4EC, #F7F4EC 78%);
 }
 /* Selection ring: the console's own focus idiom. Keyboard focus gets the
    same treatment so tab-navigation matches pointer selection. */
 .console-tile--selected,
 .console-tile:focus-visible {
   outline: none;
-  box-shadow:
-    0 0 0 3px var(--ink-900),
-    0 0 0 6px rgba(255, 255, 255, 0.88),
+  box-shadow: 0 0 0 3px var(--ink-900),
+    0 0 0 6px rgba(20, 17, 12, 0.88),
     0 0 0 9px color-mix(in srgb, var(--tile-accent) 55%, transparent),
     var(--shadow-2);
 }
@@ -790,15 +783,15 @@ a:hover { color: #ffffff; }
 .console-button--primary {
   background: var(--cobalt);
   border: 1px solid var(--cobalt);
-  color: #fff;
+  color: #F7F4EC;
 }
-.console-button--primary:hover { background: #3d72e8; border-color: #3d72e8; }
+.console-button--primary:hover { background: #B3382B; border-color: #B3382B; }
 .console-button--secondary {
-  background: rgba(4, 6, 14, 0.5);
+  background: rgba(242, 238, 227, 0.5);
   border: 1px solid var(--line-3);
   color: var(--text-1);
 }
-.console-button--secondary:hover { background: rgba(255, 255, 255, 0.08); }
+.console-button--secondary:hover { background: rgba(20, 17, 12, 0.056); }
 
 @keyframes consoleHeroWashPop {
   0% { filter: saturate(0.9) brightness(0.94); transform: scale(0.95); }
@@ -828,7 +821,7 @@ a:hover { color: #ffffff; }
 }
 .console-mastery__ring {
   align-items: center;
-  background: conic-gradient(var(--cobalt) 0 var(--mastery), rgba(255, 255, 255, 0.1) var(--mastery));
+  background: conic-gradient(var(--cobalt) 0 var(--mastery), rgba(20, 17, 12, 0.07) var(--mastery));
   border-radius: 50%;
   display: flex;
   height: 2.85rem;
@@ -851,7 +844,7 @@ a:hover { color: #ffffff; }
 .console-growth { color: var(--text-2); font-size: 1.05rem; font-weight: 500; }
 .console-status-row button {
   align-items: center;
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(20, 17, 12, 0.049);
   border: 1px solid transparent;
   border-radius: var(--r-pill);
   color: var(--text-1);
@@ -863,7 +856,7 @@ a:hover { color: #ffffff; }
   padding: 0 1.1rem;
   transition: background 0.14s var(--ease-out), transform 0.1s var(--ease-out);
 }
-.console-status-row button:hover { background: rgba(255, 255, 255, 0.12); }
+.console-status-row button:hover { background: rgba(20, 17, 12, 0.084); }
 .console-status-row button:active { transform: translateY(1px); }
 .console-status-row button svg { height: 1.05rem; width: 1.05rem; }
 /* Amber here is semantic: these two buttons are the "something is waiting
@@ -885,7 +878,7 @@ a:hover { color: #ffffff; }
   gap: 1.1rem;
 }
 .console-widget {
-  background: rgba(11, 17, 32, 0.74);
+  background: rgba(247, 244, 236, 0.74);
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
   border: 1px solid var(--line-2);
@@ -917,7 +910,7 @@ a:hover { color: #ffffff; }
 }
 .console-energy__bar,
 .console-capacity-widget__bar {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(20, 17, 12, 0.07);
   border-radius: var(--r-pill);
   height: 0.35rem;
   margin-top: 0.6rem;
@@ -957,12 +950,12 @@ a:hover { color: #ffffff; }
 }
 .console-friends-widget > div { align-items: center; display: flex; gap: 0.85rem; margin-top: 0.85rem; }
 .console-friend-dot {
-  background: linear-gradient(145deg, #87aaff, #253d83);
+  background: linear-gradient(145deg, #B3382B, #B3382B);
   border-radius: 50%;
   flex: 0 0 2.6rem;
   height: 2.6rem;
 }
-.console-friend-dot--gold { background: linear-gradient(145deg, #e0ae63, #6d4322); }
+.console-friend-dot--gold { background: linear-gradient(145deg, #9A7B3F, #E7E0D0); }
 .console-friends-widget p { display: grid; margin: 0; }
 .console-friends-widget strong { color: var(--text-1); font-size: 0.92rem; font-weight: 550; }
 .console-friends-widget small { color: var(--text-3); margin-top: 0.2rem; }
@@ -983,7 +976,7 @@ a:hover { color: #ffffff; }
 }
 .console-checkpoint-widget button i {
   align-items: center;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(20, 17, 12, 0.056);
   border-radius: 50%;
   color: var(--text-3);
   display: flex;
@@ -1013,7 +1006,7 @@ a:hover { color: #ffffff; }
   width: 0.55rem;
 }
 .console-capacity-widget > p span:last-of-type {
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(20, 17, 12, 0.154);
   margin-left: 0.55rem;
 }
 
@@ -1079,13 +1072,13 @@ a:hover { color: #ffffff; }
    booting, so it keeps its full-bleed wash, drifting motes and oversized
    avatars. Tuned, not rebuilt. */
 .profile-gate {
-  background: radial-gradient(122% 92% at 50% 6%, #2f4d88 0%, #1d3364 24%, #0e1b3d 52%, var(--ink-900) 100%);
+  background: radial-gradient(122% 92% at 50% 6%, #B3382B 0%, #E7E0D0 24%, #F7F4EC 52%, var(--ink-900) 100%);
   min-height: 100dvh;
   overflow: hidden;
   position: relative;
 }
 .profile-gate__scanlines {
-  background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 3px);
+  background: repeating-linear-gradient(180deg, rgba(20, 17, 12, 0.017) 0 1px, transparent 1px 3px);
   inset: 0;
   pointer-events: none;
   position: absolute;
@@ -1093,7 +1086,7 @@ a:hover { color: #ffffff; }
 .profile-gate__motes { inset: 0; pointer-events: none; position: absolute; }
 .profile-gate__motes i {
   animation: clarityMote 10s ease-in-out infinite;
-  background: rgba(255, 231, 178, 0.22);
+  background: rgba(154, 123, 63, 0.22);
   border-radius: 50%;
   filter: blur(1px);
   height: 0.55rem;
@@ -1156,7 +1149,7 @@ a:hover { color: #ffffff; }
 }
 .profile-gate__add > span {
   align-items: center;
-  background: rgba(255, 255, 255, 0.11);
+  background: rgba(20, 17, 12, 0.077);
   border-radius: 50%;
   display: flex;
   font-size: 2.6rem;
@@ -1166,18 +1159,18 @@ a:hover { color: #ffffff; }
   transition: background 0.18s var(--ease-out), transform 0.18s var(--ease-spring);
   width: clamp(8rem, 13vw, 11rem);
 }
-.profile-gate__add:hover > span { background: rgba(255, 255, 255, 0.18); transform: scale(1.03); }
+.profile-gate__add:hover > span { background: rgba(20, 17, 12, 0.126); transform: scale(1.03); }
 .profile-gate__add strong { font-size: 1.25rem; font-weight: 300; }
 .profile-gate__learner { align-items: center; display: flex; flex-direction: column; }
 .profile-gate__controller { font-size: 1.5rem; line-height: 1; }
 .profile-gate__learner > small { color: var(--text-3); font-size: 0.85rem; font-weight: 500; margin-top: 0.45rem; }
 .profile-gate__avatar {
   align-items: center;
-  background: radial-gradient(circle at 35% 22%, #57bda9, #0f756e 46%, #073e3f 82%);
-  border: 3px solid rgba(255, 255, 255, 0.9);
+  background: radial-gradient(circle at 35% 22%, #3F7D72, #E7E0D0 46%, #F7F4EC 82%);
+  border: 3px solid rgba(20, 17, 12, 0.81);
   border-radius: 50%;
-  box-shadow: 0 0 3.5rem rgba(55, 203, 172, 0.28);
-  color: #fff;
+  box-shadow: 0 0 3.5rem rgba(63, 125, 114, 0.28);
+  color: #14110C;
   cursor: pointer;
   display: flex;
   height: clamp(10rem, 16vw, 13rem);
@@ -1186,13 +1179,13 @@ a:hover { color: #ffffff; }
   transition: transform 0.2s var(--ease-spring), box-shadow 0.2s var(--ease-out);
   width: clamp(10rem, 16vw, 13rem);
 }
-.profile-gate__avatar:hover { box-shadow: 0 0 4.5rem rgba(55, 203, 172, 0.42); transform: scale(1.03); }
+.profile-gate__avatar:hover { box-shadow: 0 0 4.5rem rgba(63, 125, 114, 0.42); transform: scale(1.03); }
 .profile-gate__avatar:active { transform: scale(0.99); }
 .profile-gate__avatar span { font-size: 4.4rem; transform: rotate(-10deg); }
 .profile-gate__learner > strong { font-size: 1.45rem; font-weight: 300; margin-top: 1.2rem; }
 .profile-gate__learner > p { color: var(--text-3); margin: 0.55rem 0 0; }
 .profile-gate__pin {
-  background: rgba(6, 11, 26, 0.88);
+  background: rgba(242, 238, 227, 0.88);
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
   border: 1px solid var(--line-2);
@@ -1206,7 +1199,7 @@ a:hover { color: #ffffff; }
 }
 .profile-gate__pin label { color: var(--text-1); font-size: 0.88rem; font-weight: 550; }
 .profile-gate__pin input {
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(20, 17, 12, 0.049);
   border: 1px solid var(--line-3);
   border-radius: var(--r-sm);
   color: var(--text-1);
@@ -1216,10 +1209,10 @@ a:hover { color: #ffffff; }
   padding: 0.7rem 0.8rem;
   text-align: center;
 }
-.profile-gate__pin input:focus { border-color: var(--cobalt-light); outline: 2px solid rgba(47, 98, 217, 0.4); }
+.profile-gate__pin input:focus { border-color: var(--cobalt-light); outline: 2px solid rgba(179, 56, 43, 0.4); }
 .profile-gate__pin > div { display: flex; gap: 0.6rem; justify-content: flex-end; }
 .profile-gate__pin button {
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(20, 17, 12, 0.049);
   border: 1px solid var(--line-2);
   border-radius: var(--r-pill);
   color: var(--text-1);
@@ -1231,13 +1224,13 @@ a:hover { color: #ffffff; }
 }
 .profile-gate__pin button[type='submit'] { background: var(--cobalt); border-color: transparent; }
 .profile-gate__pin button:disabled { cursor: wait; opacity: 0.55; }
-.profile-gate__content > [role='alert'] { color: #ff9b92; font-size: 0.85rem; margin-top: 0.85rem; }
+.profile-gate__content > [role='alert'] { color: #B3382B; font-size: 0.85rem; margin-top: 0.85rem; }
 .profile-gate__options { color: var(--text-2); margin-top: 1.15rem; }
 .profile-gate__options--button { background: none; border: 0; cursor: pointer; font: inherit; }
 .profile-gate__options--button:hover { color: var(--text-1); }
 .profile-gate__power {
   align-items: center;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(20, 17, 12, 0.07);
   border: 0;
   border-radius: 50%;
   color: var(--text-2);
@@ -1249,14 +1242,13 @@ a:hover { color: #ffffff; }
   transition: background 0.16s var(--ease-out), color 0.16s var(--ease-out);
   width: 3.2rem;
 }
-.profile-gate__power:hover { background: rgba(255, 255, 255, 0.16); color: var(--text-1); }
+.profile-gate__power:hover { background: rgba(20, 17, 12, 0.112); color: var(--text-1); }
 .auth-shell--console {
-  background:
-    repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0 1px, transparent 1px 3px),
-    radial-gradient(122% 92% at 50% 6%, #2f4d88 0%, #1d3364 24%, #0e1b3d 52%, var(--ink-900) 100%);
+  background: repeating-linear-gradient(180deg, rgba(20, 17, 12, 0.014) 0 1px, transparent 1px 3px),
+    radial-gradient(122% 92% at 50% 6%, #B3382B 0%, #E7E0D0 24%, #F7F4EC 52%, var(--ink-900) 100%);
 }
 .auth-shell--console .auth-card {
-  background: rgba(7, 12, 27, 0.76);
+  background: rgba(242, 238, 227, 0.76);
   border-color: var(--line-2);
   box-shadow: var(--shadow-2), var(--glass-sheen);
 }
@@ -1293,7 +1285,7 @@ a:hover { color: #ffffff; }
    from .console-nav and never competes with it. */
 .console-subnav {
   align-items: center;
-  border-bottom: 1px solid var(--line-1, rgba(255, 255, 255, 0.07));
+  border-bottom: 1px solid var(--line-1, rgba(20, 17, 12, 0.063));
   display: flex;
   gap: 0.4rem;
   margin: 0 0 1.25rem;
@@ -1304,7 +1296,7 @@ a:hover { color: #ffffff; }
   background: none;
   border: 0;
   border-radius: var(--r-pill, 999px);
-  color: var(--text-3, rgba(240, 245, 255, 0.56));
+  color: var(--text-3, rgba(20, 17, 12, 0.56));
   cursor: pointer;
   display: inline-flex;
   font-size: 0.86rem;
@@ -1317,7 +1309,7 @@ a:hover { color: #ffffff; }
 }
 .console-subnav button:hover { color: var(--text-1); }
 .console-subnav .console-subnav__active {
-  background: var(--cobalt-wash, rgba(43, 91, 199, 0.18));
+  background: var(--cobalt-wash, rgba(179, 56, 43, 0.18));
   color: var(--text-1);
   font-weight: 550;
 }

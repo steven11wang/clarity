@@ -1,5 +1,5 @@
 .passage {
-  color: var(--color-text, #ffffff);
+  color: var(--color-text, #14110C);
 }
 
 .passage__text {
@@ -40,17 +40,17 @@
 }
 
 .passage__text--selectable .passage__sentence:hover {
-  background: rgba(255,255,255,0.06);
+  background: rgba(20, 17, 12, 0.042);
 }
 
 .passage__sentence--selected {
-  background: rgba(43,91,199,0.20) !important;
-  box-shadow: inset 0 -2px 0 #2b5bc7;
+  background: rgba(179, 56, 43, 0.2) !important;
+  box-shadow: inset 0 -2px 0 #B3382B;
 }
 
 .passage__sentence--referenced {
-  background: rgba(240,192,74,0.14);
-  box-shadow: inset 0 -2px 0 #f0c04a;
+  background: rgba(154, 123, 63, 0.14);
+  box-shadow: inset 0 -2px 0 #9A7B3F;
 }
 
 /* Research notes (Rhetorical Synthesis etc.) — a real bulleted list. */
@@ -69,7 +69,7 @@
 }
 
 .passage__notes li::marker {
-  color: #8cb4ff;
+  color: #B3382B;
 }
 
 .passage__table {
@@ -80,13 +80,13 @@
 
 .passage__table th,
 .passage__table td {
-  border: 1px solid rgba(255,255,255,0.14);
+  border: 1px solid rgba(20, 17, 12, 0.126);
   padding: 0.5rem;
   text-align: left;
 }
 
 .passage__table th {
-  background: rgba(255,255,255,0.06);
+  background: rgba(20, 17, 12, 0.042);
 }
 
 .passage__figure {

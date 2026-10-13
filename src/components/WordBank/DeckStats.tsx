@@ -34,18 +34,18 @@ import { getDeckCards, getDeckReviews, now } from '../../storage/index.ts'
 // file is only the drawing, done in plain SVG so it costs no library.
 
 const BUCKET_COLORS: Record<CardBucket, string> = {
-  new: '#5b8def',
-  learning: '#e8a33d',
-  relearning: '#e0654f',
-  young: '#57b894',
-  mature: '#2f7d5f',
+  new: '#4A6B8A',
+  learning: '#9A7B3F',
+  relearning: '#B3382B',
+  young: '#3F7D72',
+  mature: '#2F5F57',
 }
 
 const RATING_COLORS: Record<Rating, string> = {
-  1: '#e0654f',
-  2: '#e8a33d',
-  3: '#57b894',
-  4: '#5b8def',
+  1: '#B3382B',
+  2: '#9A7B3F',
+  3: '#3F7D72',
+  4: '#4A6B8A',
 }
 
 type DeckStatsProps = {
@@ -167,7 +167,7 @@ export function DeckStats({ decks, onBack }: DeckStatsProps) {
               bars={due.map((bar) => ({
                 label: bar.offset === 0 ? 'Today' : `In ${bar.offset}d`,
                 value: bar.count,
-                color: '#5b8def',
+                color: '#4A6B8A',
               }))}
               labelEvery={5}
             />
@@ -235,7 +235,7 @@ export function DeckStats({ decks, onBack }: DeckStatsProps) {
               bars={ease.bars.map((bar) => ({
                 label: bar.label,
                 value: bar.count,
-                color: '#57b894',
+                color: '#3F7D72',
               }))}
               empty="Nothing graduated yet."
             />
@@ -253,7 +253,7 @@ export function DeckStats({ decks, onBack }: DeckStatsProps) {
               bars={intervals.bars.map((bar) => ({
                 label: bar.label,
                 value: bar.count,
-                color: '#5b8def',
+                color: '#4A6B8A',
               }))}
               empty="Nothing scheduled yet."
             />
@@ -298,7 +298,7 @@ export function DeckStats({ decks, onBack }: DeckStatsProps) {
               bars={hours.map((bar) => ({
                 label: `${bar.hour}:00`,
                 value: bar.reviews,
-                color: '#5b8def',
+                color: '#4A6B8A',
                 overlay: bar.correct,
               }))}
               empty="No reviews logged yet."
@@ -465,8 +465,8 @@ function Heatmap({ days }: { days: DayBar[] }) {
           style={{
             background:
               day.total === 0
-                ? 'rgba(255, 255, 255, 0.06)'
-                : `rgba(87, 184, 148, ${0.25 + 0.75 * (day.total / peak)})`,
+                ? 'rgba(20, 17, 12, 0.06)'
+                : `rgba(63, 125, 114, ${0.25 + 0.75 * (day.total / peak)})`,
           }}
         />
       ))}
@@ -481,7 +481,7 @@ function Donut({ counts, total }: { counts: Record<CardBucket, number>; total: n
   let offset = 0
   return (
     <svg className="deckstats__donut" viewBox="0 0 140 140" role="img" aria-label="Card counts">
-      <circle cx="70" cy="70" r={radius} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="18" />
+      <circle cx="70" cy="70" r={radius} fill="none" stroke="rgba(20,17,12,0.08)" strokeWidth="18" />
       {order.map((bucket) => {
         const share = total === 0 ? 0 : counts[bucket] / total
         const dash = share * circumference

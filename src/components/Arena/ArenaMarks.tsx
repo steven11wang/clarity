@@ -36,15 +36,15 @@ export function RankCrest({
         />
         <path
           d="M50 20 74 29v20c0 14-10 23-24 29-14-6-24-15-24-29V29z"
-          fill="rgba(4,6,14,0.55)"
-          stroke="rgba(255,255,255,0.22)"
+          fill="rgba(247,244,236,0.85)"
+          stroke="rgba(20,17,12,0.22)"
           strokeWidth="1.2"
         />
         <text
           x="50"
           y="59"
           textAnchor="middle"
-          fill="#f3f6fc"
+          fill="#14110C"
           fontSize="22"
           fontWeight="600"
           letterSpacing="1"

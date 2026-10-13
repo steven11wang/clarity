@@ -27,7 +27,7 @@
 
 /* --- Tab strip ---------------------------------------------------------- */
 .lesson-tabs {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  border-bottom: 1px solid rgba(20, 17, 12, 0.126);
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   margin-bottom: 1.4rem;
@@ -39,7 +39,7 @@
   background: none;
   border: 0;
   border-bottom: 2px solid transparent;
-  color: rgba(255, 255, 255, 0.62);
+  color: rgba(20, 17, 12, 0.62);
   cursor: pointer;
   display: flex;
   font: inherit;
@@ -51,16 +51,16 @@
 }
 
 .lesson-tab:hover {
-  color: #ffffff;
+  color: #14110C;
 }
 
 .lesson-tab.is-active {
-  border-bottom-color: #8cb4ff;
-  color: #ffffff;
+  border-bottom-color: #B3382B;
+  color: #14110C;
 }
 
 .lesson-tab__index {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(20, 17, 12, 0.4);
   font-size: 0.72rem;
   font-variant-numeric: tabular-nums;
   font-weight: 700;
@@ -68,7 +68,7 @@
 }
 
 .lesson-tab.is-active .lesson-tab__index {
-  color: #8cb4ff;
+  color: #B3382B;
 }
 
 .lesson-tab__label {
@@ -84,17 +84,17 @@
 }
 
 .lesson-page {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(16, 22, 38, 0.55));
+  background: linear-gradient(135deg, rgba(20, 17, 12, 0.042), rgba(247, 244, 236, 0.55));
   -webkit-backdrop-filter: blur(24px) saturate(1.3);
   backdrop-filter: blur(24px) saturate(1.3);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(20, 17, 12, 0.126);
   border-radius: var(--r-lg);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 12px 40px rgba(20, 17, 12, 0.45);
   padding: clamp(1.4rem, 4vw, 2.6rem);
 }
 
 .lesson-page__head {
-  color: #ffffff;
+  color: #14110C;
   font-family: Geist, ui-sans-serif, system-ui, sans-serif;
   font-size: clamp(1.4rem, 3.4vw, 1.9rem);
   font-weight: 300;
@@ -104,19 +104,19 @@
 }
 
 .lesson-page p {
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(20, 17, 12, 0.72);
   font-size: 0.97rem;
   line-height: 1.68;
   margin: 0 0 0.9rem;
 }
 
 .lesson-page__intro {
-  color: rgba(255, 255, 255, 0.86) !important;
+  color: rgba(20, 17, 12, 0.86) !important;
   max-width: 62ch;
 }
 
 .lesson-page h3 {
-  color: #ffffff;
+  color: #14110C;
   font-family: Geist, ui-sans-serif, system-ui, sans-serif;
   font-size: 1.02rem;
   font-weight: 650;
@@ -125,7 +125,7 @@
 }
 
 .lesson-list {
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(20, 17, 12, 0.72);
   display: grid;
   gap: 0.4rem;
   line-height: 1.6;
@@ -134,18 +134,18 @@
 }
 
 .lesson-list li::marker {
-  color: #8cb4ff;
+  color: #B3382B;
 }
 
 /* --- Sections on the Lesson tab ---------------------------------------- */
 .lesson-section + .lesson-section {
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  border-top: 1px solid rgba(20, 17, 12, 0.126);
   margin-top: 1.8rem;
   padding-top: 1.6rem;
 }
 
 .lesson-section__label {
-  color: rgba(255, 255, 255, 0.55) !important;
+  color: rgba(20, 17, 12, 0.55) !important;
   font-size: 0.72rem !important;
   font-weight: 750;
   letter-spacing: 0.1em;
@@ -181,7 +181,7 @@
 
 /* The rail linking the step markers. */
 .lesson-step:not(:last-child)::before {
-  background: rgba(140, 180, 255, 0.28);
+  background: rgba(179, 56, 43, 0.28);
   content: '';
   left: 0.97rem;
   position: absolute;
@@ -192,9 +192,9 @@
 
 .lesson-step__n {
   align-items: center;
-  background: #8cb4ff;
+  background: #B3382B;
   border-radius: var(--r-pill);
-  color: #05070f;
+  color: #F7F4EC;
   display: flex;
   font-size: 0.7rem;
   font-variant-numeric: tabular-nums;
@@ -210,13 +210,13 @@
 
 /* --- Disclosure --------------------------------------------------------- */
 .lesson-more {
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  border-top: 1px solid rgba(20, 17, 12, 0.126);
   margin-top: 1.8rem;
   padding-top: 1.2rem;
 }
 
 .lesson-more > summary {
-  color: #8cb4ff;
+  color: #B3382B;
   cursor: pointer;
   font-size: 0.88rem;
   font-weight: 700;
@@ -242,15 +242,15 @@
 
 /* --- Part banner (Command of Evidence: textual vs quantitative) -------- */
 .lesson-part-banner {
-  background: rgba(43, 91, 199, 0.16);
-  border: 1px solid rgba(140, 180, 255, 0.28);
+  background: rgba(179, 56, 43, 0.16);
+  border: 1px solid rgba(179, 56, 43, 0.28);
   border-radius: var(--r-md);
   margin-bottom: 1.4rem;
   padding: 0.85rem 1rem;
 }
 
 .lesson-part-banner p:last-child {
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(20, 17, 12, 0.72);
   font-size: 0.88rem;
   margin: 0.3rem 0 0;
 }
@@ -264,14 +264,14 @@
 }
 
 .lesson-tip {
-  background: rgba(16, 22, 38, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(247, 244, 236, 0.55);
+  border: 1px solid rgba(20, 17, 12, 0.126);
   border-radius: var(--r-md);
   padding: 1.1rem 1.2rem;
 }
 
 .lesson-tip__n {
-  color: rgba(140, 180, 255, 0.9);
+  color: rgba(179, 56, 43, 0.9);
   display: block;
   font-size: 0.78rem;
   font-variant-numeric: tabular-nums;
@@ -281,7 +281,7 @@
 }
 
 .lesson-tip h3 {
-  color: #ffffff;
+  color: #14110C;
   font-size: 1rem;
   font-weight: 700;
   margin: 0 0 0.45rem;
@@ -292,8 +292,8 @@
 }
 
 .lesson-tip-outro {
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
-  color: rgba(255, 255, 255, 0.72);
+  border-top: 1px solid rgba(20, 17, 12, 0.126);
+  color: rgba(20, 17, 12, 0.72);
   font-size: 0.93rem;
   margin: 1.6rem 0 0;
   padding-top: 1.1rem;
@@ -310,15 +310,15 @@
 
 /* --- Figures and tables ------------------------------------------------ */
 .lesson-figure {
-  background: rgba(10, 14, 26, 0.72);
-  border: 1px dashed rgba(255, 255, 255, 0.2);
+  background: rgba(247, 244, 236, 0.72);
+  border: 1px dashed rgba(20, 17, 12, 0.18);
   border-radius: var(--r-md);
   margin: 0 0 1rem;
   padding: 0.9rem 1rem;
 }
 
 .lesson-figure__tag {
-  color: #8cb4ff;
+  color: #B3382B;
   display: block;
   font-size: 0.7rem;
   font-weight: 750;
@@ -328,7 +328,7 @@
 }
 
 .lesson-figure figcaption {
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(20, 17, 12, 0.72);
   font-size: 0.9rem;
   line-height: 1.55;
 }
@@ -346,24 +346,24 @@
 
 .lesson-table th,
 .lesson-table td {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  border-bottom: 1px solid rgba(20, 17, 12, 0.126);
   padding: 0.5rem 0.75rem;
   text-align: left;
   white-space: nowrap;
 }
 
 .lesson-table th {
-  color: #ffffff;
+  color: #14110C;
   font-weight: 700;
 }
 
 .lesson-table td {
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(20, 17, 12, 0.72);
 }
 
 /* --- Worked example: passage left, question right ---------------------- */
 .lesson-worked {
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(20, 17, 12, 0.126);
   border-radius: var(--r-md);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -377,15 +377,15 @@
 }
 
 .lesson-worked__passage {
-  background: rgba(10, 14, 26, 0.72);
+  background: rgba(247, 244, 236, 0.72);
 }
 
 .lesson-worked__passage p {
-  color: rgba(255, 255, 255, 0.86);
+  color: rgba(20, 17, 12, 0.86);
 }
 
 .lesson-worked__question {
-  border-left: 1px solid rgba(255, 255, 255, 0.14);
+  border-left: 1px solid rgba(20, 17, 12, 0.126);
 }
 
 .lesson-example__pager {
@@ -395,10 +395,10 @@
 }
 
 .lesson-pip {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(20, 17, 12, 0.042);
+  border: 1px solid rgba(20, 17, 12, 0.126);
   border-radius: var(--r-sm);
-  color: rgba(255, 255, 255, 0.62);
+  color: rgba(20, 17, 12, 0.62);
   cursor: pointer;
   font: inherit;
   font-size: 0.78rem;
@@ -408,27 +408,27 @@
 }
 
 .lesson-pip.is-active {
-  background: #2b5bc7;
-  border-color: #8cb4ff;
-  color: #ffffff;
+  background: #B3382B;
+  border-color: #B3382B;
+  color: #F7F4EC;
 }
 
 .lesson-example__prompt {
-  color: #ffffff !important;
+  color: #14110C !important;
   font-weight: 650;
 }
 
 /* --- The test-phrase gate ---------------------------------------------- */
 .lesson-gate {
-  background: rgba(43, 91, 199, 0.16);
-  border: 1px dashed rgba(140, 180, 255, 0.5);
+  background: rgba(179, 56, 43, 0.16);
+  border: 1px dashed rgba(179, 56, 43, 0.5);
   border-radius: var(--r-md);
   margin: 0 0 1.1rem;
   padding: 1rem 1.1rem;
 }
 
 .lesson-gate__title {
-  color: #ffffff !important;
+  color: #14110C !important;
   font-weight: 700;
   margin-bottom: 0.3rem !important;
 }
@@ -440,8 +440,8 @@
 .lesson-gate__input {
   background: transparent;
   border: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-  color: #ffffff;
+  border-bottom: 1px solid rgba(20, 17, 12, 0.36);
+  color: #14110C;
   font: inherit;
   font-size: 0.97rem;
   margin-bottom: 0.9rem;
@@ -450,12 +450,12 @@
 }
 
 .lesson-gate__input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(20, 17, 12, 0.4);
   font-style: italic;
 }
 
 .lesson-gate__input:focus {
-  border-bottom-color: #8cb4ff;
+  border-bottom-color: #B3382B;
   outline: none;
 }
 
@@ -467,9 +467,9 @@
 }
 
 .lesson-gate__echo {
-  background: rgba(43, 91, 199, 0.16);
+  background: rgba(179, 56, 43, 0.16);
   border-radius: var(--r-sm);
-  color: rgba(255, 255, 255, 0.86) !important;
+  color: rgba(20, 17, 12, 0.86) !important;
   font-size: 0.88rem !important;
   padding: 0.5rem 0.7rem;
 }
@@ -497,10 +497,10 @@
 
 .lesson-choice {
   align-items: flex-start;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(20, 17, 12, 0.042);
+  border: 1px solid rgba(20, 17, 12, 0.126);
   border-radius: var(--r-md);
-  color: rgba(255, 255, 255, 0.86);
+  color: rgba(20, 17, 12, 0.86);
   cursor: pointer;
   display: grid;
   font: inherit;
@@ -514,7 +514,7 @@
 }
 
 .lesson-choice:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(20, 17, 12, 0.07);
 }
 
 .lesson-choice:disabled {
@@ -531,7 +531,7 @@
 
 .lesson-choice__letter {
   align-items: center;
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(20, 17, 12, 0.098);
   border-radius: var(--r-sm);
   display: flex;
   font-size: 0.78rem;
@@ -542,42 +542,42 @@
 }
 
 .lesson-choice.is-chosen {
-  border-color: #8cb4ff;
+  border-color: #B3382B;
 }
 
 .lesson-choice.is-chosen .lesson-choice__letter {
-  background: #2b5bc7;
-  color: #ffffff;
+  background: #B3382B;
+  color: #F7F4EC;
 }
 
 .lesson-choice.is-correct {
-  background: rgba(58, 208, 122, 0.14);
-  border-color: rgba(58, 208, 122, 0.6);
+  background: rgba(63, 125, 114, 0.14);
+  border-color: rgba(63, 125, 114, 0.6);
   opacity: 1;
 }
 
 .lesson-choice.is-correct .lesson-choice__letter {
-  background: #3ad07a;
-  color: #05070f;
+  background: #3F7D72;
+  color: #F7F4EC;
 }
 
 .lesson-choice.is-wrong {
-  background: rgba(240, 192, 74, 0.12);
-  border-color: rgba(240, 192, 74, 0.55);
+  background: rgba(154, 123, 63, 0.12);
+  border-color: rgba(154, 123, 63, 0.55);
 }
 
 .lesson-choice.is-wrong .lesson-choice__letter {
-  background: #f0c04a;
-  color: #05070f;
+  background: #9A7B3F;
+  color: #F7F4EC;
 }
 
 /* The strike-out toggle: the paper move, on screen. */
 .lesson-strike {
   align-self: stretch;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(20, 17, 12, 0.042);
+  border: 1px solid rgba(20, 17, 12, 0.126);
   border-radius: var(--r-md);
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(20, 17, 12, 0.4);
   cursor: pointer;
   font: inherit;
   font-size: 0.74rem;
@@ -587,13 +587,13 @@
 }
 
 .lesson-strike:hover:not(:disabled) {
-  color: #ffffff;
+  color: #14110C;
 }
 
 .lesson-strike.is-on {
-  background: rgba(240, 192, 74, 0.14);
-  border-color: rgba(240, 192, 74, 0.55);
-  color: #f0c04a;
+  background: rgba(154, 123, 63, 0.14);
+  border-color: rgba(154, 123, 63, 0.55);
+  color: #9A7B3F;
 }
 
 .lesson-strike:disabled {
@@ -609,8 +609,8 @@
 }
 
 .lesson-explanation {
-  background: rgba(255, 255, 255, 0.06);
-  border-left: 4px solid rgba(255, 255, 255, 0.2);
+  background: rgba(20, 17, 12, 0.042);
+  border-left: 4px solid rgba(20, 17, 12, 0.18);
   border-radius: var(--r-md);
   margin-top: 0.5rem;
   padding: 0.95rem 1.1rem;
@@ -621,25 +621,25 @@
 }
 
 .lesson-explanation--right {
-  border-left-color: #3ad07a;
+  border-left-color: #3F7D72;
 }
 
 .lesson-explanation--wrong {
-  border-left-color: #f0c04a;
+  border-left-color: #9A7B3F;
 }
 
 .lesson-explanation--neutral {
-  border-left-color: #8cb4ff;
+  border-left-color: #B3382B;
 }
 
 .lesson-explanation__verdict {
-  color: #ffffff !important;
+  color: #14110C !important;
   font-weight: 700;
 }
 
 /* --- Practice tab ------------------------------------------------------- */
 .lesson-recap {
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  border-top: 1px solid rgba(20, 17, 12, 0.126);
   display: grid;
   list-style: none;
   margin: 1.2rem 0;
@@ -648,8 +648,8 @@
 
 .lesson-recap li {
   align-items: baseline;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-  color: #ffffff;
+  border-bottom: 1px solid rgba(20, 17, 12, 0.126);
+  color: #14110C;
   display: flex;
   font-size: 0.97rem;
   font-weight: 600;
@@ -658,7 +658,7 @@
 }
 
 .lesson-recap li span {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(20, 17, 12, 0.4);
   font-size: 0.72rem;
   font-variant-numeric: tabular-nums;
   font-weight: 750;
@@ -673,8 +673,8 @@
 
 .button--ghost {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  color: #ffffff;
+  border: 1px solid rgba(20, 17, 12, 0.252);
+  color: #14110C;
 }
 
 /* --- Lessons index tab -------------------------------------------------- */
@@ -687,8 +687,8 @@
 }
 
 .lesson-index__item {
-  background: rgba(16, 22, 38, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(247, 244, 236, 0.55);
+  border: 1px solid rgba(20, 17, 12, 0.126);
   border-radius: var(--r-md);
   cursor: pointer;
   display: grid;
@@ -701,12 +701,12 @@
 }
 
 .lesson-index__item:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: #8cb4ff;
+  background: rgba(20, 17, 12, 0.07);
+  border-color: #B3382B;
 }
 
 .lesson-index__item.is-current {
-  border-color: rgba(140, 180, 255, 0.6);
+  border-color: rgba(179, 56, 43, 0.6);
   cursor: default;
 }
 
@@ -715,20 +715,20 @@
 }
 
 .lesson-index__name {
-  color: #ffffff;
+  color: #14110C;
   font-size: 0.97rem;
   font-weight: 650;
 }
 
 .lesson-index__name em {
-  color: #8cb4ff;
+  color: #B3382B;
   font-size: 0.78rem;
   font-style: normal;
   font-weight: 700;
 }
 
 .lesson-index__nutshell {
-  color: rgba(255, 255, 255, 0.62);
+  color: rgba(20, 17, 12, 0.62);
   font-size: 0.86rem;
   line-height: 1.5;
 }
@@ -738,8 +738,8 @@
   align-items: center;
   -webkit-backdrop-filter: blur(24px) saturate(1.3);
   backdrop-filter: blur(24px) saturate(1.3);
-  background: rgba(10, 14, 26, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(247, 244, 236, 0.72);
+  border: 1px solid rgba(20, 17, 12, 0.126);
   border-radius: var(--r-lg);
   bottom: 1rem;
   display: flex;
@@ -759,7 +759,7 @@
 .skill-card__lesson {
   background: none;
   border: none;
-  color: #8cb4ff;
+  color: #B3382B;
   cursor: pointer;
   font: inherit;
   font-size: 0.78rem;
@@ -772,7 +772,7 @@
 }
 
 .skill-card__lesson:hover {
-  color: #ffffff;
+  color: #14110C;
 }
 
 @media (max-width: 860px) {
@@ -782,7 +782,7 @@
 
   .lesson-worked__question {
     border-left: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    border-top: 1px solid rgba(20, 17, 12, 0.126);
   }
 }
 
@@ -816,14 +816,13 @@
      room reads as one-point perspective seen over the learner's shoulder. */
   --portal-vanish-x: 50%;
   --portal-vanish-y: 44%;
-  background:
-    radial-gradient(
+  background: radial-gradient(
       66% 56% at 50% 40%,
-      #29477f 0%,
-      #1b315d 28%,
-      #101e3b 52%,
-      #080e20 76%,
-      #040812 100%
+      #B3382B 0%,
+      #E7E0D0 28%,
+      #F7F4EC 52%,
+      #F7F4EC 76%,
+      #F2EEE3 100%
     );
   height: clamp(42rem, calc(100vh - 8.3rem), 64rem);
   isolation: isolate;
@@ -834,10 +833,10 @@
   position: relative;
 }
 .lesson-portal-room__back {
-  background: rgba(7, 14, 30, 0.66);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(247, 244, 236, 0.66);
+  border: 1px solid rgba(20, 17, 12, 0.144);
   border-radius: var(--r-pill);
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(20, 17, 12, 0.78);
   cursor: pointer;
   font: inherit;
   font-size: 0.8125rem;
@@ -851,20 +850,20 @@
 }
 
 .lesson-portal-room__back:hover {
-  background: rgba(12, 24, 51, 0.86);
-  color: #ffffff;
+  background: rgba(247, 244, 236, 0.86);
+  color: #14110C;
 }
 
 .lesson-portal-room__back:focus-visible {
-  outline: 2px solid #8cb4ff;
+  outline: 2px solid #B3382B;
   outline-offset: 3px;
 }
 
 .lesson-portal-room__light {
   background: radial-gradient(
     50% 50% at 50% 50%,
-    rgba(82, 126, 218, 0.2),
-    rgba(39, 73, 145, 0.09) 38%,
+    rgba(179, 56, 43, 0.2),
+    rgba(179, 56, 43, 0.09) 38%,
     transparent 70%
   );
   height: 82%;
@@ -890,11 +889,11 @@
 }
 
 .lesson-portal-door {
-  --lesson-accent: #5f8fea;
+  --lesson-accent: #B3382B;
   --door-frame: clamp(0.75rem, 1.35vw, 1.25rem);
   background: transparent;
   border: 0;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(20, 17, 12, 0.6);
   cursor: pointer;
   font: inherit;
   padding: 0;
@@ -969,7 +968,7 @@
 }
 
 .lesson-portal-door:focus-visible {
-  outline: 2px solid #ffffff;
+  outline: 2px solid rgba(20, 17, 12, 0.81);
   outline-offset: 6px;
 }
 
@@ -979,14 +978,13 @@
   background:
     linear-gradient(
       180deg,
-      color-mix(in srgb, var(--lesson-accent) 16%, #e6edff) 0%,
-      color-mix(in srgb, var(--lesson-accent) 22%, #9fb0d6) 42%,
-      color-mix(in srgb, var(--lesson-accent) 26%, #4b5a80) 100%
+      color-mix(in srgb, var(--lesson-accent) 16%, #F7F4EC) 0%,
+      color-mix(in srgb, var(--lesson-accent) 22%, #B3382B) 42%,
+      color-mix(in srgb, var(--lesson-accent) 26%, #14110C) 100%
     );
   border-radius: 0.5rem 0.5rem 0 0;
-  box-shadow:
-    0 34px 60px -30px rgba(0, 0, 0, 0.72),
-    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  box-shadow: 0 34px 60px -30px rgba(20, 17, 12, 0.72),
+    inset 0 1px 0 rgba(20, 17, 12, 0.55);
   inset: 0;
   opacity: 0.66;
   position: absolute;
@@ -998,16 +996,15 @@
   background:
     linear-gradient(
       180deg,
-      color-mix(in srgb, var(--lesson-accent) 82%, #ffffff) 0%,
+      color-mix(in srgb, var(--lesson-accent) 82%, #F7F4EC) 0%,
       var(--lesson-accent) 38%,
-      color-mix(in srgb, var(--lesson-accent) 58%, #050a18) 100%
+      color-mix(in srgb, var(--lesson-accent) 58%, #F2EEE3) 100%
     );
   border-radius: 0.2rem 0.2rem 0 0;
   bottom: 0;
-  box-shadow:
-    inset 0 0 0 1px color-mix(in srgb, var(--lesson-accent) 40%, #ffffff),
-    inset 0 2rem 3.5rem -2rem rgba(255, 255, 255, 0.45),
-    inset 0 -3rem 4rem -1.5rem rgba(2, 6, 18, 0.55);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--lesson-accent) 40%, #14110C),
+    inset 0 2rem 3.5rem -2rem rgba(20, 17, 12, 0.45),
+    inset 0 -3rem 4rem -1.5rem rgba(20, 17, 12, 0.55);
   left: var(--door-frame);
   position: absolute;
   right: var(--door-frame);
@@ -1016,11 +1013,11 @@
 
 /* Raised panel moulding, so the leaf reads as a door and not a slab. */
 .lesson-portal-door__leaf::before {
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  border: 1px solid rgba(20, 17, 12, 0.252);
   border-bottom: 0;
   border-radius: 0.15rem 0.15rem 0 0;
   bottom: 12%;
-  box-shadow: inset 0 0 2.5rem rgba(2, 6, 18, 0.28);
+  box-shadow: inset 0 0 2.5rem rgba(20, 17, 12, 0.28);
   content: '';
   left: 12%;
   position: absolute;
@@ -1030,10 +1027,10 @@
 
 /* Handle, on the swing edge — the edge away from the hinge. */
 .lesson-portal-door__leaf::after {
-  background: linear-gradient(180deg, #f4f8ff, #9aa9c9);
+  background: linear-gradient(180deg, #F7F4EC, #B3382B);
   border-radius: var(--r-pill);
   bottom: 42%;
-  box-shadow: 0 1px 3px rgba(2, 6, 18, 0.55);
+  box-shadow: 0 1px 3px rgba(20, 17, 12, 0.55);
   content: '';
   height: 0.32rem;
   position: absolute;
@@ -1060,22 +1057,20 @@
 }
 
 .lesson-portal-door[aria-pressed='true'] {
-  color: #ffffff;
+  color: #14110C;
 }
 
 .lesson-portal-door[aria-pressed='true'] .lesson-portal-door__frame {
-  box-shadow:
-    0 34px 60px -30px rgba(0, 0, 0, 0.72),
-    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+  box-shadow: 0 34px 60px -30px rgba(20, 17, 12, 0.72),
+    inset 0 1px 0 rgba(20, 17, 12, 0.65),
     0 0 60px -6px color-mix(in srgb, var(--lesson-accent) 65%, transparent);
   opacity: 1;
 }
 
 .lesson-portal-door[aria-pressed='true'] .lesson-portal-door__leaf {
-  box-shadow:
-    inset 0 0 0 1px color-mix(in srgb, var(--lesson-accent) 25%, #ffffff),
-    inset 0 2rem 3.5rem -2rem rgba(255, 255, 255, 0.6),
-    inset 0 -3rem 4rem -1.5rem rgba(2, 6, 18, 0.45),
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--lesson-accent) 25%, #14110C),
+    inset 0 2rem 3.5rem -2rem rgba(20, 17, 12, 0.6),
+    inset 0 -3rem 4rem -1.5rem rgba(20, 17, 12, 0.45),
     0 0 2.5rem color-mix(in srgb, var(--lesson-accent) 45%, transparent);
 }
 
@@ -1088,7 +1083,7 @@
 }
 
 .lesson-portal-door svg {
-  filter: drop-shadow(0 3px 10px rgba(2, 6, 18, 0.55));
+  filter: drop-shadow(0 3px 10px rgba(242, 238, 227, 0.55));
   height: clamp(2.2rem, 3vw, 3rem);
   width: clamp(2.2rem, 3vw, 3rem);
 }
@@ -1104,12 +1099,12 @@
   position: absolute;
   right: 1rem;
   text-align: center;
-  text-shadow: 0 2px 8px rgba(2, 6, 18, 0.5);
+  text-shadow: 0 2px 8px rgba(20, 17, 12, 0.5);
   text-transform: uppercase;
 }
 
 .lesson-portal-door__label em {
-  color: rgba(255, 255, 255, 0.62);
+  color: rgba(20, 17, 12, 0.62);
   font-size: 0.62em;
   font-style: normal;
   font-weight: 750;
@@ -1117,7 +1112,7 @@
 }
 
 .lesson-portal-door[aria-pressed='true'] .lesson-portal-door__label em {
-  color: #ffffff;
+  color: #14110C;
 }
 
 /* The hero column sits over the two inner doors, so only its own controls
@@ -1146,7 +1141,7 @@
 
 .lesson-portal-room__hero p,
 .lesson-portal-room__continue span {
-  color: #8cb4ff;
+  color: #B3382B;
   font-size: 0.8125rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -1155,7 +1150,7 @@
 }
 
 .lesson-portal-room__hero h1 {
-  color: #ffffff;
+  color: #14110C;
   font-family: Geist, ui-sans-serif, system-ui, sans-serif;
   font-size: clamp(3rem, 4vw, 4.5rem);
   font-weight: 300;
@@ -1165,7 +1160,7 @@
 }
 
 .lesson-portal-room__hero header > span {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(20, 17, 12, 0.7);
   display: block;
   font-size: 1.125rem;
   line-height: 1.5;
@@ -1180,22 +1175,21 @@
 }
 
 .lesson-portal-room__hero small {
-  color: rgba(255, 255, 255, 0.48);
+  color: rgba(20, 17, 12, 0.48);
   font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.075em;
 }
 
 .lesson-portal-room__floor {
-  background:
-    linear-gradient(
+  background: linear-gradient(
       90deg,
-      rgba(140, 180, 255, 0.16),
+      rgba(179, 56, 43, 0.16),
       transparent 12%,
       transparent 88%,
-      rgba(140, 180, 255, 0.16)
+      rgba(179, 56, 43, 0.16)
     ),
-    linear-gradient(180deg, #172645 0%, #101a31 46%, #080d1b 100%);
+    linear-gradient(180deg, #F7F4EC 0%, #F7F4EC 46%, #F2EEE3 100%);
   bottom: 0;
   clip-path: polygon(46% 0, 54% 0, 100% 100%, 0 100%);
   height: 17rem;
@@ -1210,7 +1204,7 @@
 .lesson-portal-room__floor::before {
   background: radial-gradient(
     40% 100% at 50% 100%,
-    rgba(150, 190, 255, 0.22),
+    rgba(179, 56, 43, 0.22),
     transparent 70%
   );
   content: '';
@@ -1224,7 +1218,7 @@
 .lesson-portal-room__figure {
   animation: lesson-portal-figure-in 320ms ease-out;
   bottom: 5.5rem;
-  color: #ffffff;
+  color: #14110C;
   left: 50%;
   position: absolute;
   transform: translateX(-50%);
@@ -1240,7 +1234,7 @@
 }
 
 .lesson-portal-room__figure .domain-character {
-  filter: drop-shadow(0 18px 34px rgba(0, 0, 0, 0.6));
+  filter: drop-shadow(0 18px 34px rgba(242, 238, 227, 0.6));
   width: 100%;
 }
 
@@ -1253,12 +1247,12 @@
   align-items: center;
   -webkit-backdrop-filter: blur(24px);
   backdrop-filter: blur(24px);
-  background: rgba(7, 14, 30, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(247, 244, 236, 0.82);
+  border: 1px solid rgba(20, 17, 12, 0.144);
   border-radius: var(--r-lg);
   bottom: 1.5rem;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
-  color: #ffffff;
+  box-shadow: 0 12px 40px rgba(20, 17, 12, 0.45);
+  color: #14110C;
   display: flex;
   gap: 1.5rem;
   left: 50%;
@@ -1279,17 +1273,17 @@
 }
 
 .lesson-portal-room__continue em {
-  color: #8cb4ff;
+  color: #B3382B;
   font-style: normal;
   font-weight: 700;
 }
 
 .lesson-portal-room__continue:hover {
-  background: rgba(12, 24, 51, 0.9);
+  background: rgba(247, 244, 236, 0.9);
 }
 
 .lesson-portal-room__continue:focus-visible {
-  outline: 2px solid #8cb4ff;
+  outline: 2px solid #B3382B;
   outline-offset: 3px;
 }
 
@@ -1365,24 +1359,24 @@
 
 /* --- Persistent console: one hall's skill list ------------------------- */
 .lesson-skill-picker {
-  --lesson-accent: #5f8fea;
+  --lesson-accent: #B3382B;
   background:
     radial-gradient(
       72% 52% at 50% 0%,
       color-mix(in srgb, var(--lesson-accent) 26%, transparent) 0%,
       transparent 68%
     ),
-    linear-gradient(180deg, #101e3b 0%, #080e20 62%, #040812 100%);
+    linear-gradient(180deg, #F7F4EC 0%, #F7F4EC 62%, #F2EEE3 100%);
   min-height: clamp(42rem, calc(100vh - 8.3rem), 64rem);
   padding: clamp(1.5rem, 3vw, 3rem) clamp(1rem, 3vw, 2.5rem) 4rem;
   position: relative;
 }
 
 .lesson-skill-picker__back {
-  background: rgba(7, 14, 30, 0.66);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(247, 244, 236, 0.66);
+  border: 1px solid rgba(20, 17, 12, 0.144);
   border-radius: var(--r-pill);
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(20, 17, 12, 0.78);
   cursor: pointer;
   font: inherit;
   font-size: 0.8125rem;
@@ -1391,12 +1385,12 @@
 }
 
 .lesson-skill-picker__back:hover {
-  background: rgba(12, 24, 51, 0.86);
-  color: #ffffff;
+  background: rgba(247, 244, 236, 0.86);
+  color: #14110C;
 }
 
 .lesson-skill-picker__back:focus-visible {
-  outline: 2px solid #8cb4ff;
+  outline: 2px solid #B3382B;
   outline-offset: 3px;
 }
 
@@ -1412,10 +1406,10 @@
 
 .lesson-skill-picker__mark {
   align-items: center;
-  background: color-mix(in srgb, var(--lesson-accent) 22%, rgba(7, 14, 30, 0.8));
+  background: color-mix(in srgb, var(--lesson-accent) 22%, rgba(247, 244, 236, 0.8));
   border: 1px solid color-mix(in srgb, var(--lesson-accent) 45%, transparent);
   border-radius: var(--r-lg);
-  color: #ffffff;
+  color: #14110C;
   display: flex;
   height: 3.25rem;
   justify-content: center;
@@ -1428,7 +1422,7 @@
 }
 
 .lesson-skill-picker__hero p {
-  color: #8cb4ff;
+  color: #B3382B;
   font-size: 0.8125rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -1437,7 +1431,7 @@
 }
 
 .lesson-skill-picker__title {
-  color: #ffffff;
+  color: #14110C;
   font-family: Geist, ui-sans-serif, system-ui, sans-serif;
   font-size: clamp(2.25rem, 3.6vw, 3.5rem);
   font-weight: 300;
@@ -1447,7 +1441,7 @@
 }
 
 .lesson-skill-picker__hero > span {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(20, 17, 12, 0.7);
   font-size: 1.0625rem;
   line-height: 1.5;
 }
@@ -1464,10 +1458,10 @@
 
 .lesson-skill-card {
   align-items: flex-start;
-  background: rgba(9, 18, 38, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(247, 244, 236, 0.82);
+  border: 1px solid rgba(20, 17, 12, 0.108);
   border-radius: var(--r-lg);
-  color: #ffffff;
+  color: #14110C;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -1481,13 +1475,13 @@
 }
 
 .lesson-skill-card:hover {
-  background: rgba(16, 32, 66, 0.92);
+  background: rgba(247, 244, 236, 0.92);
   border-color: color-mix(in srgb, var(--lesson-accent) 55%, transparent);
   transform: translateY(-2px);
 }
 
 .lesson-skill-card:focus-visible {
-  outline: 2px solid #8cb4ff;
+  outline: 2px solid #B3382B;
   outline-offset: 3px;
 }
 
@@ -1498,13 +1492,13 @@
 }
 
 .lesson-skill-card span {
-  color: rgba(255, 255, 255, 0.66);
+  color: rgba(20, 17, 12, 0.66);
   font-size: 0.9375rem;
   line-height: 1.5;
 }
 
 .lesson-skill-card em {
-  color: #8cb4ff;
+  color: #B3382B;
   font-size: 0.8125rem;
   font-style: normal;
   font-weight: 700;
@@ -1538,7 +1532,7 @@
 }
 
 .lesson-console__tile {
-  --lesson-accent: #2b5bc7;
+  --lesson-accent: #B3382B;
   align-items: center;
   background:
     radial-gradient(
@@ -1548,12 +1542,12 @@
     ),
     linear-gradient(
       145deg,
-      color-mix(in srgb, var(--lesson-accent) 20%, #13244e),
-      #071021 78%
+      color-mix(in srgb, var(--lesson-accent) 20%, #F7F4EC),
+      #F7F4EC 78%
     );
   border: 0;
   border-radius: var(--r-lg);
-  color: #fff;
+  color: #14110C;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -1563,8 +1557,7 @@
   min-width: 0;
   padding: 1rem;
   position: relative;
-  transition:
-    box-shadow 180ms ease,
+  transition: box-shadow 180ms ease,
     transform 180ms ease;
 }
 
@@ -1573,11 +1566,10 @@
 }
 
 .lesson-console__tile[aria-pressed='true'] {
-  box-shadow:
-    0 0 0 3px #08101e,
-    0 0 0 6px rgba(255, 255, 255, 0.9),
+  box-shadow: 0 0 0 3px #14110C,
+    0 0 0 6px rgba(20, 17, 12, 0.9),
     0 0 0 9px color-mix(in srgb, var(--lesson-accent) 62%, transparent),
-    0 22px 44px rgba(0, 0, 0, 0.5);
+    0 22px 44px rgba(20, 17, 12, 0.5);
 }
 
 .lesson-console__tile-icon {
@@ -1615,7 +1607,7 @@
 
 .lesson-console__continue > p,
 .lesson-console__detail-head > p {
-  color: #8cb4ff;
+  color: #B3382B;
   font-size: 0.74rem;
   font-weight: 750;
   letter-spacing: 0.16em;
@@ -1624,7 +1616,7 @@
 
 .lesson-console__continue h1,
 .lesson-console__detail-head h1 {
-  color: #fff;
+  color: #14110C;
   font-size: clamp(2.5rem, 5vw, 4.6rem);
   font-weight: 300;
   letter-spacing: -0.045em;
@@ -1634,7 +1626,7 @@
 
 .lesson-console__continue > span,
 .lesson-console__detail-head > span {
-  color: rgba(255, 255, 255, 0.68);
+  color: rgba(20, 17, 12, 0.68);
   display: block;
   font-size: clamp(1rem, 1.5vw, 1.18rem);
   line-height: 1.65;
@@ -1655,10 +1647,10 @@
 
 .lesson-console__lesson-row {
   align-items: center;
-  background: rgba(8, 15, 32, 0.58);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(247, 244, 236, 0.58);
+  border: 1px solid rgba(20, 17, 12, 0.108);
   border-radius: var(--r-lg);
-  color: #fff;
+  color: #14110C;
   cursor: pointer;
   display: grid;
   font: inherit;
@@ -1667,20 +1659,19 @@
   min-height: 6.3rem;
   padding: 1rem 1.15rem;
   text-align: left;
-  transition:
-    background 180ms ease,
+  transition: background 180ms ease,
     border-color 180ms ease,
     transform 180ms ease;
 }
 
 .lesson-console__lesson-row:hover {
-  background: rgba(255, 255, 255, 0.09);
-  border-color: rgba(140, 180, 255, 0.62);
+  background: rgba(20, 17, 12, 0.063);
+  border-color: rgba(179, 56, 43, 0.62);
   transform: translateY(-2px);
 }
 
 .lesson-console__lesson-index {
-  color: rgba(140, 180, 255, 0.68);
+  color: rgba(179, 56, 43, 0.68);
   font-size: 0.72rem;
   font-variant-numeric: tabular-nums;
   font-weight: 750;
@@ -1698,13 +1689,13 @@
 }
 
 .lesson-console__lesson-copy small {
-  color: rgba(255, 255, 255, 0.58);
+  color: rgba(20, 17, 12, 0.58);
   font-size: 0.84rem;
   line-height: 1.45;
 }
 
 .lesson-console__lesson-state {
-  color: #8cb4ff;
+  color: #B3382B;
   font-size: 0.76rem;
   font-weight: 700;
 }
@@ -1734,9 +1725,9 @@
 /* Fullscreen reading mode: the lesson owns the viewport and scrolls on its
    own, so the console chrome behind it never competes for attention. */
 .lesson-fullscreen {
-  background: #05070f;
+  background: #F2EEE3;
   bottom: 0;
-  color: #fff;
+  color: #14110C;
   left: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -1765,7 +1756,7 @@
 }
 
 .lesson-reader__topbar {
-  background: linear-gradient(#05070f 68%, rgba(5, 7, 15, 0));
+  background: linear-gradient(#F2EEE3 68%, rgba(242, 238, 227, 0));
   display: flex;
   margin: 0 calc(-1 * clamp(1rem, 2.45vw, 2.75rem));
   padding: 1rem clamp(1rem, 2.45vw, 2.75rem) 1.4rem;
@@ -1776,10 +1767,10 @@
 
 .lesson-reader__back {
   align-items: center;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(20, 17, 12, 0.042);
+  border: 1px solid rgba(20, 17, 12, 0.126);
   border-radius: 999px;
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(20, 17, 12, 0.72);
   cursor: pointer;
   display: inline-flex;
   font: inherit;
@@ -1790,9 +1781,9 @@
 }
 
 .lesson-reader__back:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.28);
-  color: #fff;
+  background: rgba(20, 17, 12, 0.084);
+  border-color: rgba(20, 17, 12, 0.252);
+  color: #14110C;
 }
 
 .lesson-reader__back svg {
@@ -1810,7 +1801,7 @@
 }
 
 .lesson-title__summary {
-  color: rgba(255, 255, 255, 0.64);
+  color: rgba(20, 17, 12, 0.64);
   font-size: clamp(0.98rem, 1.35vw, 1.14rem);
   line-height: 1.6;
   margin: 1rem 0 0;
@@ -1827,35 +1818,35 @@
 
 .lesson-reader .lesson-tab {
   align-items: center;
-  background: rgba(8, 15, 32, 0.58);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(247, 244, 236, 0.58);
+  border: 1px solid rgba(20, 17, 12, 0.108);
   border-radius: var(--r-lg);
   min-height: 3.6rem;
   padding: 0.8rem 1rem;
 }
 
 .lesson-reader .lesson-tab[aria-selected='true'] {
-  background: rgba(50, 104, 218, 0.26);
-  border-color: rgba(140, 180, 255, 0.72);
-  box-shadow: inset 0 0 24px rgba(43, 91, 199, 0.16);
-  color: #fff;
+  background: rgba(179, 56, 43, 0.26);
+  border-color: rgba(179, 56, 43, 0.72);
+  box-shadow: inset 0 0 24px rgba(179, 56, 43, 0.16);
+  color: #14110C;
 }
 
 .lesson-reader .lesson-tab[aria-selected='true'] .lesson-tab__index {
-  color: #8cb4ff;
+  color: #B3382B;
 }
 
 .lesson-reader .lesson-page {
-  background: rgba(8, 15, 32, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.11);
+  background: rgba(247, 244, 236, 0.5);
+  border: 1px solid rgba(20, 17, 12, 0.099);
   border-radius: var(--r-lg);
   box-shadow: none;
   padding: clamp(1.5rem, 4vw, 3rem);
 }
 
 .lesson-reader .lesson-actions {
-  background: rgba(8, 15, 32, 0.82);
-  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(247, 244, 236, 0.82);
+  border-color: rgba(20, 17, 12, 0.108);
   border-radius: var(--r-lg);
 }
 
@@ -1863,7 +1854,7 @@
 .lesson-reader button:focus-visible,
 .lesson-reader input:focus-visible,
 .lesson-reader summary:focus-visible {
-  outline: 3px solid rgba(140, 180, 255, 0.9);
+  outline: 3px solid rgba(179, 56, 43, 0.9);
   outline-offset: 3px;
 }
 

@@ -268,7 +268,7 @@ export function SettingsPopover({ onScoreUpdate }: SettingsPopoverProps) {
               <span className="settings-popover__chevron" aria-hidden="true"><ChevronRight size={15} strokeWidth={1.5} absoluteStrokeWidth /></span>
             </label>
 
-            {dataMessage && <p className="settings-pin-form__success" role="status" style={{ color: '#3ad07a', fontSize: '0.72rem', padding: '0.2rem 0.7rem', margin: 0 }}>{dataMessage}</p>}
+            {dataMessage && <p className="settings-pin-form__success" role="status" style={{ color: '#3F7D72', fontSize: '0.72rem', padding: '0.2rem 0.7rem', margin: 0 }}>{dataMessage}</p>}
             {dataError && <p className="settings-pin-form__error" role="alert" style={{ fontSize: '0.72rem', padding: '0.2rem 0.7rem', margin: 0 }}>{dataError}</p>}
 
             <div className="settings-popover__row">

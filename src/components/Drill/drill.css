@@ -98,7 +98,7 @@
 
 .drill-option {
   align-items: center;
-  background: rgba(255, 255, 255, 0.022);
+  background: rgba(20, 17, 12, 0.015);
   border: 1px solid var(--line-1);
   border-radius: var(--r-pill);
   color: var(--text-2);
@@ -111,8 +111,7 @@
   letter-spacing: -0.008em;
   min-height: 40px;
   padding: 0.35rem 0.95rem;
-  transition:
-    background 0.18s var(--ease-out),
+  transition: background 0.18s var(--ease-out),
     border-color 0.18s var(--ease-out),
     color 0.18s var(--ease-out);
 }
@@ -202,7 +201,7 @@
   background: var(--cobalt);
   border: 1px solid var(--cobalt);
   border-radius: var(--r-pill);
-  color: #fff;
+  color: #F7F4EC;
   cursor: pointer;
   display: flex;
   font: inherit;
@@ -212,19 +211,18 @@
   justify-content: center;
   min-height: 46px;
   padding: 0.5rem 1.2rem;
-  transition:
-    background 0.18s var(--ease-out),
+  transition: background 0.18s var(--ease-out),
     transform 0.18s var(--ease-spring);
   width: 100%;
 }
 
-.drill__start:hover:not(:disabled) { background: #3d72e8; transform: translateY(-1px); }
+.drill__start:hover:not(:disabled) { background: #B3382B; transform: translateY(-1px); }
 .drill__start:active:not(:disabled) { transform: translateY(1px); }
 .drill__start svg { transition: transform 0.22s var(--ease-spring); }
 .drill__start:hover:not(:disabled) svg { transform: translateX(3px); }
 
 .drill__start:disabled {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(20, 17, 12, 0.035);
   border-color: var(--line-1);
   color: var(--text-3);
   cursor: not-allowed;
@@ -332,7 +330,7 @@
 }
 
 .drill-verdict__answer {
-  background: rgba(255, 255, 255, 0.022);
+  background: rgba(20, 17, 12, 0.015);
   border: 1px solid var(--line-1);
   border-radius: var(--r-md);
   padding: 0.85rem 1rem;
@@ -385,7 +383,7 @@
   background: var(--cobalt);
   border: 1px solid var(--cobalt);
   border-radius: var(--r-pill);
-  color: #fff;
+  color: #F7F4EC;
   cursor: pointer;
   display: inline-flex;
   font: inherit;
@@ -397,7 +395,7 @@
   transition: background 0.18s var(--ease-out), transform 0.18s var(--ease-spring);
 }
 
-.drill-verdict__next:hover { background: #3d72e8; transform: translateY(-1px); }
+.drill-verdict__next:hover { background: #B3382B; transform: translateY(-1px); }
 .drill-verdict__next:active { transform: translateY(1px); }
 .drill-verdict__next svg { transition: transform 0.22s var(--ease-spring); }
 .drill-verdict__next:hover svg { transform: translateX(3px); }

@@ -136,7 +136,7 @@
 .step__marker--current {
   background: var(--cobalt);
   border-color: var(--cobalt);
-  color: #fff;
+  color: #F7F4EC;
 }
 .step__marker--done { border-color: var(--cobalt-light); color: var(--cobalt-light); }
 
@@ -178,7 +178,7 @@
   padding: 0.2rem 0 1.5rem 2.6rem;
 }
 .step__hint { color: var(--text-3); font-size: 0.86rem; line-height: 1.55; margin: 0; }
-.step__error { color: #ff8f7d; font-size: 0.86rem; }
+.step__error { color: #B3382B; font-size: 0.86rem; }
 
 .step__paces { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .step__pace {
@@ -195,7 +195,7 @@
 .step__pace--on {
   background: var(--cobalt);
   border-color: var(--cobalt);
-  color: #fff;
+  color: #F7F4EC;
 }
 
 .step__custom {
@@ -273,7 +273,7 @@
   display: flex;
   padding: 0.4rem;
 }
-.step__delete:hover { color: #ff8f7d; }
+.step__delete:hover { color: #B3382B; }
 
 .exam-button--small {
   font-size: 0.85rem;
@@ -291,41 +291,42 @@
 /* Dark is the default skin, so the exam matches the rest of Clarity. The light
    skin below is the College Board testing-app look, one toggle away. */
 .exam-root {
-  --exam-ink: #eef2fb;
-  --exam-muted: rgba(238, 242, 251, 0.66);
-  --exam-line: rgba(255, 255, 255, 0.16);
-  --exam-border: rgba(255, 255, 255, 0.34);
-  --exam-dashed: rgba(255, 255, 255, 0.26);
-  --exam-blue: #3f6fe0;
-  --exam-blue-dark: #2d59c4;
-  --exam-blue-soft: rgba(63, 111, 224, 0.22);
-  --exam-navy: #16305f;
-  --exam-surface: #0a0f1e;
-  --exam-chrome: #0e1526;
-  --exam-bar: rgba(255, 255, 255, 0.06);
-  --exam-hover: rgba(255, 255, 255, 0.09);
-  --exam-chip: #e8eefc;
-  --exam-chip-text: #0a0f1e;
-  --exam-muted-fill: rgba(255, 255, 255, 0.12);
-  --exam-highlight: rgba(240, 182, 77, 0.42);
-  --exam-flag: #f0b64d;
-  --exam-flag-ink: #241a00;
-  --exam-correct: #46d18b;
-  --exam-wrong: #ff8f7d;
-  --exam-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+  --exam-ink: #14110C;
+  --exam-muted: rgba(20, 17, 12, 0.66);
+  --exam-line: rgba(20, 17, 12, 0.15);
+  --exam-border: rgba(20, 17, 12, 0.32);
+  --exam-dashed: rgba(20, 17, 12, 0.26);
+  --exam-blue: #B3382B;
+  --exam-blue-dark: #952D22;
+  --exam-blue-soft: rgba(179, 56, 43, 0.14);
+  --exam-navy: #14110C;
+  --exam-surface: #F7F4EC;
+  --exam-chrome: #EBE5D5;
+  --exam-bar: rgba(20, 17, 12, 0.06);
+  --exam-hover: rgba(20, 17, 12, 0.09);
+  --exam-chip: #14110C;
+  --exam-chip-text: #F7F4EC;
+  --exam-muted-fill: rgba(20, 17, 12, 0.1);
+  --exam-highlight: rgba(154, 123, 63, 0.38);
+  --exam-flag: #9A7B3F;
+  --exam-flag-ink: #14110C;
+  --exam-correct: #3F7D72;
+  --exam-wrong: #B3382B;
+  --exam-shadow: 0 18px 40px rgba(20, 17, 12, 0.18);
+
   /* The mock exam's SVG figures colour themselves from these. */
-  --graph-bg: #0a0f1e;
-  --graph-border: rgba(255, 255, 255, 0.3);
-  --graph-axis: #cbd6ee;
-  --graph-grid: rgba(255, 255, 255, 0.16);
-  --graph-text: #e8eefc;
-  --graph-grouped-1: #7d93c9;
-  --graph-grouped-2: #526694;
-  --graph-grouped-3: #d0d7de;
+  --graph-bg: #F7F4EC;
+  --graph-border: rgba(20, 17, 12, 0.3);
+  --graph-axis: #14110C;
+  --graph-grid: rgba(20, 17, 12, 0.16);
+  --graph-text: #14110C;
+  --graph-grouped-1: #B3382B;
+  --graph-grouped-2: #9A7B3F;
+  --graph-grouped-3: #4A6B8A;
 
   background: var(--exam-surface);
   color: var(--exam-ink);
-  color-scheme: dark;
+  color-scheme: light;
   display: flex;
   flex-direction: column;
   font-family: 'Geist', system-ui, sans-serif;
@@ -333,36 +334,36 @@
   overflow: hidden;
 }
 [data-exam-theme='light'] .exam-root {
-  --exam-ink: #1b1b1b;
-  --exam-muted: #4a5260;
-  --exam-line: #b9c0cc;
-  --exam-border: #55606f;
-  --exam-dashed: #7b8493;
-  --exam-blue: #1a4bd0;
-  --exam-blue-dark: #12379c;
-  --exam-blue-soft: rgba(26, 75, 208, 0.12);
-  --exam-navy: #1c2b5e;
-  --exam-surface: #ffffff;
-  --exam-chrome: #eef2f8;
-  --exam-bar: #f1f3f7;
-  --exam-hover: #eaf0fb;
-  --exam-chip: #1b1b1b;
-  --exam-chip-text: #ffffff;
-  --exam-muted-fill: #dbe2ee;
-  --exam-highlight: #ffe89a;
-  --exam-flag: #d38b12;
-  --exam-flag-ink: #241a00;
-  --exam-correct: #16713f;
-  --exam-wrong: #b0261a;
-  --exam-shadow: 0 18px 40px rgba(12, 20, 40, 0.22);
-  --graph-bg: #ffffff;
-  --graph-border: #1b1b1b;
-  --graph-axis: #1b1b1b;
-  --graph-grid: #c9ced8;
-  --graph-text: #1b1b1b;
-  --graph-grouped-1: #94a3b8;
-  --graph-grouped-2: #5a6b82;
-  --graph-grouped-3: #e2e8f0;
+  --exam-ink: #14110C;
+  --exam-muted: #5A5348;
+  --exam-line: #CFC7B4;
+  --exam-border: #6B6354;
+  --exam-dashed: #8A8171;
+  --exam-blue: #B3382B;
+  --exam-blue-dark: #952D22;
+  --exam-blue-soft: rgba(179, 56, 43, 0.12);
+  --exam-navy: #14110C;
+  --exam-surface: #FBF9F3;
+  --exam-chrome: #EFE9DA;
+  --exam-bar: #F2EDE0;
+  --exam-hover: #F0E6D6;
+  --exam-chip: #14110C;
+  --exam-chip-text: #FBF9F3;
+  --exam-muted-fill: #E3DBC8;
+  --exam-highlight: #F0DFA6;
+  --exam-flag: #9A7B3F;
+  --exam-flag-ink: #14110C;
+  --exam-correct: #2F6B5F;
+  --exam-wrong: #A82A1E;
+  --exam-shadow: 0 18px 40px rgba(20, 17, 12, 0.2);
+  --graph-bg: #FBF9F3;
+  --graph-border: #14110C;
+  --graph-axis: #14110C;
+  --graph-grid: #CFC7B4;
+  --graph-text: #14110C;
+  --graph-grouped-1: #B3382B;
+  --graph-grouped-2: #9A7B3F;
+  --graph-grouped-3: #4A6B8A;
 
   color-scheme: light;
 }
@@ -494,7 +495,7 @@
 .exam-banner {
   background: var(--exam-navy);
   border-radius: 0.35rem;
-  color: #fff;
+  color: #F7F4EC;
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -701,7 +702,7 @@
   background: var(--exam-blue);
   border: 1px solid var(--exam-blue);
   border-radius: 999px;
-  color: #fff;
+  color: #F7F4EC;
   cursor: pointer;
   display: inline-flex;
   font-size: 0.82rem;
@@ -784,7 +785,7 @@
 .exam-abc--on {
   background: var(--exam-blue);
   border-color: var(--exam-blue);
-  color: #fff;
+  color: #F7F4EC;
 }
 
 .exam-stem {
@@ -841,7 +842,7 @@
 .exam-choice--selected .exam-choice__letter {
   background: var(--exam-blue);
   border-color: var(--exam-blue);
-  color: #fff;
+  color: #F7F4EC;
 }
 .exam-choice--struck {
   opacity: 0.55;
@@ -934,7 +935,7 @@
 .exam-nav-cell--answered {
   background: var(--exam-blue);
   border: 1px solid var(--exam-blue);
-  color: #fff;
+  color: #F7F4EC;
 }
 .exam-nav-cell--current {
   outline: 2px solid var(--exam-ink);
@@ -1030,8 +1031,8 @@
   font-weight: 500;
   padding: 0.6rem 1.6rem;
 }
-.exam-button--primary { background: var(--exam-blue, #1a4bd0); color: #fff; }
-.exam-button--primary:hover { background: var(--exam-blue-dark, #12379c); }
+.exam-button--primary { background: var(--exam-blue, #B3382B); color: #F7F4EC; }
+.exam-button--primary:hover { background: var(--exam-blue-dark, #B3382B); }
 .exam-button--muted {
   background: var(--exam-muted-fill);
   color: var(--exam-ink);
@@ -1194,7 +1195,7 @@
   vertical-align: top;
 }
 .exam-table thead th {
-  background: var(--exam-muted-fill, rgba(127, 127, 127, 0.12));
+  background: var(--exam-muted-fill, rgba(20, 17, 12, 0.12));
   font-weight: 600;
 }
 .exam-table tbody th { font-weight: 500; }
@@ -1203,7 +1204,7 @@
 
 .exam-timeup {
   align-items: center;
-  background: rgba(4, 8, 18, 0.72);
+  background: rgba(242, 238, 227, 0.72);
   display: flex;
   inset: 0;
   justify-content: center;
@@ -1501,7 +1502,7 @@
 .exam-breakdown__review--done {
   align-items: center;
   background: var(--exam-blue);
-  color: #fff;
+  color: #F7F4EC;
   display: inline-flex;
   gap: 0.35rem;
 }

@@ -78,10 +78,10 @@ type ConsoleSelection =
 // rendered at four different optical weights and shifted between platforms.
 const TILE_ICON_SIZE = 26
 const TILE_ICONS = [Search, BookOpen, GitMerge, TypeIcon]
-const EXAM_TILE_ACCENT = '#f0b64d'
+const EXAM_TILE_ACCENT = '#9A7B3F'
 // Drills are the student's own set rather than a path or the exam, so the tile
 // carries its own colour instead of borrowing a domain's.
-const DRILL_TILE_ACCENT = '#6f5bd6'
+const DRILL_TILE_ACCENT = '#4A6B8A'
 const HERO_BACKGROUND_LEAD_MS = 180
 const HERO_TEXT_SETTLE_MS = 320
 
@@ -471,7 +471,7 @@ export function ProgressDashboard({
         <div className="console-rail">
           {rail.map((item, index) => {
             const selected = index === activeRailIndex
-            const accent = item.accent ?? '#2b5bc7'
+            const accent = item.accent ?? '#B3382B'
             return (
               <button
                 className={[
