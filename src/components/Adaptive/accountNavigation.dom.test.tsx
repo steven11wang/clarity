@@ -44,6 +44,7 @@ const cards: DomainCardView[] = [{
 
 let openAccountCalls = 0
 let scoreUpdateCalls = 0
+const chosenAvatars: string[] = []
 
 before(async () => {
   await act(async () => {
@@ -56,6 +57,8 @@ before(async () => {
           isLocal: false,
           signOut: null,
           openAccount: () => { openAccountCalls += 1 },
+          avatarId: 'clawd',
+          updateAvatar: async (id: string) => { chosenAvatars.push(id) },
         },
         children: createElement(ProgressDashboard, {
           activeView: 'practice',
@@ -90,13 +93,26 @@ after(() => {
 })
 
 describe('account navigation', () => {
-  it('sends the learner control to account entry instead of score update', async () => {
-    const accountButton = container.querySelector<HTMLButtonElement>('[aria-label="Update learner profile"]')
-    assert.ok(accountButton)
+  it('opens the profile pictures from the learner control without leaving the page', async () => {
+    const profileButton = container.querySelector<HTMLButtonElement>('[aria-label="Profile and picture"]')
+    assert.ok(profileButton)
+    assert.equal(container.querySelector('.profile-popover__panel'), null)
 
-    await act(async () => accountButton.click())
+    await act(async () => profileButton.click())
 
-    assert.equal(openAccountCalls, 1)
+    const choices = container.querySelectorAll<HTMLButtonElement>('.profile-popover__choice')
+    assert.equal(choices.length, 8)
+    assert.equal(
+      container.querySelector('.profile-popover__choice[aria-pressed="true"]')?.getAttribute('aria-label'),
+      'Use Clawd',
+    )
+
+    const scholar = container.querySelector<HTMLButtonElement>('[aria-label="Use Scholar"]')
+    assert.ok(scholar)
+    await act(async () => scholar.click())
+
+    assert.deepEqual(chosenAvatars, ['scholar'])
+    assert.equal(openAccountCalls, 0)
     assert.equal(scoreUpdateCalls, 0)
   })
 
@@ -113,6 +129,6 @@ describe('account navigation', () => {
     await act(async () => scoreUpdateButton.click())
 
     assert.equal(scoreUpdateCalls, 1)
-    assert.equal(openAccountCalls, 1)
+    assert.equal(openAccountCalls, 0)
   })
 })

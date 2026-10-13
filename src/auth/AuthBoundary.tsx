@@ -104,7 +104,7 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
       id: user.id,
       email: user.email ?? '',
       displayName: typeof user.user_metadata?.display_name === 'string' ? user.user_metadata.display_name : user.email?.split('@')[0] ?? 'Account',
-      avatarId: typeof user.user_metadata?.avatar_id === 'string' ? user.user_metadata.avatar_id as AvatarId : 'orbit',
+      avatarId: typeof user.user_metadata?.avatar_id === 'string' ? user.user_metadata.avatar_id as AvatarId : 'clawd',
     })
   }, [user])
 
@@ -154,7 +154,7 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
               id: user.id,
               email: user.email ?? '',
               displayName: username,
-              avatarId: typeof user.user_metadata?.avatar_id === 'string' ? user.user_metadata.avatar_id as AvatarId : 'orbit',
+              avatarId: typeof user.user_metadata?.avatar_id === 'string' ? user.user_metadata.avatar_id as AvatarId : 'clawd',
             })
             setUser(data.user ?? { ...user, user_metadata: { ...user.user_metadata, display_name: username } })
             return null
@@ -183,7 +183,7 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
             setUnlockedUserId(null)
           },
           profileId: user.id,
-          avatarId: typeof user.user_metadata?.avatar_id === 'string' ? user.user_metadata.avatar_id : 'orbit',
+          avatarId: typeof user.user_metadata?.avatar_id === 'string' ? user.user_metadata.avatar_id : 'clawd',
           updateAvatar: async (avatarId) => {
             await supabase!.auth.updateUser({ data: { avatar_id: avatarId } })
             upsertProfileShortcut({ id: user.id, email: user.email ?? '', displayName: typeof user.user_metadata?.display_name === 'string' ? user.user_metadata.display_name : user.email?.split('@')[0] ?? 'Account', avatarId: avatarId as AvatarId })

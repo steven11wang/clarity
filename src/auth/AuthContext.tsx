@@ -21,7 +21,7 @@ const fallback: AuthProfileContextValue = {
   signOut: null,
   openAccount: () => {},
   profileId: null,
-  avatarId: 'orbit',
+  avatarId: 'clawd',
   updateAvatar: null,
   hasProfilePin: false,
   setProfilePin: null,

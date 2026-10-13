@@ -1,12 +1,26 @@
 export const PROFILE_SHORTCUTS_KEY = 'clarity-profile-shortcuts-v1'
 
+/** Pixel pets in the spirit of Claude's orange critter. Art lives in public/avatars. */
 export const AVATARS = [
-  { id: 'orbit', label: 'Orbit', glyph: '◒' },
-  { id: 'spark', label: 'Spark', glyph: '✦' },
-  { id: 'wave', label: 'Wave', glyph: '≈' },
+  { id: 'clawd', label: 'Clawd' },
+  { id: 'scholar', label: 'Scholar' },
+  { id: 'specs', label: 'Specs' },
+  { id: 'beats', label: 'Beats' },
+  { id: 'nap', label: 'Nap' },
+  { id: 'spark', label: 'Spark' },
+  { id: 'reader', label: 'Reader' },
+  { id: 'streak', label: 'Streak' },
 ] as const
 
 export type AvatarId = (typeof AVATARS)[number]['id']
+
+/** Earlier builds saved these glyph ids; keep them pointing at a pet. */
+const LEGACY_AVATARS: Record<string, AvatarId> = { orbit: 'clawd', wave: 'beats' }
+
+export function avatarSrc(id: string | undefined) {
+  const base = (import.meta as ImportMeta & { env?: { BASE_URL?: string } }).env?.BASE_URL ?? '/'
+  return `${base}avatars/${avatarFor(id).id}.svg`
+}
 
 export type ProfileShortcut = {
   id: string
@@ -20,7 +34,8 @@ export type ProfileShortcut = {
 }
 
 export function avatarFor(id: string | undefined) {
-  return AVATARS.find((avatar) => avatar.id === id) ?? AVATARS[0]
+  const resolved = id ? LEGACY_AVATARS[id] ?? id : undefined
+  return AVATARS.find((avatar) => avatar.id === resolved) ?? AVATARS[0]
 }
 
 export function listProfileShortcuts(): ProfileShortcut[] {

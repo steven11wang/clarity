@@ -173,7 +173,7 @@ export function SignInPage({
         id: 'local-google-user',
         email: 'learner@gmail.com',
         displayName: 'learner',
-        avatarId: 'orbit',
+        avatarId: 'clawd',
       })
       return
     }
@@ -211,7 +211,7 @@ export function SignInPage({
         id: `local-${cleanEmail}`,
         email: cleanEmail,
         displayName: name,
-        avatarId: 'orbit',
+        avatarId: 'clawd',
       })
       return
     }
@@ -244,7 +244,7 @@ export function SignInPage({
       const result = await supabase.auth.signUp({
         email: cleanEmail,
         password,
-        options: { data: { avatar_id: 'orbit' } },
+        options: { data: { avatar_id: 'clawd' } },
       })
       if (result.error) {
         setError(result.error.message)
@@ -255,7 +255,7 @@ export function SignInPage({
           id: result.data.user.id,
           email: result.data.user.email ?? cleanEmail,
           displayName: cleanEmail.split('@')[0],
-          avatarId: 'orbit',
+          avatarId: 'clawd',
         })
         if (onSuccess) onSuccess(profile)
       }
@@ -271,7 +271,7 @@ export function SignInPage({
           id: result.data.user.id,
           email: result.data.user.email ?? cleanEmail,
           displayName: (typeof result.data.user.user_metadata?.display_name === 'string' && result.data.user.user_metadata.display_name) || cleanEmail.split('@')[0],
-          avatarId: 'orbit',
+          avatarId: 'clawd',
         })
         if (onSuccess) onSuccess(profile)
       }

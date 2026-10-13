@@ -119,7 +119,9 @@ function App() {
   const [loadState, setLoadState] = useState<LoadState>('loading')
   const [viewState, setViewState] = useState<View>(() => {
     const saved = getActiveView<View>()
-    return isView(saved) ? saved : 'adaptive'
+    // A practice or drill session lives in memory only, so a reload has nothing
+    // to resume: land on the dashboard rather than an empty question card.
+    return isView(saved) && saved !== 'practice' ? saved : 'adaptive'
   })
 
   function setView(nextView: View) {

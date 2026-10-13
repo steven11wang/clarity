@@ -16,7 +16,6 @@ import {
   Search,
   Timer,
   Type as TypeIcon,
-  UserRound,
 } from 'lucide-react'
 
 import {
@@ -26,7 +25,7 @@ import {
   type Level,
   type SatDomain,
 } from '../../progression/config.ts'
-import { useAuthProfile } from '../../auth/AuthContext.tsx'
+import { ProfilePopover } from '../Settings/ProfilePopover.tsx'
 import { SettingsPopover } from '../Settings/SettingsPopover.tsx'
 import { PrimaryViewTransition } from './PrimaryViewTransition.tsx'
 import type { PrimaryConsoleView } from './primaryViewTransition.ts'
@@ -175,7 +174,6 @@ export function ProgressDashboard({
   onOpenReflect,
   onOpenArena,
 }: ProgressDashboardProps) {
-  const { openAccount } = useAuthProfile()
   const firstDomain =
     cards.find((card) => card.chosen)?.domain ??
     cards.find((card) => card.recommended)?.domain ??
@@ -448,17 +446,7 @@ export function ProgressDashboard({
             <Search size={19} strokeWidth={1.5} absoluteStrokeWidth />
           </button>
           <SettingsPopover onScoreUpdate={onUpdateScore} />
-          <button
-            className="console-avatar"
-            type="button"
-            aria-label="Update learner profile"
-            onClick={openAccount}
-            data-ui-sound="true"
-            data-ui-sound-hover="hover"
-            data-ui-sound-click="open"
-          >
-            <UserRound size={18} strokeWidth={1.5} absoluteStrokeWidth />
-          </button>
+          <ProfilePopover />
         </div>
       </header>
 

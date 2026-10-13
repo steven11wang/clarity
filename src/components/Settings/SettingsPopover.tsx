@@ -3,6 +3,7 @@ import { ChevronRight, Contrast, Download, KeyRound, Settings, TrendingUp, Uploa
 
 import { useAuthProfile } from '../../auth/AuthContext.tsx'
 import { AVATARS } from '../../auth/profileShortcuts.ts'
+import { Avatar } from './Avatar.tsx'
 import { exportAllData, importAllData } from '../../storage/index.ts'
 import './settings.css'
 
@@ -17,7 +18,7 @@ export function SettingsPopover({ onScoreUpdate }: SettingsPopoverProps) {
     isLocal,
     signOut,
     profileId,
-    avatarId = 'orbit',
+    avatarId = 'clawd',
     updateAvatar,
     hasProfilePin = false,
     setProfilePin,
@@ -155,7 +156,7 @@ export function SettingsPopover({ onScoreUpdate }: SettingsPopoverProps) {
               </span>
               <span className="settings-popover__chevron" aria-hidden="true"><ChevronRight size={15} strokeWidth={1.5} absoluteStrokeWidth /></span>
             </button>
-            {editingProfile && updateAvatar && <div className="settings-avatar-picker" aria-label="Avatar choices">{AVATARS.map((avatar) => <button key={avatar.id} type="button" aria-pressed={avatarId === avatar.id} aria-label={`Use ${avatar.label} avatar`} onClick={() => { void updateAvatar(avatar.id); setEditingProfile(false) }}>{avatar.glyph}</button>)}</div>}
+            {editingProfile && updateAvatar && <div className="settings-avatar-picker" aria-label="Avatar choices">{AVATARS.map((avatar) => <button key={avatar.id} type="button" aria-pressed={avatarId === avatar.id} aria-label={`Use ${avatar.label} avatar`} onClick={() => { void updateAvatar(avatar.id); setEditingProfile(false) }}><Avatar id={avatar.id} size={34} /></button>)}</div>}
 
             {profileId && setProfilePin && clearProfilePin && (
               <>

@@ -4,6 +4,7 @@ import { beforeEach, describe, it } from 'node:test'
 import { JSDOM } from 'jsdom'
 
 import {
+  avatarFor,
   PROFILE_SHORTCUTS_KEY,
   clearProfilePin,
   listProfileShortcuts,
@@ -39,7 +40,7 @@ describe('profile shortcuts', () => {
       id: 'u1',
       email: 'ada@example.com',
       displayName: 'Ada',
-      avatarId: 'orbit',
+      avatarId: 'clawd',
     }])
   })
 
@@ -64,7 +65,7 @@ describe('profile shortcuts', () => {
       id: 'u1',
       email: 'ada@example.com',
       displayName: 'Ada',
-      avatarId: 'wave',
+      avatarId: 'beats',
     })
     assert.equal(await verifyProfilePin(profile, 'anything'), true)
 
@@ -73,5 +74,15 @@ describe('profile shortcuts', () => {
 
     assert.equal('pin' in unprotectedProfile, false)
     assert.equal(await verifyProfilePin(unprotectedProfile, 'anything'), true)
+  })
+})
+
+describe('pet avatars', () => {
+  it('maps earlier glyph avatar ids onto a pet and falls back to the first', () => {
+    assert.equal(avatarFor('orbit').id, 'clawd')
+    assert.equal(avatarFor('wave').id, 'beats')
+    assert.equal(avatarFor('spark').id, 'spark')
+    assert.equal(avatarFor('nonsense').id, 'clawd')
+    assert.equal(avatarFor(undefined).id, 'clawd')
   })
 })

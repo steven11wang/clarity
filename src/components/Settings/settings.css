@@ -135,8 +135,8 @@
   color: #B3382B;
 }
 
-.settings-avatar-picker { display: flex; gap: .45rem; padding: .2rem .7rem .65rem 2.85rem; }
-.settings-avatar-picker button { background: rgba(20, 17, 12, 0.056); border: 1px solid transparent; border-radius: 50%; color: #14110C; cursor: pointer; font-size: 1.15rem; height: 2.3rem; width: 2.3rem; }
+.settings-avatar-picker { display: flex; flex-wrap: wrap; gap: .45rem; padding: .2rem .7rem .65rem 2.85rem; }
+.settings-avatar-picker button { background: rgba(20, 17, 12, 0.056); border: 1px solid transparent; border-radius: 50%; color: #14110C; cursor: pointer; height: 2.3rem; overflow: hidden; padding: 0; width: 2.3rem; }
 .settings-avatar-picker button[aria-pressed='true'] { border-color: var(--cobalt-light); background: rgba(179, 56, 43, 0.24); }
 
 .settings-pin-form {

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { AVATAR_GLYPHS, DIVISIONS, TIERS } from '../../arena/config.ts'
+import { AVATARS, avatarSrc } from '../../auth/profileShortcuts.ts'
 import { tierColor, type Rank } from '../../arena/model.ts'
 import { assetPath } from '../../lib/assetPath.ts'
 
@@ -80,6 +81,7 @@ export function FighterAvatar({
 }) {
   const [failed, setFailed] = useState(false)
   const glyph = AVATAR_GLYPHS[avatarId] ?? name.slice(0, 1).toUpperCase()
+  const pet = AVATARS.some((avatar) => avatar.id === avatarId)
 
   return (
     <span className={`arena-fighter arena-fighter--${side}`} style={{ width: size, height: size }}>
@@ -88,7 +90,11 @@ export function FighterAvatar({
           {glyph}
         </span>
       ) : (
-        <img src={assetPath(`art/arena/avatar-${avatarId}.avif`)} alt="" onError={() => setFailed(true)} />
+        <img
+          src={pet ? avatarSrc(avatarId) : assetPath(`art/arena/avatar-${avatarId}.avif`)}
+          alt=""
+          onError={() => setFailed(true)}
+        />
       )}
     </span>
   )
