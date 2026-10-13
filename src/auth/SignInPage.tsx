@@ -1,12 +1,121 @@
-import { useState, type FormEvent } from 'react'
+import { useState, type FormEvent, type ReactNode } from 'react'
 import { isSupabaseConfigured, supabase } from '../lib/supabase.ts'
-import { upsertProfileShortcut, type ProfileShortcut } from './profileShortcuts.ts'
+import { listProfileShortcuts, upsertProfileShortcut, type ProfileShortcut } from './profileShortcuts.ts'
 import './signInPage.css'
 
 export type SignInPageProps = {
   initialEmail?: string
   initialError?: string | null
   onSuccess?: (profile: ProfileShortcut) => void
+}
+
+export function defaultUsername(email: string) {
+  const local = email.split('@')[0] ?? ''
+  const cleaned = local.replace(/[^A-Za-z0-9_.-]/g, '').slice(0, 24)
+  return cleaned || 'learner'
+}
+
+export function validateUsername(value: string): string | null {
+  const name = value.trim()
+  if (name.length < 2) return 'Use at least 2 characters.'
+  if (name.length > 24) return 'Use 24 characters or fewer.'
+  if (!/^[A-Za-z0-9_.-]+$/.test(name)) return 'Letters, numbers, dots, dashes and underscores only.'
+  return null
+}
+
+/** Painting on the left, wordmark centred over the form on the right. */
+export function AuthShell({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <main className="auth-page-root">
+      <div className="auth-visual" aria-hidden="true">
+        <p className="auth-visual-tagline">
+          Miss it once<em>/</em>Master it twice.
+        </p>
+      </div>
+
+      <div className="auth-panel">
+        <a href="/" className="auth-close" aria-label="Back to the Clarity home page">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" aria-hidden="true">
+            <path d="M5 5l14 14M19 5L5 19" />
+          </svg>
+        </a>
+        <a href="/" className="auth-brandmark" aria-label="Clarity home">
+          <span className="auth-brandmark-text">CLARITY</span>
+          <svg className="auth-brandmark-seal" viewBox="0 0 32 32" aria-hidden="true">
+            <rect width="32" height="32" rx="2" fill="#A83226" />
+            <g fill="none" stroke="#F7F1E6" strokeWidth="2.4">
+              <rect x="6" y="6" width="20" height="20" />
+              <rect x="13" y="13" width="6" height="6" />
+            </g>
+          </svg>
+        </a>
+        <section className="auth-main-stage" aria-label={label}>
+          <div className="auth-card-box">{children}</div>
+        </section>
+      </div>
+    </main>
+  )
+}
+
+export type UsernameStepProps = {
+  email: string
+  /** Resolve with an error message to keep the learner on this step. */
+  onSubmit: (username: string) => Promise<string | null> | string | null
+}
+
+/** "Almost there": pick a public username, defaulting to the email name. */
+export function UsernameStep({ email, onSubmit }: UsernameStepProps) {
+  const [username, setUsername] = useState(() => defaultUsername(email))
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  async function handleSubmit(event: FormEvent) {
+    event.preventDefault()
+    const problem = validateUsername(username)
+    if (problem) {
+      setError(problem)
+      return
+    }
+    setBusy(true)
+    setError(null)
+    const failure = await onSubmit(username.trim())
+    if (failure) {
+      setError(failure)
+      setBusy(false)
+    }
+  }
+
+  return (
+    <AuthShell label="Choose your username">
+      <h1 className="auth-title">Almost there</h1>
+      <p className="auth-subtitle">Finish creating your Clarity account.</p>
+      <form className="auth-form" onSubmit={handleSubmit}>
+        {error && (
+          <div className="auth-alert-message auth-alert-message--error" role="alert">
+            {error}
+          </div>
+        )}
+        <div className="auth-field-group">
+          <label htmlFor="auth-username" className="auth-field-label">
+            Username
+          </label>
+          <input
+            id="auth-username"
+            className="auth-input-control"
+            autoComplete="username"
+            autoFocus
+            spellCheck={false}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <p className="auth-field-hint">This is the name shown on your profile. You can change it later.</p>
+        </div>
+        <button type="submit" className="auth-submit-btn" disabled={busy}>
+          {busy ? 'Please wait…' : 'Continue'}
+        </button>
+      </form>
+    </AuthShell>
+  )
 }
 
 export function SignInPage({
@@ -21,19 +130,29 @@ export function SignInPage({
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(initialError)
   const [message, setMessage] = useState<string | null>(null)
+  const [pendingLocal, setPendingLocal] = useState<ProfileShortcut | null>(null)
+
+  /** Offline mode: a returning profile goes straight in, a new one picks a username first. */
+  function finishLocal(profile: ProfileShortcut) {
+    const existing = listProfileShortcuts().find((item) => item.id === profile.id)
+    if (existing) {
+      if (onSuccess) onSuccess(existing)
+      return
+    }
+    setPendingLocal(profile)
+  }
 
   async function handleGoogleSignIn() {
     setError(null)
     setMessage(null)
     if (!isSupabaseConfigured || !supabase) {
       // Local dev mode fallback - instantly log in and enter dashboard
-      const profile = upsertProfileShortcut({
+      finishLocal({
         id: 'local-google-user',
         email: 'learner@gmail.com',
-        displayName: 'Google Learner',
+        displayName: 'learner',
         avatarId: 'orbit',
       })
-      if (onSuccess) onSuccess(profile)
       return
     }
 
@@ -66,13 +185,12 @@ export function SignInPage({
     if (!isSupabaseConfigured || !supabase) {
       const cleanEmail = email.trim()
       const name = cleanEmail.split('@')[0] || 'Learner'
-      const profile = upsertProfileShortcut({
+      finishLocal({
         id: `local-${cleanEmail}`,
         email: cleanEmail,
-        displayName: name.charAt(0).toUpperCase() + name.slice(1),
+        displayName: name,
         avatarId: 'orbit',
       })
-      if (onSuccess) onSuccess(profile)
       return
     }
 
@@ -140,25 +258,21 @@ export function SignInPage({
     setBusy(false)
   }
 
-  return (
-    <main className="auth-page-root">
-      {/* Top Header with Centered Wordmark and Seal */}
-      <header className="auth-header-bar">
-        <a href="/" className="auth-brandmark" aria-label="Clarity Home">
-          <span className="auth-brandmark-text">CLARITY</span>
-          <svg className="auth-brandmark-seal" viewBox="0 0 32 32" aria-hidden="true">
-            <rect width="32" height="32" rx="2" fill="#A83226" />
-            <g fill="none" stroke="#F7F1E6" strokeWidth="2.4">
-              <rect x="6" y="6" width="20" height="20" />
-              <rect x="13" y="13" width="6" height="6" />
-            </g>
-          </svg>
-        </a>
-      </header>
+  if (pendingLocal) {
+    return (
+      <UsernameStep
+        email={pendingLocal.email}
+        onSubmit={(username) => {
+          const profile = upsertProfileShortcut({ ...pendingLocal, displayName: username })
+          if (onSuccess) onSuccess(profile)
+          return null
+        }}
+      />
+    )
+  }
 
-      {/* Main Content Area: Sign-in Card aligned right on Shan Shui canvas */}
-      <section className="auth-main-stage" aria-label="Sign in to Clarity">
-        <div className="auth-card-box">
+  return (
+    <AuthShell label="Sign in to Clarity">
           <h1 className="auth-title">
             {mode === 'forgot-password'
               ? 'Reset password'
@@ -346,8 +460,6 @@ export function SignInPage({
               </div>
             )}
           </form>
-        </div>
-      </section>
-    </main>
+    </AuthShell>
   )
 }

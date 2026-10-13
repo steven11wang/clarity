@@ -3,7 +3,7 @@ import type { User } from '@supabase/supabase-js'
 
 import { ConsoleAudioProvider } from '../audio/ConsoleAudioProvider.tsx'
 import { AuthProfileProvider } from './AuthContext.tsx'
-import { SignInPage, type SignInPageProps } from './SignInPage.tsx'
+import { SignInPage, UsernameStep, type SignInPageProps } from './SignInPage.tsx'
 import {
   clearProfilePin,
   listProfileShortcuts,
@@ -138,6 +138,32 @@ export function AuthBoundary({ children }: AuthBoundaryProps) {
     )
   }
 
+  // First sign-in: ask for a public username (defaults to the email name)
+  // before the dashboard. Stored on the account, so it is asked only once.
+  const savedName = user.user_metadata?.display_name
+  if (typeof savedName !== 'string' || !savedName.trim()) {
+    return (
+      <>
+        <ConsoleAudioProvider scene="auth" />
+        <UsernameStep
+          email={user.email ?? ''}
+          onSubmit={async (username) => {
+            const { data, error } = await supabase!.auth.updateUser({ data: { display_name: username } })
+            if (error) return error.message
+            upsertProfileShortcut({
+              id: user.id,
+              email: user.email ?? '',
+              displayName: username,
+              avatarId: typeof user.user_metadata?.avatar_id === 'string' ? user.user_metadata.avatar_id as AvatarId : 'orbit',
+            })
+            setUser(data.user ?? { ...user, user_metadata: { ...user.user_metadata, display_name: username } })
+            return null
+          }}
+        />
+      </>
+    )
+  }
+
   void profileRevision
   const activeShortcut = listProfileShortcuts().find((profile) => profile.id === user.id)
 
@@ -215,15 +241,43 @@ export function extractUrlAuthError(): string | null {
   return null
 }
 
+// Offline mode remembers the learner in localStorage so a return visit lands
+// on the dashboard (satclarity.com's landing page checks the same key).
+const ACTIVE_PROFILE_KEY = 'clarity-active-profile'
+
+function readActiveProfileId() {
+  try {
+    return window.localStorage.getItem(ACTIVE_PROFILE_KEY)
+  } catch {
+    return null
+  }
+}
+
+function saveActiveProfileId(id: string) {
+  try {
+    window.localStorage.setItem(ACTIVE_PROFILE_KEY, id)
+  } catch {
+    // Storage blocked: the learner just signs in again next visit.
+  }
+}
+
+function clearActiveProfileId() {
+  try {
+    window.localStorage.removeItem(ACTIVE_PROFILE_KEY)
+  } catch {
+    // ignore
+  }
+}
+
 export function LocalProfileGate({ children }: { children: ReactNode }) {
   const [selected, setSelected] = useState<ProfileShortcut | null>(() => {
-    const activeId = window.sessionStorage.getItem('clarity-active-profile')
+    const activeId = readActiveProfileId()
     return listProfileShortcuts().find((profile) => profile.id === activeId) ?? null
   })
   const [authError, setAuthError] = useState<string | null>(() => extractUrlAuthError())
 
   function openAccount() {
-    window.sessionStorage.removeItem('clarity-active-profile')
+    clearActiveProfileId()
     setSelected(null)
   }
 
@@ -262,7 +316,7 @@ export function LocalProfileGate({ children }: { children: ReactNode }) {
     <SignInPage
       initialError={authError}
       onSuccess={(profile) => {
-        window.sessionStorage.setItem('clarity-active-profile', profile.id)
+        saveActiveProfileId(profile.id)
         setAuthError(null)
         setSelected(profile)
       }}

@@ -2,6 +2,22 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
+<script>
+  // Returning learners go straight to their dashboard. A saved Supabase session
+  // (sb-*-auth-token) or an offline profile (clarity-active-profile) means this
+  // browser already remembers them. Add ?landing to the URL to view this page anyway.
+  (function () {
+    try {
+      if (/(^|[?&])landing(=|&|$)/.test(location.search)) return
+      var remembered = !!localStorage.getItem('clarity-active-profile')
+      for (var i = 0; !remembered && i < localStorage.length; i++) {
+        var key = localStorage.key(i)
+        if (key && /^sb-.+-auth-token$/.test(key) && localStorage.getItem(key)) remembered = true
+      }
+      if (remembered) location.replace('/app/')
+    } catch (e) {}
+  })()
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Clarity 清 · SAT Reading &amp; Writing</title>
 <meta name="description" content="Clarity is an SAT Reading and Writing practice system built on a return loop: everything you get wrong comes back, on the day you were about to lose it." />
