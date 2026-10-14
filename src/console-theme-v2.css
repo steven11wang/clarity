@@ -646,7 +646,9 @@ a:hover { color: #14110C; }
   display: flex;
   gap: clamp(0.65rem, 1.15vw, 1.2rem);
   overflow-x: auto;
-  padding: 0.4rem 0.15rem 0.6rem;
+  /* room for the 9px selection ring, which overflow-x would otherwise clip */
+  margin: -0.4rem -0.8rem -0.3rem;
+  padding: 0.8rem 0.8rem 0.9rem;
   scrollbar-width: none;
 }
 .console-rail::-webkit-scrollbar { display: none; }
