@@ -18,11 +18,9 @@
   border-radius: 50%;
   display: block;
   height: 100%;
-  image-rendering: pixelated;
   object-fit: cover;
   width: 100%;
 }
-.avatar-pet[data-avatar='clawd'] { image-rendering: auto; }
 .profile-popover__trigger .avatar-pet { width: 100%; height: 100%; }
 
 .profile-popover__panel {
