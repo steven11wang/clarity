@@ -1,8 +1,8 @@
 export const PROFILE_SHORTCUTS_KEY = 'clarity-profile-shortcuts-v1'
 
-/** Pixel pets in the spirit of Claude's orange critter. Art lives in public/avatars. */
+/** Pets for learners to pick from. Art lives in public/avatars. The first (id 'clawd', kept so saved profiles still resolve) is the 汤圆 mascot. */
 export const AVATARS = [
-  { id: 'clawd', label: 'Clawd' },
+  { id: 'clawd', label: 'Tangyuan' },
   { id: 'scholar', label: 'Scholar' },
   { id: 'specs', label: 'Specs' },
   { id: 'beats', label: 'Beats' },

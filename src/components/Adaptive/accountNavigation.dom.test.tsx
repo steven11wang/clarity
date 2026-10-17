@@ -104,7 +104,7 @@ describe('account navigation', () => {
     assert.equal(choices.length, 8)
     assert.equal(
       container.querySelector('.profile-popover__choice[aria-pressed="true"]')?.getAttribute('aria-label'),
-      'Use Clawd',
+      'Use Tangyuan',
     )
 
     const scholar = container.querySelector<HTMLButtonElement>('[aria-label="Use Scholar"]')
