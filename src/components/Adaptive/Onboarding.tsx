@@ -58,11 +58,15 @@ export function Onboarding({
   const privacyId = useId()
   const requestIdRef = useRef(0)
 
-  const [stage, setStage] = useState<Stage>('welcome')
+  const [stage, setStage] = useState<Stage>(replacingExisting ? 'welcome' : 'confirm')
   const [screenshot, setScreenshot] = useState<File | null>(null)
   const [results, setResults] = useState<ParsedScoreResults>({})
   const [uncertainDomains, setUncertainDomains] = useState<SatDomain[]>([])
-  const [notice, setNotice] = useState('')
+  const [notice, setNotice] = useState(
+    replacingExisting
+      ? ''
+      : 'Choose the difficulty shown for each domain on your College Board report.',
+  )
   const [problem, setProblem] = useState('')
 
   const previewUrl = useMemo(
@@ -514,7 +518,7 @@ export function Onboarding({
                     ? 'Replace report and start new path →'
                     : 'Confirm and see my path →'}
                 </button>
-                {!screenshot && (
+                {replacingExisting && !screenshot && (
                   <UploadControl
                     compact
                     label="Add a screenshot instead"
@@ -526,7 +530,7 @@ export function Onboarding({
             </form>
           </div>
 
-          <PrivacyNote id={privacyId} />
+          {replacingExisting && <PrivacyNote id={privacyId} />}
         </section>
       )}
     </main>
