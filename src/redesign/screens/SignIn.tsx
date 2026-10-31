@@ -9,7 +9,7 @@ import { ArrowLeft, ArrowRight, Eye, EyeOff, Mail, Smartphone } from 'lucide-rea
 import { isSupabaseConfigured, supabase } from '../../lib/supabase.ts'
 import { validateName } from '../game/identity.ts'
 import { updateGame, useGame } from '../game/store.ts'
-import { go } from '../router.ts'
+import { appUrl, go } from '../router.ts'
 import { Logo } from '../components/Logo.tsx'
 import { Tangyuan, type Mood } from '../components/Tangyuan.tsx'
 import { play } from '../sound.ts'
@@ -77,7 +77,7 @@ export function SignIn({ initialMode = 'sign-in' }: { initialMode?: Mode }) {
     }
     const { error: oauthError } = await supabase!.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: `${window.location.origin}/redesign.html` },
+      options: { redirectTo: appUrl() },
     })
     if (oauthError) {
       setError(oauthError.message)
@@ -100,7 +100,7 @@ export function SignIn({ initialMode = 'sign-in' }: { initialMode?: Mode }) {
     }
     if (mode === 'reset') {
       setBusy(true)
-      const { error: resetError } = await supabase!.auth.resetPasswordForEmail(cleanEmail, { redirectTo: `${window.location.origin}/redesign.html` })
+      const { error: resetError } = await supabase!.auth.resetPasswordForEmail(cleanEmail, { redirectTo: appUrl() })
       setBusy(false)
       if (resetError) setError(resetError.message)
       else setView('sent')

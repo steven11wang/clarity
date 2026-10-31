@@ -70,10 +70,21 @@ function paymentLink(id: PackId): string | undefined {
   return env[`VITE_DROPS_LINK_${id.toUpperCase()}`]?.trim() || undefined
 }
 
-export type PaymentsMode = 'stripe' | 'preview'
+export type PaymentsMode = 'stripe' | 'preview' | 'off'
 
+/** Whether this is a production build (the published beta), not the dev server or a test. */
+function liveBuild(): boolean {
+  return Boolean((import.meta as ImportMeta & { env?: { PROD?: boolean } }).env?.PROD)
+}
+
+/**
+ * 'stripe' when Payment Links are configured; on the dev server, 'preview' (free
+ * test purchases). A published build without Stripe never gets the free test
+ * checkout: buying is simply 'off' and drops are earned by playing.
+ */
 export function paymentsMode(): PaymentsMode {
-  return isSupabaseConfigured && PACKS.every((pack) => paymentLink(pack.id)) ? 'stripe' : 'preview'
+  if (isSupabaseConfigured && PACKS.every((pack) => paymentLink(pack.id))) return 'stripe'
+  return liveBuild() ? 'off' : 'preview'
 }
 
 /** Stripe Payment Link for a pack, tagged with the account so the webhook can credit it. */

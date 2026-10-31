@@ -47,6 +47,11 @@ export function go(path: string) {
   } else swap()
 }
 
+/** This page's own address without the hash: /redesign.html on the dev server, /app/new/ when published. */
+export function appUrl(): string {
+  return `${window.location.origin}${window.location.pathname}`
+}
+
 export function useRoute(): Route {
   return useSyncExternalStore(
     (listener) => {

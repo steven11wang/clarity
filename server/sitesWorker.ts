@@ -19,6 +19,8 @@ const PAGE_ROUTES: Record<string, string> = {
   '/plans/': '/plans.html',
   '/app': '/index.html',
   '/app/': '/index.html',
+  '/app/new': '/redesign.html',
+  '/app/new/': '/redesign.html',
 }
 
 async function parseScore(

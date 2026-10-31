@@ -9,6 +9,7 @@
 //   /        -> landing.html      (marketing front page)
 //   /plans   -> plans.html
 //   /app     -> index.html        (the React console)
+//   /app/new -> redesign.html     (the redesign beta)
 //
 // Run after `npm run build`. Set CUSTOM_DOMAIN to emit a CNAME.
 
@@ -56,6 +57,7 @@ console.log('📁 Shaping dist/ for static hosting...')
 // Order matters: the React app has to be copied out of dist/index.html before
 // the landing page overwrites that slot.
 await page('app', 'index.html')
+await page('app/new', 'redesign.html')
 await page('plans', 'plans.html')
 
 await copyFile(path.join(dist, 'landing.html'), path.join(dist, 'index.html'))
