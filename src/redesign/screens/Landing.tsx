@@ -3,7 +3,7 @@
 // they miss — sees it clipped into the Mistake Notebook to come back. Then they press Play.
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { ArrowRight, Check, Gift, Play, RotateCcw, Shirt, Swords, Timer } from 'lucide-react'
+import { ArrowRight, BookOpen, Check, ClipboardList, Gift, Play, RotateCcw, Route, Shirt, Swords, Timer } from 'lucide-react'
 
 import skillIndex from '../../content/skillLessonIndex.json' with { type: 'json' }
 import type { Confidence, TrapType } from '../../types.ts'
@@ -513,6 +513,73 @@ function RewardsDemo() {
   )
 }
 
+const FEATURES = [
+  {
+    id: 'path',
+    Icon: Route,
+    title: 'A paced path that starts where you are',
+    lines: [
+      'Upload or enter your score report and Clarity picks the best place to begin.',
+      'Follow one route through every domain and skill, so you never guess which weakness to chase.',
+      'Every skill you secure stays secured as you move on.',
+    ],
+    note: 2,
+    cta: ['Open the path', '/path'],
+  },
+  {
+    id: 'exams',
+    Icon: ClipboardList,
+    title: 'Full-length practice exams',
+    lines: [
+      'Two timed modules in a testing screen built to feel like test day.',
+      'Lessons and practice sit together: learn a skill, then use it right away.',
+      'Your study guide, saved words, and misses live next to your practice.',
+    ],
+    note: 2,
+    cta: ['See the exams', '/exams'],
+  },
+  {
+    id: 'words',
+    Icon: BookOpen,
+    title: 'Every word, in context',
+    lines: [
+      'Look a word up in the passage without leaving the question.',
+      'The digital SAT tests vocabulary in context, so that is where you learn it.',
+      'Saved words return on a schedule, so they stick.',
+    ],
+    note: 3,
+    cta: ['Try a page', '/start'],
+  },
+  {
+    id: 'loop',
+    Icon: RotateCcw,
+    title: 'Never lose a missed question again',
+    lines: [
+      'Wrong answers are filed the moment you miss them.',
+      'They come back shuffled, on a schedule built around when people forget.',
+      'There is no error log to open and forget. Today’s review is already waiting.',
+    ],
+    note: 3,
+    cta: ['Open the notebook', '/notebook'],
+  },
+] as const
+
+const FINE_PRINT = [
+  'Clarity is free to use. There are no account fees, subscriptions, or hidden charges. Optional water drops buy cosmetics and streak savers only; sticker packs and anything that affects learning are never sold. Features and availability may change.',
+  'The paced path starts from the score report results you upload or enter, and adjusts as you finish skills. It is a study guide, not a prediction of your score. Practice exams follow the digital SAT format; they are practice material, not official College Board tests, and a practice score is an estimate.',
+  'Median SAT figures are approximate, are shown for illustration, and may be out of date. Check each college’s own admissions site for current ranges. Review timing follows a spaced repetition schedule, and how well it works varies from learner to learner. Word definitions come from published dictionaries and are shown for study.',
+]
+
+function Note({ n }: { n: number }) {
+  return (
+    <sup className="fn">
+      <a href="#fine" aria-label={`Note ${n}`}>
+        {n}
+      </a>
+    </sup>
+  )
+}
+
 // ---------------------------------------------------------------------------
 
 export function Landing() {
@@ -542,6 +609,8 @@ export function Landing() {
           </a>
           <a href="#speed">Speed Round</a>
           <a href="#rewards">Rewards</a>
+          <a href="#features">Features</a>
+          <a href="/plans">Plans</a>
         </div>
         <div className="lnav__actions">
           <a className="lnav__signin" href="#/signin">
@@ -578,7 +647,10 @@ export function Landing() {
               <button type="button" className="btn btn--lg" onClick={() => go('/start')}>
                 <Play /> Play your first page
               </button>
-              <span className="hero__free">Free. No sign-up for your first page.</span>
+              <span className="hero__free">
+                Free. No fees, no credit card.
+                <Note n={1} />
+              </span>
             </div>
             <p className="hero__facts">
               <span>
@@ -694,6 +766,50 @@ export function Landing() {
           </div>
         </section>
 
+        <section className="band band--paper" id="features">
+          <div className="band__inner">
+            <h2 className="display band__title reveal">
+              Everything for the <span className="hl hl--green" data-swipe>test</span>, in one place.
+            </h2>
+            <p className="band__lead reveal">Past the game: a route to follow, test-day practice, a dictionary that works inside the passage, and a return loop that does the remembering.</p>
+            <div className="feats">
+              {FEATURES.map(({ id, Icon, title, lines, note, cta }) => (
+                <article className="feat sheet reveal" key={id} id={id}>
+                  <span className="feat__icon" aria-hidden="true">
+                    <Icon size={26} />
+                  </span>
+                  <h3 className="feat__title">{title}</h3>
+                  <ul>
+                    {lines.map((line) => (
+                      <li key={line}>{line}</li>
+                    ))}
+                  </ul>
+                  <button type="button" className="btn btn--sm" onClick={() => go(cta[1])}>
+                    {cta[0]} <ArrowRight size={16} />
+                  </button>
+                  <Note n={note} />
+                </article>
+              ))}
+            </div>
+            <div className="whyc reveal">
+              <h3 className="feat__title">Why choose Clarity?</h3>
+              <p>The questions you miss are the most useful ones you have. A simple, disciplined routine puts them back in front of you.</p>
+              <ul className="whyc__list">
+                <li>A clear, straightforward experience</li>
+                <li>Guidance as your score changes</li>
+                <li>Practice, exams, and words in one place</li>
+                <li>
+                  Free to use, with no fees at any step
+                  <Note n={1} />
+                </li>
+              </ul>
+              <p className="whyc__else">
+                Not sure where to start? Upload your score report or answer a couple of questions, and Clarity suggests the best place to begin.
+              </p>
+            </div>
+          </div>
+        </section>
+
         <section className="band band--paper" id="why">
           <div className="band__inner">
             <h2 className="display band__title reveal">
@@ -701,6 +817,7 @@ export function Landing() {
             </h2>
             <p className="band__lead reveal">
               At a top-30 US university, the middle of the admitted class scores around 1550. Reading &amp; Writing is half of that number.
+              <Note n={3} />
             </p>
           </div>
           <div className="colleges" aria-label="Median SAT scores at top universities">
@@ -738,11 +855,21 @@ export function Landing() {
       <footer className="lfoot">
         <Logo />
         <span>Free SAT Reading &amp; Writing practice.</span>
+        <a href="/plans">Plans</a>
+        <a href="/classic">Original site</a>
         <a href="#/signin">Sign in</a>
         <a href="#/me">
           <Shirt size={14} /> Your game
         </a>
-        <span className="lfoot__note">Redesign preview. Rivals, radars and notebooks marked “sample” are illustrations.</span>
+        <section className="fine" id="fine" aria-labelledby="fine-title">
+          <h2 id="fine-title">Important information</h2>
+          <ol>
+            {FINE_PRINT.map((line) => (
+              <li key={line}>{line}</li>
+            ))}
+          </ol>
+          <p>Rivals, radars and notebooks marked “sample” are illustrations. Clarity is not affiliated with the College Board.</p>
+        </section>
       </footer>
     </div>
   )

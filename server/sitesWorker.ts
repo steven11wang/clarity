@@ -14,7 +14,9 @@ const MAX_REQUEST_BYTES = 10 * 1024 * 1024 + 1
  *  Keep this table in sync with FRONT_DOOR in vite.config.ts, which performs
  *  the same mapping for the dev server. */
 const PAGE_ROUTES: Record<string, string> = {
-  '/': '/landing.html',
+  '/': '/redesign.html',
+  '/classic': '/landing.html',
+  '/classic/': '/landing.html',
   '/plans': '/plans.html',
   '/plans/': '/plans.html',
   '/app': '/index.html',

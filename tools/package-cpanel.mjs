@@ -15,7 +15,7 @@ const htaccessContent = `# -----------------------------------------------------
 Options -Indexes -MultiViews
 
 # Default landing page
-DirectoryIndex landing.html index.html
+DirectoryIndex redesign.html index.html
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
@@ -43,7 +43,7 @@ DirectoryIndex landing.html index.html
   RewriteCond %{REQUEST_URI} !^/assets/
   RewriteCond %{REQUEST_URI} !^/lessons/
   RewriteCond %{REQUEST_URI} !^/plans
-  RewriteRule ^(.*)$ landing.html [L]
+  RewriteRule ^(.*)$ redesign.html [L]
 </IfModule>
 
 # Caching optimization
