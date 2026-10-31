@@ -1,0 +1,364 @@
+/* ==========================================================================
+   Sign in — a student card on the yellow desk
+   ========================================================================== */
+
+.auth {
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: var(--yellow);
+}
+
+body[data-surface='game'] .auth {
+  background: var(--yellow);
+}
+
+.auth__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px clamp(16px, 4vw, 48px);
+}
+
+.auth__bar a {
+  text-decoration: none;
+}
+
+.auth__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+}
+
+.auth__back:hover {
+  text-decoration: underline;
+}
+
+.auth__stage {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(24px, 5vw, 80px);
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 12px 0 56px;
+}
+
+.auth__mascot {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+}
+
+.auth__speech {
+  margin: 0;
+  max-width: 30ch;
+  text-align: center;
+  font-size: 1.12rem;
+  animation: card-in 360ms var(--ease-out);
+}
+
+.auth__speech.speech--below::after {
+  left: calc(50% - 8px);
+}
+
+.auth__perks {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 1.02rem;
+}
+
+.auth__perks .hl {
+  font-weight: 800;
+}
+
+/* the card */
+
+.card {
+  position: relative;
+  padding: 30px clamp(20px, 3.4vw, 40px) 30px;
+  border-radius: 18px;
+  background-color: var(--paper);
+  background-image: linear-gradient(transparent 0 calc(100% - 1px), var(--grid) calc(100% - 1px));
+  background-size: 100% 34px;
+  box-shadow: var(--lift-3);
+  transform: rotate(0.6deg);
+  animation: card-in 420ms var(--ease-out);
+}
+
+.card__hole {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  width: 54px;
+  height: 12px;
+  margin-left: -27px;
+  border-radius: 999px;
+  background: var(--yellow);
+  box-shadow: inset 0 2px 3px rgba(23, 24, 59, 0.25);
+}
+
+.card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 10px 0 18px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--ink);
+}
+
+.card__school {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+
+.card__school .logo__seal {
+  width: 30px;
+  height: 30px;
+  font-size: 19px;
+  border-radius: 9px;
+}
+
+.card__no {
+  font-family: var(--hand);
+  color: var(--red);
+  font-size: 1.05rem;
+}
+
+.card__title {
+  font-size: clamp(2.2rem, 4.4vw, 3.2rem);
+  margin-bottom: 18px;
+}
+
+.card__actions {
+  display: grid;
+  gap: 10px;
+}
+
+.auth-google svg {
+  width: 20px;
+  height: 20px;
+}
+
+.auth-google {
+  box-shadow: inset 0 0 0 2px var(--line-strong), var(--lift-1);
+}
+
+.card__divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0 10px;
+  color: var(--ink-3);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.card__divider::before,
+.card__divider::after {
+  content: '';
+  flex: 1;
+  border-top: 2px dashed var(--grid-strong);
+}
+
+.card__guest {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 2px;
+  border: 0;
+  background: transparent;
+  font-weight: 750;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: var(--red);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.24em;
+}
+
+.card__fine {
+  margin: 8px 0 0;
+  color: var(--ink-2);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+.card__offline {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(76, 201, 255, 0.18);
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.card__offline svg {
+  flex: none;
+  margin-top: 2px;
+}
+
+.card__form {
+  display: grid;
+  gap: 14px;
+}
+
+.card__form p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.card__error,
+.card__notice {
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-weight: 650;
+  font-size: 0.92rem;
+}
+
+.card__error {
+  background: var(--red-soft);
+  color: var(--red-ink);
+}
+
+.card__notice {
+  background: rgba(91, 234, 142, 0.3);
+}
+
+.card__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+}
+
+.card__links button {
+  padding: 6px 0;
+  border: 0;
+  background: transparent;
+  font-weight: 650;
+  font-size: 0.9rem;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+
+.card__links button:hover {
+  color: var(--ink);
+  text-decoration: underline;
+}
+
+/* fields: a pen line on the card, not a boxed input */
+
+.field {
+  display: grid;
+  gap: 4px;
+}
+
+.field__label {
+  font-size: 0.82rem;
+  font-weight: 750;
+  color: var(--ink-2);
+}
+
+.field__wrap {
+  position: relative;
+  display: block;
+}
+
+.field__input {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 12px;
+  border: 0;
+  border-bottom: 2.5px solid var(--ink);
+  border-radius: 10px 10px 0 0;
+  background: rgba(240, 244, 252, 0.8);
+  font: inherit;
+  font-size: 1.05rem;
+  color: var(--ink);
+  caret-color: var(--red);
+  transition:
+    background-color 160ms var(--ease-out),
+    border-color 160ms var(--ease-out);
+}
+
+.field__input::placeholder {
+  color: var(--ink-3);
+}
+
+.field__input:focus {
+  outline: none;
+  background: rgba(255, 229, 59, 0.35);
+  border-bottom-color: var(--red);
+}
+
+.field__input--big {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.5rem;
+}
+
+.field__eye {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.field__eye:hover {
+  background: var(--paper);
+}
+
+@media (max-width: 860px) {
+  .auth__stage {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+    padding-top: 0;
+  }
+  .auth__mascot {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    justify-items: start;
+    gap: 12px;
+  }
+  .auth__mascot .tangyuan {
+    width: 86px;
+    height: 86px;
+    order: -1;
+  }
+  .auth__speech {
+    text-align: left;
+    font-size: 0.98rem;
+  }
+  .auth__speech.speech--below::after {
+    left: -7px;
+    top: 22px;
+    bottom: auto;
+  }
+  .auth__perks {
+    display: none;
+  }
+  .card {
+    transform: none;
+  }
+}

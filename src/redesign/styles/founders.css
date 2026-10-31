@@ -1,0 +1,778 @@
+/* ==========================================================================
+   Founding members: the small code line, the honor ribbon, the reveal, and
+   the #/founders page. Foil is the system's reward-only material; this is a
+   reward, so the ribbon and the reveal are the places it appears.
+   ========================================================================== */
+
+/* ---------- the small code line ---------- */
+
+.codeline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  min-height: 44px;
+}
+
+.codeline__open {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1.5px dashed var(--line-strong);
+  border-radius: 999px;
+  background: transparent;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 750;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition:
+    background 140ms var(--ease-out),
+    color 140ms var(--ease-out),
+    border-color 140ms var(--ease-out);
+}
+
+.codeline__open svg {
+  width: 17px;
+  height: 17px;
+}
+
+.codeline__open:hover {
+  border-color: var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.codeline.is-open {
+  padding: 6px 6px 6px 14px;
+  border-radius: 16px;
+  background: var(--paper);
+  box-shadow: var(--lift-1);
+  animation: card-in 240ms var(--ease-out);
+  width: fit-content;
+  max-width: 100%;
+}
+
+.codeline__icon {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  color: var(--ink-2);
+}
+
+.codeline__body {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.codeline--member {
+  gap: 8px 14px;
+}
+
+.codeline__goal {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.codeline--member .founder__days {
+  width: 180px;
+}
+
+/* ---------- code form ---------- */
+
+.founder__form {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  max-width: 420px;
+}
+
+.founder__form--compact {
+  width: auto;
+}
+
+.founder__input {
+  flex: 1;
+  min-width: 0;
+  min-height: 48px;
+  padding: 10px 14px;
+  border: 0;
+  border-bottom: 2.5px solid var(--ink);
+  border-radius: 12px 12px 0 0;
+  background: var(--paper-2);
+  font-family: var(--display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  caret-color: var(--red);
+}
+
+.founder__form--compact .founder__input {
+  width: 170px;
+  min-height: 38px;
+  padding: 6px 10px;
+  font-size: 0.92rem;
+}
+
+.founder__input::placeholder {
+  font-family: var(--ui);
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink-3);
+}
+
+.founder__input:focus {
+  outline: none;
+  background: rgba(255, 229, 59, 0.35);
+  border-bottom-color: var(--red);
+}
+
+.founder__input[aria-invalid='true'] {
+  border-bottom-color: var(--red);
+  animation: code-no 320ms var(--ease-out);
+}
+
+@keyframes code-no {
+  25% {
+    translate: -5px 0;
+  }
+  50% {
+    translate: 4px 0;
+  }
+  75% {
+    translate: -2px 0;
+  }
+}
+
+.founder__note {
+  margin: 0;
+  max-width: 44ch;
+  color: var(--red-ink);
+  font-size: 0.82rem;
+  font-weight: 650;
+}
+
+.founder__note:empty {
+  display: none;
+}
+
+.founder__days {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.founder__days li {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--paper-2);
+  box-shadow: inset 0 0 0 1.5px var(--line-strong);
+}
+
+.founder__days li.is-done {
+  background: var(--orange);
+  box-shadow: none;
+}
+
+/* ---------- full panel (#/founders) ---------- */
+
+.founder {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 16px 22px;
+  padding: 20px 24px;
+  background-image: none;
+}
+
+.founder__body {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+  min-width: 0;
+}
+
+.founder__body .title {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.founder__body > p {
+  margin: 0;
+  max-width: 56ch;
+  color: var(--ink-2);
+  line-height: 1.5;
+}
+
+.founder__body > p b {
+  color: var(--ink);
+}
+
+/* ---------- the honor ribbon ---------- */
+
+.honor {
+  --notch: 7px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  justify-self: start;
+  width: max-content;
+  overflow: hidden;
+  padding: 3px calc(var(--notch) + 7px);
+  clip-path: polygon(0 0, 100% 0, calc(100% - var(--notch)) 50%, 100% 100%, 0 100%, var(--notch) 50%);
+  background: conic-gradient(from var(--foil, 0deg), #ff9bd2, #ffe873, #8ff5c0, #8fd9ff, #c9b2ff, #ff9bd2);
+  color: var(--ink);
+  font-family: var(--display);
+  font-weight: 850;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  vertical-align: middle;
+  animation: foil-turn 6s linear infinite;
+}
+
+.honor::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.8) 46%, transparent 62%);
+  transform: translateX(-60%);
+  animation: foil-sheen 2.8s var(--ease-out) infinite;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+
+.honor svg {
+  flex: none;
+}
+
+.honor--sm {
+  --notch: 5px;
+  padding: 1px 11px;
+  font-size: 0.6rem;
+}
+
+.honor--sm svg {
+  width: 10px;
+  height: 10px;
+}
+
+.honor--md {
+  font-size: 0.72rem;
+}
+
+.honor--md svg {
+  width: 13px;
+  height: 13px;
+}
+
+.honor--lg {
+  --notch: 11px;
+  padding: 8px 24px;
+  font-size: 1rem;
+}
+
+.honor--lg svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ---------- name plate on Me ---------- */
+
+.nameplate {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+}
+
+.me__who > .nameplate {
+  color: var(--ink);
+}
+
+.nameplate__name {
+  font-family: var(--display);
+  font-size: 1.35rem;
+  font-weight: 850;
+  line-height: 1.1;
+}
+
+/* a founder's avatar in the header wears a foil ring */
+.hud__me.is-founder {
+  position: relative;
+  box-shadow: none;
+  background:
+    linear-gradient(var(--paper), var(--paper)) padding-box,
+    conic-gradient(from var(--foil, 0deg), #ff9bd2, #ffe873, #8ff5c0, #8fd9ff, #c9b2ff, #ff9bd2) border-box;
+  border: 3px solid transparent;
+  animation: foil-turn 6s linear infinite;
+}
+
+.hud__me.is-founder::after {
+  content: '';
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffe873' d='M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z'/%3E%3C/svg%3E") center / 9px no-repeat;
+  box-shadow: 0 0 0 2px var(--yellow);
+}
+
+/* ---------- the reveal ---------- */
+
+.reveal {
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  overflow: hidden;
+}
+
+.reveal::backdrop {
+  background: rgba(23, 24, 59, 0.86);
+  backdrop-filter: blur(6px);
+  animation: rv-fade 400ms var(--ease-out) both;
+}
+
+.reveal__stage {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 10px;
+  min-height: 100%;
+  padding: 24px 16px;
+  text-align: center;
+}
+
+/* the burst sits behind the mascot, centred on it */
+.reveal__focus {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.reveal__burst {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+}
+
+.reveal__rays {
+  position: absolute;
+  left: -260px;
+  top: -260px;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(from 0deg, rgba(255, 229, 59, 0.34) 0 9deg, transparent 9deg 24deg);
+  mask: radial-gradient(circle, #000 18%, transparent 68%);
+  opacity: 0;
+  animation:
+    rv-rays-in 600ms 700ms var(--ease-out) forwards,
+    rv-spin 18s 700ms linear infinite;
+}
+
+.reveal__ring {
+  position: absolute;
+  left: -90px;
+  top: -90px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 6px solid var(--yellow);
+  opacity: 0;
+  animation: rv-ring 700ms 700ms var(--ease-out) forwards;
+}
+
+.reveal__card {
+  position: absolute;
+  left: -70px;
+  top: -92px;
+  display: grid;
+  place-items: center;
+  width: 140px;
+  height: 184px;
+  border-radius: 14px;
+  background:
+    linear-gradient(transparent 31px, var(--grid) 32px) 0 0 / 100% 32px,
+    var(--paper);
+  box-shadow: var(--lift-3);
+  animation:
+    rv-card-in 420ms var(--ease-spring) both,
+    rv-card-shake 260ms 420ms ease-in-out 1,
+    rv-card-burst 260ms 700ms ease-in forwards;
+}
+
+.reveal__seal {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: var(--red);
+  color: #fff;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 1.1rem;
+  box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.35);
+  transform: rotate(-12deg);
+}
+
+.reveal__bit {
+  position: absolute;
+  left: -4px;
+  top: -6px;
+  border-radius: 2px;
+  opacity: 0;
+  animation: rv-bit 1500ms calc(720ms + var(--d)) cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+}
+
+.reveal__hero {
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  animation: rv-pop 700ms 760ms var(--ease-spring) forwards;
+}
+
+.reveal__hero .tangyuan {
+  filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.45));
+}
+
+.reveal__words {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+}
+
+.reveal__kicker {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 650;
+  opacity: 0;
+  animation: rv-up 420ms 1050ms var(--ease-out) forwards;
+}
+
+.reveal__name {
+  margin: 0;
+  max-width: 14ch;
+  font-size: clamp(2.2rem, 7vw, 3.6rem);
+  line-height: 1;
+  color: #fff;
+  overflow-wrap: anywhere;
+  opacity: 0;
+  animation: rv-up 460ms 1120ms var(--ease-out) forwards;
+}
+
+/* the title lands like a stamp: big, tilted, then pressed flat */
+.reveal__honor {
+  display: block;
+  opacity: 0;
+  animation: rv-stamp 520ms 1300ms cubic-bezier(0.3, 1.6, 0.5, 1) forwards;
+}
+
+.reveal__drops {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 0 0;
+  font-family: var(--display);
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: var(--yellow);
+  opacity: 0;
+  animation: rv-up 420ms 1750ms var(--ease-out) forwards;
+}
+
+.reveal__drops span {
+  font-family: var(--ui);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.reveal__actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 14px;
+  opacity: 0;
+  animation: rv-up 420ms 2100ms var(--ease-out) forwards;
+}
+
+.reveal .reveal__later {
+  --fg: #fff;
+  color: #fff;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+.reveal .reveal__later:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+/* a click or key jumps to the end state */
+.reveal.is-skipped *,
+.reveal.is-skipped::backdrop {
+  animation-delay: 0s !important;
+  animation-duration: 1ms !important;
+}
+
+.reveal.is-skipped .reveal__rays {
+  animation:
+    rv-rays-in 1ms forwards,
+    rv-spin 18s linear infinite !important;
+}
+
+@keyframes rv-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes rv-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(60px) rotate(-8deg) scale(0.7);
+  }
+}
+
+@keyframes rv-card-shake {
+  25% {
+    transform: rotate(-5deg);
+  }
+  75% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes rv-card-burst {
+  to {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+@keyframes rv-ring {
+  0% {
+    opacity: 1;
+    transform: scale(0.3);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.4);
+    border-width: 1px;
+  }
+}
+
+@keyframes rv-rays-in {
+  from {
+    opacity: 0;
+    scale: 0.4;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes rv-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes rv-bit {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg);
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--x), calc(var(--y) + 120px)) rotate(var(--r));
+  }
+}
+
+@keyframes rv-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.2) rotate(-14deg);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rv-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rv-stamp {
+  0% {
+    opacity: 0;
+    transform: scale(2.2) rotate(-14deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(-2deg);
+  }
+}
+
+/* reduced motion: no burst, no flight — the same things simply fade in, in order */
+@media (prefers-reduced-motion: reduce) {
+  .reveal__card,
+  .reveal__ring,
+  .reveal__bit,
+  .reveal__rays {
+    display: none;
+  }
+  .reveal__hero,
+  .reveal__kicker,
+  .reveal__name,
+  .reveal__honor,
+  .reveal__drops,
+  .reveal__actions {
+    animation-name: rv-fade-in !important;
+    animation-duration: 300ms !important;
+  }
+}
+
+@keyframes rv-fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---------- the founders page ---------- */
+
+.founders {
+  display: grid;
+  gap: 24px;
+}
+
+.founders__hero {
+  display: grid;
+  gap: 4px;
+}
+
+.founders__hero .display {
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+}
+
+.founders__hero p {
+  margin: 10px 0 0;
+  max-width: 54ch;
+  color: var(--ink-2);
+  font-weight: 550;
+  line-height: 1.5;
+}
+
+.founders__gems {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.gem {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 18px 12px 16px;
+  text-align: center;
+  background-image: none;
+}
+
+.gem b {
+  font-family: var(--display);
+  font-size: 1.05rem;
+  font-weight: 850;
+}
+
+.gem span {
+  color: var(--ink-2);
+  font-size: 0.82rem;
+}
+
+.gem .num {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  color: var(--ink);
+  font-weight: 750;
+}
+
+.gem--code {
+  box-shadow:
+    0 0 0 2px var(--ink),
+    var(--lift-2);
+}
+
+@media (max-width: 860px) {
+  .founders__gems {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .founder {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    padding: 20px 16px;
+  }
+  .founder__body {
+    justify-items: stretch;
+  }
+  .founder__form--compact .founder__input {
+    width: 100%;
+  }
+  .codeline.is-open {
+    width: 100%;
+  }
+  .codeline__body {
+    flex: 1;
+  }
+}

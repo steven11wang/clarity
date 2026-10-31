@@ -1,0 +1,356 @@
+/* ==========================================================================
+   Study Hall chat: a notebook page of messages, yours on the right in violet,
+   with the people here now and the hall rules beside it
+   ========================================================================== */
+
+.study {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 20px;
+  align-items: start;
+}
+
+.chat {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 0;
+  overflow: hidden;
+}
+
+.chat__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 18px 22px 14px;
+  background: var(--paper);
+  border-bottom: 2px solid var(--line);
+}
+
+.chat__head .title {
+  font-size: 1.4rem;
+}
+
+.chat__count {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.chat__list {
+  list-style: none;
+  margin: 0;
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  /* tall enough to read back, short enough that the composer stays in view */
+  height: clamp(280px, calc(100dvh - 520px), 560px);
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.chat__empty {
+  margin: auto;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  max-width: 36ch;
+  text-align: center;
+  color: var(--ink-2);
+}
+
+.chat__empty p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.chat__event {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(255, 229, 59, 0.5);
+  font-size: 0.82rem;
+}
+
+.msg {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  max-width: 82%;
+  animation: card-in 260ms var(--ease-out);
+}
+
+.msg.is-mine {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.msg__body {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.msg.is-mine .msg__body {
+  justify-items: end;
+}
+
+.msg__meta {
+  font-size: 0.74rem;
+  color: var(--ink-3);
+}
+
+.msg__meta b {
+  color: var(--ink-2);
+}
+
+.msg__bubble {
+  margin: 0;
+  padding: 9px 13px;
+  border-radius: 4px 16px 16px 16px;
+  background: var(--paper-2);
+  box-shadow: inset 0 0 0 1.5px var(--line);
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.msg.is-mine .msg__bubble {
+  border-radius: 16px 4px 16px 16px;
+  background: var(--violet);
+  box-shadow: none;
+}
+
+.msg__bubble--phrase {
+  font-weight: 650;
+}
+
+.msg__sticker {
+  display: grid;
+  justify-items: center;
+  font-size: 0.74rem;
+  font-weight: 750;
+}
+
+.msg__actions {
+  display: flex;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity 140ms var(--ease-out);
+}
+
+.msg:hover .msg__actions,
+.msg:focus-within .msg__actions {
+  opacity: 1;
+}
+
+.composer {
+  display: grid;
+  gap: 10px;
+  padding: 14px 18px 16px;
+  background: var(--paper);
+  border-top: 2px solid var(--line);
+}
+
+.composer__phrases {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.composer__phrases .chip {
+  min-height: 32px;
+  font-size: 0.82rem;
+}
+
+.composer__stickers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.composer__form {
+  position: relative;
+  display: flex;
+  gap: 8px;
+}
+
+.composer__input {
+  flex: 1;
+  min-width: 0;
+  min-height: 48px;
+  padding: 10px 70px 10px 14px;
+  border: 0;
+  border-bottom: 2.5px solid var(--ink);
+  border-radius: 12px 12px 0 0;
+  background: var(--paper-2);
+  font: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  caret-color: var(--red);
+}
+
+.composer__input:focus {
+  outline: none;
+  background: rgba(183, 155, 255, 0.25);
+  border-bottom-color: var(--red);
+}
+
+.composer__count {
+  position: absolute;
+  right: 118px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.74rem;
+  color: var(--ink-3);
+  pointer-events: none;
+}
+
+.composer__count.is-near {
+  color: var(--red-ink);
+  font-weight: 750;
+}
+
+.composer__signin {
+  margin: 0;
+  color: var(--ink-2);
+  font-size: 0.9rem;
+}
+
+.composer__error,
+.composer__done {
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 0.86rem;
+  font-weight: 650;
+}
+
+.composer__error {
+  background: var(--red-soft);
+  color: var(--red-ink);
+}
+
+.composer__done {
+  background: rgba(91, 234, 142, 0.3);
+}
+
+.care {
+  display: flex;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(76, 201, 255, 0.2);
+  line-height: 1.5;
+}
+
+.care svg {
+  flex: none;
+  margin-top: 3px;
+  color: var(--red);
+}
+
+.care p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.study__side {
+  display: grid;
+  gap: 16px;
+}
+
+.study__people,
+.study__rules {
+  padding: 18px 18px 16px;
+  background-image: none;
+}
+
+.study__people .title,
+.study__rules .title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.15rem;
+  margin-bottom: 10px;
+}
+
+.study__rules {
+  background-color: var(--yellow);
+}
+
+.study__rules ul {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 6px;
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 960px) {
+  .study {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .chat__list {
+    padding: 14px;
+  }
+  /* one swipeable row of phrases, so the messages keep the screen */
+  .composer__phrases {
+    flex-wrap: nowrap;
+    margin-inline: -18px;
+    padding-inline: 18px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .composer__phrases .chip {
+    flex: none;
+  }
+  .msg {
+    max-width: 92%;
+  }
+  .msg__actions {
+    opacity: 1;
+  }
+  .composer__input {
+    padding-right: 14px;
+  }
+  .composer__count {
+    display: none;
+  }
+  .composer__form .btn {
+    padding: 0 14px;
+  }
+}
+
+.quick__sticker {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--paper-2);
+  font-size: 0.74rem;
+  font-weight: 750;
+  cursor: pointer;
+  transition: transform 160ms var(--ease-out);
+}
+
+.quick__sticker:hover:not(:disabled) {
+  transform: translateY(-2px) rotate(-3deg);
+}
+
+.composer__phrases .chip:disabled,
+.quick__sticker:disabled {
+  opacity: 0.45;
+  cursor: wait;
+}
