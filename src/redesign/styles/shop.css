@@ -1,0 +1,487 @@
+/* ==========================================================================
+   The drops shop: packs as water vessels on blue, prices always in dollars
+   too, the rules in plain sight, and a checkout that asks who's paying first
+   ========================================================================== */
+
+.hud__stat--link {
+  color: inherit;
+  text-decoration: none;
+  transition:
+    background-color 160ms var(--ease-out),
+    box-shadow 160ms var(--ease-out);
+}
+
+.hud__stat--link:hover {
+  background: var(--paper);
+  box-shadow: var(--lift-1);
+}
+
+.shop {
+  display: grid;
+  gap: 24px;
+}
+
+.shop__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 20px;
+}
+
+.shop__head .display {
+  font-size: clamp(2.6rem, 5.4vw, 4rem);
+}
+
+.shop__head p {
+  margin: 10px 0 0;
+  max-width: 54ch;
+  color: var(--ink-2);
+  font-weight: 550;
+  line-height: 1.5;
+}
+
+.shop__head p b {
+  color: var(--ink);
+}
+
+.shop__balance {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  column-gap: 10px;
+  padding: 16px 22px;
+  background-color: var(--blue);
+  background-image: none;
+  transform: rotate(-1deg);
+}
+
+.shop__balance .display {
+  font-size: 2.8rem;
+}
+
+.shop__worth {
+  grid-column: 1 / -1;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.shop__notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0;
+  padding: 12px 16px;
+  border-radius: var(--r-md);
+  background: rgba(91, 234, 142, 0.35);
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.shop__notice--preview {
+  background: rgba(76, 201, 255, 0.22);
+}
+
+.shop__notice svg {
+  flex: none;
+  margin-top: 2px;
+}
+
+.packs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.pack-card {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 6px;
+  padding: 26px 16px 18px;
+  border-radius: var(--r-lg);
+  background: var(--paper);
+  box-shadow: var(--lift-1);
+  text-align: center;
+  transition:
+    transform 220ms var(--ease-out),
+    box-shadow 220ms var(--ease-out);
+}
+
+.pack-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--lift-2);
+}
+
+.pack-card.is-best {
+  background: rgba(76, 201, 255, 0.24);
+  box-shadow: inset 0 0 0 3px var(--ink), var(--lift-2);
+}
+
+.pack-card__flag {
+  position: absolute;
+  top: -12px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 0.74rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.pack-card .title {
+  font-size: 1.3rem;
+}
+
+.pack-card__drops {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-weight: 700;
+}
+
+.pack-card__drops .display {
+  font-size: 2.2rem;
+}
+
+.pack-card__math {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 26px;
+  margin: 0 0 8px;
+  font-size: 0.84rem;
+  font-weight: 650;
+  color: var(--ink-2);
+}
+
+.pack-card__bonus {
+  --mark: var(--green);
+}
+
+.shop__duo {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.shop__panel {
+  padding: 20px 22px;
+  background-image: none;
+}
+
+.shop__panel .title {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.price-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+
+.price-list li {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1.5px dashed var(--grid-strong);
+  font-weight: 650;
+  font-size: 0.92rem;
+}
+
+.price-list li:last-child {
+  border-bottom: 0;
+}
+
+.price-list li > .num {
+  color: var(--ink-2);
+  font-weight: 750;
+}
+
+.price-list--earn li {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.price-list--earn li > .num {
+  color: var(--ink);
+}
+
+.shop__fine {
+  margin: 10px 0 0;
+  font-size: 0.84rem;
+  color: var(--ink-2);
+}
+
+.rules {
+  display: grid;
+  gap: 12px;
+  padding: 20px 22px;
+  background-color: var(--yellow);
+  background-image: none;
+}
+
+.rules .title {
+  font-size: 1.25rem;
+}
+
+.rules ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.rules li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.45;
+}
+
+.rules li svg {
+  flex: none;
+  margin-top: 3px;
+}
+
+.limit {
+  display: grid;
+  gap: 6px;
+  max-width: 420px;
+}
+
+.limit .meter {
+  background: rgba(251, 252, 255, 0.7);
+}
+
+.limit .meter > span {
+  background: var(--ink);
+}
+
+.receipts .title {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.receipts ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.receipts li {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr) auto auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--paper);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.receipts li.is-refunded {
+  color: var(--ink-3);
+  text-decoration: line-through;
+}
+
+/* ---------- checkout ---------- */
+
+.checkout {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(23, 24, 59, 0.45);
+  backdrop-filter: blur(3px);
+  animation: fade-in 200ms var(--ease-out);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.checkout__card {
+  position: relative;
+  display: grid;
+  gap: 16px;
+  width: min(460px, 100%);
+  max-height: calc(100svh - 32px);
+  overflow: auto;
+  padding: 24px;
+  background-image: none;
+  animation: card-in 300ms var(--ease-out);
+}
+
+.checkout__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--paper-2);
+  cursor: pointer;
+}
+
+.checkout__pack {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 2px dashed var(--grid-strong);
+}
+
+.checkout__pack svg {
+  width: 56px;
+  height: auto;
+}
+
+.checkout__pack .title {
+  font-size: 1.3rem;
+}
+
+.checkout__pack p {
+  margin: 2px 0 0;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.checkout__step {
+  display: grid;
+  gap: 10px;
+}
+
+.checkout__step p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.checkout__q {
+  font-family: var(--display);
+  font-weight: 850;
+  font-size: 1.3rem;
+}
+
+.answer-pill--quiet {
+  background: var(--paper-2);
+}
+
+.checkout__link {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--paper-2);
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+}
+
+.checkout__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.checkout__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.checkout__table th,
+.checkout__table td {
+  padding: 8px 0;
+  border-bottom: 1.5px dashed var(--grid-strong);
+  text-align: left;
+  vertical-align: top;
+}
+
+.checkout__table th {
+  width: 40%;
+  color: var(--ink-2);
+  font-weight: 700;
+}
+
+.checkout__muted {
+  color: var(--ink-2);
+}
+
+.checkout__fine {
+  font-size: 0.82rem;
+  color: var(--ink-2);
+}
+
+.checkout__done {
+  justify-items: center;
+  text-align: center;
+}
+
+.checkout__done .display {
+  font-size: 3rem;
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 1060px) {
+  .packs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 24px;
+  }
+  .shop__duo {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .shop__head {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .shop__balance {
+    justify-self: start;
+  }
+  .pack-card {
+    padding: 22px 10px 14px;
+  }
+  .pack-card svg {
+    width: 60px;
+    height: auto;
+  }
+  .receipts li {
+    grid-template-columns: minmax(0, 1fr) auto;
+    row-gap: 2px;
+  }
+}
+
+.pack-card__drops svg {
+  flex: none;
+}
+
+@media (max-width: 640px) {
+  .pack-card__drops {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .pack-card__drops .display {
+    font-size: 1.8rem;
+  }
+}

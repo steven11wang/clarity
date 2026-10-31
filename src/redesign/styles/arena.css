@@ -1,0 +1,464 @@
+/* ==========================================================================
+   Arena lobby: three notebook index tabs (Play, Ranks, Study Hall), each with
+   its own highlighter. The selected tab is a paper card sitting on the rule,
+   its label swiped with that tab's ink.
+   ========================================================================== */
+
+.arena .eyebrow {
+  margin: 0;
+  color: var(--ink-2);
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ---------- tabs ---------- */
+
+.arena-tabs {
+  display: flex;
+  gap: 4px;
+  margin-top: -4px;
+  border-bottom: 2px solid var(--ink);
+}
+
+.arena-tabs__tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 54px;
+  margin-bottom: -2px;
+  padding: 0 22px;
+  border: 2px solid transparent;
+  border-bottom: 0;
+  border-radius: 14px 14px 0 0;
+  background: transparent;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 750;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition:
+    background 140ms var(--ease-out),
+    color 140ms var(--ease-out);
+}
+
+.arena-tabs__tab svg {
+  flex: none;
+  width: 20px;
+  height: 20px;
+}
+
+.arena-tabs__tab:hover {
+  background: rgba(251, 252, 255, 0.7);
+  color: var(--ink);
+}
+
+.arena-tabs__tab:active {
+  transform: translateY(1px);
+}
+
+.arena-tabs__tab[aria-selected='true'] {
+  border-color: var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 2px 0 var(--paper);
+}
+
+.arena-tabs__tab:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: -5px;
+}
+
+.arena-tabs__label {
+  padding: 0 3px;
+  background: linear-gradient(transparent 56%, var(--mark) 56% 92%, transparent 92%) no-repeat 0 0 / 0% 100%;
+  transition: background-size 360ms var(--ease-out);
+}
+
+.arena-tabs__tab[aria-selected='true'] .arena-tabs__label {
+  background-size: 100% 100%;
+}
+
+.arena-tabs__badge {
+  display: grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--red);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  animation: pop-in 360ms var(--ease-spring) both;
+}
+
+/* ---------- panels ---------- */
+
+.arena-panel[hidden] {
+  display: none !important;
+}
+
+.arena-panel {
+  animation: card-in 280ms var(--ease-out);
+}
+
+/* ---------- Play ---------- */
+
+.arena-play {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.arena-play__main {
+  display: grid;
+  gap: 22px;
+  min-width: 0;
+}
+
+.speedcard {
+  display: grid;
+  gap: 18px;
+  padding: 24px;
+  background-image: none;
+}
+
+.speedcard__intro .title {
+  margin: 4px 0 6px;
+  font-size: clamp(1.45rem, 2.4vw, 1.9rem);
+}
+
+.speedcard__intro p:last-child {
+  margin: 0;
+  max-width: 48ch;
+  color: var(--ink-2);
+  font-size: 0.94rem;
+  line-height: 1.5;
+}
+
+.speedcard__rank {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 16px 20px 16px 14px;
+  border-radius: var(--r-md);
+  background: var(--mark);
+}
+
+.speedcard__rank > svg {
+  flex: none;
+}
+
+.speedcard__body {
+  display: grid;
+  flex: 1;
+  gap: 6px;
+  min-width: 0;
+}
+
+.speedcard__name {
+  font-family: var(--display);
+  font-size: 1.6rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.speedcard__rp {
+  font-size: 0.9rem;
+  font-weight: 750;
+}
+
+.speedcard .meter {
+  background: rgba(251, 252, 255, 0.72);
+}
+
+.speedcard .meter > span {
+  background: var(--ink);
+}
+
+.speedcard__next {
+  color: var(--ink-2);
+  font-size: 0.84rem;
+  font-weight: 650;
+}
+
+.speedcard__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+}
+
+/* ---------- Ranks ---------- */
+
+.arena-ranks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  align-items: start;
+}
+
+.pen-ladder,
+.arena-board {
+  padding: 24px;
+  background-image: none;
+}
+
+.pen-ladder__head .title,
+.arena-board__head .title {
+  margin: 4px 0 6px;
+  font-size: 1.6rem;
+}
+
+.pen-ladder__head p:last-child,
+.arena-board__head p:last-child {
+  margin: 0 0 18px;
+  color: var(--ink-2);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.pen-ladder__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.pen-ladder__list li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  min-height: 66px;
+  padding: 7px 14px 7px 7px;
+  border-radius: var(--r-md);
+}
+
+/* the pen stroke joining one rank to the next, inked as far as you've climbed */
+.pen-ladder__list li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 32px;
+  top: 58px;
+  bottom: -14px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--line-strong);
+}
+
+.pen-ladder__list li.is-done::after {
+  background: var(--ink);
+}
+
+.pen-ladder__emblem {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--paper-2);
+}
+
+.pen-ladder__list li.is-done .pen-ladder__emblem {
+  background: var(--mark);
+}
+
+.pen-ladder__list li.is-here {
+  background: var(--mark);
+  box-shadow: var(--lift-1);
+}
+
+.pen-ladder__list li.is-here .pen-ladder__emblem {
+  background: var(--paper);
+}
+
+.pen-ladder__list li:not(.is-here):not(.is-done) .pen-ladder__emblem,
+.pen-ladder__list li:not(.is-here):not(.is-done) .pen-ladder__name {
+  opacity: 0.55;
+}
+
+.pen-ladder__name {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+  line-height: 1.2;
+}
+
+.pen-ladder__name b {
+  font-family: var(--display);
+  font-size: 1.12rem;
+  font-weight: 850;
+}
+
+.pen-ladder__name small {
+  color: var(--ink-2);
+  font-size: 0.78rem;
+  font-weight: 650;
+}
+
+.pen-ladder__state {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--ink-2);
+  font-size: 0.8rem;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.pen-ladder__state--here {
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+}
+
+.pen-ladder__state--ahead {
+  color: var(--ink-3);
+}
+
+.pen-ladder__foot {
+  margin: 16px 0 0;
+  padding-top: 12px;
+  border-top: 2px dashed var(--grid-strong);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.arena-board__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.arena-board__sample {
+  flex: none;
+  padding: 5px 10px;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.arena-board__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.arena-board__list li {
+  display: grid;
+  grid-template-columns: 26px 38px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 58px;
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.arena-board__list li.is-you {
+  border: 2px solid var(--ink);
+  border-radius: var(--r-md);
+  background: var(--yellow);
+}
+
+.arena-board__place {
+  color: var(--ink-3);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.arena-board__person {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+  line-height: 1.2;
+}
+
+.arena-board__person b {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.arena-board__person small,
+.arena-board__score small {
+  color: var(--ink-2);
+  font-size: 0.74rem;
+  font-weight: 650;
+}
+
+.arena-board__score {
+  font-family: var(--display);
+  font-size: 1.1rem;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.arena-board__go {
+  margin-top: 18px;
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 960px) {
+  .arena-play,
+  .arena-ranks {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .arena-tabs {
+    gap: 2px;
+  }
+  .arena-tabs__tab {
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    min-height: 60px;
+    padding: 6px 4px;
+    font-size: 0.86rem;
+  }
+  .arena-tabs__badge {
+    position: absolute;
+    top: 6px;
+    right: calc(50% - 26px);
+  }
+  .speedcard,
+  .pen-ladder,
+  .arena-board {
+    padding: 20px 16px;
+  }
+  .speedcard__rank {
+    gap: 12px;
+  }
+  .speedcard__rank > svg {
+    width: 64px;
+    height: 64px;
+  }
+  .speedcard__actions .btn--lg {
+    flex: 1;
+  }
+  .arena-board__head {
+    flex-wrap: wrap;
+  }
+  .arena-board__list li {
+    gap: 8px;
+    padding-inline: 8px;
+  }
+}
