@@ -83,7 +83,7 @@ export function FounderReveal({ onClose }: { onClose: () => void }) {
   return (
     <dialog
       ref={dialog}
-      className={`reveal ${skipped ? "is-skipped" : ""}`}
+      className={`freveal ${skipped ? "is-skipped" : ""}`}
       aria-labelledby="reveal-title"
       onCancel={(event) => {
         event.preventDefault();
@@ -94,15 +94,15 @@ export function FounderReveal({ onClose }: { onClose: () => void }) {
         if (event.key !== "Escape" && event.key !== "Tab") skip();
       }}
     >
-      <div className="reveal__stage">
-        <div className="reveal__focus">
-          <div className="reveal__burst" aria-hidden="true">
-            <span className="reveal__rays" />
-            <span className="reveal__ring" />
+      <div className="freveal__stage">
+        <div className="freveal__focus">
+          <div className="freveal__burst" aria-hidden="true">
+            <span className="freveal__rays" />
+            <span className="freveal__ring" />
             {confetti.map((bit, i) => (
               <span
                 key={i}
-                className="reveal__bit"
+                className="freveal__bit"
                 style={{
                   ["--x" as string]: `${bit.x}px`,
                   ["--y" as string]: `${bit.y}px`,
@@ -114,25 +114,25 @@ export function FounderReveal({ onClose }: { onClose: () => void }) {
                 }}
               />
             ))}
-            <span className="reveal__card">
-              <span className="reveal__seal">GS</span>
+            <span className="freveal__card">
+              <span className="freveal__seal">GS</span>
             </span>
           </div>
 
-          <div className="reveal__hero">
+          <div className="freveal__hero">
             <Tangyuan outfit={FOUNDER.outfit} size={190} mood="wow" />
           </div>
         </div>
 
-        <div className="reveal__words">
-          <p className="reveal__kicker">Welcome to Clarity,</p>
-          <h2 className="reveal__name display" id="reveal-title">
+        <div className="freveal__words">
+          <p className="freveal__kicker">Welcome to Clarity,</p>
+          <h2 className="freveal__name display" id="reveal-title">
             {name}
           </h2>
-          <span className="reveal__honor">
+          <span className="freveal__honor">
             <FounderBadge size="lg" />
           </span>
-          <p className="reveal__drops num">
+          <p className="freveal__drops num">
             <InkGlyph size={20} /> +{shown} drops{" "}
             <span>
               · {FOUNDER.goalDrops} more on your {FOUNDER.goalDays}th study day
@@ -140,7 +140,7 @@ export function FounderReveal({ onClose }: { onClose: () => void }) {
           </p>
         </div>
 
-        <div className="reveal__actions">
+        <div className="freveal__actions">
           <button
             type="button"
             className="btn btn--lg btn--hl"
@@ -153,7 +153,7 @@ export function FounderReveal({ onClose }: { onClose: () => void }) {
           </button>
           <button
             type="button"
-            className="btn btn--ghost reveal__later"
+            className="btn btn--ghost freveal__later"
             onClick={(event) => {
               event.stopPropagation();
               close();
