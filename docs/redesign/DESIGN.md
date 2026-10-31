@@ -7,6 +7,7 @@ inputs, and the game saves under its own key (`clarity-redesign:v1`).
 ```sh
 npm run dev
 # then open http://localhost:5173/redesign.html
+# (published beta: https://satclarity.com/app/new/)
 ```
 
 ## The idea
@@ -187,6 +188,15 @@ volume; remembered; exams silent; iPhone ringer switch respected.
   in), the Shop, and Me. Online with an account, `redeem_founder_code()` in
   `supabase/migrations/202610300002_founder_codes.sql` decides (one per account, use
   cap, end date; not applied yet).
+
+## Beta at /app/new
+
+`redesign.html` is now a build input and is published at `/app/new/` (GitHub Pages
+folder from `tools/prepare-pages-build.mjs`; same mapping in `vite.config.ts` and
+`server/sitesWorker.ts`). `/app/` is still the current app. On a published build:
+buying drops is off until Stripe Payment Links are set (no free test checkout), the
+preview tools on Me are hidden, and invite, share and sign-in links point at the
+page's own address.
 
 ## Files
 

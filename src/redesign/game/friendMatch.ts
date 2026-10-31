@@ -39,7 +39,8 @@ export function parseCode(input: string): string | null {
 }
 
 export function inviteLink(code: string): string {
-  return `${window.location.origin}/redesign.html#/arena/join/${code}`
+  // this page's own address: /redesign.html on the dev server, /app/new/ when published
+  return `${window.location.origin}${window.location.pathname}#/arena/join/${code}`
 }
 
 function matchId(): string {

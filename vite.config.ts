@@ -16,6 +16,9 @@ const FRONT_DOOR: Record<string, string> = {
   '/plans/': '/plans.html',
   '/app': '/index.html',
   '/app/': '/index.html',
+  // the redesign beta, before it replaces /app
+  '/app/new': '/redesign.html',
+  '/app/new/': '/redesign.html',
 }
 
 const frontDoorPlugin = (): Plugin => ({
@@ -59,6 +62,7 @@ export default defineConfig(async ({ command }) => {
           main: entry('./index.html'),
           landing: entry('./landing.html'),
           plans: entry('./plans.html'),
+          redesign: entry('./redesign.html'),
         },
       },
     },

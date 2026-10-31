@@ -218,26 +218,29 @@ export function Me() {
           </div>
         </section>
 
-        <section className="me__tools" aria-labelledby="tools-title">
-          <h2 className="title" id="tools-title">
-            Preview tools
-          </h2>
-          <p>Move the clock to watch comebacks come due and the streak and tape work.</p>
-          <div>
-            <button type="button" className="btn btn--sm btn--paper" onClick={() => advanceDay(1)}>
-              <FastForward /> Jump +1 day
-            </button>
-            <button
-              type="button"
-              className="btn btn--sm btn--ghost"
-              onClick={() => {
-                if (window.confirm('Start the preview game over? This only clears the redesign preview, never the real app.')) resetGame()
-              }}
-            >
-              <RotateCcw /> Reset preview game
-            </button>
-          </div>
-        </section>
+        {/* clock and reset are for the dev server; the published beta never shows them */}
+        {import.meta.env.DEV && (
+          <section className="me__tools" aria-labelledby="tools-title">
+            <h2 className="title" id="tools-title">
+              Preview tools
+            </h2>
+            <p>Move the clock to watch comebacks come due and the streak and tape work.</p>
+            <div>
+              <button type="button" className="btn btn--sm btn--paper" onClick={() => advanceDay(1)}>
+                <FastForward /> Jump +1 day
+              </button>
+              <button
+                type="button"
+                className="btn btn--sm btn--ghost"
+                onClick={() => {
+                  if (window.confirm('Start the preview game over? This only clears the redesign preview, never the real app.')) resetGame()
+                }}
+              >
+                <RotateCcw /> Reset preview game
+              </button>
+            </div>
+          </section>
+        )}
       </div>
     </GameShell>
   )

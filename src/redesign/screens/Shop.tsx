@@ -24,7 +24,7 @@ import {
   type Pack,
 } from '../game/payments.ts'
 import { getGame, updateGame, useGame } from '../game/store.ts'
-import { go } from '../router.ts'
+import { appUrl, go } from '../router.ts'
 import { play } from '../sound.ts'
 import { GameShell } from '../components/GameShell.tsx'
 import { InkGlyph, TapeGlyph } from '../components/Glyphs.tsx'
@@ -81,7 +81,7 @@ const EARN = [
 export function Shop({ packParam = null, paid = false }: { packParam?: string | null; paid?: boolean }) {
   const game = useGame()
   const mode = paymentsMode()
-  const [open, setOpen] = useState<Pack | null>(() => PACKS.find((pack) => pack.id === packParam) ?? null)
+  const [open, setOpen] = useState<Pack | null>(() => (mode === 'off' ? null : (PACKS.find((pack) => pack.id === packParam) ?? null)))
   const [waiting, setWaiting] = useState(paid)
   const balance = useCountUp(game.ink)
   const purchases = game.purchases ?? []
@@ -126,6 +126,11 @@ export function Shop({ packParam = null, paid = false }: { packParam?: string | 
             Payment received. Your drops arrive as soon as Stripe confirms it — usually a few seconds.
           </p>
         )}
+        {mode === 'off' && (
+          <p className="shop__notice shop__notice--preview">
+            <ShieldCheck size={18} /> Top-ups open after the beta. For now every drop is earned by playing — the prices below are what they’ll cost.
+          </p>
+        )}
         {mode === 'preview' && (
           <p className="shop__notice shop__notice--preview">
             <ShieldCheck size={18} /> Preview checkout: payments aren’t connected on this server, so buying here adds drops without charging anything. Receipts say TEST.
@@ -150,8 +155,8 @@ export function Shop({ packParam = null, paid = false }: { packParam?: string | 
                     : 'Base rate'}
                   {bonus > 0 && <span className="tag pack-card__bonus">+{bonus}%</span>}
                 </p>
-                <button type="button" className="btn btn--block" disabled={!affordable} onClick={() => setOpen(pack)}>
-                  {affordable ? `Buy for ${dollars(pack.cents)}` : 'Over this month’s limit'}
+                <button type="button" className="btn btn--block" disabled={!affordable || mode === 'off'} onClick={() => setOpen(pack)}>
+                  {mode === 'off' ? `${dollars(pack.cents)} · after the beta` : affordable ? `Buy for ${dollars(pack.cents)}` : 'Over this month’s limit'}
                 </button>
               </li>
             )
@@ -263,7 +268,7 @@ function Checkout({ pack, onClose }: { pack: Pack; onClose: () => void }) {
   const box = useRef<HTMLDivElement>(null)
   const base = Math.round((pack.cents / 100) * DROPS_PER_DOLLAR)
   const remaining = MONTHLY_LIMIT_CENTS - spentThisMonth(game.purchases)
-  const link = `${window.location.origin}/redesign.html#/shop?pack=${pack.id}`
+  const link = `${appUrl()}#/shop?pack=${pack.id}`
 
   useEffect(() => {
     box.current?.querySelector<HTMLElement>('button, a')?.focus()
