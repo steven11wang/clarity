@@ -335,7 +335,7 @@
 
 /* ---------- the reveal ---------- */
 
-.reveal {
+.freveal {
   width: 100vw;
   max-width: none;
   height: 100dvh;
@@ -348,13 +348,13 @@
   overflow: hidden;
 }
 
-.reveal::backdrop {
+.freveal::backdrop {
   background: rgba(23, 24, 59, 0.86);
   backdrop-filter: blur(6px);
   animation: rv-fade 400ms var(--ease-out) both;
 }
 
-.reveal__stage {
+.freveal__stage {
   position: relative;
   display: grid;
   justify-items: center;
@@ -366,13 +366,13 @@
 }
 
 /* the burst sits behind the mascot, centred on it */
-.reveal__focus {
+.freveal__focus {
   position: relative;
   display: grid;
   place-items: center;
 }
 
-.reveal__burst {
+.freveal__burst {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -380,7 +380,7 @@
   height: 0;
 }
 
-.reveal__rays {
+.freveal__rays {
   position: absolute;
   left: -260px;
   top: -260px;
@@ -395,7 +395,7 @@
     rv-spin 18s 700ms linear infinite;
 }
 
-.reveal__ring {
+.freveal__ring {
   position: absolute;
   left: -90px;
   top: -90px;
@@ -407,7 +407,7 @@
   animation: rv-ring 700ms 700ms var(--ease-out) forwards;
 }
 
-.reveal__card {
+.freveal__card {
   position: absolute;
   left: -70px;
   top: -92px;
@@ -426,7 +426,7 @@
     rv-card-burst 260ms 700ms ease-in forwards;
 }
 
-.reveal__seal {
+.freveal__seal {
   display: grid;
   place-items: center;
   width: 58px;
@@ -441,7 +441,7 @@
   transform: rotate(-12deg);
 }
 
-.reveal__bit {
+.freveal__bit {
   position: absolute;
   left: -4px;
   top: -6px;
@@ -450,18 +450,18 @@
   animation: rv-bit 1500ms calc(720ms + var(--d)) cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
 }
 
-.reveal__hero {
+.freveal__hero {
   position: relative;
   z-index: 1;
   opacity: 0;
   animation: rv-pop 700ms 760ms var(--ease-spring) forwards;
 }
 
-.reveal__hero .tangyuan {
+.freveal__hero .tangyuan {
   filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.45));
 }
 
-.reveal__words {
+.freveal__words {
   position: relative;
   z-index: 1;
   display: grid;
@@ -469,7 +469,7 @@
   gap: 8px;
 }
 
-.reveal__kicker {
+.freveal__kicker {
   margin: 0;
   color: rgba(255, 255, 255, 0.72);
   font-weight: 650;
@@ -477,7 +477,7 @@
   animation: rv-up 420ms 1050ms var(--ease-out) forwards;
 }
 
-.reveal__name {
+.freveal__name {
   margin: 0;
   max-width: 14ch;
   font-size: clamp(2.2rem, 7vw, 3.6rem);
@@ -489,13 +489,13 @@
 }
 
 /* the title lands like a stamp: big, tilted, then pressed flat */
-.reveal__honor {
+.freveal__honor {
   display: block;
   opacity: 0;
   animation: rv-stamp 520ms 1300ms cubic-bezier(0.3, 1.6, 0.5, 1) forwards;
 }
 
-.reveal__drops {
+.freveal__drops {
   display: inline-flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -510,14 +510,14 @@
   animation: rv-up 420ms 1750ms var(--ease-out) forwards;
 }
 
-.reveal__drops span {
+.freveal__drops span {
   font-family: var(--ui);
   font-size: 0.88rem;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.72);
 }
 
-.reveal__actions {
+.freveal__actions {
   position: relative;
   z-index: 1;
   display: flex;
@@ -529,25 +529,25 @@
   animation: rv-up 420ms 2100ms var(--ease-out) forwards;
 }
 
-.reveal .reveal__later {
+.freveal .freveal__later {
   --fg: #fff;
   color: #fff;
   box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.5);
 }
 
-.reveal .reveal__later:hover {
+.freveal .freveal__later:hover {
   background: rgba(255, 255, 255, 0.12);
   color: #fff;
 }
 
 /* a click or key jumps to the end state */
-.reveal.is-skipped *,
-.reveal.is-skipped::backdrop {
+.freveal.is-skipped *,
+.freveal.is-skipped::backdrop {
   animation-delay: 0s !important;
   animation-duration: 1ms !important;
 }
 
-.reveal.is-skipped .reveal__rays {
+.freveal.is-skipped .freveal__rays {
   animation:
     rv-rays-in 1ms forwards,
     rv-spin 18s linear infinite !important;
@@ -660,18 +660,18 @@
 
 /* reduced motion: no burst, no flight — the same things simply fade in, in order */
 @media (prefers-reduced-motion: reduce) {
-  .reveal__card,
-  .reveal__ring,
-  .reveal__bit,
-  .reveal__rays {
+  .freveal__card,
+  .freveal__ring,
+  .freveal__bit,
+  .freveal__rays {
     display: none;
   }
-  .reveal__hero,
-  .reveal__kicker,
-  .reveal__name,
-  .reveal__honor,
-  .reveal__drops,
-  .reveal__actions {
+  .freveal__hero,
+  .freveal__kicker,
+  .freveal__name,
+  .freveal__honor,
+  .freveal__drops,
+  .freveal__actions {
     animation-name: rv-fade-in !important;
     animation-duration: 300ms !important;
   }

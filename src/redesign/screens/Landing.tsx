@@ -3,7 +3,7 @@
 // they miss — sees it clipped into the Mistake Notebook to come back. Then they press Play.
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { ArrowRight, Check, Gift, Play, RotateCcw, Shirt, Swords, Timer } from 'lucide-react'
+import { ArrowRight, BookOpen, Check, ClipboardList, ExternalLink, Gift, Play, Repeat, RotateCcw, Route, Shirt, Swords, Timer } from 'lucide-react'
 
 import skillIndex from '../../content/skillLessonIndex.json' with { type: 'json' }
 import type { Confidence, TrapType } from '../../types.ts'
@@ -515,6 +515,82 @@ function RewardsDemo() {
 
 // ---------------------------------------------------------------------------
 
+/** A numbered note: jumps to its line in “Important information”. */
+function Note({ n }: { n: number }) {
+  return (
+    <a className="fnref" href={`#fn-${n}`} aria-label={`Note ${n}`}>
+      {n}
+    </a>
+  )
+}
+
+/** The four things a student gets beyond the game loop. Honest about where each lives. */
+const FEATURES = [
+  {
+    id: 'path',
+    n: '01',
+    ink: 'var(--yellow)',
+    Icon: Route,
+    kicker: 'Paced path',
+    title: 'Know what to work on next.',
+    points: [
+      { text: 'A guided path through all four domains and ten skills, so you never guess which weakness to chase.' },
+      { text: 'Every star you earn stays saved as you move on.' },
+      { text: 'Start from your score report: upload or enter it and Clarity picks where to begin.', note: 2, original: true },
+    ],
+    cta: { label: 'Open the path', to: '/path' },
+  },
+  {
+    id: 'tools',
+    n: '02',
+    ink: 'var(--blue)',
+    Icon: ClipboardList,
+    kicker: 'Exams and study tools',
+    title: 'Study everything in one place.',
+    points: [
+      { text: 'Full-length practice exams: two timed modules in a calm, test-day room, with a scaled score at the end.', note: 4 },
+      { text: 'A lesson for every skill, then practice it right away.' },
+      { text: 'Your study guide, saved words and misses next to your practice.', original: true },
+    ],
+    cta: { label: 'See the exams', to: '/exams' },
+  },
+  {
+    id: 'dictionary',
+    n: '03',
+    ink: 'var(--green)',
+    Icon: BookOpen,
+    kicker: 'Dictionary',
+    title: 'Understand every word in context.',
+    points: [
+      { text: 'Look a word up inside the passage, without leaving the question.', note: 5, original: true },
+      { text: 'The digital SAT tests words in context, so that is where you learn them.' },
+      { text: 'Saved words come back on a schedule, so they stick.', note: 6, original: true },
+    ],
+    cta: { label: 'Open the dictionary', href: '/app/' },
+  },
+  {
+    id: 'loop',
+    n: '04',
+    ink: 'var(--pink)',
+    Icon: Repeat,
+    kicker: 'Return loop',
+    title: 'Never lose a missed question again.',
+    points: [
+      { text: 'Every miss is filed the moment you make it, with the trap that caught you.' },
+      { text: 'It comes back at 1, 3, 7 and 21 days, around when people forget.', note: 6 },
+      { text: 'Nothing sits in an error log. Today’s comebacks are already on today’s page.' },
+    ],
+    cta: { label: 'Open the Mistake Notebook', to: '/notebook' },
+  },
+] as const
+
+const REASONS = [
+  'A clear, straightforward page: five questions, about four minutes.',
+  'Guidance that moves as your score does: the radar and the path point at the next skill.',
+  'Practice, exams, lessons and your misses in one place.',
+  'Learning is free, at every step.',
+] as const
+
 export function Landing() {
   const root = useRef<HTMLDivElement>(null)
   useReveal(root)
@@ -524,6 +600,24 @@ export function Landing() {
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // the app routes on the hash, so in-page links (#how, #fn-1) scroll rather than navigate
+  useEffect(() => {
+    const node = root.current
+    if (!node) return
+    const onClick = (event: MouseEvent) => {
+      const link = (event.target as HTMLElement).closest('a')
+      const href = link?.getAttribute('href') ?? ''
+      if (!href.startsWith('#') || href.startsWith('#/')) return
+      const target = document.getElementById(href.slice(1))
+      if (!target) return
+      event.preventDefault()
+      target.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' })
+      if (target instanceof HTMLElement && href.startsWith('#fn-')) target.focus({ preventScroll: true })
+    }
+    node.addEventListener('click', onClick)
+    return () => node.removeEventListener('click', onClick)
   }, [])
 
   return (
@@ -540,8 +634,11 @@ export function Landing() {
           <a href="#notebook">
             Mistake Notebook
           </a>
+          <a href="#features">Features</a>
           <a href="#speed">Speed Round</a>
-          <a href="#rewards">Rewards</a>
+          <a href="#why-clarity">Why Clarity</a>
+          <a href="/plans">Plans</a>
+          <a href="/app/">Original site</a>
         </div>
         <div className="lnav__actions">
           <a className="lnav__signin" href="#/signin">
@@ -578,7 +675,10 @@ export function Landing() {
               <button type="button" className="btn btn--lg" onClick={() => go('/start')}>
                 <Play /> Play your first page
               </button>
-              <span className="hero__free">Free. No sign-up for your first page.</span>
+              <span className="hero__free">
+                Free. No fees, no credit card.
+                <Note n={1} /> No sign-up for your first page.
+              </span>
             </div>
             <p className="hero__facts">
               <span>
@@ -683,6 +783,50 @@ export function Landing() {
           </div>
         </section>
 
+        <section className="band band--paper" id="features" aria-labelledby="features-title">
+          <div className="band__inner">
+            <h2 className="display band__title reveal" id="features-title">
+              Everything <span className="hl hl--blue" data-swipe>around</span> the game.
+            </h2>
+            <p className="band__lead reveal">
+              The pages are the fun part. These are the tools that make them count. A few still live in the original app while the beta catches up, and say so.
+            </p>
+            <ol className="features">
+              {FEATURES.map(({ id, n, ink, Icon, kicker, title, points, cta }) => (
+                <li key={id} className="fcard sheet reveal" style={{ ['--mark' as string]: ink }}>
+                  <span className="fcard__n num">{n}</span>
+                  <span className="fcard__icon" aria-hidden="true">
+                    <Icon />
+                  </span>
+                  <p className="fcard__kicker">{kicker}</p>
+                  <h3 className="fcard__title">{title}</h3>
+                  <ul className="fcard__points">
+                    {points.map((point) => (
+                      <li key={point.text}>
+                        <Check size={16} aria-hidden="true" />
+                        <span>
+                          {point.text}
+                          {'note' in point && point.note ? <Note n={point.note} /> : null}
+                          {'original' in point && point.original ? <span className="fcard__orig">in the original app</span> : null}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                  {'href' in cta ? (
+                    <a className="btn btn--sm btn--paper fcard__cta" href={cta.href}>
+                      {cta.label} <ExternalLink />
+                    </a>
+                  ) : (
+                    <button type="button" className="btn btn--sm btn--paper fcard__cta" onClick={() => go(cta.to)}>
+                      {cta.label} <ArrowRight />
+                    </button>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
         <section className="band band--blue" id="rewards">
           <div className="band__inner">
             <h2 className="display band__title reveal">Stickers, drops, and a rice ball with a wardrobe.</h2>
@@ -700,7 +844,8 @@ export function Landing() {
               Why the <span className="hl hl--orange" data-swipe>1550</span>?
             </h2>
             <p className="band__lead reveal">
-              At a top-30 US university, the middle of the admitted class scores around 1550. Reading &amp; Writing is half of that number.
+              At a top-30 US university, the middle of the admitted class scores around 1550.
+              <Note n={3} /> Reading &amp; Writing is half of that number.
             </p>
           </div>
           <div className="colleges" aria-label="Median SAT scores at top universities">
@@ -714,6 +859,43 @@ export function Landing() {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        <section className="band band--yellow" id="why-clarity" aria-labelledby="why-clarity-title">
+          <div className="band__inner band__inner--split why2">
+            <div>
+              <h2 className="display band__title reveal" id="why-clarity-title">
+                Why choose Clarity?
+              </h2>
+              <p className="band__lead reveal">
+                One idea runs through everything here: the questions you miss are the most useful ones you have. A simple, steady routine puts them back in front of you.
+              </p>
+              <ul className="why2__list reveal">
+                {REASONS.map((reason, i) => (
+                  <li key={reason}>
+                    <PenMark kind="check" size={22} />
+                    <span>
+                      {reason}
+                      {i === REASONS.length - 1 && <Note n={1} />}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <aside className="why2__start sheet reveal" data-delay="120">
+              <Tangyuan size={96} mood="think" />
+              <h3>Not sure where to start?</h3>
+              <p>Tell us your target score and how long you have each day, and Clarity picks your first page. Have a score report? The original app reads it and sets your path.</p>
+              <div className="why2__actions">
+                <button type="button" className="btn" onClick={() => go('/start')}>
+                  <Play /> Find my first page
+                </button>
+                <a className="btn btn--ghost btn--sm" href="/app/">
+                  Use my score report <ExternalLink />
+                </a>
+              </div>
+            </aside>
           </div>
         </section>
 
@@ -735,14 +917,109 @@ export function Landing() {
         </section>
       </main>
 
+      <section className="fineprint" id="important" aria-labelledby="important-title">
+        <div className="fineprint__inner">
+          <h2 id="important-title">Important information</h2>
+          <p>
+            Studying takes effort, and results vary. Your score may go up, stay the same, or go down on test day. Clarity does not guarantee a score or admission to any
+            college.
+          </p>
+          <p>Clarity is a study tool. The information on this page is general and is not admissions, financial aid, legal or tax advice.</p>
+          <p>
+            SAT® is a registered trademark of the College Board, which is not affiliated with, and does not endorse, Clarity. College names and logos belong to their
+            owners, appear for reference only, and do not imply endorsement.
+          </p>
+          <p>
+            The images, demos and characters on this page are illustrations. Rivals, radars and notebooks marked “sample” are not real players or results. The 汤圆
+            portraits were generated for Clarity.
+          </p>
+          <ol className="fineprint__notes">
+            <li id="fn-1" tabIndex={-1}>
+              Learning on Clarity is free: no account fees, subscriptions or hidden charges, and no credit card. Optional water drops (10 drops = $1) buy only cosmetic
+              outfits and streak savers; they never unlock questions, explanations or scores, and buying them is off during the beta. Features and availability may change.
+            </li>
+            <li id="fn-2" tabIndex={-1}>
+              The paced path is a study guide, not a prediction of your score. Starting from an uploaded or entered score report is available in the original app.
+            </li>
+            <li id="fn-3" tabIndex={-1}>
+              Median SAT figures are approximate, shown for illustration, and may be out of date. Check each college’s admissions site for current ranges. Admission
+              depends on the whole application, not a score alone.
+            </li>
+            <li id="fn-4" tabIndex={-1}>
+              Practice exams follow the digital SAT format. They are practice material, not official College Board tests, and a practice score is an estimate.
+            </li>
+            <li id="fn-5" tabIndex={-1}>Word definitions come from published dictionaries and are shown for study.</li>
+            <li id="fn-6" tabIndex={-1}>Review timing follows a spaced repetition schedule. How well it works varies from learner to learner.</li>
+          </ol>
+        </div>
+      </section>
+
       <footer className="lfoot">
-        <Logo />
-        <span>Free SAT Reading &amp; Writing practice.</span>
-        <a href="#/signin">Sign in</a>
-        <a href="#/me">
-          <Shirt size={14} /> Your game
-        </a>
-        <span className="lfoot__note">Redesign preview. Rivals, radars and notebooks marked “sample” are illustrations.</span>
+        <div className="lfoot__brand">
+          <Logo />
+          <span>Free SAT Reading &amp; Writing practice.</span>
+        </div>
+        <nav className="lfoot__cols" aria-label="Footer">
+          <div>
+            <p className="lfoot__head">Learn</p>
+            <ul>
+              <li>
+                <a href="#features">Paced path</a>
+              </li>
+              <li>
+                <a href="#features">Practice and exams</a>
+              </li>
+              <li>
+                <a href="#features">Dictionary</a>
+              </li>
+              <li>
+                <a href="#notebook">Return loop</a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <p className="lfoot__head">Clarity</p>
+            <ul>
+              <li>
+                <a href="#why">Why the SAT</a>
+              </li>
+              <li>
+                <a href="#why-clarity">Why Clarity</a>
+              </li>
+              <li>
+                <a href="/plans">Plans</a>
+              </li>
+              <li>
+                <a href="/app/">Original site</a>
+              </li>
+              <li>
+                <a href="#important">Important information</a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <p className="lfoot__head">Your game</p>
+            <ul>
+              <li>
+                <a href="#/start">Get started</a>
+              </li>
+              <li>
+                <a href="#/signin">Sign in</a>
+              </li>
+              <li>
+                <a href="#/me">
+                  <Shirt size={14} /> Wardrobe
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/wresearch" target="_blank" rel="noreferrer">
+                  wresearch on GitHub <span className="sr-only">(opens in a new tab)</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <span className="lfoot__note">Clarity is built at wresearch. © 2026 wresearch. All rights reserved. Beta: some features still live in the original app.</span>
       </footer>
     </div>
   )
