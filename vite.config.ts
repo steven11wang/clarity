@@ -11,12 +11,15 @@ const entry = (file: string) => fileURLToPath(new URL(file, import.meta.url))
  *  Keep this table in sync with PAGE_ROUTES in server/sitesWorker.ts, which
  *  performs the same mapping in production. */
 const FRONT_DOOR: Record<string, string> = {
-  '/': '/landing.html',
+  '/': '/redesign.html',
+  // the original front page, kept reachable
+  '/classic': '/landing.html',
+  '/classic/': '/landing.html',
   '/plans': '/plans.html',
   '/plans/': '/plans.html',
   '/app': '/index.html',
   '/app/': '/index.html',
-  // the redesign beta, before it replaces /app
+  // the redesign, also served at its beta address
   '/app/new': '/redesign.html',
   '/app/new/': '/redesign.html',
 }

@@ -6,7 +6,8 @@
 // into the directory layout instead: a folder per public path, each holding an
 // index.html.
 //
-//   /        -> landing.html      (marketing front page)
+//   /        -> redesign.html     (the Mistake Notebook front door)
+//   /classic -> landing.html      (the original marketing page)
 //   /plans   -> plans.html
 //   /app     -> index.html        (the React console)
 //   /app/new -> redesign.html     (the redesign beta)
@@ -59,15 +60,16 @@ console.log('📁 Shaping dist/ for static hosting...')
 await page('app', 'index.html')
 await page('app/new', 'redesign.html')
 await page('plans', 'plans.html')
+await page('classic', 'landing.html')
 
-await copyFile(path.join(dist, 'landing.html'), path.join(dist, 'index.html'))
+await copyFile(path.join(dist, 'redesign.html'), path.join(dist, 'index.html'))
 await applyBase(path.join(dist, 'index.html'))
-console.log('  / -> landing.html')
+console.log('  / -> redesign.html')
 
-// Unknown paths land on the marketing page, matching what the cPanel rewrite
+// Unknown paths land on the front door, matching what the cPanel rewrite
 // rules did. The app itself has no client side routes to preserve.
 await copyFile(path.join(dist, 'index.html'), path.join(dist, '404.html'))
-console.log('  404 -> landing.html')
+console.log('  404 -> redesign.html')
 
 // The originals stay reachable at their own names for anything still linking
 // to them, so they need the same treatment.
