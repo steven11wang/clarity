@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <title>SAT Reading Traps</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,400..900&family=Gochi+Hand&family=Source+Serif+4:ital,wght@0,400..700;1,400&family=Onest:wght@400..800&family=ZCOOL+KuaiLe&display=block" rel="stylesheet">
+    <script src="assets/gsap.min.js"></script>
+    <script src="assets/words.js"></script>
+    <style>
+      :root {
+        --yellow: #FFE53B; --pink: #FF6FB1; --green: #5BEA8E; --orange: #FFA23A;
+        --blue: #4CC9FF; --violet: #B79BFF; --red: #E5262D; --ink: #17183B;
+        --paper: #FBFCFF; --grid: #DFE8F7;
+        --display: "Anybody", sans-serif;
+        --ui: "Onest", sans-serif;
+        --pen: "Gochi Hand", cursive;
+        --cn: "ZCOOL KuaiLe", sans-serif;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: var(--paper); }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; color: var(--ink); font-family: var(--ui); }
+
+      /* grid paper with the red margin rule */
+      #paper {
+        position: absolute; inset: -60px;
+        background-color: var(--paper);
+        background-image:
+          linear-gradient(var(--grid) 2px, transparent 2px),
+          linear-gradient(90deg, var(--grid) 2px, transparent 2px);
+        background-size: 54px 54px;
+      }
+      #margin { position: absolute; top: 0; bottom: 0; left: 56px; width: 4px; background: rgba(229, 38, 45, .55); }
+
+      /* HUD: logo + five trap bubbles (safe zone: y >= 220) */
+      #hud { position: absolute; left: 80px; right: 150px; top: 228px; height: 84px; display: flex; align-items: center; justify-content: space-between; }
+      .logo { display: flex; align-items: center; gap: 14px; font-family: var(--display); font-weight: 860; font-stretch: 118%; font-size: 40px; letter-spacing: -.5px; }
+      .logo .qing { font-family: var(--cn); font-size: 46px; width: 66px; height: 66px; display: grid; place-items: center; background: var(--yellow); border: 4px solid var(--ink); border-radius: 50%; }
+      #bubbles { display: flex; gap: 16px; }
+      .bubble { width: 50px; height: 50px; border-radius: 50%; border: 4px solid var(--ink); background: var(--paper); display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: 24px; position: relative; overflow: hidden; }
+      .bubble .fill { position: absolute; inset: 0; border-radius: 50%; transform: scale(0); }
+      .bubble span { position: relative; }
+
+      .scene { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; visibility: hidden; }
+      .col { position: absolute; left: 92px; width: 838px; }
+
+      .display { font-family: var(--display); font-weight: 880; font-stretch: 118%; line-height: .98; letter-spacing: -1.5px; margin: 0; }
+      .hl { position: relative; display: inline-block; z-index: 0; }
+      .hl::before { content: ""; position: absolute; left: -10px; right: -10px; top: 18%; bottom: 4%; background: var(--hl, var(--yellow)); z-index: -1; transform: scaleX(var(--sx, 0)); transform-origin: left center; border-radius: 6px 14px 8px 16px; }
+      .pen { font-family: var(--pen); color: var(--red); }
+
+      /* answer-choice card */
+      .card { position: absolute; background: #fff; border: 5px solid var(--ink); border-radius: 22px; box-shadow: 10px 12px 0 rgba(23,24,59,.9); padding: 34px 38px; }
+      .choice { display: flex; gap: 24px; align-items: flex-start; font-family: "Source Serif 4", serif; font-size: 44px; line-height: 1.25; }
+      .choice .letter { flex: none; width: 64px; height: 64px; border-radius: 50%; border: 4px solid var(--ink); display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: 30px; margin-top: -4px; }
+      .choice .letter.filled { background: var(--ink); color: #fff; }
+      .tag { display: inline-block; font-family: var(--display); font-weight: 860; font-stretch: 110%; font-size: 30px; padding: 10px 20px; border: 4px solid var(--ink); border-radius: 12px; background: var(--paper); letter-spacing: .5px; }
+      .stamp { position: absolute; font-family: var(--display); font-weight: 900; font-stretch: 112%; color: var(--red); border: 7px solid var(--red); border-radius: 14px; padding: 10px 24px; font-size: 52px; letter-spacing: 2px; background: rgba(255,255,255,.75); }
+      .num { position: absolute; width: 150px; height: 150px; border-radius: 50%; border: 6px solid var(--ink); display: grid; place-items: center; font-family: var(--display); font-weight: 900; font-size: 92px; box-shadow: 8px 8px 0 var(--ink); }
+      svg.pen-svg { position: absolute; overflow: visible; pointer-events: none; }
+      svg.pen-svg path, svg.pen-svg ellipse { fill: none; stroke: var(--red); stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
+
+      /* captions: centred in the zone every platform leaves clear (y 1170-1420, x 92-930) */
+      #captions { position: absolute; left: 92px; width: 838px; top: 1196px; height: 220px; display: flex; align-items: center; justify-content: center; }
+      .cap { position: absolute; width: 100%; text-align: center; font-family: var(--display); font-weight: 880; font-stretch: 112%; font-size: 76px; line-height: 1.08; letter-spacing: -1px; visibility: hidden; color: var(--ink);
+        text-shadow: 0 0 2px var(--paper), 0 0 14px var(--paper), 0 0 24px var(--paper); }
+      .cap .w { display: inline-block; padding: 0 6px; border-radius: 10px; }
+      .cap .w.on { background: var(--yellow); box-shadow: 0 0 0 4px var(--ink); text-shadow: none; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="sat-reading-traps" data-start="0" data-duration="40.5" data-width="1080" data-height="1920">
+      <audio id="vo" src="assets/voice.mp3" data-start="0.2" data-duration="39.33" data-has-audio="true" data-volume="1"></audio>
+
+      <div id="paper"></div>
+      <div id="margin"></div>
+
+      <!-- ===== HOOK 0 - 4.8 ===== -->
+      <div class="scene" id="s-hook">
+        <div class="col" style="top: 380px;">
+          <h1 class="display" style="font-size: 108px; font-stretch: 104%;">
+            <span id="h1a">You're losing</span><br>
+            <span class="hl" id="h1b" style="--hl: var(--yellow)">SAT Reading</span><br>
+            <span id="h1c">points</span>
+          </h1>
+        </div>
+        <div class="card" id="hook-card" style="left: 110px; top: 830px; width: 800px; padding: 30px 34px;">
+          <div class="choice" style="font-size: 40px;"><div class="letter filled">B</div><div>The author's main claim is…</div></div>
+          <svg class="pen-svg" id="hook-x" viewBox="0 0 100 100" style="left: 22px; top: 14px; width: 110px; height: 110px;">
+            <path class="draw" d="M14 14 L86 86" /><path class="draw" d="M86 14 L14 86" />
+          </svg>
+        </div>
+        <div class="col" style="top: 1070px;">
+          <div class="display" style="font-size: 72px;" id="h2">on questions you <span class="hl" id="h2b" style="--hl: var(--pink)">understood.</span></div>
+        </div>
+        <div class="pen" id="hook-note" style="position:absolute; left: 520px; top: 985px; font-size: 64px; transform: rotate(-8deg);">but I knew this!</div>
+      </div>
+
+      <!-- ===== FIVE TRAPS 4.8 - 7.9 ===== -->
+      <div class="scene" id="s-five">
+        <div class="col" style="top: 400px;">
+          <div class="display" style="font-size: 92px;">Every wrong answer is <span class="hl" id="five-hl">1 of 5 traps</span></div>
+        </div>
+        <div id="five-row" style="position: absolute; left: 92px; width: 838px; top: 820px; display: flex; justify-content: space-between;">
+          <div class="num five" style="position: relative; background: var(--yellow);">1</div>
+          <div class="num five" style="position: relative; background: var(--pink); width: 140px; height:140px;">2</div>
+          <div class="num five" style="position: relative; background: var(--green); width: 140px; height:140px;">3</div>
+          <div class="num five" style="position: relative; background: var(--blue); width: 140px; height:140px;">4</div>
+          <div class="num five" style="position: relative; background: var(--violet); width: 140px; height:140px;">5</div>
+        </div>
+      </div>
+
+      <!-- ===== TRAP 1: TOO EXTREME ===== -->
+      <div class="scene trap" id="s-t1">
+        <div class="num" style="left: 92px; top: 370px; background: var(--yellow);">1</div>
+        <div class="display" style="position:absolute; left: 280px; top: 395px; font-size: 104px;"><span class="hl tname" style="--hl: var(--yellow)">Too<br>extreme</span></div>
+        <div class="card" style="left: 92px; top: 720px; width: 838px;">
+          <div class="choice"><div class="letter">C</div><div>The study <span style="position: relative; display: inline-block;">proves<svg class="pen-svg" id="t1-c1" viewBox="0 0 100 50" preserveAspectRatio="none" style="left: -20px; top: -10px; width: calc(100% + 40px); height: calc(100% + 20px);"><ellipse class="draw" cx="50" cy="25" rx="47" ry="22" /></svg></span> that bees <span style="position: relative; display: inline-block;">always<svg class="pen-svg" id="t1-c2" viewBox="0 0 100 50" preserveAspectRatio="none" style="left: -20px; top: -10px; width: calc(100% + 40px); height: calc(100% + 20px);"><ellipse class="draw" cx="50" cy="25" rx="47" ry="22" /></svg></span> prefer blue flowers.</div></div>
+        </div>
+        <div class="pen" id="t1-note" style="position:absolute; left: 520px; top: 1000px; font-size: 70px; transform: rotate(-6deg);">too strong!</div>
+      </div>
+
+      <!-- ===== TRAP 2: HALF RIGHT ===== -->
+      <div class="scene trap" id="s-t2">
+        <div class="num" style="left: 92px; top: 370px; background: var(--pink);">2</div>
+        <div class="display" style="position:absolute; left: 280px; top: 395px; font-size: 104px;"><span class="hl tname" style="--hl: var(--pink)">Half<br>right</span></div>
+        <div class="card" style="left: 92px; top: 720px; width: 838px;">
+          <div class="choice"><div class="letter">A</div><div><span id="t2-a" class="hl" style="--hl: var(--green)">Bees prefer blue flowers,</span> <span id="t2-b" style="position: relative;">so they ignore every other color.<i id="t2-strike" style="position:absolute; left:-4px; right:-4px; top: 52%; height: 8px; background: var(--red); border-radius: 4px; transform: scaleX(0); transform-origin: left;"></i></span></div></div>
+        </div>
+        <div class="pen" id="t2-ok" style="position:absolute; left: 150px; top: 1000px; font-size: 64px; color: #12985A; transform: rotate(-4deg);">✓ true</div>
+        <div class="pen" id="t2-no" style="position:absolute; left: 560px; top: 1000px; font-size: 64px; transform: rotate(5deg);">✗ false = wrong</div>
+      </div>
+
+      <!-- ===== TRAP 3: TRUE BUT IRRELEVANT ===== -->
+      <div class="scene trap" id="s-t3">
+        <div class="num" style="left: 92px; top: 370px; background: var(--green);">3</div>
+        <div class="display" style="position:absolute; left: 280px; top: 395px; font-size: 88px;"><span class="hl tname" style="--hl: var(--green)">True but<br>irrelevant</span></div>
+        <div class="col" style="top: 650px; font-family: var(--ui); font-weight: 700; font-size: 40px; line-height: 1.25;">Q: Why did the researcher repeat the test?</div>
+        <div class="card" style="left: 92px; top: 780px; width: 838px;">
+          <div class="choice"><div class="letter">D</div><div>The test used forty hives.</div></div>
+        </div>
+        <div class="stamp" id="t3-s1" style="left: 92px; top: 990px; font-size: 40px; color: #12985A; border-color: #12985A;">✓ IN THE PASSAGE</div>
+        <div class="stamp" id="t3-s2" style="left: 470px; top: 1060px; font-size: 40px;">✗ ANSWERS IT</div>
+      </div>
+
+      <!-- ===== TRAP 4: OUT OF SCOPE ===== -->
+      <div class="scene trap" id="s-t4">
+        <div class="num" style="left: 92px; top: 370px; background: var(--blue);">4</div>
+        <div class="display" style="position:absolute; left: 280px; top: 395px; font-size: 104px;"><span class="hl tname" style="--hl: var(--blue)">Out of<br>scope</span></div>
+        <div id="t4-box" style="position:absolute; left: 92px; top: 650px; width: 500px; height: 460px; border: 6px dashed var(--ink); border-radius: 26px; background: rgba(76,201,255,.12);">
+          <div class="tag" style="position:absolute; top: -28px; left: 30px;">THE PASSAGE</div>
+          <div style="position:absolute; left: 40px; right: 40px; top: 70px; display: grid; gap: 26px;">
+            <i style="height: 14px; background: rgba(23,24,59,.25); border-radius: 7px;"></i>
+            <i style="height: 14px; background: rgba(23,24,59,.25); border-radius: 7px; width: 86%;"></i>
+            <i style="height: 14px; background: rgba(23,24,59,.25); border-radius: 7px;"></i>
+            <i style="height: 14px; background: rgba(23,24,59,.25); border-radius: 7px; width: 70%;"></i>
+            <i style="height: 14px; background: rgba(23,24,59,.25); border-radius: 7px; width: 92%;"></i>
+          </div>
+        </div>
+        <div class="card" id="t4-card" style="left: 250px; top: 900px; width: 640px; padding: 26px 30px;">
+          <div class="choice" style="font-size: 40px;"><div class="letter">B</div><div>Bees will vanish by 2050.</div></div>
+          <svg class="pen-svg" id="t4-x" viewBox="0 0 100 100" style="left: 18px; top: 8px; width: 100px; height: 100px;">
+            <path class="draw" d="M14 14 L86 86" /><path class="draw" d="M86 14 L14 86" />
+          </svg>
+        </div>
+        <div class="pen" id="t4-note" style="position:absolute; left: 640px; top: 700px; font-size: 62px; transform: rotate(7deg); line-height: 1;">never<br>said it!</div>
+      </div>
+
+      <!-- ===== TRAP 5: OPPOSITE ===== -->
+      <div class="scene trap" id="s-t5">
+        <div class="num" style="left: 92px; top: 370px; background: var(--violet);">5</div>
+        <div class="display" style="position:absolute; left: 280px; top: 430px; font-size: 104px;"><span class="hl tname" style="--hl: var(--violet)">Opposite</span></div>
+        <div class="col" style="top: 640px; font-family: 'Source Serif 4', serif; font-size: 40px; line-height: 1.3; font-style: italic;">“…the plan, the author argues, is <b style="font-style: normal; background: var(--violet); padding: 0 8px; border-radius: 8px;">unlikely to work</b>.”</div>
+        <div class="card" style="left: 92px; top: 830px; width: 838px;">
+          <div class="choice"><div class="letter">A</div><div>The author <span id="t5-word" style="display:inline-block; background: var(--yellow); padding: 0 10px; border-radius: 8px;">supports</span> the plan.</div></div>
+        </div>
+        <div class="pen" id="t5-note" style="position:absolute; left: 470px; top: 1040px; font-size: 66px; transform: rotate(-5deg);">flipped! ↻</div>
+      </div>
+
+      <!-- ===== THE FIX 29.1 - 34.4 ===== -->
+      <div class="scene" id="s-fix">
+        <div class="col" style="top: 370px;">
+          <div class="display" style="font-size: 104px;">The real <span class="hl" id="fix-hl">fix</span></div>
+        </div>
+        <div id="nb" style="position:absolute; left: 92px; top: 560px; width: 838px; height: 560px; background: #fff; border: 5px solid var(--ink); border-radius: 18px; box-shadow: 10px 12px 0 var(--ink); background-image: repeating-linear-gradient(transparent 0 66px, #DFE8F7 66px 69px); background-position: 0 90px;">
+          <div style="position:absolute; left: 0; right: 0; top: 0; height: 96px; background: var(--pink); border-bottom: 5px solid var(--ink); border-radius: 13px 13px 0 0; display:flex; align-items:center; padding-left: 40px; font-family: var(--display); font-weight: 880; font-stretch: 112%; font-size: 46px;">Mistake Notebook</div>
+          <svg id="clip" viewBox="0 0 40 100" style="position:absolute; right: 70px; top: -46px; width: 60px; height: 150px; overflow: visible;"><path d="M12 92 V18 a8 8 0 0 1 16 0 V80 a4 4 0 0 1 -8 0 V30" fill="none" stroke="#E5262D" stroke-width="7" stroke-linecap="round"/></svg>
+          <div id="nb-q" style="position:absolute; left: 40px; right: 40px; top: 140px;">
+            <div style="font-family: var(--ui); font-weight: 700; font-size: 34px; opacity: .7;">Q7 · missed</div>
+            <div class="choice" style="margin-top: 18px; font-size: 42px;"><div class="letter filled">A</div><div style="text-decoration: line-through; text-decoration-color: var(--red); text-decoration-thickness: 6px;">Bees prefer blue, so they ignore other colors.</div></div>
+          </div>
+          <div class="pen" id="nb-q2" style="position:absolute; left: 40px; top: 400px; font-size: 56px;">What got me? →</div>
+        </div>
+        <div class="stamp" id="fix-stamp" style="left: 520px; top: 930px; transform: rotate(-9deg); font-size: 58px;">HALF RIGHT</div>
+      </div>
+
+      <!-- ===== CTA 34.4 - 40.5 ===== -->
+      <div class="scene" id="s-cta">
+        <div class="col" style="top: 360px; text-align: center;">
+          <div class="display" style="font-size: 76px; font-stretch: 104%;">Misses come back<br>until you <span class="hl" id="cta-hl" style="--hl: var(--green)">beat them</span></div>
+        </div>
+        <div id="days" style="position:absolute; left: 92px; width: 838px; top: 590px; display:flex; justify-content: center; gap: 30px;">
+          <div class="dayc" style="text-align:center;"><div class="bubble day"><div class="fill" style="background: var(--green)"></div></div><div style="font-family: var(--ui); font-weight:700; font-size: 30px; margin-top: 8px;">1 day</div></div>
+          <div class="dayc" style="text-align:center;"><div class="bubble day"><div class="fill" style="background: var(--green)"></div></div><div style="font-family: var(--ui); font-weight:700; font-size: 30px; margin-top: 8px;">3 days</div></div>
+          <div class="dayc" style="text-align:center;"><div class="bubble day"><div class="fill" style="background: var(--green)"></div></div><div style="font-family: var(--ui); font-weight:700; font-size: 30px; margin-top: 8px;">7 days</div></div>
+          <div class="dayc" style="text-align:center;"><div class="bubble day"><div class="fill" style="background: var(--green)"></div></div><div style="font-family: var(--ui); font-weight:700; font-size: 30px; margin-top: 8px;">21 days</div></div>
+        </div>
+        <svg id="ty" viewBox="0 0 160 160" style="position:absolute; left: 380px; top: 750px; width: 300px; height: 300px; overflow: visible;">
+          <ellipse cx="80" cy="144" rx="44" ry="7" fill="rgba(23,24,59,.12)" />
+          <g id="ty-body">
+            <ellipse cx="80" cy="86" rx="56" ry="50" fill="#FFFFFF" stroke="#17183B" stroke-width="5" />
+            <path d="M44 62 Q52 50 64 46" fill="none" stroke="#DFE8F7" stroke-width="6" stroke-linecap="round" />
+            <g id="ty-eyes"><rect x="59" y="71" width="9" height="17" rx="4.5" fill="#17183B" /><rect x="92" y="71" width="9" height="17" rx="4.5" fill="#17183B" /></g>
+            <ellipse cx="50" cy="96" rx="9" ry="5.5" fill="#FF9FC8" />
+            <ellipse cx="110" cy="96" rx="9" ry="5.5" fill="#FF9FC8" />
+            <path d="M71 95 Q80 105 89 95" fill="none" stroke="#17183B" stroke-width="3.6" stroke-linecap="round" />
+            <path d="M54 38 v15 q26 11 52 0 v-15Z" fill="#2B2D5C" stroke="#17183B" stroke-width="4" stroke-linejoin="round" />
+            <path d="M80 14 L130 30 L80 46 L30 30Z" fill="#2B2D5C" stroke="#17183B" stroke-width="4" stroke-linejoin="round" />
+            <path d="M126 32 V58" fill="none" stroke="#FFE53B" stroke-width="4" stroke-linecap="round" />
+            <circle cx="126" cy="61" r="5" fill="#E5262D" stroke="#17183B" stroke-width="3" />
+          </g>
+        </svg>
+        <div id="cta-btn" style="position:absolute; left: 92px; width: 838px; top: 1080px; text-align:center;">
+          <div style="display:inline-block; background: var(--yellow); border: 6px solid var(--ink); border-radius: 26px; box-shadow: 10px 10px 0 var(--ink); padding: 22px 44px; font-family: var(--display); font-weight: 900; font-stretch: 112%; font-size: 64px;">satclarity.com</div>
+          <div class="pen" style="font-size: 54px; margin-top: 18px;">free · no card needed</div>
+        </div>
+      </div>
+
+      <div id="hud">
+        <div class="logo"><div class="qing">清</div>Clarity</div>
+        <div id="bubbles" data-layout-ignore>
+          <div class="bubble"><div class="fill" style="background: var(--yellow)"></div><span>1</span></div>
+          <div class="bubble"><div class="fill" style="background: var(--pink)"></div><span>2</span></div>
+          <div class="bubble"><div class="fill" style="background: var(--green)"></div><span>3</span></div>
+          <div class="bubble"><div class="fill" style="background: var(--blue)"></div><span>4</span></div>
+          <div class="bubble"><div class="fill" style="background: var(--violet)"></div><span>5</span></div>
+        </div>
+      </div>
+
+      <div id="captions"></div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const VO = 0.2;               // voice starts 0.2 s in
+      const T = (s) => s + VO;      // script time -> composition time
+      const END = 40.5;
+
+      // ---------- scenes ----------
+      const scenes = [
+        ["#s-hook", 0, T(4.75)],
+        ["#s-five", T(4.75), T(7.85)],
+        ["#s-t1", T(7.85), T(13.1)],
+        ["#s-t2", T(13.1), T(17.45)],
+        ["#s-t3", T(17.45), T(21.95)],
+        ["#s-t4", T(21.95), T(25.98)],
+        ["#s-t5", T(25.98), T(29.05)],
+        ["#s-fix", T(29.05), T(34.4)],
+        ["#s-cta", T(34.4), END],
+      ];
+      scenes.forEach(([sel, a, b], i) => {
+        tl.set(sel, { visibility: "visible" }, a);
+        if (i > 0) tl.fromTo(sel, { x: 1080, rotation: 4 }, { x: 0, rotation: 0, duration: 0.38, ease: "power3.out" }, a);
+        if (b < END) {
+          tl.to(sel, { x: -1080, rotation: -4, duration: 0.34, ease: "power2.in" }, b - 0.06);
+          tl.set(sel, { visibility: "hidden" }, b + 0.3);
+        }
+        // slow push-in so no frame is ever static
+        tl.fromTo(sel, { scale: 1 }, { scale: 1.035, duration: Math.max(0.5, b - a), ease: "none" }, a);
+      });
+
+      const swipe = (sel, t, d = 0.32) => tl.fromTo(sel, { "--sx": 0 }, { "--sx": 1, duration: d, ease: "power2.out" }, t);
+      const pop = (sel, t, from = 0.3) => tl.fromTo(sel, { scale: from, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.32, ease: "back.out(2.2)" }, t);
+      const stampIn = (sel, t, rot = -8) => tl.fromTo(sel, { scale: 2.2, autoAlpha: 0, rotation: rot - 10 }, { scale: 1, autoAlpha: 1, rotation: rot, duration: 0.24, ease: "back.out(1.6)" }, t);
+      const draw = (sel, t, d = 0.28) => {
+        document.querySelectorAll(sel + " .draw").forEach((el, i) => {
+          const len = el.getTotalLength ? el.getTotalLength() + 2 : 400;
+          el.style.strokeDasharray = len;
+          tl.fromTo(el, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: d, ease: "power1.inOut" }, t + i * d * 0.9);
+        });
+      };
+
+      // ---------- HOOK (frame 0 already has content: no blank opener) ----------
+      tl.fromTo("#h1a", { scale: 1.15 }, { scale: 1, duration: 0.2, ease: "power2.out", transformOrigin: "0% 50%" }, 0);
+      tl.fromTo("#h1b", { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.2, ease: "power2.out" }, T(0.62));
+      swipe("#h1b", T(0.8));
+      tl.fromTo("#h1c", { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.2, ease: "power2.out" }, T(1.35));
+      tl.fromTo("#hook-card", { scale: 1.25, rotation: 6 }, { scale: 1, rotation: -2, duration: 0.3, ease: "back.out(1.6)" }, 0);
+      draw("#hook-x", 0.02, 0.1);
+      tl.fromTo("#hook-x", { scale: 1 }, { keyframes: [{ scale: 1.25 }, { scale: 1 }], duration: 0.3 }, T(1.45));
+      tl.fromTo("#hook-card", { x: 0 }, { keyframes: [{ x: -14 }, { x: 12 }, { x: -8 }, { x: 0 }], duration: 0.3 }, T(1.85));
+      tl.fromTo("#h2", { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.2 }, T(1.8));
+      tl.set("#h2b", { autoAlpha: 0 }, 0);
+      tl.to("#h2b", { autoAlpha: 1, duration: 0.05 }, T(2.95));
+      swipe("#h2b", T(3.0), 0.36);
+      pop("#hook-note", T(3.3));
+      tl.to("#s-hook .col, #hook-card", { scale: 1.06, duration: 0.6, ease: "power2.out" }, T(3.85));
+
+      // HUD bubbles fill as each trap appears
+      tl.fromTo("#bubbles .bubble", { scale: 0, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.25, stagger: 0.08, ease: "back.out(2)" }, T(6.6));
+      const trapStarts = [7.98, 13.21, 17.55, 22.06, 26.06];
+      document.querySelectorAll("#bubbles .bubble .fill").forEach((el, i) => {
+        tl.fromTo(el, { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, T(trapStarts[i]));
+        tl.fromTo(el.parentNode, { scale: 1 }, { keyframes: [{ scale: 1.35 }, { scale: 1 }], duration: 0.35 }, T(trapStarts[i]));
+      });
+
+      // ---------- FIVE ----------
+      swipe("#five-hl", T(6.85), 0.35);
+      document.querySelectorAll(".five").forEach((el, i) => pop(el, T(6.6 + i * 0.13), 0));
+      tl.to(".five", { y: -16, duration: 0.25, yoyo: true, repeat: 1, stagger: 0.07, ease: "sine.inOut" }, T(7.3));
+
+      // ---------- TRAPS (shared entrance) ----------
+      document.querySelectorAll(".trap").forEach((sc, i) => {
+        const t = T(trapStarts[i]);
+        pop(sc.querySelector(".num"), t + 0.05, 0);
+        swipe(sc.querySelector(".tname"), t + 0.5, 0.36);
+        tl.fromTo(sc.querySelectorAll(".card, .col"), { y: 140, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.34, ease: "power3.out", stagger: 0.12 }, t + 0.7);
+      });
+      // 1 too extreme
+      draw("#t1-c2", T(10.3), 0.3);
+      draw("#t1-c1", T(11.55), 0.3);
+      pop("#t1-note", T(12.3));
+      // 2 half right
+      tl.set("#t2-a", { "--sx": 0 }, 0);
+      swipe("#t2-a", T(15.0), 0.4);
+      pop("#t2-ok", T(15.2));
+      tl.fromTo("#t2-strike", { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power2.inOut" }, T(16.5));
+      pop("#t2-no", T(16.75));
+      // 3 true but irrelevant
+      stampIn("#t3-s1", T(19.7), -4);
+      stampIn("#t3-s2", T(20.85), 6);
+      // 4 out of scope
+      tl.fromTo("#t4-card", { x: -110, y: -180 }, { x: 0, y: 0, duration: 0.9, ease: "power2.inOut" }, T(23.7));
+      draw("#t4-x", T(25.35), 0.16);
+      pop("#t4-note", T(24.3));
+      // 5 opposite
+      tl.to("#t5-word", { rotation: 180, duration: 0.5, ease: "back.inOut(1.6)" }, T(28.3));
+      tl.to("#t5-word", { backgroundColor: "#FF8A8E", duration: 0.2 }, T(28.5));
+      pop("#t5-note", T(28.55));
+
+      // ---------- FIX ----------
+      swipe("#fix-hl", T(30.3), 0.3);
+      tl.fromTo("#nb", { y: 260, autoAlpha: 0, rotation: 3 }, { y: 0, autoAlpha: 1, rotation: -1, duration: 0.45, ease: "back.out(1.4)" }, T(30.9));
+      tl.fromTo("#clip", { y: -80, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.25, ease: "back.out(2)" }, T(31.5));
+      tl.fromTo("#nb-q2", { autoAlpha: 0, x: -30 }, { autoAlpha: 1, x: 0, duration: 0.25 }, T(32.3));
+      stampIn("#fix-stamp", T(33.3), -9);
+      tl.fromTo("#nb", { x: 0 }, { keyframes: [{ x: -10 }, { x: 8 }, { x: 0 }], duration: 0.2 }, T(33.5));
+
+      // ---------- CTA ----------
+      swipe("#cta-hl", T(36.4), 0.34);
+      document.querySelectorAll(".dayc").forEach((el, i) => pop(el, T(34.9 + i * 0.12), 0));
+      document.querySelectorAll(".day .fill").forEach((el, i) => tl.fromTo(el, { scale: 0 }, { scale: 1, duration: 0.25, ease: "back.out(2)" }, T(35.5 + i * 0.3)));
+      tl.fromTo("#ty", { y: 300, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.5, ease: "back.out(1.5)" }, T(34.7));
+      tl.to("#ty-body", { y: -12, duration: 0.45, yoyo: true, repeat: 9, ease: "sine.inOut", transformOrigin: "50% 100%" }, T(35.2));
+      tl.to("#ty-eyes", { scaleY: 0.1, duration: 0.07, yoyo: true, repeat: 1, transformOrigin: "50% 50%" }, T(36.9));
+      tl.to("#ty-eyes", { scaleY: 0.1, duration: 0.07, yoyo: true, repeat: 1, transformOrigin: "50% 50%" }, T(39.0));
+      pop("#cta-btn", T(37.2), 0.4);
+      tl.to("#cta-btn > div:first-child", { scale: 1.06, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }, T(38.2));
+
+      // ---------- CAPTIONS (word-synced from ElevenLabs timestamps) ----------
+      // Off during the hook (the headline is the caption there) and once the URL card is up.
+      const capWords = WORDS.filter((w) => w.s >= 4.7 && w.s < 37.2);
+      const groups = [];
+      let g = [];
+      capWords.forEach((w, i) => {
+        g.push(w);
+        const next = capWords[i + 1];
+        const punct = /[.,?!:]$/.test(w.w);
+        const gap = next ? next.s - w.e : 1;
+        const len = g.reduce((n, x) => n + x.w.length, 0);
+        if (g.length >= 4 || len > 20 || /[.?!:]$/.test(w.w) || gap > 0.45 || !next) { groups.push(g); g = []; }
+      });
+      const capBox = document.getElementById("captions");
+      groups.forEach((grp, gi) => {
+        const div = document.createElement("div");
+        div.className = "cap";
+        grp.forEach((w) => {
+          const s = document.createElement("span");
+          s.className = "w";
+          s.textContent = w.w.replace(/[,]$/, "");
+          div.appendChild(s);
+          div.appendChild(document.createTextNode(" "));
+        });
+        capBox.appendChild(div);
+        const start = T(grp[0].s) - 0.04;
+        const nextG = groups[gi + 1];
+        const end = nextG ? T(nextG[0].s) - 0.04 : T(grp[grp.length - 1].e) + 0.4;
+        tl.set(div, { visibility: "visible" }, start);
+        tl.fromTo(div, { scale: 0.86 }, { scale: 1, duration: 0.12, ease: "back.out(2)" }, start);
+        tl.set(div, { visibility: "hidden" }, Math.min(end, T(37.2)));
+        div.querySelectorAll(".w").forEach((sp, wi) => {
+          tl.set(sp, { className: "w on" }, T(grp[wi].s));
+          tl.set(sp, { className: "w" }, wi + 1 < grp.length ? T(grp[wi + 1].s) : end);
+        });
+      });
+
+      tl.set({}, {}, END);
+      window.__timelines["sat-reading-traps"] = tl;
+    </script>
+  </body>
+</html>
