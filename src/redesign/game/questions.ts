@@ -15,7 +15,26 @@ const base = (fields: Pick<Question, 'id' | 'skill' | 'domain' | 'difficulty' | 
   ...fields,
 })
 
+/**
+ * The one question a brand-new student sees: short, a fact worth telling a
+ * friend, and easy enough that almost everyone walks away with a win.
+ */
+export const FIRST_QUESTION_ID = 'a773f069'
+
 export const STARTER: Question[] = [
+  base({
+    id: FIRST_QUESTION_ID,
+    skill: 'Transitions',
+    domain: 'Expression of Ideas',
+    difficulty: 'Easy',
+    passage:
+      'Small, flat structures called spatulae are found at the tips of the hairs on a spider’s leg. These spatulae temporarily bond with the atoms of whatever they touch. ______ spiders are able to cling to and climb almost any surface.',
+    prompt: 'Which choice completes the text with the most logical transition?',
+    choices: { A: 'For instance,', B: 'However,', C: 'Similarly,', D: 'As a result,' },
+    answer: 'D',
+    rationale:
+      '“As a result” signals that spiders can climb almost anything because of what came before: the spatulae on their legs bond with whatever they touch. “For instance” would need an example, “However” a contrast, and “Similarly” a separate but alike point; the last sentence is none of those. It is the effect.',
+  }),
   base({
     id: 'e0bd4f8a',
     skill: 'Transitions',

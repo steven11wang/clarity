@@ -5,6 +5,7 @@ import { currentNode, dueComebacks, pagesGoal, pagesOn, upcomingComebacks } from
 import { bestResult, useExams } from '../game/exams.ts'
 import { useGame, useToday } from '../game/store.ts'
 import { go } from '../router.ts'
+import { DashboardTour } from '../components/DashboardTour.tsx'
 import { GameShell } from '../components/GameShell.tsx'
 import { ClipGlyph, INK_VAR } from '../components/Glyphs.tsx'
 import { League, PackOpener, Quests, WeeklyCard } from '../components/Panels.tsx'
@@ -52,7 +53,7 @@ export function Today() {
             </p>
           </div>
 
-          <article className="page-card sheet sheet--ruled" style={{ ['--mark' as string]: INK_VAR[domain.ink] }}>
+          <article className="page-card sheet sheet--ruled" data-tour="page" style={{ ['--mark' as string]: INK_VAR[domain.ink] }}>
             {due.length > 0 && (
               <div className="page-card__clips" aria-hidden="true">
                 {due.slice(0, 3).map((entry) => (
@@ -157,6 +158,7 @@ export function Today() {
           </button>
         </aside>
       </div>
+      {game.tourPending && <DashboardTour />}
     </GameShell>
   )
 }

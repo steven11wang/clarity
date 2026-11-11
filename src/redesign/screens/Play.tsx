@@ -25,7 +25,7 @@ import {
   recordAnswer,
   settleComeback,
 } from '../game/engine.ts'
-import { LETTERS, byId, disguise, loadBank, pickPage } from '../game/questions.ts'
+import { FIRST_QUESTION_ID, LETTERS, STARTER, byId, disguise, loadBank, pickPage } from '../game/questions.ts'
 import { getGame, updateGame, useGame, useToday } from '../game/store.ts'
 import { go } from '../router.ts'
 import { ClipGlyph, INK_VAR, InkGlyph, PenMark, StreakGlyph, TrapGlyph } from '../components/Glyphs.tsx'
@@ -65,9 +65,9 @@ function buildSession(bank: Question[], target: string, day: string): { items: I
     return { items: comebacks(8), title: 'Comebacks', nodeId: null }
   }
   if (target === 'first') {
-    const skills = ['Words in Context', 'Transitions', 'Boundaries', 'Central Ideas and Details', 'Text Structure and Purpose']
-    const items = skills.flatMap((skill, i) => pickPage(bank, skill, 'Easy', 1, `${seed}:${i}`, avoid)).map((q) => ({ q, comeback: false }))
-    return { items, title: 'Page one', nodeId: null }
+    // one hand-picked, easy, interesting question: a quick win before anything else
+    const q = byId(bank, FIRST_QUESTION_ID) ?? STARTER[0]
+    return { items: [{ q, comeback: false }], title: 'Warm-up', nodeId: null }
   }
   const node = PATH.find((item) => item.id === target)
   if (!node) return { items: [], title: 'Page', nodeId: null }
@@ -197,7 +197,7 @@ function Session({ items, title, nodeId, target }: { items: Item[]; title: strin
       next = gain(next, xp, ink)
       next = markStudied(next, day)
       next = logPage(next, day, xp)
-      next = { ...next, packs: next.packs + 1, onboarded: true }
+      next = { ...next, packs: next.packs + 1, onboarded: true, ...(target === 'first' && !state.onboarded ? { tourPending: true } : {}) }
       next = bumpQuest(next, 'turn-in-page')
       next = bumpQuest(next, 'sure-and-right', sureRight)
       next = bumpQuest(next, 'beat-comebacks', beaten)
@@ -424,7 +424,11 @@ function Grading({
       <div className={`grade__after ${stamped ? 'is-in' : ''}`}>
         <Tangyuan mood={outcome.right === items.length ? 'wow' : outcome.right >= items.length - 1 ? 'happy' : 'think'} size={88} />
         <p className="speech">
-          {outcome.right === items.length
+          {items.length === 1
+            ? outcome.right === 1
+              ? 'Got it first try. Spiders really do stick to almost anything.'
+              : 'Close one. Redo it and the answer will click.'
+            : outcome.right === items.length
             ? 'A perfect page. Five bonus drops.'
             : `${outcome.right} right${outcome.beaten ? `, ${outcome.beaten} comeback${outcome.beaten === 1 ? '' : 's'} beaten` : ''}. ${missCount} to fix — redo ${missCount === 1 ? 'it' : 'them'} before the answer shows.`}
         </p>
@@ -589,6 +593,7 @@ function Rewards({ outcome, total, target }: { outcome: Outcome; total: number; 
   }, [])
 
   const goNext = () => {
+    if (firstTime) return go('/today')
     if (next.kind === 'lesson') go(`/lesson/${next.id.replace(/-lesson$/, '')}`)
     else if (next.kind === 'chest') go('/path')
     else go(`/play/${next.id}`)
@@ -655,11 +660,13 @@ function Rewards({ outcome, total, target }: { outcome: Outcome; total: number; 
 
         <div className="loot__actions">
           <button type="button" className="btn btn--lg" onClick={goNext}>
-            {firstTime ? 'Start my path' : `Next: ${next.title}`} <ArrowRight />
+            {firstTime ? 'See my dashboard' : `Next: ${next.title}`} <ArrowRight />
           </button>
-          <button type="button" className="btn btn--ghost" onClick={() => go('/today')}>
-            Back to today
-          </button>
+          {!firstTime && (
+            <button type="button" className="btn btn--ghost" onClick={() => go('/today')}>
+              Back to today
+            </button>
+          )}
         </div>
         <p className="loot__day hand">{day}</p>
       </div>

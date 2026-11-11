@@ -74,6 +74,8 @@ export type GameState = {
   friends?: Friend[]
   /** drop purchases, newest last; live ones mirror the server's record */
   purchases?: Purchase[]
+  /** set after a brand-new student's first question; the dashboard tour plays once, then clears it */
+  tourPending?: boolean
   /** set when a founding-member code was entered */
   founder?: Founder
 }
