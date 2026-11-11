@@ -8,7 +8,7 @@ import { go } from '../router.ts'
 import { DashboardTour } from '../components/DashboardTour.tsx'
 import { GameShell } from '../components/GameShell.tsx'
 import { ClipGlyph, INK_VAR } from '../components/Glyphs.tsx'
-import { League, PackOpener, Quests, WeeklyCard } from '../components/Panels.tsx'
+import { Estimate, League, PackOpener, Quests, WeeklyCard } from '../components/Panels.tsx'
 import { Tangyuan, type Mood } from '../components/Tangyuan.tsx'
 
 export function Today() {
@@ -138,6 +138,7 @@ export function Today() {
         </div>
 
         <aside className="today__side">
+          <Estimate />
           <Quests />
           <League />
           <button type="button" className="speed-cta" onClick={() => go('/arena')}>

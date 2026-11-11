@@ -23,6 +23,10 @@ const PAGE_ROUTES: Record<string, string> = {
   '/app/': '/index.html',
   '/app/new': '/redesign.html',
   '/app/new/': '/redesign.html',
+  '/privacy': '/privacy/index.html',
+  '/privacy/': '/privacy/index.html',
+  '/terms': '/terms/index.html',
+  '/terms/': '/terms/index.html',
 }
 
 async function parseScore(

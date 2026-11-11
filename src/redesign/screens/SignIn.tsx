@@ -10,6 +10,7 @@ import { isSupabaseConfigured, supabase } from '../../lib/supabase.ts'
 import { validateName } from '../game/identity.ts'
 import { updateGame, useGame } from '../game/store.ts'
 import { appUrl, go } from '../router.ts'
+import { track } from '../game/track.ts'
 import { Logo } from '../components/Logo.tsx'
 import { Tangyuan, type Mood } from '../components/Tangyuan.tsx'
 import { play } from '../sound.ts'
@@ -130,6 +131,7 @@ export function SignIn({ initialMode = 'sign-in' }: { initialMode?: Mode }) {
     const saved = typeof user.user_metadata?.display_name === 'string' ? user.user_metadata.display_name : ''
     updateGame((state) => ({ ...state, account: { kind: 'cloud', userId: user.id, email: user.email ?? cleanEmail }, name: saved || state.name }))
     play('stamp')
+    track('signin_done', { method: 'email', mode })
     if (saved) finishSignIn()
     else {
       setName(cleanEmail.split('@')[0])

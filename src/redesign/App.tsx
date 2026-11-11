@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 
 import { isSupabaseConfigured, supabase } from '../lib/supabase.ts'
 import { applyPurchases, fetchLivePurchases, paymentsMode } from './game/payments.ts'
+import { setSignedIn, track, trackDayActive, trackOnce } from './game/track.ts'
 import { updateGame, useGame } from './game/store.ts'
 import { go, useRoute } from './router.ts'
 import { Arena } from './screens/Arena.tsx'
@@ -29,6 +30,16 @@ export function App() {
   // paper for the game, plain paper for test day
   useEffect(() => {
     document.body.dataset.surface = !head ? 'landing' : head === 'exam' ? 'exam' : head === 'signin' || head === 'signup' ? 'landing' : 'game'
+  }, [head])
+
+  // anonymous funnel events: which screen, and whether this browser came back
+  useEffect(() => {
+    setSignedIn(game.account?.kind === 'cloud')
+  }, [game.account?.kind])
+  useEffect(() => {
+    if (!head) trackOnce('landing_view')
+    else track('screen', { screen: head })
+    if (head && head !== 'signin' && head !== 'signup') trackDayActive()
   }, [head])
 
   // a new screen starts at the top, however it was reached
@@ -62,6 +73,7 @@ export function App() {
         if (paymentsMode() === 'stripe') void fetchLivePurchases().then((rows) => updateGame((state) => applyPurchases(state, rows)))
       }
       if (returning && data.session) {
+        track('signin_done', { method: 'google' })
         try {
           sessionStorage.removeItem(OAUTH_FLAG)
         } catch {

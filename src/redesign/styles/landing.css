@@ -1840,3 +1840,7 @@ a:hover .logo__seal {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+.demo__why .demo__fix {
+  margin-top: 8px;
+}

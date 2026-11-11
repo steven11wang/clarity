@@ -6,12 +6,14 @@
 // comeback beaten pays more XP and ink than a first-try answer, so the fastest
 // way up the board is through the Mistake Notebook, never around it.
 
-import type { TrapType } from '../../types.ts'
+import { scaledScore } from '../../components/Exam/examScore.ts'
 import {
   ALL_SKILLS,
   COMEBACK_DAYS,
+  DOMAINS,
   FOUNDER,
   LEAGUES,
+  LUCKY_START_STAGE,
   PATH,
   QUEST_TEMPLATES,
   RANKS,
@@ -24,17 +26,22 @@ import {
   type Rank,
   type Rarity,
   type Sticker,
+  type TrapId,
 } from './content.ts'
 
 export type MissEntry = {
   qid: string
   skill: string
-  trap: TrapType | null
+  trap: TrapId | null
   addedDay: string
   dueDay: string
   stage: number // index into COMEBACK_DAYS of the *next* return
   beats: number
   cleared: boolean
+  /** 'lucky': answered right but marked “Guessing”. Absent on older saves, which are all misses. */
+  kind?: 'miss' | 'lucky'
+  /** the student said “Sure” and was wrong: a belief to unlearn, not a gap to fill */
+  sure?: boolean
 }
 
 export type QuestState = { kind: QuestKind; target: number; progress: number; claimed: boolean }
@@ -43,6 +50,8 @@ export type SkillStats = {
   answered: number
   correct: number
   stars: Partial<Record<Difficulty, boolean>>
+  /** answers split by difficulty, kept since the practice estimate was added */
+  byDifficulty?: Partial<Record<Difficulty, { answered: number; correct: number }>>
 }
 
 export type GameState = {
@@ -307,15 +316,37 @@ export function pagesOn(state: GameState, day: string): number {
 // ---------------------------------------------------------------------------
 // Comebacks
 
-export function fileMiss(state: GameState, qid: string, skill: string, day: string): GameState {
+export function fileMiss(state: GameState, qid: string, skill: string, day: string, sure = false): GameState {
   const existing = state.misses[qid]
   const entry: MissEntry = existing
-    ? { ...existing, stage: 0, dueDay: addDays(day, COMEBACK_DAYS[0]), cleared: false }
-    : { qid, skill, trap: null, addedDay: day, dueDay: addDays(day, COMEBACK_DAYS[0]), stage: 0, beats: 0, cleared: false }
+    ? { ...existing, kind: 'miss', sure: sure || existing.sure, stage: 0, dueDay: addDays(day, COMEBACK_DAYS[0]), cleared: false }
+    : { qid, skill, trap: null, addedDay: day, dueDay: addDays(day, COMEBACK_DAYS[0]), stage: 0, beats: 0, cleared: false, kind: 'miss', sure }
   return { ...state, misses: { ...state.misses, [qid]: entry } }
 }
 
-export function nameTrap(state: GameState, qid: string, trap: TrapType): GameState {
+/**
+ * A right answer the student marked “Guessing”. It goes into the notebook one
+ * rung up the ladder: no next-day check, then the same spaced returns as a
+ * miss. A question already on file keeps the schedule it has.
+ */
+export function fileLucky(state: GameState, qid: string, skill: string, day: string): GameState {
+  if (state.misses[qid]) return state
+  const stage = Math.min(LUCKY_START_STAGE, COMEBACK_DAYS.length - 1)
+  const entry: MissEntry = {
+    qid,
+    skill,
+    trap: null,
+    addedDay: day,
+    dueDay: addDays(day, COMEBACK_DAYS[stage]),
+    stage,
+    beats: stage,
+    cleared: false,
+    kind: 'lucky',
+  }
+  return { ...state, misses: { ...state.misses, [qid]: entry } }
+}
+
+export function nameTrap(state: GameState, qid: string, trap: TrapId): GameState {
   const entry = state.misses[qid]
   if (!entry) return state
   return { ...state, misses: { ...state.misses, [qid]: { ...entry, trap } } }
@@ -328,7 +359,8 @@ export function settleComeback(state: GameState, qid: string, correct: boolean, 
   if (!correct) {
     return {
       ...state,
-      misses: { ...state.misses, [qid]: { ...entry, stage: 0, dueDay: addDays(day, COMEBACK_DAYS[0]) } },
+      // a lucky guess that fails its check was never known: it starts the full ladder
+      misses: { ...state.misses, [qid]: { ...entry, kind: 'miss', stage: 0, beats: entry.kind === 'lucky' ? 0 : entry.beats, dueDay: addDays(day, COMEBACK_DAYS[0]) } },
     }
   }
   const stage = entry.stage + 1
@@ -348,10 +380,11 @@ export function settleComeback(state: GameState, qid: string, correct: boolean, 
   }
 }
 
+/** What is due, oldest first — with “sure, but wrong” ahead of everything else due the same day. */
 export function dueComebacks(state: GameState, day: string): MissEntry[] {
   return Object.values(state.misses)
     .filter((entry) => !entry.cleared && daysBetween(entry.dueDay, day) >= 0)
-    .sort((a, b) => a.dueDay.localeCompare(b.dueDay))
+    .sort((a, b) => a.dueDay.localeCompare(b.dueDay) || Number(Boolean(b.sure)) - Number(Boolean(a.sure)))
 }
 
 export function upcomingComebacks(state: GameState, day: string): MissEntry[] {
@@ -459,12 +492,72 @@ export function drawSticker(state: GameState, rand: () => number): { state: Game
 // ---------------------------------------------------------------------------
 // Skills and the path
 
-export function recordAnswer(state: GameState, skill: string, correct: boolean): GameState {
+export function recordAnswer(state: GameState, skill: string, correct: boolean, difficulty?: Difficulty | null): GameState {
   const stats = state.skills[skill] ?? { answered: 0, correct: 0, stars: {} }
-  return {
-    ...state,
-    skills: { ...state.skills, [skill]: { ...stats, answered: stats.answered + 1, correct: stats.correct + (correct ? 1 : 0) } },
+  const next: SkillStats = { ...stats, answered: stats.answered + 1, correct: stats.correct + (correct ? 1 : 0) }
+  if (difficulty) {
+    const level = stats.byDifficulty?.[difficulty] ?? { answered: 0, correct: 0 }
+    next.byDifficulty = { ...stats.byDifficulty, [difficulty]: { answered: level.answered + 1, correct: level.correct + (correct ? 1 : 0) } }
   }
+  return { ...state, skills: { ...state.skills, [skill]: next } }
+}
+
+// ---------------------------------------------------------------------------
+// Practice estimate: a rough Reading & Writing score range from the answers so far.
+
+export const ESTIMATE_MIN_ANSWERS = 20
+const SECTION_QUESTIONS = 54
+// share of the section each domain takes on the digital SAT, per the College Board's test specification
+const DOMAIN_WEIGHT: Record<string, number> = { craft: 0.28, info: 0.26, conventions: 0.26, expression: 0.2 }
+// With no answers at a difficulty yet, assume the student does this much worse (or better) than
+// at the nearest difficulty they have tried. A guess, which is why the estimate is a range.
+const STEP_DOWN = 0.85
+
+export type PracticeEstimate = { low: number; high: number; mid: number; answered: number }
+
+/** Accuracy on an even mix of Easy, Medium and Hard, filling untried levels from tried ones. */
+function mixedAccuracy(stats: SkillStats[]): number | null {
+  const answered = stats.reduce((sum, item) => sum + item.answered, 0)
+  if (answered === 0) return null
+  const overall = stats.reduce((sum, item) => sum + item.correct, 0) / answered
+  const at = (difficulty: Difficulty): number | null => {
+    let a = 0
+    let c = 0
+    stats.forEach((item) => {
+      a += item.byDifficulty?.[difficulty]?.answered ?? 0
+      c += item.byDifficulty?.[difficulty]?.correct ?? 0
+    })
+    return a >= 3 ? c / a : null
+  }
+  let easy = at('Easy')
+  let medium = at('Medium')
+  let hard = at('Hard')
+  // answers recorded before difficulty was tracked: treat the lot as Medium
+  if (easy === null && medium === null && hard === null) medium = overall
+  if (medium === null) medium = easy !== null ? easy * STEP_DOWN : Math.min(1, (hard as number) / STEP_DOWN)
+  if (easy === null) easy = Math.min(1, medium / STEP_DOWN)
+  if (hard === null) hard = medium * STEP_DOWN
+  return (easy + medium + hard) / 3
+}
+
+/**
+ * A 200–800 range, never a single number: the fewer answers behind it, the
+ * wider it is. Null until there are enough answers to say anything.
+ */
+export function practiceEstimate(state: Pick<GameState, 'skills'>): PracticeEstimate | null {
+  const all = Object.values(state.skills)
+  const answered = all.reduce((sum, item) => sum + item.answered, 0)
+  if (answered < ESTIMATE_MIN_ANSWERS) return null
+  const overall = mixedAccuracy(all) ?? 0
+  let accuracy = 0
+  DOMAINS.forEach((domain) => {
+    const mine = domain.skills.map((skill) => state.skills[skill]).filter(Boolean)
+    accuracy += (mixedAccuracy(mine) ?? overall) * (DOMAIN_WEIGHT[domain.id] ?? 0.25)
+  })
+  const round10 = (value: number) => Math.round(value / 10) * 10
+  const mid = round10(scaledScore(SECTION_QUESTIONS * (1 - accuracy)))
+  const spread = round10(30 + 300 / Math.sqrt(answered))
+  return { low: Math.max(200, mid - spread), high: Math.min(800, mid + spread), mid, answered }
 }
 
 /** A page counts as a star at its difficulty when at least 4 of 5 were right first time. */
@@ -481,27 +574,50 @@ export function completeNode(state: GameState, nodeId: string): GameState {
   return { ...state, completed: [...state.completed, nodeId], packs }
 }
 
-/** The first node not yet completed: the one the path pulses on. */
+/** The last stop of a skill's run: its Hard page. */
+function hardPageOf(skill: string) {
+  return PATH.find((item) => item.kind === 'page' && item.skill === skill && item.difficulty === 'Hard')
+}
+
+/**
+ * Done, or skipped over: a student who turned in a skill's Hard page has
+ * tested out of that skill's lesson and easier pages, so the path moves on
+ * without them. The skipped stops stay open to go back to.
+ */
+export function isPassed(state: GameState, nodeId: string): boolean {
+  if (state.completed.includes(nodeId)) return true
+  const node = PATH.find((item) => item.id === nodeId)
+  if (!node?.skill || (node.kind !== 'lesson' && node.kind !== 'page')) return false
+  const hard = hardPageOf(node.skill)
+  return Boolean(hard && state.completed.includes(hard.id))
+}
+
+/** The first stop not yet passed: the one the path pulses on. */
 export function currentNode(state: GameState) {
-  return PATH.find((node) => !state.completed.includes(node.id)) ?? PATH[PATH.length - 1]
+  return PATH.find((node) => !isPassed(state, node.id)) ?? PATH[PATH.length - 1]
 }
 
 /**
  * Every section opens on its first stop, so a student can start in the domain
- * they need; inside a section, each stop opens when the one before it is done.
+ * they need. Inside a section a skill opens when the stop before it is passed,
+ * and when a skill opens, its lesson and all three pages open together: a
+ * student who finds Easy too easy can go straight to Medium or Hard instead of
+ * grinding up to it. The chapter test and the chest still wait their turn.
  */
 export function isUnlocked(state: GameState, nodeId: string): boolean {
   const node = PATH.find((item) => item.id === nodeId)
   if (!node) return false
   if (state.completed.includes(node.id)) return true
   const section = PATH.filter((item) => item.domainId === node.domainId)
-  const index = section.indexOf(node)
-  return index === 0 || state.completed.includes(section[index - 1].id)
+  // a skill's run opens as one: judge it by the first stop of the run
+  const first = node.skill ? (section.find((item) => item.skill === node.skill) ?? node) : node
+  const index = section.indexOf(first)
+  return index === 0 || isPassed(state, section[index - 1].id)
 }
 
-/** The first open, unfinished stop in a section: where that section picks up. */
+/** The first open stop in a section that isn't passed yet: where that section picks up. */
 export function sectionNext(state: GameState, domainId: string) {
-  return PATH.find((item) => item.domainId === domainId && !state.completed.includes(item.id) && isUnlocked(state, item.id)) ?? null
+  return PATH.find((item) => item.domainId === domainId && !isPassed(state, item.id) && isUnlocked(state, item.id)) ?? null
 }
 
 export function starCount(state: GameState): number {

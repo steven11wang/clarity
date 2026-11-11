@@ -17,6 +17,7 @@ import { buzz } from '../components/hooks.ts'
 import { QuestionSheet } from '../components/QuestionSheet.tsx'
 import { Tangyuan } from '../components/Tangyuan.tsx'
 import { play } from '../sound.ts'
+import { track } from '../game/track.ts'
 
 type Letter = (typeof LETTERS)[number]
 type Entry = { skill: string; nutshell: string; oneMove: string; watchOut: string[] }
@@ -61,6 +62,7 @@ export function Lesson({ skillSlug }: { skillSlug: string }) {
         next = bumpQuest(next, 'earn-xp', REWARDS.lessonXp)
         return completeNode(next, `${slug(skill)}-lesson`)
       })
+      track('lesson_done', { skill: slug(skill), first_try: wrongs.length === 0 })
       window.setTimeout(() => setStep('done'), 900)
     } else {
       setWrongs((list) => [...list, letter])

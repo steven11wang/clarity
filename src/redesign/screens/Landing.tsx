@@ -6,11 +6,12 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowRight, BookOpen, Check, ClipboardList, Gift, Play, RotateCcw, Route, Shirt, Swords, Timer } from 'lucide-react'
 
 import skillIndex from '../../content/skillLessonIndex.json' with { type: 'json' }
-import type { Confidence, TrapType } from '../../types.ts'
+import type { Confidence } from '../../types.ts'
 import {
   ALL_SKILLS,
   COMEBACK_DAYS,
   DOMAINS,
+  LUCKY_START_STAGE,
   OUTFITS,
   REWARDS,
   RANKS,
@@ -18,10 +19,13 @@ import {
   SKILL_SHORT,
   TRAPS,
   domainOf,
+  trapById,
+  trapsFor,
   type OutfitId,
   type Sticker,
+  type TrapId,
 } from '../game/content.ts'
-import { addDays, drawSticker, fileMiss, freshState, gain, hash, nameTrap, recordAnswer, seeded } from '../game/engine.ts'
+import { addDays, drawSticker, fileLucky, fileMiss, freshState, gain, hash, nameTrap, recordAnswer, seeded } from '../game/engine.ts'
 import { LETTERS, STARTER } from '../game/questions.ts'
 import { updateGame, useToday } from '../game/store.ts'
 import { ClipGlyph, INK_VAR, InkGlyph, PenMark, RankEmblem, StreakGlyph, TapeGlyph, TrapGlyph } from '../components/Glyphs.tsx'
@@ -33,6 +37,7 @@ import { Tangyuan, type Mood } from '../components/Tangyuan.tsx'
 import { Logo } from '../components/Logo.tsx'
 import { go } from '../router.ts'
 import { play } from '../sound.ts'
+import { track } from '../game/track.ts'
 
 type Letter = (typeof LETTERS)[number]
 
@@ -67,13 +72,19 @@ function weekday(day: string) {
 
 // ---------------------------------------------------------------------------
 
+/** Every button that leads from the front page into the game, counted by where it sits. */
+function enter(where: string, path = '/start') {
+  track('cta_click', { where })
+  go(path)
+}
+
 function LiveDemo() {
   const day = useToday()
   const [index, setIndex] = useState(0)
   const [picked, setPicked] = useState<Letter | null>(null)
   const [confidence, setConfidence] = useState<Confidence | null>(null)
   const [phase, setPhase] = useState<'answer' | 'graded' | 'explained'>('answer')
-  const [trap, setTrap] = useState<TrapType | null>(null)
+  const [trap, setTrap] = useState<TrapId | null>(null)
   const [earned, setEarned] = useState(0)
   const question = STARTER[index % STARTER.length]
   const correct = picked === question.answer
@@ -87,16 +98,20 @@ function LiveDemo() {
     play(picked === question.answer ? 'right' : 'wrong')
     window.setTimeout(() => play(picked === question.answer ? 'stamp' : 'clip'), 380)
     updateGame((state) => {
-      let next = recordAnswer(state, question.skill, picked === question.answer)
-      if (picked === question.answer) next = gain(next, 10, REWARDS.firstTryInk)
-      else next = fileMiss(next, question.id, question.skill, day)
+      let next = recordAnswer(state, question.skill, picked === question.answer, question.difficulty as 'Easy' | 'Medium' | 'Hard')
+      if (picked === question.answer) {
+        next = gain(next, 10, REWARDS.firstTryInk)
+        // right, but a guess by their own account: clipped in for a check
+        if (level === 'guessing') next = fileLucky(next, question.id, question.skill, day)
+      } else next = fileMiss(next, question.id, question.skill, day, level === 'sure')
       return next
     })
     setEarned((value) => value + (picked === question.answer ? REWARDS.firstTryInk : 0))
+    track('demo_answer', { correct: picked === question.answer, confidence: level, n: index + 1 })
     if (picked === question.answer) window.setTimeout(() => setPhase('explained'), 1100)
   }
 
-  const chooseTrap = (id: TrapType) => {
+  const chooseTrap = (id: TrapId) => {
     setTrap(id)
     updateGame((state) => gain(nameTrap(state, question.id, id), 3))
     window.setTimeout(() => setPhase('explained'), 350)
@@ -117,7 +132,9 @@ function LiveDemo() {
         ? 'How sure are you? Pick one and the red pen comes out.'
         : 'Try one. Nobody’s watching but me.'
       : correct
-        ? 'Clean. That one’s yours.'
+        ? confidence === 'guessing'
+          ? `Right — but you guessed, so I’ll check it again ${weekday(addDays(day, COMEBACK_DAYS[LUCKY_START_STAGE]))}.`
+          : 'Clean. That one’s yours.'
         : trap
           ? `Clipped. It comes back ${weekday(addDays(day, COMEBACK_DAYS[0]))}, choices shuffled.`
           : 'Got you. What tricked you?'
@@ -133,7 +150,7 @@ function LiveDemo() {
           <span className="tag" style={{ ['--mark' as string]: INK_VAR[domainOf(question.skill).ink] }}>
             {question.skill}
           </span>
-          <span className="demo__count num">Q{(index % STARTER.length) + 1} of {STARTER.length}</span>
+          <span className="demo__count num">Sample {(index % STARTER.length) + 1} of {STARTER.length}</span>
           <span className="demo__ink num" aria-label={`${ink} drops earned`}>
             <InkGlyph size={18} />+{ink}
           </span>
@@ -175,7 +192,7 @@ function LiveDemo() {
           <div className="demo__verdict">
             {!correct && phase === 'graded' && (
               <div className="demo__traps" role="group" aria-label="Name the trap">
-                {TRAPS.map((item) => (
+                {trapsFor(question.skill).map((item) => (
                   <button key={item.id} type="button" className="chip" aria-pressed={trap === item.id} onClick={() => chooseTrap(item.id)}>
                     {item.name}
                   </button>
@@ -188,11 +205,17 @@ function LiveDemo() {
                   <strong>{correct ? 'Why it works. ' : `It was ${question.answer}. `}</strong>
                   {question.rationale}
                 </p>
+                {!correct && trap && (
+                  <p className="demo__fix">
+                    <strong>Next time: </strong>
+                    {trapById(trap)?.fix}
+                  </p>
+                )}
                 <div className="demo__actions">
                   <button type="button" className="btn btn--sm" onClick={next}>
                     Next question <ArrowRight />
                   </button>
-                  <button type="button" className="btn btn--sm btn--hl" onClick={() => go('/start')}>
+                  <button type="button" className="btn btn--sm btn--hl" onClick={() => enter('demo')}>
                     Play a full page
                   </button>
                 </div>
@@ -260,7 +283,7 @@ function StepFrames() {
           </div>
         </div>
         <h3 className="title">Name the trap that got you.</h3>
-        <p>Too extreme, half right, out of scope. You call it before the explanation shows.</p>
+        <p>Too extreme, half right, a run-on. Every skill has its own traps, and each one comes with the move that beats it.</p>
       </li>
       <li className="step reveal" data-delay="360">
         <div className="step__art sheet">
@@ -284,13 +307,13 @@ function StepFrames() {
 
 // ---------------------------------------------------------------------------
 
-type Slip = { id: string; skill: string; trap: TrapType; due: string; beats: number }
+type Slip = { id: string; skill: string; trap: TrapId; due: string; beats: number }
 
 const SLIPS: Slip[] = [
   { id: 's1', skill: 'Transitions', trap: 'opposite', due: 'Due today', beats: 1 },
   { id: 's2', skill: 'Inferences', trap: 'out-of-scope', due: 'Due today', beats: 0 },
-  { id: 's3', skill: 'Boundaries', trap: 'half-right', due: 'Sat', beats: 2 },
-  { id: 's4', skill: 'Words in Context', trap: 'too-extreme', due: 'Nov 9', beats: 3 },
+  { id: 's3', skill: 'Boundaries', trap: 'run-on', due: 'Sat', beats: 2 },
+  { id: 's4', skill: 'Words in Context', trap: 'near-synonym', due: 'Nov 9', beats: 3 },
 ]
 
 function NotebookDemo() {
@@ -322,7 +345,7 @@ function NotebookDemo() {
                   <span className={`slip__skill ${done ? 'hl hl--green' : ''}`}>{slip.skill}</span>
                   <span className="slip__trap">
                     <TrapGlyph trap={slip.trap} size={20} />
-                    {TRAPS.find((t) => t.id === slip.trap)?.name}
+                    {trapById(slip.trap)?.name}
                   </span>
                 </span>
                 <span className="slip__beats" aria-label={`Beaten ${beats} of 4`}>
@@ -519,7 +542,7 @@ const FEATURES = [
     Icon: Route,
     title: 'A paced path that starts where you are',
     lines: [
-      'Upload or enter your score report and Clarity picks the best place to begin.',
+      'Every section is open from day one, so you start in the domain you need. The diagnostic test shows which one that is.',
       'Follow one route through every domain and skill, so you never guess which weakness to chase.',
       'Every skill you secure stays secured as you move on.',
     ],
@@ -566,7 +589,7 @@ const FEATURES = [
 
 const FINE_PRINT = [
   'Clarity is free to use. There are no account fees, subscriptions, or hidden charges. Optional water drops buy cosmetics and streak savers only; sticker packs and anything that affects learning are never sold. Features and availability may change.',
-  'The paced path starts from the score report results you upload or enter, and adjusts as you finish skills. It is a study guide, not a prediction of your score. Practice exams follow the digital SAT format; they are practice material, not official College Board tests, and a practice score is an estimate.',
+  'The paced path is a study guide, not a prediction of your score. The practice estimate on your dashboard is worked out from your own answers and is a rough guide only. Practice exams follow the digital SAT format; they are practice material, not official College Board tests, and a practice score is an estimate.',
   'Median SAT figures are approximate, are shown for illustration, and may be out of date. Check each college’s own admissions site for current ranges. Review timing follows a spaced repetition schedule, and how well it works varies from learner to learner. Word definitions come from published dictionaries and are shown for study.',
 ]
 
@@ -607,16 +630,16 @@ export function Landing() {
           <a href="#notebook">
             Mistake Notebook
           </a>
-          <a href="#speed">Speed Round</a>
-          <a href="#rewards">Rewards</a>
+          <a href="#why">Why 1550</a>
+          <a href="#skills">Skills</a>
           <a href="#features">Features</a>
-          <a href="/plans">Plans</a>
+          <a href="#speed">Speed Round</a>
         </div>
         <div className="lnav__actions">
           <a className="lnav__signin" href="#/signin">
             Sign in
           </a>
-          <button type="button" className="btn btn--sm" onClick={() => go('/start')}>
+          <button type="button" className="btn btn--sm" onClick={() => enter('nav')}>
             Play free
           </button>
         </div>
@@ -644,7 +667,7 @@ export function Landing() {
               back on the day you’d forget it, until you beat it for good.
             </p>
             <div className="hero__cta">
-              <button type="button" className="btn btn--lg" onClick={() => go('/start')}>
+              <button type="button" className="btn btn--lg" onClick={() => enter('hero')}>
                 <Play /> Play your first page
               </button>
               <span className="hero__free">
@@ -700,13 +723,93 @@ export function Landing() {
           </div>
         </section>
 
+        <section className="band band--paper" id="why">
+          <div className="band__inner">
+            <h2 className="display band__title reveal">
+              Why the <span className="hl hl--orange" data-swipe>1550</span>?
+            </h2>
+            <p className="band__lead reveal">
+              At a top-30 US university, the middle of the admitted class scores around 1550. Reading &amp; Writing is half of that number.
+              <Note n={3} />
+            </p>
+          </div>
+          <div className="colleges" aria-label="Median SAT scores at top universities">
+            <div className="colleges__track">
+              {[...COLLEGES, ...COLLEGES].map(([id, name, score], i) => (
+                <div className="college" key={`${id}-${i}`} aria-hidden={i >= COLLEGES.length}>
+                  <img src={`/brand/colleges/${id}.svg`} alt={name} loading="lazy" />
+                  <span>
+                    Median <b className="num">{score}</b>
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="band band--green" id="skills">
+          <div className="band__inner">
+            <h2 className="display band__title reveal">Light up all thirty stars.</h2>
+            <p className="band__lead reveal">
+              Ten skills, three difficulties each. Score four out of five on a page and that star is yours. The radar shows where you’re strong and where the next page
+              should go.
+            </p>
+            <SkillsDemo />
+          </div>
+        </section>
+
+        <section className="band band--paper" id="features">
+          <div className="band__inner">
+            <h2 className="display band__title reveal">
+              Everything for the <span className="hl hl--green" data-swipe>test</span>, in one place.
+            </h2>
+            <p className="band__lead reveal">Past the game: a route to follow, test-day practice, a dictionary that works inside the passage, and a return loop that does the remembering.</p>
+            <div className="feats">
+              {FEATURES.map(({ id, Icon, title, lines, note, cta }) => (
+                <article className="feat sheet reveal" key={id} id={id}>
+                  <span className="feat__icon" aria-hidden="true">
+                    <Icon size={26} />
+                  </span>
+                  <h3 className="feat__title">{title}</h3>
+                  <ul>
+                    {lines.map((line) => (
+                      <li key={line}>{line}</li>
+                    ))}
+                  </ul>
+                  <button type="button" className="btn btn--sm" onClick={() => enter(`feature_${id}`, cta[1])}>
+                    {cta[0]} <ArrowRight size={16} />
+                  </button>
+                  <Note n={note} />
+                </article>
+              ))}
+            </div>
+            <div className="whyc reveal">
+              <h3 className="feat__title">What you get, plainly</h3>
+              <p>The questions you miss are the most useful ones you have. Clarity is the routine that puts them back in front of you.</p>
+              <ul className="whyc__list">
+                <li>You redo every miss before the explanation shows</li>
+                <li>Each miss returns after 1, 3, 7 and 21 days, until you beat it four times</li>
+                <li>A lucky guess is clipped in too, so it can’t hide a gap</li>
+                <li>Reading &amp; Writing only. Math isn’t here yet</li>
+                <li>
+                  Free to practise, with no fees at any step
+                  <Note n={1} />
+                </li>
+              </ul>
+              <p className="whyc__else">
+                Not sure where to start? Take the diagnostic: two timed modules, a score estimate, and every miss goes straight into your notebook.
+              </p>
+            </div>
+          </div>
+        </section>
+
         <section className="band band--violet" id="speed">
           <div className="band__inner">
             <div className="speed">
               <div className="speed__copy">
                 <h2 className="display band__title reveal">Speed Round.</h2>
                 <p className="band__lead reveal">Five questions, one rival, thirty seconds each. Win to climb the writing kit, from Pencil to the 800 Club.</p>
-                <button type="button" className="btn btn--lg btn--hl reveal" onClick={() => go('/arena')}>
+                <button type="button" className="btn btn--lg btn--hl reveal" onClick={() => enter('speed', '/arena')}>
                   <Swords /> Play a Speed Round
                 </button>
               </div>
@@ -744,17 +847,6 @@ export function Landing() {
           </div>
         </section>
 
-        <section className="band band--green" id="skills">
-          <div className="band__inner">
-            <h2 className="display band__title reveal">Light up all thirty stars.</h2>
-            <p className="band__lead reveal">
-              Ten skills, three difficulties each. Score four out of five on a page and that star is yours. The radar shows where you’re strong and where the next page
-              should go.
-            </p>
-            <SkillsDemo />
-          </div>
-        </section>
-
         <section className="band band--blue" id="rewards">
           <div className="band__inner">
             <h2 className="display band__title reveal">Stickers, drops, and a rice ball with a wardrobe.</h2>
@@ -766,80 +858,12 @@ export function Landing() {
           </div>
         </section>
 
-        <section className="band band--paper" id="features">
-          <div className="band__inner">
-            <h2 className="display band__title reveal">
-              Everything for the <span className="hl hl--green" data-swipe>test</span>, in one place.
-            </h2>
-            <p className="band__lead reveal">Past the game: a route to follow, test-day practice, a dictionary that works inside the passage, and a return loop that does the remembering.</p>
-            <div className="feats">
-              {FEATURES.map(({ id, Icon, title, lines, note, cta }) => (
-                <article className="feat sheet reveal" key={id} id={id}>
-                  <span className="feat__icon" aria-hidden="true">
-                    <Icon size={26} />
-                  </span>
-                  <h3 className="feat__title">{title}</h3>
-                  <ul>
-                    {lines.map((line) => (
-                      <li key={line}>{line}</li>
-                    ))}
-                  </ul>
-                  <button type="button" className="btn btn--sm" onClick={() => go(cta[1])}>
-                    {cta[0]} <ArrowRight size={16} />
-                  </button>
-                  <Note n={note} />
-                </article>
-              ))}
-            </div>
-            <div className="whyc reveal">
-              <h3 className="feat__title">Why choose Clarity?</h3>
-              <p>The questions you miss are the most useful ones you have. A simple, disciplined routine puts them back in front of you.</p>
-              <ul className="whyc__list">
-                <li>A clear, straightforward experience</li>
-                <li>Guidance as your score changes</li>
-                <li>Practice, exams, and words in one place</li>
-                <li>
-                  Free to use, with no fees at any step
-                  <Note n={1} />
-                </li>
-              </ul>
-              <p className="whyc__else">
-                Not sure where to start? Upload your score report or answer a couple of questions, and Clarity suggests the best place to begin.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="band band--paper" id="why">
-          <div className="band__inner">
-            <h2 className="display band__title reveal">
-              Why the <span className="hl hl--orange" data-swipe>1550</span>?
-            </h2>
-            <p className="band__lead reveal">
-              At a top-30 US university, the middle of the admitted class scores around 1550. Reading &amp; Writing is half of that number.
-              <Note n={3} />
-            </p>
-          </div>
-          <div className="colleges" aria-label="Median SAT scores at top universities">
-            <div className="colleges__track">
-              {[...COLLEGES, ...COLLEGES].map(([id, name, score], i) => (
-                <div className="college" key={`${id}-${i}`} aria-hidden={i >= COLLEGES.length}>
-                  <img src={`/brand/colleges/${id}.svg`} alt={name} loading="lazy" />
-                  <span>
-                    Median <b className="num">{score}</b>
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         <section className="finale">
           <Tangyuan outfit="scholar" size={150} mood="happy" />
           <h2 className="display finale__title">
             Your first page takes <span className="hl hl--paper" data-swipe>four minutes.</span>
           </h2>
-          <button type="button" className="btn btn--lg" onClick={() => go('/start')}>
+          <button type="button" className="btn btn--lg" onClick={() => enter('finale')}>
             <Play /> Play now — it’s free
           </button>
           <div className="finale__list">
@@ -855,9 +879,9 @@ export function Landing() {
       <footer className="lfoot">
         <Logo />
         <span>Free SAT Reading &amp; Writing practice.</span>
-        <a href="/plans">Plans</a>
-        <a href="/classic">Original site</a>
         <a href="#/signin">Sign in</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
         <a href="#/me">
           <Shirt size={14} /> Your game
         </a>
