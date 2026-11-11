@@ -111,6 +111,7 @@ export function GameShell({ active, children, wide = false }: { active: Tab; chi
                 go(tab.path)
               }}
               className={`tab ${active === tab.id ? 'is-active' : ''}`}
+              data-tour={tab.id}
               style={{ ['--mark' as string]: tab.ink }}
               aria-current={active === tab.id ? 'page' : undefined}
             >

@@ -2784,3 +2784,154 @@ body[data-surface='game'] .start {
     flex: 1;
   }
 }
+
+/* ---------- first-visit dashboard tour ----------
+   Plays itself: a highlighter ring glides between stops while the rest of the
+   desk dims. Nothing here catches clicks except Skip; a tap anywhere ends it. */
+
+.tour {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  animation: tour-in 260ms var(--ease-out) both;
+}
+
+.tour.is-leaving {
+  animation: tour-out 240ms var(--ease-out) both;
+}
+
+.tour__ring {
+  --mark: var(--yellow);
+  position: fixed;
+  border-radius: 18px;
+  box-shadow:
+    0 0 0 4px var(--mark),
+    0 0 0 9999px rgba(23, 24, 59, 0.42);
+  transition:
+    top 520ms var(--ease-out),
+    left 520ms var(--ease-out),
+    width 520ms var(--ease-out),
+    height 520ms var(--ease-out),
+    box-shadow 300ms var(--ease-out);
+}
+
+.tour__caption {
+  position: fixed;
+  display: grid;
+  gap: 2px;
+  font-size: 0.95rem;
+  box-shadow: var(--lift-3);
+  animation: tour-caption 320ms var(--ease-spring) both;
+}
+
+.tour__caption::after {
+  display: none;
+}
+
+.tour__title {
+  font-family: var(--display);
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+}
+
+.tour__bar {
+  position: fixed;
+  top: 76px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 8px 8px 14px;
+  border-radius: 999px;
+  background: var(--paper);
+  box-shadow: var(--lift-2);
+  pointer-events: auto;
+}
+
+.tour__dots {
+  display: flex;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tour__dots li {
+  position: relative;
+  width: 22px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.tour__dots li::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.tour__dots li.is-done::after {
+  transform: scaleX(1);
+}
+
+.tour__dots li.is-here::after {
+  animation: tour-fill var(--hold, 1350ms) linear both;
+}
+
+.tour__skip {
+  border: 0;
+  border-radius: 999px;
+  padding: 6px 14px;
+  background: var(--ink);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+@keyframes tour-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes tour-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes tour-caption {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.96);
+  }
+}
+
+@keyframes tour-fill {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (max-width: 760px) {
+  .tour__bar {
+    top: 68px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tour__ring {
+    transition: none;
+  }
+  .tour__caption {
+    animation: none;
+  }
+}

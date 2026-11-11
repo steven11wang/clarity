@@ -1,5 +1,5 @@
 // First run, in 洋葱学园's register: the mascot in the middle, one line in a
-// speech bubble, big answers underneath. Two taps, then straight into page one —
+// speech bubble, big answers underneath. Two taps, then straight into one easy question —
 // first value before any sign-up.
 
 import { useState } from 'react'
@@ -29,7 +29,7 @@ export function Start() {
   const lines: Array<{ say: string; mood: Mood }> = [
     { say: 'Hi, I’m 汤圆. What score are you going for?', mood: 'happy' },
     { say: 'How long can you play each day? A page takes about four minutes.', mood: 'think' },
-    { say: 'Here’s the deal: anything you miss, I clip into your Mistake Notebook and bring back. Ready for page one?', mood: 'wink' },
+    { say: 'Here’s the deal: anything you miss, I clip into your Mistake Notebook and bring back. Ready for a quick warm-up?', mood: 'wink' },
   ]
 
   return (
@@ -92,9 +92,9 @@ export function Start() {
           ))}
         {step === 2 && (
           <button type="button" className="answer-pill answer-pill--go" onClick={() => go('/play/first')}>
-            <b>Play page one</b>
+            <b>Try one question</b>
             <span>
-              Five questions, one from each corner of the test <ArrowRight size={16} />
+              A quick, easy one to warm up — about a minute <ArrowRight size={16} />
             </span>
           </button>
         )}
