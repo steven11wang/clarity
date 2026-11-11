@@ -5,13 +5,63 @@ import { useRef, useState } from 'react'
 import { Check, Gift } from 'lucide-react'
 
 import { LEAGUES, QUEST_TEMPLATES, type Sticker } from '../game/content.ts'
-import { WEEKLY_STAMPS, claimQuest, claimWeekly, daysBetween, drawSticker, hash, leagueStandings, seeded } from '../game/engine.ts'
+import {
+  ESTIMATE_MIN_ANSWERS,
+  WEEKLY_STAMPS,
+  claimQuest,
+  claimWeekly,
+  daysBetween,
+  drawSticker,
+  hash,
+  leagueStandings,
+  practiceEstimate,
+  seeded,
+} from '../game/engine.ts'
 import { updateGame, useGame, useToday } from '../game/store.ts'
 import { InkGlyph } from './Glyphs.tsx'
 import { buzz } from './hooks.ts'
 import { StickerView } from './StickerView.tsx'
 import { Tangyuan } from './Tangyuan.tsx'
 import { play } from '../sound.ts'
+
+/**
+ * Where the practice points to, as a Reading & Writing score range. It is a
+ * range on purpose, labelled as rough, and it says how many answers it rests on.
+ */
+export function Estimate() {
+  const game = useGame()
+  const estimate = practiceEstimate(game)
+  const answered = Object.values(game.skills).reduce((sum, stats) => sum + stats.answered, 0)
+  const goal = Math.round(game.targetScore / 2 / 10) * 10
+  return (
+    <section className="panel" aria-labelledby="estimate-title">
+      <header className="panel__head">
+        <h2 className="title panel__title" id="estimate-title">
+          Practice estimate
+        </h2>
+        <span className="panel__aside">Reading &amp; Writing</span>
+      </header>
+      {estimate ? (
+        <>
+          <b className="display num estimate__range">
+            {estimate.low}–{estimate.high}
+          </b>
+          <p className="estimate__note">
+            A rough range from your {estimate.answered} answers here, out of 800. It narrows as you answer more, and counts Hard questions for more than Easy ones.
+          </p>
+          <p className="estimate__note">
+            Aiming for {game.targetScore}? That’s about <b className="num">{goal}</b> on this half. A practice test gives a firmer number.
+          </p>
+        </>
+      ) : (
+        <p className="estimate__note">
+          Answer <b className="num">{ESTIMATE_MIN_ANSWERS - answered}</b> more question{ESTIMATE_MIN_ANSWERS - answered === 1 ? '' : 's'} and a first score range shows up here. Aiming for{' '}
+          {game.targetScore} means about <b className="num">{goal}</b> on Reading &amp; Writing.
+        </p>
+      )}
+    </section>
+  )
+}
 
 export function Quests() {
   const game = useGame()

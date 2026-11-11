@@ -1,14 +1,29 @@
 // A page: the two-pass loop played as a game.
 //   answer  — every question, choice + confidence, no feedback (attempt before reveal)
 //   grading — the red pen marks the whole page in one sweep, then the score stamp lands
-//   review  — each miss: redo it, name the trap, then (only then) the explanation
+//   review  — each miss: redo it, name the trap, then (only then) the explanation;
+//             a right answer marked “Guessing” is shown why it was right, and clipped too
 //   rewards — XP, streak, star, quests, and a sticker pack to tear open
 
 import { useEffect, useMemo, useState } from 'react'
 import { ArrowLeft, ArrowRight, Check, X } from 'lucide-react'
 
-import type { Confidence, Question, TrapType } from '../../types.ts'
-import { DOMAINS, PATH, QUEST_TEMPLATES, REWARDS, SKILL_SHORT, TRAPS, domainOf, type Difficulty } from '../game/content.ts'
+import type { Confidence, Question } from '../../types.ts'
+import {
+  COMEBACK_DAYS,
+  DOMAINS,
+  LUCKY_START_STAGE,
+  PATH,
+  QUEST_TEMPLATES,
+  REWARDS,
+  SKILL_SHORT,
+  TWIN_FROM_STAGE,
+  domainOf,
+  trapById,
+  trapsFor,
+  type Difficulty,
+  type TrapId,
+} from '../game/content.ts'
 import {
   addDays,
   awardStar,
@@ -16,6 +31,7 @@ import {
   completeNode,
   currentNode,
   dueComebacks,
+  fileLucky,
   fileMiss,
   gain,
   levelInfo,
@@ -28,6 +44,7 @@ import {
 import { FIRST_QUESTION_ID, LETTERS, STARTER, byId, disguise, loadBank, pickPage } from '../game/questions.ts'
 import { getGame, updateGame, useGame, useToday } from '../game/store.ts'
 import { go } from '../router.ts'
+import { track } from '../game/track.ts'
 import { ClipGlyph, INK_VAR, InkGlyph, PenMark, StreakGlyph, TrapGlyph } from '../components/Glyphs.tsx'
 import { buzz, useCountUp } from '../components/hooks.ts'
 import { PackOpener } from '../components/Panels.tsx'
@@ -36,7 +53,8 @@ import { Tangyuan } from '../components/Tangyuan.tsx'
 import { play } from '../sound.ts'
 
 type Letter = (typeof LETTERS)[number]
-type Item = { q: Question; comeback: boolean }
+/** `twin`: a new question in the same skill, riding along with a late-stage comeback */
+type Item = { q: Question; comeback: boolean; twin?: boolean }
 type Answer = { picked: Letter; confidence: Confidence }
 
 const CONFIDENCE: Array<{ id: Confidence; label: string; key: string }> = [
@@ -50,16 +68,38 @@ function weekday(day: string) {
   return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'long' })
 }
 
+/** Right first time, but marked “Guessing”. Comebacks are settled on their own ladder. */
+function isLucky(entry: Item, answer: Answer | null | undefined): boolean {
+  return !entry.comeback && answer?.picked === entry.q.answer && answer.confidence === 'guessing'
+}
+
+function luckyNote(count: number): string {
+  if (count === 0) return ''
+  return ` ${count === 1 ? 'One right answer was a guess' : `${count} right answers were guesses`}, so ${count === 1 ? 'it’s' : 'they’re'} clipped in for a check.`
+}
+
 function buildSession(bank: Question[], target: string, day: string): { items: Item[]; title: string; nodeId: string | null } {
   const game = getGame()
   const avoid = new Set(Object.keys(game.misses))
   const seed = `${target}:${day}:${game.xp}`
+  // A comeback that has been beaten a couple of times may be remembered rather
+  // than understood. From then on it brings a twin — a question the student has
+  // never seen, same skill and difficulty — placed right after it. At most two a page.
+  let twins = 0
   const comebacks = (limit: number): Item[] =>
     dueComebacks(game, day)
       .slice(0, limit)
-      .map((entry) => byId(bank, entry.qid))
-      .filter((q): q is Question => Boolean(q))
-      .map((q) => ({ q: disguise(q, day), comeback: true }))
+      .flatMap((entry): Item[] => {
+        const q = byId(bank, entry.qid)
+        if (!q) return []
+        const back: Item = { q: disguise(q, day), comeback: true }
+        if (entry.stage < TWIN_FROM_STAGE || twins >= 2) return [back]
+        const twin = pickPage(bank, q.skill, q.difficulty as Difficulty, 1, `${seed}:twin:${q.id}`, avoid).find((other) => other.id !== q.id)
+        if (!twin) return [back]
+        twins += 1
+        avoid.add(twin.id)
+        return [back, { q: twin, comeback: false, twin: true }]
+      })
 
   if (target === 'comebacks') {
     return { items: comebacks(8), title: 'Comebacks', nodeId: null }
@@ -81,11 +121,22 @@ function buildSession(bank: Question[], target: string, day: string): { items: I
       .map((q) => ({ q, comeback: false }))
     return { items, title: node.title, nodeId: node.id }
   }
-  const fresh = pickPage(bank, node.skill, node.difficulty, 5, seed, avoid).map((q) => ({ q, comeback: false }))
-  // weave due comebacks in at the 2nd and 4th slot, the way the live app does
+  // weave due comebacks (each with its twin, if it has one) in after the 1st and 3rd fresh question
   const back = comebacks(2)
-  const items = [...fresh]
-  back.forEach((item, i) => items.splice(1 + i * 2, 0, item))
+  const fresh = pickPage(bank, node.skill, node.difficulty, 5, seed, avoid).map((q): Item => ({ q, comeback: false }))
+  const items: Item[] = []
+  let slot = 0
+  fresh.forEach((item, i) => {
+    items.push(item)
+    if (i % 2 === 0) {
+      // a comeback and the twin that follows it go in together
+      const group = back.slice(slot).findIndex((entry, at) => at > 0 && entry.comeback)
+      const take = group === -1 ? back.length - slot : group
+      items.push(...back.slice(slot, slot + take))
+      slot += take
+    }
+  })
+  items.push(...back.slice(slot))
   return { items, title: node.title, nodeId: node.id }
 }
 
@@ -123,7 +174,19 @@ export function Play({ target }: { target: string }) {
 
 // ---------------------------------------------------------------------------
 
-type Outcome = { xp: number; ink: number; right: number; beaten: number; levelBefore: number; streakBefore: number; starEarned: string | null }
+type Outcome = {
+  xp: number
+  ink: number
+  right: number
+  beaten: number
+  /** right answers marked “Guessing”, clipped in for a check */
+  lucky: number
+  /** misses the student was “Sure” about */
+  sureWrong: number
+  levelBefore: number
+  streakBefore: number
+  starEarned: string | null
+}
 
 function Session({ items, title, nodeId, target }: { items: Item[]; title: string; nodeId: string | null; target: string }) {
   const day = useToday()
@@ -171,14 +234,17 @@ function Session({ items, title, nodeId, target }: { items: Item[]; title: strin
     let right = 0
     let beaten = 0
     let sureRight = 0
+    let lucky = 0
+    let sureWrong = 0
     updateGame((state) => {
       let next = state
       items.forEach((entry, i) => {
         const answer = answers[i]
         const correct = answer?.picked === entry.q.answer
-        next = recordAnswer(next, entry.q.skill, correct)
+        next = recordAnswer(next, entry.q.skill, correct, entry.q.difficulty as Difficulty)
         if (correct) right += 1
         if (correct && answer?.confidence === 'sure') sureRight += 1
+        if (!correct && answer?.confidence === 'sure') sureWrong += 1
         if (entry.comeback) {
           next = settleComeback(next, entry.q.id, correct, day)
           if (correct) {
@@ -189,8 +255,14 @@ function Session({ items, title, nodeId, target }: { items: Item[]; title: strin
         } else if (correct) {
           xp += REWARDS.firstTryXp
           ink += REWARDS.firstTryInk
+          // right, but by the student's own account a guess: it earns its reward and
+          // is clipped in anyway, so a lucky hit can't hide a gap
+          if (isLucky(entry, answer)) {
+            if (!next.misses[entry.q.id]) lucky += 1
+            next = fileLucky(next, entry.q.id, entry.q.skill, day)
+          }
         } else {
-          next = fileMiss(next, entry.q.id, entry.q.skill, day)
+          next = fileMiss(next, entry.q.id, entry.q.skill, day, answer?.confidence === 'sure')
         }
       })
       if (right === items.length) ink += REWARDS.perfectInk
@@ -211,7 +283,16 @@ function Session({ items, title, nodeId, target }: { items: Item[]; title: strin
       updateGame((state) => awardStar(state, node.skill as string, node.difficulty as Difficulty, right, items.length))
       if (!had && getGame().skills[node.skill]?.stars[node.difficulty]) starEarned = `${SKILL_SHORT[node.skill]} · ${node.difficulty}`
     }
-    setOutcome({ xp, ink, right, beaten, levelBefore, streakBefore, starEarned })
+    setOutcome({ xp, ink, right, beaten, lucky, sureWrong, levelBefore, streakBefore, starEarned })
+    track('page_turn_in', {
+      kind: target === 'first' ? 'warmup' : target === 'comebacks' ? 'comebacks' : (node?.kind ?? 'page'),
+      total: items.length,
+      right,
+      beaten,
+      lucky,
+      sure_wrong: sureWrong,
+      comebacks: items.filter((entry) => entry.comeback).length,
+    })
     setPhase('grading')
   }
 
@@ -233,9 +314,15 @@ function Session({ items, title, nodeId, target }: { items: Item[]; title: strin
     return () => window.removeEventListener('keydown', onKey)
   })
 
+  // what the review walks through: every miss, then every lucky guess
   const misses = items
     .map((entry, i) => ({ entry, answer: answers[i], i }))
     .filter(({ entry, answer }) => answer?.picked !== entry.q.answer)
+  const guesses = items.map((entry, i) => ({ entry, answer: answers[i], i })).filter(({ entry, answer }) => isLucky(entry, answer))
+  const toReview = [
+    ...misses.map(({ entry, answer }) => ({ item: entry, wrong: answer?.picked ?? null, sure: answer?.confidence === 'sure', lucky: false })),
+    ...guesses.map(({ entry }) => ({ item: entry, wrong: null, sure: false, lucky: true })),
+  ]
 
   if (phase === 'grading' && outcome) {
     return (
@@ -244,13 +331,14 @@ function Session({ items, title, nodeId, target }: { items: Item[]; title: strin
         answers={answers as Answer[]}
         outcome={outcome}
         title={title}
-        onNext={() => setPhase(misses.length > 0 ? 'review' : 'rewards')}
+        onNext={() => setPhase(toReview.length > 0 ? 'review' : 'rewards')}
         missCount={misses.length}
+        luckyCount={guesses.length}
       />
     )
   }
   if (phase === 'review') {
-    return <Review misses={misses.map(({ entry, answer }) => ({ item: entry, wrong: answer?.picked ?? null }))} onDone={() => setPhase('rewards')} />
+    return <Review misses={toReview} onDone={() => setPhase('rewards')} />
   }
   if (phase === 'rewards' && outcome) {
     return <Rewards outcome={outcome} total={items.length} target={target} />
@@ -309,6 +397,7 @@ function Session({ items, title, nodeId, target }: { items: Item[]; title: strin
                   <ClipGlyph size={18} color="currentColor" /> Comeback · shuffled
                 </span>
               )}
+              {item.twin && <span className="tag tag--quiet">Twin · same skill, new question</span>}
             </div>
           }
         />
@@ -357,6 +446,7 @@ function Grading({
   title,
   onNext,
   missCount,
+  luckyCount,
 }: {
   items: Item[]
   answers: Answer[]
@@ -364,6 +454,7 @@ function Grading({
   title: string
   onNext: () => void
   missCount: number
+  luckyCount: number
 }) {
   const step = 280
   const doneAt = items.length * step + 400
@@ -401,6 +492,9 @@ function Grading({
                 <span className="grade__skill">
                   {SKILL_SHORT[entry.q.skill]}
                   {entry.comeback && <span className="tag tag--comeback tag--xs">comeback</span>}
+                  {entry.twin && <span className="tag tag--quiet tag--xs">twin</span>}
+                  {isLucky(entry, answer) && <span className="tag tag--comeback tag--xs">lucky guess · clipped</span>}
+                  {!correct && answer.confidence === 'sure' && <span className="tag tag--comeback tag--xs">sure, but wrong</span>}
                 </span>
                 <span className="grade__you">
                   <span className="bubble is-filled bubble--sm">{answer.picked}</span>
@@ -429,11 +523,18 @@ function Grading({
               ? 'Got it first try. Spiders really do stick to almost anything.'
               : 'Close one. Redo it and the answer will click.'
             : outcome.right === items.length
-            ? 'A perfect page. Five bonus drops.'
-            : `${outcome.right} right${outcome.beaten ? `, ${outcome.beaten} comeback${outcome.beaten === 1 ? '' : 's'} beaten` : ''}. ${missCount} to fix — redo ${missCount === 1 ? 'it' : 'them'} before the answer shows.`}
+            ? `A perfect page. Five bonus drops.${luckyNote(luckyCount)}`
+            : `${outcome.right} right${outcome.beaten ? `, ${outcome.beaten} comeback${outcome.beaten === 1 ? '' : 's'} beaten` : ''}. ${missCount} to fix — redo ${missCount === 1 ? 'it' : 'them'} before the answer shows.${
+                outcome.sureWrong ? ` You were sure about ${outcome.sureWrong === missCount ? (missCount === 1 ? 'it' : 'all of them') : outcome.sureWrong}: ${outcome.sureWrong === 1 ? 'that one comes' : 'those come'} back first.` : ''
+              }${luckyNote(luckyCount)}`}
         </p>
         <button type="button" className="btn btn--lg" onClick={onNext} disabled={!stamped}>
-          {missCount > 0 ? `Fix my ${missCount} miss${missCount === 1 ? '' : 'es'}` : 'Collect rewards'} <ArrowRight />
+          {missCount > 0
+            ? `Fix my ${missCount} miss${missCount === 1 ? '' : 'es'}`
+            : luckyCount > 0
+              ? `Check my lucky guess${luckyCount === 1 ? '' : 'es'}`
+              : 'Collect rewards'}{' '}
+          <ArrowRight />
         </button>
       </div>
     </div>
@@ -442,15 +543,20 @@ function Grading({
 
 // ---------------------------------------------------------------------------
 
-function Review({ misses, onDone }: { misses: Array<{ item: Item; wrong: Letter | null }>; onDone: () => void }) {
+type ReviewItem = { item: Item; wrong: Letter | null; sure: boolean; lucky: boolean }
+
+function Review({ misses, onDone }: { misses: ReviewItem[]; onDone: () => void }) {
   const day = useToday()
   const [at, setAt] = useState(0)
-  const [step, setStep] = useState<'redo' | 'trap' | 'why'>('redo')
+  // a lucky guess was right already: nothing to redo and no trap sprung, so it opens on the reason
+  const [step, setStep] = useState<'redo' | 'trap' | 'why'>(misses[0].lucky ? 'why' : 'redo')
   const [wrongs, setWrongs] = useState<Letter[]>([])
-  const [pick, setPick] = useState<Letter | null>(null)
-  const [trap, setTrap] = useState<TrapType | null>(null)
-  const { item, wrong } = misses[at]
+  const [pick, setPick] = useState<Letter | null>(misses[0].lucky ? misses[0].item.q.answer : null)
+  const [trap, setTrap] = useState<TrapId | null>(null)
+  const { item, wrong, sure, lucky } = misses[at]
   const q = item.q
+  const traps = trapsFor(q.skill)
+  const named = trapById(trap)
 
   const tryLetter = (letter: Letter) => {
     if (letter === q.answer) {
@@ -465,7 +571,7 @@ function Review({ misses, onDone }: { misses: Array<{ item: Item; wrong: Letter 
     }
   }
 
-  const chooseTrap = (id: TrapType) => {
+  const chooseTrap = (id: TrapId) => {
     setTrap(id)
     play('clip')
     updateGame((state) => bumpQuest(gain(nameTrap(state, q.id, id), REWARDS.trapXp), 'name-traps'))
@@ -474,15 +580,17 @@ function Review({ misses, onDone }: { misses: Array<{ item: Item; wrong: Letter 
 
   const next = () => {
     if (at + 1 >= misses.length) return onDone()
+    const upcoming = misses[at + 1]
     setAt(at + 1)
-    setStep('redo')
+    setStep(upcoming.lucky ? 'why' : 'redo')
     setWrongs([])
-    setPick(null)
+    setPick(upcoming.lucky ? upcoming.item.q.answer : null)
     setTrap(null)
   }
 
   const disabled = [...(wrong ? [wrong] : []), ...wrongs]
-  const back = weekday(addDays(day, 1))
+  const back = weekday(addDays(day, lucky ? COMEBACK_DAYS[LUCKY_START_STAGE] : COMEBACK_DAYS[0]))
+  const steps = lucky ? (['why'] as const) : (['redo', 'trap', 'why'] as const)
 
   return (
     <div className="play play--review">
@@ -491,21 +599,21 @@ function Review({ misses, onDone }: { misses: Array<{ item: Item; wrong: Letter 
           <X />
         </button>
         <div className="play__title">
-          <b>Fix your misses</b>
+          <b>{lucky ? 'Lucky guesses' : 'Fix your misses'}</b>
           <span className="num">
             {at + 1} of {misses.length}
           </span>
         </div>
         <ol className="review__steps" aria-label="Steps">
-          {(['redo', 'trap', 'why'] as const).map((s, i) => (
-            <li key={s} className={step === s ? 'is-here' : (['redo', 'trap', 'why'] as const).indexOf(step) > i ? 'is-done' : ''}>
+          {steps.map((s, i) => (
+            <li key={s} className={step === s ? 'is-here' : (steps as readonly string[]).indexOf(step) > i ? 'is-done' : ''}>
               {s === 'redo' ? 'Redo it' : s === 'trap' ? 'Name the trap' : 'See why'}
             </li>
           ))}
         </ol>
       </header>
 
-      <article className="play__sheet sheet sheet--ruled is-missed" key={at}>
+      <article className={`play__sheet sheet sheet--ruled ${lucky ? '' : 'is-missed'}`} key={at}>
         <div className="review__clip" aria-hidden="true">
           <ClipGlyph size={56} />
         </div>
@@ -522,6 +630,7 @@ function Review({ misses, onDone }: { misses: Array<{ item: Item; wrong: Letter 
                 {q.skill}
               </span>
               {step === 'redo' && <span className="hand review__hint">your first answer is crossed out — try again</span>}
+              {lucky && <span className="hand review__hint">you got it — but you said you were guessing</span>}
             </div>
           }
         />
@@ -531,14 +640,16 @@ function Review({ misses, onDone }: { misses: Array<{ item: Item; wrong: Letter 
         {step === 'redo' && (
           <p className="review__say">
             <Tangyuan mood="think" size={56} idle={false} />
-            Redo it first. The explanation waits until you’ve found it yourself.
+            {sure
+              ? 'You were sure about this one, so slow down. Redo it first; the explanation waits until you’ve found it yourself.'
+              : 'Redo it first. The explanation waits until you’ve found it yourself.'}
           </p>
         )}
         {step === 'trap' && (
           <div className="review__traps">
             <p className="title">What tricked you the first time?</p>
             <div className="trap-grid" role="group" aria-label="Name the trap">
-              {TRAPS.map((t) => (
+              {traps.map((t) => (
                 <button key={t.id} type="button" className="trap-card" aria-pressed={trap === t.id} onClick={() => chooseTrap(t.id)}>
                   <TrapGlyph trap={t.id} size={34} />
                   <b>{t.name}</b>
@@ -553,13 +664,21 @@ function Review({ misses, onDone }: { misses: Array<{ item: Item; wrong: Letter 
             <p className="review__rationale">
               <strong className="hl">Why {q.answer}:</strong> {q.rationale}
             </p>
+            {named && (
+              <p className="review__fix">
+                <TrapGlyph trap={named.id} size={26} />
+                <span>
+                  <b>Next time, against “{named.name}”:</b> {named.fix}
+                </span>
+              </p>
+            )}
             <div className="review__filed">
               <span className="stamp stamp--miss is-landing">Clipped</span>
               <span>
-                Comes back <b>{back}</b>, choices shuffled{trap ? ` — filed under “${TRAPS.find((t) => t.id === trap)?.name}”` : ''}.
+                {lucky ? 'A guess that lands still gets checked. ' : ''}Comes back <b>{back}</b>, choices shuffled{named ? ` — filed under “${named.name}”` : ''}.
               </span>
               <button type="button" className="btn" onClick={next}>
-                {at + 1 >= misses.length ? 'Collect rewards' : 'Next miss'} <ArrowRight />
+                {at + 1 >= misses.length ? 'Collect rewards' : misses[at + 1].lucky ? 'Next: a lucky guess' : 'Next miss'} <ArrowRight />
               </button>
             </div>
           </div>

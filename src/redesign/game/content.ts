@@ -70,18 +70,74 @@ export function slug(text: string): string {
   return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
 }
 
-export type Trap = { id: TrapType; name: string; tell: string }
+/**
+ * A trap is the way a wrong answer got picked. The five reading traps are the
+ * originals (and the ones printed on stickers); grammar, vocabulary and
+ * transition questions go wrong in their own ways, so they have their own.
+ */
+export type TrapId =
+  | TrapType
+  | 'near-synonym'
+  | 'wrong-tone'
+  | 'run-on'
+  | 'fragment'
+  | 'extra-comma'
+  | 'unpaired'
+  | 'agreement'
+  | 'tense'
+  | 'modifier'
+  | 'possessive'
+  | 'wrong-link'
+  | 'half-read'
+  | 'wrong-goal'
+
+/** `tell` is how to spot it; `fix` is the one move that beats it next time. */
+export type Trap = { id: TrapId; name: string; tell: string; fix: string }
 
 export const TRAPS: Trap[] = [
-  { id: 'too-extreme', name: 'Too extreme', tell: 'Always, never, proves — stronger than the text allows.' },
-  { id: 'half-right', name: 'Half right', tell: 'Starts true, then slips one wrong word in.' },
-  { id: 'true-but-irrelevant', name: 'True but irrelevant', tell: 'Accurate, but answers a different question.' },
-  { id: 'out-of-scope', name: 'Out of scope', tell: 'Brings in something the text never says.' },
-  { id: 'opposite', name: 'Opposite', tell: 'Flips the direction of the claim.' },
+  { id: 'too-extreme', name: 'Too extreme', tell: 'Always, never, proves — stronger than the text allows.', fix: 'Circle the strongest word in the choice and find the line that backs it. No line, no pick.' },
+  { id: 'half-right', name: 'Half right', tell: 'Starts true, then slips one wrong word in.', fix: 'Read the choice to its last word. One wrong word sinks the whole thing.' },
+  { id: 'true-but-irrelevant', name: 'True but irrelevant', tell: 'Accurate, but answers a different question.', fix: 'Say the question back in your own words before you look at the choices.' },
+  { id: 'out-of-scope', name: 'Out of scope', tell: 'Brings in something the text never says.', fix: 'Point to the words in the text that say it. If you can’t, it isn’t there.' },
+  { id: 'opposite', name: 'Opposite', tell: 'Flips the direction of the claim.', fix: 'Mark each sentence as for or against before you choose.' },
 ]
 
-export const trapName = (id: TrapType | null | undefined) =>
-  TRAPS.find((trap) => trap.id === id)?.name ?? 'Unnamed'
+const OTHER_TRAPS: Trap[] = [
+  { id: 'near-synonym', name: 'Close, wrong fit', tell: 'Means nearly the same, but not the way this sentence uses it.', fix: 'Put your own word in the blank first, then find the choice that matches it.' },
+  { id: 'wrong-tone', name: 'Wrong tone', tell: 'Right idea, wrong strength or feeling.', fix: 'Decide whether the sentence is positive, negative or neutral before you read the choices.' },
+  { id: 'run-on', name: 'Run-on', tell: 'Two full sentences joined by a comma, or by nothing.', fix: 'Check both sides of the mark. Two full sentences need a period, a semicolon, or a comma with and/but/so.' },
+  { id: 'fragment', name: 'Fragment', tell: 'A period or semicolon cuts off a piece that can’t stand alone.', fix: 'Read each side alone. If one side isn’t a sentence, a period or semicolon can’t go there.' },
+  { id: 'extra-comma', name: 'Extra comma', tell: 'A comma splits things that belong together, like a subject and its verb.', fix: 'Lift out what sits between the commas. If the sentence breaks, the commas are wrong.' },
+  { id: 'unpaired', name: 'Unpaired marks', tell: 'An aside opens with one mark and closes with another, or never closes.', fix: 'An aside needs a matching pair: two commas, two dashes or two parentheses.' },
+  { id: 'agreement', name: 'Agreement', tell: 'The verb or pronoun doesn’t match its subject in number.', fix: 'Find the true subject, cross out everything between it and the verb, then match them.' },
+  { id: 'tense', name: 'Wrong tense', tell: 'The verb’s tense or form doesn’t fit the timeline.', fix: 'Look at the other verbs nearby and stay in their time unless the text signals a shift.' },
+  { id: 'modifier', name: 'Misplaced modifier', tell: 'The describing phrase is attached to the wrong thing.', fix: 'Whatever comes right after the opening phrase must be the thing it describes.' },
+  { id: 'possessive', name: 'Plural or possessive', tell: 'Plural and possessive mixed up: its and it’s, writers and writer’s.', fix: 'Ask who owns what. No ownership, no apostrophe.' },
+  { id: 'wrong-link', name: 'Wrong relationship', tell: 'Right direction, wrong link: adds where it should conclude, gives an example where it should give a cause.', fix: 'Cover the choices and name the link yourself: continue, contrast, cause or example.' },
+  { id: 'half-read', name: 'Skipped the sentence before', tell: 'Fits the sentence with the blank, but not the one before it.', fix: 'A transition joins two sentences. Always read the one before the blank.' },
+  { id: 'wrong-goal', name: 'Wrong goal', tell: 'True to the notes, but it does a different job than the question asks for.', fix: 'Underline the goal in the question, then check every part of the choice against it.' },
+]
+
+export const ALL_TRAPS: Trap[] = [...TRAPS, ...OTHER_TRAPS]
+
+const pick = (...ids: TrapId[]): Trap[] => ids.map((id) => ALL_TRAPS.find((trap) => trap.id === id) as Trap)
+
+const SKILL_TRAPS: Record<string, Trap[]> = {
+  'Words in Context': pick('near-synonym', 'wrong-tone', 'opposite', 'out-of-scope'),
+  Boundaries: pick('run-on', 'fragment', 'extra-comma', 'unpaired'),
+  'Form, Structure, and Sense': pick('agreement', 'tense', 'modifier', 'possessive'),
+  Transitions: pick('opposite', 'wrong-link', 'half-read'),
+  'Rhetorical Synthesis': pick('wrong-goal', 'half-right', 'out-of-scope'),
+}
+
+/** The traps a question in this skill can spring. Reading skills share the original five. */
+export function trapsFor(skill: string): Trap[] {
+  return SKILL_TRAPS[skill] ?? TRAPS
+}
+
+export const trapById = (id: TrapId | null | undefined): Trap | undefined => ALL_TRAPS.find((trap) => trap.id === id)
+
+export const trapName = (id: TrapId | null | undefined) => trapById(id)?.name ?? 'Unnamed'
 
 // ---------------------------------------------------------------------------
 // The path. Each skill is a short run of nodes; each domain closes with a
@@ -286,6 +342,15 @@ export const QUEST_TEMPLATES: QuestTemplate[] = [
 // Comebacks: a miss returns after these many days. Beat it at the last stage
 // and it is cleared from the Mistake Notebook.
 export const COMEBACK_DAYS = [1, 3, 7, 21]
+
+// A right answer marked “Guessing” is clipped in as well, one rung up the
+// ladder: it was right once, so it skips the next-day check and owes three
+// spaced ones (3, 7 and 21 days) rather than four.
+export const LUCKY_START_STAGE = 1
+
+// From this stage on, a comeback brings a twin: a new question in the same
+// skill, so beating it shows the skill moved and not just the memory of one answer.
+export const TWIN_FROM_STAGE = 2
 
 export const REWARDS = {
   firstTryXp: 10,

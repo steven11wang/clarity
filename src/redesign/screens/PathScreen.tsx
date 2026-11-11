@@ -61,6 +61,7 @@ export function PathScreen() {
           <p>
             <b className="num">{starCount(game)}</b> of 30 stars · <b className="num">{game.completed.length}</b> of {PATH.length} stops
           </p>
+          <p className="path__skip">Easy too easy? Medium and Hard are open as soon as a skill is. Turn in the Hard page and the next skill opens.</p>
         </header>
         {DOMAINS.map((domain) => {
           const nodes = PATH.filter((node) => node.domainId === domain.id)

@@ -6,8 +6,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { ArrowRight, Play } from 'lucide-react'
 
-import type { Question, TrapType } from '../../types.ts'
-import { COMEBACK_DAYS, SKILL_SHORT, TRAPS, domainOf } from '../game/content.ts'
+import type { Question } from '../../types.ts'
+import { ALL_TRAPS, COMEBACK_DAYS, SKILL_SHORT, domainOf, trapById, type TrapId } from '../game/content.ts'
 import { daysBetween, dueComebacks, type MissEntry } from '../game/engine.ts'
 import { byId, loadBank } from '../game/questions.ts'
 import { useGame, useToday } from '../game/store.ts'
@@ -16,7 +16,7 @@ import { GameShell } from '../components/GameShell.tsx'
 import { ClipGlyph, INK_VAR, TrapGlyph } from '../components/Glyphs.tsx'
 import { Tangyuan } from '../components/Tangyuan.tsx'
 
-type Filter = 'all' | TrapType
+type Filter = 'all' | 'lucky' | 'sure' | TrapId
 
 function when(day: string, today: string) {
   const gap = daysBetween(today, day)
@@ -40,19 +40,26 @@ export function Notebook() {
   const due = dueComebacks(game, day)
   const live = entries.filter((entry) => !entry.cleared).sort((a, b) => a.dueDay.localeCompare(b.dueDay))
   const cleared = entries.filter((entry) => entry.cleared)
-  const shown = live.filter((entry) => filter === 'all' || entry.trap === filter)
+  const shown = live.filter((entry) =>
+    filter === 'all' ? true : filter === 'lucky' ? entry.kind === 'lucky' : filter === 'sure' ? Boolean(entry.sure) : entry.trap === filter,
+  )
 
   const counts = useMemo(() => {
-    const map: Partial<Record<TrapType, number>> = {}
+    const map: Partial<Record<TrapId, number>> = {}
     entries.forEach((entry) => {
       if (entry.trap) map[entry.trap] = (map[entry.trap] ?? 0) + 1
     })
     return map
   }, [entries])
-  const worst = TRAPS.reduce<{ id: TrapType; n: number } | null>((top, trap) => {
+  // only the traps that have actually caught this student get a tab
+  const caught = ALL_TRAPS.filter((trap) => (counts[trap.id] ?? 0) > 0)
+  const worst = caught.reduce<{ id: TrapId; n: number } | null>((top, trap) => {
     const n = counts[trap.id] ?? 0
     return n > (top?.n ?? 0) ? { id: trap.id, n } : top
   }, null)
+  const worstTrap = trapById(worst?.id)
+  const luckyCount = live.filter((entry) => entry.kind === 'lucky').length
+  const sureCount = live.filter((entry) => entry.sure).length
 
   return (
     <GameShell active="notebook">
@@ -92,16 +99,26 @@ export function Notebook() {
               <button type="button" role="tab" className="chip" aria-pressed={filter === 'all'} onClick={() => setFilter('all')}>
                 All <span className="num">{live.length}</span>
               </button>
-              {TRAPS.map((trap) => (
+              {sureCount > 0 && (
+                <button type="button" role="tab" className="chip" aria-pressed={filter === 'sure'} onClick={() => setFilter('sure')}>
+                  Sure, but wrong <span className="num">{sureCount}</span>
+                </button>
+              )}
+              {luckyCount > 0 && (
+                <button type="button" role="tab" className="chip" aria-pressed={filter === 'lucky'} onClick={() => setFilter('lucky')}>
+                  Lucky guesses <span className="num">{luckyCount}</span>
+                </button>
+              )}
+              {caught.map((trap) => (
                 <button key={trap.id} type="button" role="tab" className="chip" aria-pressed={filter === trap.id} onClick={() => setFilter(trap.id)}>
                   <TrapGlyph trap={trap.id} size={18} /> {trap.name} <span className="num">{counts[trap.id] ?? 0}</span>
                 </button>
               ))}
             </div>
 
-            {worst && worst.n >= 2 && (
+            {worst && worstTrap && worst.n >= 2 && (
               <p className="notebook__insight">
-                <span className="hl hl--pink">{TRAPS.find((t) => t.id === worst.id)?.name}</span> has caught you {worst.n} times. {TRAPS.find((t) => t.id === worst.id)?.tell}
+                <span className="hl hl--pink">{worstTrap.name}</span> has caught you {worst.n} times. {worstTrap.tell} <b>The move:</b> {worstTrap.fix}
               </p>
             )}
 
@@ -110,7 +127,7 @@ export function Notebook() {
                 {shown.map((entry) => (
                   <SlipRow key={entry.qid} entry={entry} today={day} question={byId(bank, entry.qid)} open={open === entry.qid} onToggle={() => setOpen(open === entry.qid ? null : entry.qid)} />
                 ))}
-                {shown.length === 0 && <li className="empty">Nothing clipped under this trap.</li>}
+                {shown.length === 0 && <li className="empty">Nothing clipped under this tab.</li>}
               </ul>
             </div>
 
@@ -150,12 +167,15 @@ function SlipRow({ entry, today, question, open, onToggle }: { entry: MissEntry;
             </span>
           </span>
           <span className="slip__trap">
-            {entry.trap ? (
+            {entry.kind === 'lucky' ? (
+              <span className="hand">lucky guess — right, but you weren’t sure</span>
+            ) : entry.trap ? (
               <>
-                <TrapGlyph trap={entry.trap} size={20} /> {TRAPS.find((t) => t.id === entry.trap)?.name}
+                <TrapGlyph trap={entry.trap} size={20} /> {trapById(entry.trap)?.name}
+                {entry.sure && <span className="hand"> · you were sure</span>}
               </>
             ) : (
-              <span className="hand">trap not named</span>
+              <span className="hand">{entry.sure ? 'you were sure · trap not named' : 'trap not named'}</span>
             )}
           </span>
         </span>

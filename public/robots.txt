@@ -1,0 +1,7 @@
+# Clarity — satclarity.com
+User-agent: *
+Allow: /
+# raw data files are not for search results
+Disallow: /data/
+
+Sitemap: https://satclarity.com/sitemap.xml

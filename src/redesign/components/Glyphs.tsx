@@ -2,8 +2,7 @@
 // themselves, the five trap signs, the writing-kit rank emblems, correction
 // tape and ink. Geometry only, one 2.5–4px stroke, round caps.
 
-import type { TrapType } from '../../types.ts'
-import type { Ink } from '../game/content.ts'
+import type { Ink, TrapId } from '../game/content.ts'
 
 const NAVY = '#17183B'
 const RED = '#E5262D'
@@ -35,7 +34,7 @@ export function PenMark({ kind, size = 40, delay = 0 }: { kind: 'check' | 'cross
   )
 }
 
-export function TrapGlyph({ trap, size = 44 }: { trap: TrapType; size?: number }) {
+export function TrapGlyph({ trap, size = 44 }: { trap: TrapId; size?: number }) {
   const s = { fill: 'none', stroke: NAVY, strokeWidth: 3.4, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const }
   return (
     <svg viewBox="0 0 48 48" width={size} height={size} aria-hidden="true">
@@ -68,6 +67,97 @@ export function TrapGlyph({ trap, size = 44 }: { trap: TrapType; size?: number }
         <>
           <path {...s} d="M6 17 H34 M27 10 L34 17 L27 24" />
           <path {...s} d="M42 31 H14 M21 24 L14 31 L21 38" />
+        </>
+      )}
+      {/* vocabulary */}
+      {trap === 'near-synonym' && (
+        <>
+          <circle {...s} cx="18" cy="24" r="11" />
+          <circle {...s} cx="30" cy="24" r="11" />
+        </>
+      )}
+      {trap === 'wrong-tone' && (
+        <>
+          <path {...s} d="M6 16 H20 M13 9 V23" />
+          <path {...s} d="M28 34 H42" />
+          <path {...s} d="M10 40 L38 8" />
+        </>
+      )}
+      {/* sentence boundaries */}
+      {trap === 'run-on' && (
+        <>
+          <path {...s} d="M5 20 H20 M28 20 H43" />
+          <path {...s} d="M24 26 C26 30 24 35 20 38" />
+          <circle cx="24" cy="24" r="2.8" fill={NAVY} />
+        </>
+      )}
+      {trap === 'fragment' && (
+        <>
+          <path {...s} d="M5 24 H24" />
+          <circle cx="31" cy="24" r="3.2" fill={NAVY} />
+          <path {...s} strokeDasharray="1 7" d="M38 24 H44" />
+        </>
+      )}
+      {trap === 'extra-comma' && (
+        <>
+          <path {...s} d="M5 18 H18 M30 18 H43" />
+          <circle cx="24" cy="20" r="3.2" fill={NAVY} />
+          <path {...s} d="M24 22 C26 27 24 32 19 36" />
+          <path {...s} d="M33 30 L41 38 M41 30 L33 38" />
+        </>
+      )}
+      {trap === 'unpaired' && (
+        <>
+          <path {...s} d="M17 9 C8 18 8 30 17 39" />
+          <path {...s} d="M26 24 H42" />
+        </>
+      )}
+      {/* form, structure and sense */}
+      {trap === 'agreement' && (
+        <>
+          <path {...s} d="M9 18 H39 M9 30 H39" />
+          <path {...s} d="M31 9 L17 39" />
+        </>
+      )}
+      {trap === 'tense' && (
+        <>
+          <circle {...s} cx="24" cy="24" r="15" />
+          <path {...s} d="M24 14 V24 L31 29" />
+        </>
+      )}
+      {trap === 'modifier' && (
+        <>
+          <rect {...s} x="5" y="27" width="13" height="13" rx="2.5" />
+          <rect {...s} x="30" y="27" width="13" height="13" rx="2.5" />
+          <path {...s} d="M12 22 C12 8 37 8 37 20 M32 16 L37 21 L42 16" />
+        </>
+      )}
+      {trap === 'possessive' && (
+        <>
+          <path {...s} d="M7 38 L15 16 L23 38 M10 31 H20" />
+          <path {...s} d="M31 10 C33 14 31 18 28 20" />
+          <path {...s} d="M42 24 C36 20 31 25 36 29 C42 33 37 39 30 35" />
+        </>
+      )}
+      {/* transitions and synthesis */}
+      {trap === 'wrong-link' && (
+        <>
+          <circle {...s} cx="10" cy="24" r="5.5" />
+          <circle {...s} cx="38" cy="24" r="5.5" />
+          <path {...s} d="M19 19 L29 29 M29 19 L19 29" />
+        </>
+      )}
+      {trap === 'half-read' && (
+        <>
+          <path {...s} strokeDasharray="1 7" d="M7 14 H41" />
+          <path {...s} d="M7 26 H41 M7 37 H27" />
+        </>
+      )}
+      {trap === 'wrong-goal' && (
+        <>
+          <circle {...s} cx="19" cy="27" r="12" />
+          <circle cx="19" cy="27" r="3" fill={NAVY} />
+          <path {...s} d="M43 7 L33 17 M33 10 V17 H40" />
         </>
       )}
     </svg>

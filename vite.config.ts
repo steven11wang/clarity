@@ -22,6 +22,10 @@ const FRONT_DOOR: Record<string, string> = {
   // the redesign, also served at its beta address
   '/app/new': '/redesign.html',
   '/app/new/': '/redesign.html',
+  '/privacy': '/privacy/index.html',
+  '/privacy/': '/privacy/index.html',
+  '/terms': '/terms/index.html',
+  '/terms/': '/terms/index.html',
 }
 
 const frontDoorPlugin = (): Plugin => ({

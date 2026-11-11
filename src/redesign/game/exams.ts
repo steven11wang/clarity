@@ -7,6 +7,7 @@ import { useSyncExternalStore } from 'react'
 import { EXAM_CATALOG, loadPracticeExam, type ExamQuestion, type PracticeExam } from '../../components/Exam/examData.ts'
 import { scaledScore } from '../../components/Exam/examScore.ts'
 import type { Question } from '../../types.ts'
+import { track } from './track.ts'
 
 export { EXAM_CATALOG, loadPracticeExam, scaledScore }
 export type { PracticeExam, ExamQuestion }
@@ -92,6 +93,7 @@ export function saveSitting(sitting: Sitting | null) {
 }
 
 export function recordResult(result: ExamResult) {
+  track('exam_done', { exam: result.examId, scaled: result.scaled })
   write({ sitting: null, results: [...state.results, result] })
 }
 

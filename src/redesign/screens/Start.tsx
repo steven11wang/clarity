@@ -7,6 +7,7 @@ import { ArrowRight } from 'lucide-react'
 
 import { updateGame, useGame } from '../game/store.ts'
 import { go } from '../router.ts'
+import { track } from '../game/track.ts'
 import { Logo } from '../components/Logo.tsx'
 import { Tangyuan, type Mood } from '../components/Tangyuan.tsx'
 
@@ -68,6 +69,7 @@ export function Start() {
               className={`answer-pill ${game.targetScore === target.score ? 'is-on' : ''}`}
               onClick={() => {
                 updateGame((state) => ({ ...state, targetScore: target.score }))
+                track('onboard_step', { step: 'target', target: target.score })
                 setStep(1)
               }}
             >
@@ -83,6 +85,7 @@ export function Start() {
               className={`answer-pill ${game.dailyMinutes === option.minutes ? 'is-on' : ''}`}
               onClick={() => {
                 updateGame((state) => ({ ...state, dailyMinutes: option.minutes }))
+                track('onboard_step', { step: 'minutes', minutes: option.minutes })
                 setStep(2)
               }}
             >
@@ -91,7 +94,11 @@ export function Start() {
             </button>
           ))}
         {step === 2 && (
-          <button type="button" className="answer-pill answer-pill--go" onClick={() => go('/play/first')}>
+          <button type="button" className="answer-pill answer-pill--go" onClick={() => {
+              track('onboard_step', { step: 'warmup' })
+              go('/play/first')
+            }}
+          >
             <b>Try one question</b>
             <span>
               A quick, easy one to warm up — about a minute <ArrowRight size={16} />

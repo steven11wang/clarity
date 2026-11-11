@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#FFE53B" />
+    <title>Privacy · Clarity 清</title>
+    <meta name="description" content="What Clarity collects, where it is kept, and how to remove it. No ads, no data sales, and practice works without an account." />
+    <link rel="canonical" href="https://satclarity.com/privacy/" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23FFE53B'/%3E%3Cpath d='M7 20.5 13 26 25 8' fill='none' stroke='%23E5262D' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,400..900&family=Onest:wght@400..800&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet" />
+    <style>
+      :root { --ink: #17183b; --ink-2: #3f4270; --paper: #fbfcff; --grid: #dfe8f7; --yellow: #ffe53b; --pink: #ff6fb1; --red: #c4161d; }
+      * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font: 400 1.0625rem/1.65 'Onest', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 28px 28px; }
+      header { background: var(--yellow); padding: 14px 20px; }
+      header div { max-width: 720px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+      .logo { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font: 860 1.4rem/1 'Anybody', 'Onest', sans-serif; letter-spacing: -0.03em; }
+      .seal { width: 36px; height: 36px; border-radius: 9px; background: var(--ink); color: var(--yellow); display: grid; place-items: center; font: 400 1.5rem/1 'ZCOOL KuaiLe', 'PingFang SC', sans-serif; }
+      header a.back { color: var(--ink); font-weight: 700; }
+      main { max-width: 720px; margin: 0 auto; padding: 44px 20px 72px; }
+      h1 { font: 860 clamp(2.2rem, 7vw, 3.4rem)/0.98 'Anybody', 'Onest', sans-serif; letter-spacing: -0.03em; margin: 0 0 10px; text-wrap: balance; }
+      h1 span { background: var(--pink); padding: 0 8px; border-radius: 5px; }
+      .dated { color: var(--ink-2); margin: 0 0 28px; }
+      .short { background: var(--yellow); border-radius: 14px; padding: 18px 22px; margin: 0 0 36px; }
+      .short h2 { margin: 0 0 6px; font-size: 1.05rem; }
+      .short ul { margin: 0; }
+      h2 { font: 800 1.3rem/1.25 'Onest', system-ui, sans-serif; margin: 40px 0 8px; }
+      p { margin: 0 0 14px; max-width: 68ch; }
+      ul { margin: 0 0 14px; padding-left: 1.2em; max-width: 68ch; }
+      li { margin-bottom: 6px; }
+      a { color: var(--ink); text-underline-offset: 3px; }
+      a:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; border-radius: 4px; }
+      table { border-collapse: collapse; width: 100%; margin: 0 0 14px; background: var(--paper); }
+      th, td { text-align: left; vertical-align: top; padding: 10px 12px; border: 1px solid rgba(23, 24, 59, 0.2); }
+      th { font-weight: 700; }
+      .scroll { overflow-x: auto; }
+      footer { max-width: 720px; margin: 0 auto; padding: 0 20px 56px; color: var(--ink-2); }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <a class="logo" href="/"><span class="seal" aria-hidden="true">清</span>Clarity</a>
+        <a class="back" href="/">Back to Clarity</a>
+      </div>
+    </header>
+    <main>
+      <h1><span>Privacy</span></h1>
+      <p class="dated">Last updated 11 November 2026</p>
+
+      <div class="short">
+        <h2>The short version</h2>
+        <ul>
+          <li>You can practise without an account. Your game then lives in your own browser and is not sent to us.</li>
+          <li>We do not show ads, and we do not sell or rent anyone’s data.</li>
+          <li>We count visits and practice anonymously, with no name, email or IP address in the record. Turn on Do Not Track or Global Privacy Control and we count nothing.</li>
+          <li>Clarity is for students aged 13 and over.</li>
+        </ul>
+      </div>
+
+      <h2>What we keep, and where</h2>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th scope="col">What</th><th scope="col">Where it is kept</th><th scope="col">Why</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Your game: answers, Mistake Notebook, streak, stars, drops, outfits, practice test results</td>
+              <td>In your browser’s storage, on your device</td>
+              <td>So the game remembers you between visits</td>
+            </tr>
+            <tr>
+              <td>Account, if you make one: email address, a password (stored only as a scrambled hash) or your Google sign-in, and the display name you choose</td>
+              <td>Our database, run by Supabase</td>
+              <td>To sign you in and show your name</td>
+            </tr>
+            <tr>
+              <td>Progress in the original app at /app: practice history, review queue, saved words, and any score report numbers you entered</td>
+              <td>Our database, tied to your account</td>
+              <td>So your study history follows you between devices</td>
+            </tr>
+            <tr>
+              <td>Anonymous usage counts: which screen was opened, whether a page was turned in, how many were right, and how many days since this browser first played</td>
+              <td>Our database, under a random id your browser makes up</td>
+              <td>To see where people get stuck and whether practice brings them back</td>
+            </tr>
+            <tr>
+              <td>Feedback and chat reports you send</td>
+              <td>Our database, with your account email</td>
+              <td>To answer you and to act on reports</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Anonymous usage counts</h2>
+      <p>
+        Each count holds an event name, the screen name (for example “/play”), the site you arrived from (only its name, such as
+        google.com), a few numbers about the event, and a random id kept in your browser. It holds no name, email address, account id
+        or IP address, and nothing you type. We use our own database for this and no outside analytics or advertising service.
+      </p>
+      <p>If your browser sends Do Not Track or Global Privacy Control, nothing is counted. Clearing your browser’s site data removes the random id.</p>
+
+      <h2>Study Hall and friend matches</h2>
+      <p>
+        In the Study Hall and in matches, other players see your display name and your mascot’s outfit. Messages are passed along live
+        and are not stored by us. Typed messages are checked on your device before they are sent, and again when they arrive, and
+        messages with insults, contact details, links or personal questions are blocked. Typing needs a signed-in account so that a
+        report can name the sender. Please do not share your full name, school, address, phone number or social media handles in chat.
+      </p>
+
+      <h2>Payments</h2>
+      <p>
+        Practice is free and buying water drops is not open yet. When it opens, card payments will be handled by Stripe. We will
+        receive a record of the purchase (which pack, the amount, the date), and we will never see or store card numbers.
+      </p>
+
+      <h2>Other companies involved</h2>
+      <ul>
+        <li><strong>Supabase</strong> runs our sign-in, database and live messaging.</li>
+        <li><strong>GitHub Pages</strong> serves the site’s files. Like any web host, it sees the IP address your browser connects from.</li>
+        <li><strong>Google Fonts</strong> supplies the typefaces, so your browser fetches font files from Google.</li>
+        <li><strong>Google</strong>, only if you choose “Continue with Google”, tells us your email address and name.</li>
+      </ul>
+      <p>We share data with these services only so that Clarity can run. We do not give or sell personal data to advertisers or data brokers.</p>
+
+      <h2>Cookies</h2>
+      <p>
+        Clarity sets no advertising or tracking cookies. It uses your browser’s local storage to keep your game, your sign-in session
+        and the random id described above.
+      </p>
+
+      <h2>Children and teens</h2>
+      <p>
+        Clarity is meant for students aged 13 and over and is not directed to children under 13. If you are under 13, please do not
+        create an account or use the chat. If you are under 18, ask a parent or guardian before making an account, and a parent or
+        guardian must make any purchase. A parent who believes a child under 13 has given us personal information can ask us to delete
+        it.
+      </p>
+
+      <h2>Seeing, changing or deleting your data</h2>
+      <ul>
+        <li><strong>Game kept in your browser:</strong> clear this site’s data in your browser settings and it is gone.</li>
+        <li><strong>Display name:</strong> change it from your profile.</li>
+        <li><strong>Account and anything tied to it:</strong> ask us and we will delete it. While signed in, use Send feedback in the app at <a href="/app">satclarity.com/app</a> and say you want your account deleted.</li>
+      </ul>
+      <p>Depending on where you live, you may also have the right to a copy of your data or to object to how it is used. Ask the same way and we will help.</p>
+
+      <h2>How long we keep things</h2>
+      <p>
+        Account data stays until you ask us to delete it. Anonymous usage counts are kept so that we can compare one season with the
+        next. Chat messages are not stored at all.
+      </p>
+
+      <h2>Changes</h2>
+      <p>If this page changes in a way that matters, we will change the date at the top and say so on the front page.</p>
+    </main>
+    <footer>
+      <p><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/">satclarity.com</a></p>
+      <p>Clarity is not affiliated with the College Board. SAT is a trademark registered by the College Board, which is not involved in and does not endorse this site.</p>
+    </footer>
+  </body>
+</html>
